@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-public class Objetive {
+public class Objective {
 
     public int getPoint(){
         return 0;
