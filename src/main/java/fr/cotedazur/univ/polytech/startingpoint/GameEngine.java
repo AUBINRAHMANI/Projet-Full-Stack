@@ -11,7 +11,7 @@ public class GameEngine {
     }
 
     public Plot pickPlot() {
-        return new Plot();
+        return new Plot(PlotType.VERT);
     }
 
     public boolean askToSetPlot( Position position ){
