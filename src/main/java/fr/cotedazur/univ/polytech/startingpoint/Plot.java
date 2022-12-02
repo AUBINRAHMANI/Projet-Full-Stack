@@ -7,10 +7,8 @@ public class Plot {
 
     }
 
-    public int type(){
-        return 0;
+    public PlotType getType() {
+        return null;
     }
-
-
 }
 
