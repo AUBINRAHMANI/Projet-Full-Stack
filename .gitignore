@@ -10,10 +10,16 @@
 # BlueJ files
 *.ctxt
 
+<<<<<<< HEAD
 #Mac files
 *.DS_Store
 
 
+=======
+#Mac File
+*.DS_Store
+
+>>>>>>> Position
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
