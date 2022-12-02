@@ -6,10 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MapTest {
 
-    @Test
-    void isIrrigated() {
-        AssertTrue()
-    }
+
 
     @Test
     void isPlotFree() {

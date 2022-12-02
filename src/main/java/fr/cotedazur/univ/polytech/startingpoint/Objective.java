@@ -6,7 +6,7 @@ public class Objective {
         return 0;
     }
 
-    public ObjectiveType type(){
+    public ObjectiveType getType(){
         return null;
     }
 }
