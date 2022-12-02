@@ -8,7 +8,7 @@ class MapTest {
 
     @Test
     void isIrrigated() {
-       
+
     }
 
     @Test
