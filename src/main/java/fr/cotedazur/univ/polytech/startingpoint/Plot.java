@@ -6,11 +6,11 @@ public class Plot {
     public Plot(){
 
     }
+    public Plot(PlotType plotType){
 
-    public int type(){
-        return 0;
     }
-
-
+    public PlotType getType() {
+        return null;
+    }
 }
 
