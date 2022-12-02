@@ -8,14 +8,20 @@ public class GameEngineTest {
 
     @Test
     void pickObjectiveTest() {
-        GameEngine gameEngine = new GameEngine();
+        Deck<Objective> deck = new Deck<>();
+        deck.addCard(new Objective(ObjectiveType.PLOT, 5));
+        GameEngine gameEngine = new GameEngine(deck, null, null);
+
         assertEquals(4 , gameEngine.pickObjective().getPoint());
         assertEquals( ObjectiveType.PLOT , gameEngine.pickObjective().getType());
     }
 
     @Test
     void pickPlotTest() {
-        GameEngine gameEngine = new GameEngine();
+        Deck<Plot> deck = new Deck<>();
+        deck.addCard(new Plot(PlotType.VERT));
+        GameEngine gameEngine = new GameEngine(null, deck, null);
+
         assertEquals(PlotType.VERT , gameEngine.pickPlot().getType());
     }
 
