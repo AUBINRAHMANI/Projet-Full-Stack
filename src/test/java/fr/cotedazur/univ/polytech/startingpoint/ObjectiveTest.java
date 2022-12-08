@@ -15,6 +15,6 @@ class ObjectiveTest {
     @Test
     void TestType() {
         Objective Obj = new Objective();
-        assertEquals(ObjectiveType.PLOT, Obj.type());
+        assertEquals(ObjectiveType.PLOT, Obj.getType());
     }
 }
