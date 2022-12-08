@@ -19,9 +19,4 @@ public class Objective {
     public void updateMap(Map map) {
         _map = map;
     }
-
-    isCompleted
-
-
-
 }

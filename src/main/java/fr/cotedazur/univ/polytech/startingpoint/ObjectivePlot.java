@@ -1,8 +1,15 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 public class ObjectivePlot extends Objective{
-    public FormationPlots getFormation(){
 
+    private FormationPlots _formation;
+    public ObjectivePlot(int point, ObjectivePlot obj, FormationPlots formation) {
+        super(point, obj);
+        _formation = formation;
+    }
+
+    public FormationPlots getFormation(){
+        return _formation;
     }
 
 }
