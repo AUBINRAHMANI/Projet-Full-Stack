@@ -23,7 +23,6 @@ public class GameEngine {
     }
 
     public Plot pickPlot() {
-
         return plotDeck_.getNextCard();
     }
 
