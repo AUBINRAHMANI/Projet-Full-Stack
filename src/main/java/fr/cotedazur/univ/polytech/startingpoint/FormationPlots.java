@@ -4,6 +4,6 @@ public class FormationPlots {
     private Map map;
 
     public void threePlots(){
-        
+
     }
 }

@@ -2,15 +2,13 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public class Plot {
 
+    private PlotType plotType_;
 
-    public Plot(){
-
+    public Plot(PlotType plotType){
+        plotType_ = plotType;
     }
-
-    public int type(){
-        return 0;
+    public PlotType getType() {
+        return plotType_;
     }
-
-
 }
 
