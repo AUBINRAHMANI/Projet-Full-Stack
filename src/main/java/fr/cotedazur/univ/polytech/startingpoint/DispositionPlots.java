@@ -1,9 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-public class FormationPlots {
+public class DispositionPlots {
     private Map map;
 
-    public void threePlots(){
 
     }
 }

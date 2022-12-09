@@ -1,14 +1,14 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 public class ObjectivePlot extends Objective{
-    private FormationPlots _formation;
-    public ObjectivePlot(int point, ObjectiveType objective, FormationPlots formation) {
+    private DispositionPlots _disposition;
+    public ObjectivePlot(int point, ObjectiveType objective, DispositionPlots disposition) {
         super(point, objective);
-        _formation = formation;
+        _disposition = disposition;
     }
 
-    public FormationPlots getFormation(){
-        return _formation;
+    public DispositionPlots getDisposition(){
+        return _disposition;
     }
 
 
