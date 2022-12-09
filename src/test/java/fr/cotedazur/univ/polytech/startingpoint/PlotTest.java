@@ -32,8 +32,8 @@ class MapTest {
 public class PlotTest {
     @Test
     void getTypeTest() {
-        Plot plot = new Plot(PlotType.VERT);
-        assertEquals(PlotType.VERT, plot.getType());
+        Plot plot = new Plot(PlotType.GREEN);
+        assertEquals(PlotType.GREEN, plot.getType());
     }
 }
 >>>>>>> develop:src/test/java/fr/cotedazur/univ/polytech/startingpoint/PlotTest.java
