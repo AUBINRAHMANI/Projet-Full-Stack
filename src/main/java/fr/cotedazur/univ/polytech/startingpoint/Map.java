@@ -38,7 +38,7 @@ public class Map {
     }
     private ArrayList<Position> closestAvailableSpace(Plot plot){
         ArrayList<Position> positionsAvailable;
-        for(int i=0;i<plot.getPosition.closestPositions().size();i++){
+        for(int i=0;i<plot.getPosition().closestPositions().size();i++){
             for(int j=0;j<map.size();j++){
                 if(map.get(j).getPosition()!=plot.getPosition().closestPositions().get(i){
                     positionsAvailable.add(plot.getPosition().closestPositions().get(i));
