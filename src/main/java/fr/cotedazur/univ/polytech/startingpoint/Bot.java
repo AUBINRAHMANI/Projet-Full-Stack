@@ -4,36 +4,40 @@ import java.util.ArrayList;
 
 public class Bot {
 
-    private Map map= null;
+    private ArrayList<Plot> map= null;
 
 
 
     public Bot() {
     }
 
-    public void play(Plot P) {
-       p.setPosition();
+    public void play(GameEngine gameEngine, Map map) {
+       this.map=map.getMap();
+       Position position = positionToSet();
+
     }
 
     ;
 
 
-    public void plotToSet(Game gameEngine, Map map) {
-         int i=0;
-         this.map=map.getMap();
-         Plot FIRST_PLOT= this.map.get(0);
+    private Position positionToSet() {
+
        // ArrayList<Plot> NewList = new ArrayList<>();
+        ArrayList<Position> potentialPositions;
 
-        if(map.closestAvailableSpace(FIRST_PLOT!=null){
-            this.play(FIRST_PLOT);
-        }
-        else {
-            while((map.closestAvailableSpace(this.map.get(i)).size)==null){
-                i++;
+        for(Plot plot : this.map){
+            potentialPositions = this.map.closestAvailableSpace();
+            if(potentialPositions!=null){
+                return plot.get_position();
             }
-            this.play(this.map.get(i));
+        }
 
-             }
+
+
+
+
+
+
 
         }
 
