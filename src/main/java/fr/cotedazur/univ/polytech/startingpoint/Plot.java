@@ -2,13 +2,25 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public class Plot {
 
-    private PlotType plotType_;
-
+    private PlotType _plotType;
+    private Position _position;
     public Plot(PlotType plotType){
-        plotType_ = plotType;
+        _plotType = plotType;
+        _position = null;
+    }
+    public Plot(PlotType plotType, Position position){
+        _plotType = plotType;
+        _position = position;
+    }
+
+    public void set_position(Position _position) {
+        this._position = _position;
     }
     public PlotType getType() {
-        return plotType_;
+        return _plotType;
+    }
+    public Position get_position() {
+        return _position;
     }
 }
 
