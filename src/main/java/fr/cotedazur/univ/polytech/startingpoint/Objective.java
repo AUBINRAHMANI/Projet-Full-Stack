@@ -2,7 +2,6 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public class Objective {
     private ObjectiveType _objective;
-    private Map _map;
     private int _point;
     public Objective(int point, ObjectiveType objetive){
         this._point = point;
@@ -15,9 +14,5 @@ public class Objective {
 
     public ObjectiveType getType(){
         return _objective;
-    }
-
-    public void updateMap(Map map) {
-        _map = map;
     }
 }

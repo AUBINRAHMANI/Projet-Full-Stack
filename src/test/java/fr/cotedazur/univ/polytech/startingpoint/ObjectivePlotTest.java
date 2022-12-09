@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ObjectivePlotTest {
 
     @Test
-    void TestgetNbPlotsAdjacents() {
+    void getNbPlotsAdjacents() {
         ObjectivePlot objectivePlot = new ObjectivePlot(4, ObjectiveType.PLOT, 2);
         assertEquals(2, objectivePlot.getNbPlotsAdjacents());
     }

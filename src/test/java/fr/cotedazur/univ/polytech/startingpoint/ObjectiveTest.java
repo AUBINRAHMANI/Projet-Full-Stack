@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class ObjectiveTest {
 
     @Test
-    void TestgetPoint() {
+    void getPoint() {
         Objective Obj = new Objective(4, ObjectiveType.PLOT);
         assertEquals(4, Obj.getPoint());
     }
 
     @Test
-    void TestType() {
+    void getType() {
         Objective objective = new Objective(4, ObjectiveType.PLOT);
         assertEquals(ObjectiveType.PLOT, objective.getType());
     }
