@@ -4,8 +4,8 @@ public class Objective {
     private ObjectiveType _obj;
     private Map _map;
     private int point;
-    public Objective(int point, ObjectivePlot obj){
-        _obj = _obj.PLOT;
+    public Objective(int point, ObjectiveType obj){
+        _obj = obj.PLOT;
 
     }
     public int getPoint(){
