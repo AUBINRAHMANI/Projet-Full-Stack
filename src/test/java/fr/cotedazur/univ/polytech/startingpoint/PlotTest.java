@@ -1,17 +1,12 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class MapTest {
-
+public class PlotTest {
     @Test
-    void isIrrigated() {
-        AssertTrue()
-    }
-
-    @Test
-    void isPlotFree() {
+    void getTypeTest() {
+        Plot plot = new Plot(PlotType.VERT);
+        assertEquals(PlotType.VERT, plot.getType());
     }
 }
