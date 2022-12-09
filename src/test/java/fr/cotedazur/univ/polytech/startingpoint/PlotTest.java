@@ -2,9 +2,9 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+<<<<<<< HEAD:src/test/java/fr/cotedazur/univ/polytech/startingpoint/MapTest.java
 class MapTest {
     @BeforeAll
     Map plateau = new Map(int x, int y);
@@ -28,3 +28,12 @@ class MapTest {
 
 
 }
+=======
+public class PlotTest {
+    @Test
+    void getTypeTest() {
+        Plot plot = new Plot(PlotType.VERT);
+        assertEquals(PlotType.VERT, plot.getType());
+    }
+}
+>>>>>>> develop:src/test/java/fr/cotedazur/univ/polytech/startingpoint/PlotTest.java

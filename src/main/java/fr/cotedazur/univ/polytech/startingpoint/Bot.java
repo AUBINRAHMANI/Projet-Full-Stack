@@ -12,7 +12,7 @@ public class Bot {
 
     }
 
-    public void ChooseAction(){
+    public void chooseAction(){
 
     }
     

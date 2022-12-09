@@ -2,27 +2,15 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public class Game {
 
-    public Game() {
+    public Game(){
 
     }
 
-    public Objective pickObjective() {
-        return null;
+    public void run(){
+
     }
 
-    public Plot pickPlot() {
-        return null;
-    }
+    public void playNextRound(){
 
-    public boolean askToSetPlot(){
-        return false;
-    }
-
-    public Map askGetMap(){
-        return null;
-    }
-
-    public int play() {
-        return 0;
     }
 }
