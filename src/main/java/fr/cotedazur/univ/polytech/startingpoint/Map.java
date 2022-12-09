@@ -11,15 +11,16 @@ public class Map {
     }
 
     public ArrayList<Plot> initializeMap(ArrayList<Plot> map){
-        map.putPlot(pond);
+        this.putPlot(pond);
         return map;
     }
 
-    public ArrayList<Plot> putPlot(Plot parcel) {
+    public boolean putPlot(Plot parcel) {
         if (isSpaceFree(parcel) == true) {
             map.add(parcel);
-            return map;
+            return true;
         }
+        return false;
     }
     public ArrayList<Plot> getMap(){
         return map;
@@ -37,10 +38,10 @@ public class Map {
         return false;
     }
     private ArrayList<Position> closestAvailableSpace(Plot plot){
-        ArrayList<Position> positionsAvailable;
+        ArrayList<Position> positionsAvailable=new ArrayList<>();
         for(int i=0;i<plot.getPosition().closestPositions().size();i++){
             for(int j=0;j<map.size();j++){
-                if(map.get(j).getPosition()!=plot.getPosition().closestPositions().get(i){
+                if(map.get(j).getPosition()!=plot.getPosition().closestPositions().get(i)){
                     positionsAvailable.add(plot.getPosition().closestPositions().get(i));
                 }
             }
