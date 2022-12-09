@@ -9,4 +9,10 @@ public class PlotTest {
         Plot plot = new Plot(PlotType.GREEN);
         assertEquals(PlotType.GREEN, plot.getType());
     }
+    @Test
+    public void getPosition() {
+        Position position = new Position(2, 3);
+        Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+        assertEquals(position, plot.getPosition());
+    }
 }
