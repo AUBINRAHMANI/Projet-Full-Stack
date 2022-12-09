@@ -1,11 +1,11 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 public class Objective {
-    private ObjectiveType _obj;
+    private ObjectiveType _objective;
     private Map _map;
     private int point;
-    public Objective(int point, ObjectiveType obj){
-        _obj = obj.PLOT;
+    public Objective(int point, ObjectiveType objetive){
+        _objective = objetive.PLOT;
 
     }
     public int getPoint(){
@@ -13,7 +13,7 @@ public class Objective {
     }
 
     public ObjectiveType getType(){
-        return _obj;
+        return _objective;
     }
 
     public void updateMap(Map map) {
