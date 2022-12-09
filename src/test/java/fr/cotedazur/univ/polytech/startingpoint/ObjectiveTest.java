@@ -8,13 +8,13 @@ class ObjectiveTest {
 
     @Test
     void TestgetPoint() {
-        Objective Obj = new Objective();
+        Objective Obj = new Objective(4, ObjectiveType.PLOT);
         assertEquals(4, Obj.getPoint());
     }
 
     @Test
     void TestType() {
-        Objective Obj = new Objective();
-        assertEquals(ObjectiveType.PLOT, Obj.getType());
+        Objective objective = new Objective(4, ObjectiveType.PLOT);
+        assertEquals(ObjectiveType.PLOT, objective.getType());
     }
 }

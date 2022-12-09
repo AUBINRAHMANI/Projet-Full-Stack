@@ -3,13 +3,14 @@ package fr.cotedazur.univ.polytech.startingpoint;
 public class Objective {
     private ObjectiveType _objective;
     private Map _map;
-    private int point;
+    private int _point;
     public Objective(int point, ObjectiveType objetive){
+        this._point = point;
         _objective = objetive.PLOT;
 
     }
     public int getPoint(){
-        return point;
+        return _point;
     }
 
     public ObjectiveType getType(){

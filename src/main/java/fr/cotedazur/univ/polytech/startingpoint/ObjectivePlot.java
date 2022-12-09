@@ -1,15 +1,13 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 public class ObjectivePlot extends Objective{
-    private DispositionPlots _disposition;
-    public ObjectivePlot(int point, ObjectiveType objective, DispositionPlots disposition) {
-        super(point, objective);
-        _disposition = disposition;
+    private int _nbPlotsAdjacents;
+    public ObjectivePlot(int point, ObjectiveType objectiveType, int nbPlotsAdjacents) {
+        super(point, objectiveType);
+        _nbPlotsAdjacents = nbPlotsAdjacents;
     }
 
-    public DispositionPlots getDisposition(){
-        return _disposition;
+    public int getNbPlotsAdjacents(){
+        return this._nbPlotsAdjacents;
     }
-
-
 }
