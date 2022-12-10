@@ -7,11 +7,11 @@ public class GameEngine {
     }
 
     public Objective pickObjective() {
-        return new Objective();
+        return null;
     }
 
     public Plot pickPlot() {
-        return new Plot();
+        return new Plot(PlotType.GREEN);
     }
 
     public boolean askToSetPlot( Position position ){
