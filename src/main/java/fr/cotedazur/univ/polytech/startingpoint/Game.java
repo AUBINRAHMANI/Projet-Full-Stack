@@ -6,11 +6,31 @@ public class Game {
 
     }
 
-    public void run(){
+    public Deck generateObjectiveDrawPile(){
+        return null;
+    }
+
+    public Deck generatePlotDrawPile(){
+        return null;
+    }
+
+    public boolean setPLot(){
+        return false;
+    }
+
+    public void computeCompletedObjective(){
 
     }
 
-    public void playNextRound(){
+    public boolean checkFinishCondition(){
+        return false;
+    }
+
+    public int checkWinner(){
+        return -1;
+    }
+
+    public void printWinner(){
 
     }
 }
