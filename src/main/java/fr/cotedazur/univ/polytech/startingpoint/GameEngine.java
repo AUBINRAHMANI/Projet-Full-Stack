@@ -2,7 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public class GameEngine {
 
-    public GameEngine() {
+    public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck,Map map){
 
     }
 
