@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Bot {
 
-    private ArrayList<Plot> map= null;
+    private Map map= null;
 
 
 
@@ -12,7 +12,7 @@ public class Bot {
     }
 
     public void play(GameEngine gameEngine, Map map) {
-       this.map=map.getMap();
+       this.map=map;
        Position position = positionToSet();
 
     }
@@ -25,20 +25,13 @@ public class Bot {
        // ArrayList<Plot> NewList = new ArrayList<>();
         ArrayList<Position> potentialPositions;
 
-        for(Plot plot : this.map){
-            potentialPositions = this.map.closestAvailableSpace();
+        for(Plot plot : this.map.getMap()){
+            potentialPositions = this.map.closestAvailableSpace(plot);
             if(potentialPositions!=null){
-                return plot.get_position();
+                return plot.getPosition();
             }
         }
-
-
-
-
-
-
-
-
+        return null;
         }
 
 }
