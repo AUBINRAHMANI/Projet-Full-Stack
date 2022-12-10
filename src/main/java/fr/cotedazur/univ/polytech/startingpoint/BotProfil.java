@@ -7,11 +7,13 @@ public class BotProfil {
     private Bot bot_;
     private ArrayList<Objective> objectives_;
     private int points_;
+    private int nbCompletedObjective_;
 
     public BotProfil(Bot bot){
         bot_ = bot;
         objectives_ = new ArrayList<>();
         points_ = 0;
+        nbCompletedObjective_ = 0;
     }
 
     public Bot getBot_() {
@@ -22,19 +24,24 @@ public class BotProfil {
         return points_;
     }
 
+    public int getNbCompletedObjective_() {
+        return nbCompletedObjective_;
+    }
+
     public ArrayList<Objective> getObjectives_() {
         return objectives_;
     }
 
     public void addPoint(){
-        points_++;
+        ++points_;
     }
 
     public void addObjective(Objective objective){
         objectives_.add(objective);
     }
 
-    public void removeObjective(int index){
+    public void setObjectiveCompleted(int index){
         objectives_.remove(index);
+        ++nbCompletedObjective_;
     }
 }
