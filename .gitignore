@@ -10,7 +10,11 @@
 # BlueJ files
 *.ctxt
 
+<<<<<<< HEAD
 #Mac File
+*.DS_Store
+
+#Mac files
 *.DS_Store
 
 # Mobile Tools for Java (J2ME)
