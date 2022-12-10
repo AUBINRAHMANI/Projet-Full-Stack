@@ -1,6 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Deck<T> {
 
@@ -11,7 +13,7 @@ public class Deck<T> {
     }
 
     public void shuffle(){
-
+        Collections.shuffle(deck_);
     }
 
     public void addCard(T card){

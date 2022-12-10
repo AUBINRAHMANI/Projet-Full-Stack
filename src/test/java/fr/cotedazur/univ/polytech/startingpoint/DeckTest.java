@@ -6,10 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeckTest {
 
     @Test
-    public void shuffleTest(){
-        assert false;
-    }
-    @Test
     public void addCardTest(){
         Deck  deck = new Deck();
         for(int i=0 ; i<10 ; ++i){
