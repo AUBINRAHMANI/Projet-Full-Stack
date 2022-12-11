@@ -70,6 +70,10 @@ public class Game {
         return null;
     }
 
+    public Plot pickPlot(Bot bot){
+        return gameEngine_.pickPlot();
+    }
+
     public void computeCompletedObjective(Bot bot){
         for(BotProfil botProfil : botProfils_){
             if(botProfil.getBot_() == bot){
