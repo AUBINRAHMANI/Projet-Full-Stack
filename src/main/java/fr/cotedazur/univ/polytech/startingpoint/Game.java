@@ -1,7 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Game {
 
@@ -28,7 +27,7 @@ public class Game {
                 computeCompletedObjective(botProfil.getBot_());
             }
         }while (checkFinishingCondition());
-        int winner = checkWinner();
+        BotProfil winner = checkWinner();
         printWinner(winner);
     }
 
@@ -91,19 +90,17 @@ public class Game {
         return false;
     }
 
-    public int checkWinner(){
-        int numBot = -1;
-        int nbPoint = -1;
+    public BotProfil checkWinner(){
+        BotProfil winner = botProfils_.get(0);
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getPoints_() > nbPoint){
-                numBot  = botProfils_.indexOf(botProfil);
-                nbPoint = botProfil.getPoints_();
+            if(botProfil.getPoints_() > winner.getPoints_()){
+                winner  = botProfil;
             }
         }
-        return numBot;
+        return winner;
     }
 
-    public void printWinner(int numBot){
-        System.out.println("Le gagnant est le bot numero : "+numBot);
+    public void printWinner(BotProfil botProfil){
+        System.out.println("Le Bot gagne avec : "+botProfil.getPoints_() +"points");
     }
 }
