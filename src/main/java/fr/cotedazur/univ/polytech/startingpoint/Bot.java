@@ -11,7 +11,7 @@ public class Bot {
     public Bot() {
     }
 
-    public void play(GameEngine gameEngine, Map map) {
+    public void play(Game game, Map map) {
        this.map=map;
        Position position = positionToSet();
 

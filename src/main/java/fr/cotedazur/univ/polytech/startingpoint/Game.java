@@ -18,12 +18,13 @@ public class Game {
 
         gameEngine_                     = new GameEngine( objectiveDeck, plotDeck, map);
         botProfils_.add(new BotProfil(new Bot()));
+        botProfils_.get(0).addObjective(gameEngine_.pickObjective());
     }
 
     public void start(){
         do {
             for(BotProfil botProfil : botProfils_){
-                botProfil.getBot_().play();
+                botProfil.getBot_().play(this, gameEngine_.getMap());
                 computeCompletedObjective(botProfil.getBot_());
             }
         }while (checkFinishingCondition());
