@@ -1,33 +1,34 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class Game {
 
     final int NB_OBJECTIVE_TO_FINISH = 1;
     GameEngine gameEngine_;
     ArrayList<BotProfil> botProfils_;
-    private Position positionPlacedDuringRound;
+    private Position positionPlacedDuringRound_;
 
     public Game(){
         botProfils_                     = new ArrayList<>();
-        positionPlacedDuringRound       = null;
+        positionPlacedDuringRound_       = null;
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
         Map map                         = new Map();
-
         gameEngine_                     = new GameEngine( objectiveDeck, plotDeck, map);
         botProfils_.add(new BotProfil(new Bot()));
-        botProfils_.get(0).addObjective(gameEngine_.pickObjective());
     }
 
     public void start(){
         do {
+            botProfils_.get(0).addObjective(gameEngine_.pickObjective());
             for(BotProfil botProfil : botProfils_){
                 botProfil.getBot_().play(this, gameEngine_.getMap());
                 computeCompletedObjective(botProfil.getBot_());
             }
-        }while (checkFinishingCondition());
+        }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
         printWinner(winner);
     }
@@ -41,7 +42,8 @@ public class Game {
 
     public Deck<Objective> generateObjectiveDrawPile(){
         Deck<Objective> objectiveDeck = new Deck<>();
-        objectiveDeck.addCard(new Objective(1, ObjectiveType.PLOT));
+        objectiveDeck.addCard(new ObjectivePlot(1, ObjectiveType.PLOT, 2));
+        objectiveDeck.addCard(new ObjectivePlot(1, ObjectiveType.PLOT, 2));
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
@@ -54,8 +56,12 @@ public class Game {
         return plotDeck;
     }
 
-    public boolean askToSetPLot(Plot plot){
-        return gameEngine_.askToPutPlot(plot);
+    public boolean askToPutPLot(Plot plot){
+        if(gameEngine_.askToPutPlot(plot)){
+            positionPlacedDuringRound_ = plot.getPosition();
+            return true;
+        }
+        return false;
     }
 
     public Objective pickObjective(Bot bot){
@@ -76,11 +82,12 @@ public class Game {
 
     public void computeCompletedObjective(Bot bot){
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getBot_() == bot){
-                for(Objective objective : botProfil.getObjectives_()){
+            if(botProfil.getBot_() == bot && botProfil.getObjectives_().size()>0){
+                ArrayList<Objective> objectivesCopy = (ArrayList<Objective>) botProfil.getObjectives_().clone();
+                for(Objective objective : objectivesCopy){
                     switch (objective.getType()){
                         case PLOT ->{
-                            if(isObjectivePlotCompleted((ObjectivePlot) objective)){
+                            if(isObjectivePlotCompleted()){
                                 botProfil.setObjectiveCompleted(objective);
                             }
                         }
@@ -90,8 +97,10 @@ public class Game {
         }
     }
 
-    public boolean isObjectivePlotCompleted(ObjectivePlot objectivePlot){
-        if(gameEngine_.haveNeighbours(positionPlacedDuringRound))return true;
+    public boolean isObjectivePlotCompleted(){
+        if(positionPlacedDuringRound_ != null) {
+            if (gameEngine_.haveNeighbours(positionPlacedDuringRound_)) return true;
+        }
         return false;
     }
 
@@ -106,6 +115,6 @@ public class Game {
     }
 
     public void printWinner(BotProfil botProfil){
-        System.out.println("Le Bot gagne avec : "+botProfil.getPoints_() +"points");
+        System.out.println("Le Bot gagne avec : "+botProfil.getPoints_() +" points");
     }
 }

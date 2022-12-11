@@ -14,23 +14,23 @@ public class Bot {
     public void play(Game game, Map map) {
        this.map=map;
        Plot plot = game.pickPlot(this);
-       if(positionToSet(plot) != null) {
-           game.askToSetPLot(plot);
+       if(positionToSet(plot)) {
+           game.askToPutPLot(plot);
        }
     }
 
-    private Position positionToSet(Plot plot) {
+    private boolean positionToSet(Plot plot) {
 
        // ArrayList<Plot> NewList = new ArrayList<>();
         ArrayList<Position> potentialPositions;
-
         for(Plot plotMap : this.map.getMap()){
             potentialPositions = this.map.closestAvailableSpace(plotMap);
-            if(potentialPositions!=null){
-                plot.setPosition(plotMap.getPosition());
+            if(potentialPositions.size() >0){
+                plot.setPosition(potentialPositions.get(0));
+                return true;
             }
         }
-        return null;
+        return false;
         }
 
 }
