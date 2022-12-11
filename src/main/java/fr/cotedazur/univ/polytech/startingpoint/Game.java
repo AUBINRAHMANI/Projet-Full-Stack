@@ -54,7 +54,7 @@ public class Game {
     }
 
     public boolean askToSetPLot(Plot plot){
-        return gameEngine_.askToSetPlot(plot);
+        return gameEngine_.askToPutPlot(plot);
     }
 
     public Objective pickObjective(Bot bot){
@@ -86,7 +86,7 @@ public class Game {
     }
 
     public boolean isObjectivePlotCompleted(ObjectivePlot objectivePlot){
-        if(GameEngine.haveNeighbours(positionPlacedDuringRound))return true;
+        if(gameEngine_.haveNeighbours(positionPlacedDuringRound))return true;
         return false;
     }
 
