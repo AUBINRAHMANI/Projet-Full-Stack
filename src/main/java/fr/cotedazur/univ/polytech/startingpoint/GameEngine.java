@@ -14,7 +14,7 @@ public class GameEngine {
         return new Plot(PlotType.GREEN);
     }
 
-    public boolean askToSetPlot( Position position ){
+    public boolean askToSetPlot( Plot plot ){
         return false;
     }
 
