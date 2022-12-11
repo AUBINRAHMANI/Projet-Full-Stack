@@ -36,7 +36,7 @@ class BotProfilTest {
         Objective objective = new Objective( 1, ObjectiveType.PLOT);
         BotProfil botProfil = new BotProfil(bot);
         botProfil.addObjective(objective);
-        botProfil.setObjectiveCompleted(0);
+        botProfil.setObjectiveCompleted(objective);
         assertEquals(0, botProfil.getObjectives_().size());
         assertEquals(1, botProfil.getNbCompletedObjective_());
     }
@@ -47,7 +47,7 @@ class BotProfilTest {
         Objective objective = new Objective( 1, ObjectiveType.PLOT);
         BotProfil botProfil = new BotProfil(bot);
         botProfil.addObjective(objective);
-        botProfil.setObjectiveCompleted(0);
+        botProfil.setObjectiveCompleted(objective);
         assertEquals(1, botProfil.getNbCompletedObjective_());
     }
 }

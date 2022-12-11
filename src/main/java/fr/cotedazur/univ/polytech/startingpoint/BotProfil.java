@@ -40,8 +40,8 @@ public class BotProfil {
         objectives_.add(objective);
     }
 
-    public void setObjectiveCompleted(int index){
-        objectives_.remove(index);
+    public void setObjectiveCompleted(Objective objective){
+        objectives_.remove(objective);
         ++nbCompletedObjective_;
     }
 }
