@@ -9,7 +9,7 @@ public class GameEngineTest {
     @Test
     void pickObjectiveTest() {
         Deck<Objective> deck = new Deck<>();
-        deck.addCard(new Objective(ObjectiveType.PLOT, 5));
+        deck.addCard(new Objective(5, ObjectiveType.PLOT));
         GameEngine gameEngine = new GameEngine(deck, null, null);
 
         assertEquals(4 , gameEngine.pickObjective().getPoint());
@@ -19,19 +19,19 @@ public class GameEngineTest {
     @Test
     void pickPlotTest() {
         Deck<Plot> deck = new Deck<>();
-        deck.addCard(new Plot(PlotType.VERT));
+        deck.addCard(new Plot(PlotType.GREEN));
         GameEngine gameEngine = new GameEngine(null, deck, null);
 
-        assertEquals(PlotType.VERT , gameEngine.pickPlot().getType());
+        assertEquals(PlotType.GREEN , gameEngine.pickPlot().getType());
     }
 
     @Test
     void askToSetPlotTest() {
         GameEngine gameEngine = new GameEngine();
-        Position position1 = new Position(1,0);
-        Position position2 = new Position(0,0);
-        assertTrue(gameEngine.askToSetPlot(position1));
-        assertFalse(gameEngine.askToSetPlot(position2));
+        Plot plot1 = new Plot(PlotType.GREEN ,new Position(1,0));
+        Plot plot2 = new Plot(PlotType.GREEN ,new Position(1,0));
+        assertTrue(gameEngine.askToSetPlot(plot1));
+        assertFalse(gameEngine.askToSetPlot(plot2));
     }
 
     @Test

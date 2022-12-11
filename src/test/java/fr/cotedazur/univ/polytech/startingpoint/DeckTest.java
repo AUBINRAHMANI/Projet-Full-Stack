@@ -6,12 +6,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeckTest {
 
     @Test
-    public void shuffleTest(){
-        assert false;
-    }
-    @Test
     public void addCardTest(){
-        assert false;
+        Deck  deck = new Deck();
+        for(int i=0 ; i<10 ; ++i){
+            deck.addCard(i);
+        }
+        for(int i=0 ; i<10 ; ++i){
+            assertEquals(i, deck.getNextCard());
+        }
     }
 
     @Test

@@ -11,6 +11,7 @@
 *.ctxt
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #Mac files
 *.DS_Store
 
@@ -20,6 +21,14 @@
 *.DS_Store
 
 >>>>>>> Position
+=======
+#Mac File
+*.DS_Store
+
+#Mac files
+*.DS_Store
+
+>>>>>>> develop
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public class GameEngine {
 
+
     private Deck<Objective> objectiveDeck_;
     private Deck<Plot>      plotDeck_;
     private Map             map_;
@@ -26,9 +27,9 @@ public class GameEngine {
         return plotDeck_.getNextCard();
     }
 
-    public boolean askToSetPlot( Position position ){
-        if(map_.isPlotFree(position)){
-            map_.setPlot(position);
+    public boolean askToSetPlot( Plot plot ){
+        if(map_.isSpaceFree(plot)){
+            map_.putPlot(plot);
             return true;
         }
         return false;

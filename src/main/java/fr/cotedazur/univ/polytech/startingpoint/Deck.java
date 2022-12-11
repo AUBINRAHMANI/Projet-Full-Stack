@@ -1,18 +1,29 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 public class Deck<T> {
 
-    public Deck(){}
+    private ArrayList<T> deck_;
+
+    public Deck(){
+        deck_ = new ArrayList<T>();
+    }
 
     public void shuffle(){
-
+        Collections.shuffle(deck_);
     }
 
     public void addCard(T card){
-
+        deck_.add(card);
     }
 
     public T getNextCard(){
-        return null;
+        T card = deck_.get(0);
+        deck_.remove(0);
+        return card;
+
     }
 }
