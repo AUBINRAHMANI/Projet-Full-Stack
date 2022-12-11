@@ -7,12 +7,6 @@ public class GameEngine {
     private Deck<Plot>      plotDeck_;
     private Map             map_;
 
-    public GameEngine() {
-        objectiveDeck_  = new Deck<Objective>();
-        plotDeck_       = new Deck<Plot>();
-        map_             = new Map();
-    }
-
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
         objectiveDeck_  = objectiveDeck;
         plotDeck_       = plotDeck;
@@ -27,16 +21,15 @@ public class GameEngine {
         return plotDeck_.getNextCard();
     }
 
-    public boolean askToSetPlot( Plot plot ){
-        if(map_.isSpaceFree(plot)){
-            map_.putPlot(plot);
-            return true;
-        }
-        return false;
+    public boolean askToPutPlot( Plot plot ){
+        return  map_.putPlot(plot);
     }
 
-    public Map GetMap(){
-        final Map mapCp = map_;
-        return mapCp;
+    public Map getMap(){
+        return map_;
+    }
+
+    public boolean haveNeighbours( Position position){
+        return map_.haveNeighbours(position);
     }
 }
