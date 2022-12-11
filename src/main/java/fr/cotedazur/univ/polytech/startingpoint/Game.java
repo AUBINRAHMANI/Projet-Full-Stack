@@ -77,7 +77,7 @@ public class Game {
                     switch (objective.getType()){
                         case PLOT ->{
                             if(isObjectivePlotCompleted((ObjectivePlot) objective)){
-                                botProfil.getObjectives_().remove(objective);
+                                botProfil.setObjectiveCompleted(objective);
                             }
                         }
                     }

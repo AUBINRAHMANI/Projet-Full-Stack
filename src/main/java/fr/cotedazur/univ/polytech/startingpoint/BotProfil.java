@@ -32,10 +32,6 @@ public class BotProfil {
         return objectives_;
     }
 
-    public void addPoint(){
-        ++points_;
-    }
-
     public void addObjective(Objective objective){
         objectives_.add(objective);
     }
@@ -43,5 +39,6 @@ public class BotProfil {
     public void setObjectiveCompleted(Objective objective){
         objectives_.remove(objective);
         ++nbCompletedObjective_;
+        points_ += objective.getPoint();
     }
 }

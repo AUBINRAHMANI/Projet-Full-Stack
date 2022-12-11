@@ -14,14 +14,6 @@ class BotProfilTest {
     }
 
     @Test
-    void getPoints_() {
-        Bot bot = new Bot();
-        BotProfil botProfil = new BotProfil(bot);
-        botProfil.addPoint();
-        assertEquals(1, botProfil.getPoints_());
-    }
-
-    @Test
     void getObjectives_() {
         Bot bot = new Bot();
         Objective objective = new Objective( 1, ObjectiveType.PLOT);
