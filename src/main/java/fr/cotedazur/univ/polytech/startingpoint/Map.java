@@ -41,6 +41,7 @@ public class Map {
         return false;
     }
 
+
     public ArrayList<Position> closestAvailableSpace(Plot plot) {
         ArrayList<Position> positionsAvailable = new ArrayList<>();
         for (int i = 0; i < plot.getPosition().closestPositions().size(); i++) {
