@@ -13,13 +13,13 @@ public class Plot {
         _position = position;
     }
 
-    public void set_position(Position _position) {
+    public void setPosition(Position _position) {
         this._position = _position;
     }
     public PlotType getType() {
         return _plotType;
     }
-    public Position get_position() {
+    public Position getPosition() {
         return _position;
     }
 }
