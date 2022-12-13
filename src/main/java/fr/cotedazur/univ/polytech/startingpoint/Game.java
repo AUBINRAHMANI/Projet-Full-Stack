@@ -87,7 +87,7 @@ public class Game {
                 for(Objective objective : objectivesCopy){
                     switch (objective.getType()){
                         case PLOT ->{
-                            if(isObjectivePlotCompleted()){
+                            if(isObjectivePlotCompleted((ObjectivePlot) objective)){
                                 botProfil.setObjectiveCompleted(objective);
                             }
                         }
@@ -97,7 +97,7 @@ public class Game {
         }
     }
 
-    public boolean isObjectivePlotCompleted(){
+    public boolean isObjectivePlotCompleted(ObjectivePlot objectivePlot){
         if(positionPlacedDuringRound_ != null) {
             if (gameEngine_.haveNeighbours(positionPlacedDuringRound_)) return true;
         }
