@@ -1,35 +1,46 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
     public ArrayList<Plot> map_;
+    private MapInterface _mapInterface;
 
     public Map() {
+        this((MapInterface) null);
+    }
+    public Map(MapInterface mapInterface){
+        _mapInterface = mapInterface;
         map_ = new ArrayList<>();
-        map_.add(new Plot(PlotType.POND, new Position(0,0)));
+        putPlot(new Plot(PlotType.POND, new Position(0,0)));
     }
 
-    public boolean putPlot(Plot parcel) {
-        if (isSpaceFree(parcel) == true) {
-            map_.add(parcel);
+    public boolean putPlot(Plot plot) {
+        if (isSpaceFree(plot.getPosition()) == true) {
+            map_.add(plot);
+            if(_mapInterface != null){
+                _mapInterface.drawHexagon(new Position(plot.getPosition()));
+            }
             return true;
         }
         return false;
     }
 
     public ArrayList<Plot> getMap() {
-        return map_;
+        return new ArrayList<>(map_);
     }
 
     public boolean isIrrigated(Plot p) {
         return false;
     }
 
-    public boolean isSpaceFree(Plot parcel) {
-        for (int i = 0; i < map_.size(); i++) {
-            if (parcel.getPosition() == map_.get(i).getPosition()) {
+    public boolean isSpaceFree(Position position) {
+        for (Plot plot : map_) {
+            if(plot.getPosition().equals(position))
+            {
                 return false;
             }
         }
@@ -37,13 +48,12 @@ public class Map {
     }
 
 
-    public ArrayList<Position> closestAvailableSpace(Plot plot) {
+    public ArrayList<Position> closestAvailableSpace(Position position) {
         ArrayList<Position> positionsAvailable = new ArrayList<>();
-        for (int i = 0; i < plot.getPosition().closestPositions().size(); i++) {
-            for (int j = 0; j < map_.size(); j++) {
-                if (map_.get(j).getPosition() != plot.getPosition().closestPositions().get(i)) {
-                    positionsAvailable.add(plot.getPosition().closestPositions().get(i));
-                }
+        for (Position potentialPosition : position.closestPositions()) {
+            if(isSpaceFree(potentialPosition))
+            {
+                positionsAvailable.add(potentialPosition);
             }
         }
         return positionsAvailable;

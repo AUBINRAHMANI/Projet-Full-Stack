@@ -14,6 +14,9 @@ public class Position {
         x_ = x;
         y_ = y;
     }
+    public Position(Position position){
+        this(position.getX_(), position.y_);
+    }
 
     public int getX_() {
         return x_;
@@ -47,6 +50,14 @@ public class Position {
     @Override
     public int hashCode() {
         return Objects.hash(x_, y_);
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "x_=" + x_ +
+                ", y_=" + y_ +
+                '}';
     }
 }
 

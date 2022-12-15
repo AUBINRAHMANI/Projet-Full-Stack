@@ -24,7 +24,7 @@ public class Bot {
        // ArrayList<Plot> NewList = new ArrayList<>();
         ArrayList<Position> potentialPositions;
         for(Plot plotMap : this.map.getMap()){
-            potentialPositions = this.map.closestAvailableSpace(plotMap);
+            potentialPositions = this.map.closestAvailableSpace(plotMap.getPosition());
             if(potentialPositions.size() >0){
                 plot.setPosition(potentialPositions.get(0));
                 return true;

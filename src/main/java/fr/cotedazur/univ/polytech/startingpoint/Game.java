@@ -1,30 +1,46 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Game {
 
-    final int NB_OBJECTIVE_TO_FINISH = 1;
+    final int NB_OBJECTIVE_TO_FINISH = 2;
     GameEngine gameEngine_;
     ArrayList<BotProfil> botProfils_;
+    MapInterface _mapInterface;
     private Position positionPlacedDuringRound_;
 
-    public Game(){
+    public Game(boolean debug){
         botProfils_                     = new ArrayList<>();
         positionPlacedDuringRound_       = null;
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
-        Map map                         = new Map();
-        gameEngine_                     = new GameEngine( objectiveDeck, plotDeck, map);
+
+        if(debug){
+            _mapInterface   = new MapInterface();
+            Map map                     = new Map(_mapInterface);
+            gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, map);
+        }
+        else {
+            Map map= new Map();
+            gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, map);
+        }
+
         botProfils_.add(new BotProfil(new Bot()));
+    }
+    public Game(){
+        this(false);
     }
 
     public void start(){
         do {
             botProfils_.get(0).addObjective(gameEngine_.pickObjective());
             for(BotProfil botProfil : botProfils_){
+                while (_mapInterface.next()==false);
                 botProfil.getBot_().play(this, gameEngine_.getMap());
                 computeCompletedObjective(botProfil.getBot_());
             }
