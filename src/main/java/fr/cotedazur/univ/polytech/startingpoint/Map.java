@@ -59,10 +59,10 @@ public class Map {
         return positionsAvailable;
     }
 
-    public boolean haveNeighbours(Position position) {//on parcourt la map puis on parcourt la liste des plus proche voisin du plot et si la position d'un voisin est egale a la position d'un plot alors on return true
-        for (int i = 0; i < map_.size(); i++) {
-            for (int j = 0; j < position.closestPositions().size(); j++) {
-                if (map_.get(i).getPosition().equals(position.closestPositions().get(j))){
+    public boolean haveNeighbours(Position position) {
+        for(Plot plot : map_){
+            for (Position positions : position.closestPositions()) {
+                if (plot.getPosition().equals(positions.closestPositions())){
                     return true;
                 }
             }
