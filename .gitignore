@@ -4,9 +4,31 @@
 # Log file
 *.log
 
+#Mac files
+*.DS_Store
+
 # BlueJ files
 *.ctxt
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+#Mac files
+*.DS_Store
+
+
+=======
+#Mac File
+*.DS_Store
+
+>>>>>>> Position
+=======
+#Mac File
+*.DS_Store
+
+#Mac files
+*.DS_Store
+
+>>>>>>> develop
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-public class Parcelle extends Objective{
-
+public enum PlotType {
+    POND,
+    GREEN
 }
