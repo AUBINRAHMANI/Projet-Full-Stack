@@ -62,7 +62,7 @@ public class Map {
     public boolean haveNeighbours(Position position) {
         for(Plot plot : map_){
             for (Position positions : position.closestPositions()) {
-                if (plot.getPosition().equals(positions.closestPositions())){
+                if (plot.getPosition().equals(positions)){
                     return true;
                 }
             }
