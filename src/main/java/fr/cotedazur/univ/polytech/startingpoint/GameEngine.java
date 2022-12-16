@@ -23,6 +23,7 @@ public class GameEngine {
 
     public boolean askToPutPlot( Plot plot ){
         return  map_.putPlot(plot);
+
     }
 
     public Map getMap(){

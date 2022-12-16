@@ -24,9 +24,7 @@ public class BotProfil {
         return points_;
     }
 
-    public int getNbCompletedObjective_() {
-        return nbCompletedObjective_;
-    }
+    public int getNbCompletedObjective_() {return nbCompletedObjective_;}
 
     public ArrayList<Objective> getObjectives_() {
         return objectives_;

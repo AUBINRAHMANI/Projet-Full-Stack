@@ -1,62 +1,68 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
-    public Plot pond;//on initialise l'etang
-    public ArrayList<Plot> map;
+    public ArrayList<Plot> map_;
+    private MapInterface _mapInterface;
 
     public Map() {
-        this.map = new ArrayList<Plot>();
+        this((MapInterface) null);
+    }
+    public Map(MapInterface mapInterface){
+        _mapInterface = mapInterface;
+        map_ = new ArrayList<>();
+        putPlot(new Plot(PlotType.POND, new Position(0,0)));
     }
 
-    public ArrayList<Plot> initializeMap(ArrayList<Plot> map) {
-        this.putPlot(pond);
-        return map;
-    }
-
-    public boolean putPlot(Plot parcel) {
-        if (isSpaceFree(parcel) == true) {
-            map.add(parcel);
+    public boolean putPlot(Plot plot) {
+        if (isSpaceFree(plot.getPosition()) == true) {
+            map_.add(plot);
+            if(_mapInterface != null){
+                _mapInterface.drawHexagon(new Position(plot.getPosition()));
+            }
             return true;
         }
         return false;
     }
 
     public ArrayList<Plot> getMap() {
-        return map;
+        return new ArrayList<>(map_);
     }
 
     public boolean isIrrigated(Plot p) {
         return false;
     }
 
-    public boolean isSpaceFree(Plot parcel) {
-        for (int i = 0; i < map.size(); i++) {
-            if (parcel == map.get(i)) {
-                return true;
+    public boolean isSpaceFree(Position position) {
+        for (Plot plot : map_) {
+            if(plot.getPosition().equals(position))
+            {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
-    public ArrayList<Position> closestAvailableSpace(Plot plot) {
+
+    public ArrayList<Position> closestAvailableSpace(Position position) {
         ArrayList<Position> positionsAvailable = new ArrayList<>();
-        for (int i = 0; i < plot.getPosition().closestPositions().size(); i++) {
-            for (int j = 0; j < map.size(); j++) {
-                if (map.get(j).getPosition() != plot.getPosition().closestPositions().get(i)) {
-                    positionsAvailable.add(plot.getPosition().closestPositions().get(i));
-                }
+        for (Position potentialPosition : position.closestPositions()) {
+            if(isSpaceFree(potentialPosition))
+            {
+                positionsAvailable.add(potentialPosition);
             }
         }
         return positionsAvailable;
     }
 
     public boolean haveNeighbours(Position position) {//on parcourt la map puis on parcourt la liste des plus proche voisin du plot et si la position d'un voisin est egale a la position d'un plot alors on return true
-        for (int i = 0; i < map.size(); i++) {
+        for (int i = 0; i < map_.size(); i++) {
             for (int j = 0; j < position.closestPositions().size(); j++) {
-                if (map.get(i).getPosition().equals(position.closestPositions().get(j))){
+                if (map_.get(i).getPosition().equals(position.closestPositions().get(j))){
                     return true;
                 }
             }
