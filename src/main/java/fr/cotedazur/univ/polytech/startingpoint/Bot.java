@@ -11,27 +11,26 @@ public class Bot {
     public Bot() {
     }
 
-    public void play(GameEngine gameEngine, Map map) {
+    public void play(Game game, Map map) {
        this.map=map;
-       Position position = positionToSet();
-
+       Plot plot = game.pickPlot(this);
+       if(positionToSet(plot)) {
+           game.askToPutPLot(plot);
+       }
     }
 
-    ;
-
-
-    private Position positionToSet() {
+    private boolean positionToSet(Plot plot) {
 
        // ArrayList<Plot> NewList = new ArrayList<>();
         ArrayList<Position> potentialPositions;
-
-        for(Plot plot : this.map.getMap()){
-            potentialPositions = this.map.closestAvailableSpace(plot);
-            if(potentialPositions!=null){
-                return plot.getPosition();
+        for(Plot plotMap : this.map.getMap()){
+            potentialPositions = this.map.closestAvailableSpace(plotMap.getPosition());
+            if(potentialPositions.size() >0){
+                plot.setPosition(potentialPositions.get(0));
+                return true;
             }
         }
-        return null;
+        return false;
         }
 
 }
