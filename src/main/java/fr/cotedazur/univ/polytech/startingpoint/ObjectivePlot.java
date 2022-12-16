@@ -8,6 +8,6 @@ public class ObjectivePlot extends Objective{
     }
 
     public int getNbPlotsAdjacents(){
-        return this._nbPlotsAdjacents;
+            return this._nbPlotsAdjacents;
     }
 }

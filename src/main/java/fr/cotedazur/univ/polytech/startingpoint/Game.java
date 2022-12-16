@@ -16,7 +16,7 @@ public class Game {
 
     public Game(boolean debug){
         botProfils_                     = new ArrayList<>();
-        positionPlacedDuringRound_       = null;
+        positionPlacedDuringRound_      = null;
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
 
