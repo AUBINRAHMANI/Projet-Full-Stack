@@ -1,18 +1,17 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 public class Objective {
-    private ObjectiveType _objective;
-    private int _point;
-    public Objective(int point, ObjectiveType objetive){
-        this._point = point;
-        _objective = objetive.PLOT;
-
+    private ObjectiveType _objectiveType;
+    private int _points;
+    public Objective(int points, ObjectiveType objectiveType){
+        _points = points;
+        _objectiveType = objectiveType;
     }
     public int getPoint(){
-        return _point;
+        return _points;
     }
 
     public ObjectiveType getType(){
-        return _objective;
+        return _objectiveType;
     }
 }

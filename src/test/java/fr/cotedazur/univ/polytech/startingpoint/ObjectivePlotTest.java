@@ -8,7 +8,7 @@ class ObjectivePlotTest {
 
     @Test
     void getNbPlotsAdjacents() {
-        ObjectivePlot objectivePlot = new ObjectivePlot(4, ObjectiveType.PLOT, 2);
+        ObjectivePlot objectivePlot = new ObjectivePlot(4, ObjectiveType.PLOTS, 2);
         assertEquals(2, objectivePlot.getNbPlotsAdjacents());
     }
 }
