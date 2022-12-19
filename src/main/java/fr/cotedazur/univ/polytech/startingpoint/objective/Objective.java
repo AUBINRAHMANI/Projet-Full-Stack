@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 public class Objective {
     private ObjectiveType _objectiveType;

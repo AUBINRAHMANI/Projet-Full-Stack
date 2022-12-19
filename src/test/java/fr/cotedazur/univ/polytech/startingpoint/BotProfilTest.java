@@ -1,5 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
+import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectiveType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +18,7 @@ class BotProfilTest {
     @Test
     void getObjectives_() {
         Bot bot = new Bot();
-        Objective objective = new Objective( 1, ObjectiveType.PLOT);
+        Objective objective = new Objective( 1, ObjectiveType.PLOTS);
         BotProfil botProfil = new BotProfil(bot);
         botProfil.addObjective(objective);
         assertEquals(objective, botProfil.getObjectives_().get(0));
@@ -25,7 +27,7 @@ class BotProfilTest {
     @Test
     void setObjectiveCompleted() {
         Bot bot = new Bot();
-        Objective objective = new Objective( 1, ObjectiveType.PLOT);
+        Objective objective = new Objective( 1, ObjectiveType.PLOTS);
         BotProfil botProfil = new BotProfil(bot);
         botProfil.addObjective(objective);
         botProfil.setObjectiveCompleted(objective);
@@ -37,7 +39,7 @@ class BotProfilTest {
     @Test
     void getNbCompletedObjective_(){
         Bot bot = new Bot();
-        Objective objective = new Objective( 1, ObjectiveType.PLOT);
+        Objective objective = new Objective( 1, ObjectiveType.PLOTS);
         BotProfil botProfil = new BotProfil(bot);
         botProfil.addObjective(objective);
         botProfil.setObjectiveCompleted(objective);

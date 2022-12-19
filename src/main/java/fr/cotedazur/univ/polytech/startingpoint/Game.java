@@ -1,10 +1,9 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
+import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 public class Game {
 
@@ -58,8 +57,8 @@ public class Game {
 
     public Deck<Objective> generateObjectiveDrawPile(){
         Deck<Objective> objectiveDeck = new Deck<>();
-        objectiveDeck.addCard(new ObjectivePlot(1, ObjectiveType.PLOT, 2));
-        objectiveDeck.addCard(new ObjectivePlot(1, ObjectiveType.PLOT, 2));
+        objectiveDeck.addCard(new ObjectivePlots(1, 2));
+        objectiveDeck.addCard(new ObjectivePlots(1, 2));
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
@@ -102,10 +101,22 @@ public class Game {
                 ArrayList<Objective> objectivesCopy = (ArrayList<Objective>) botProfil.getObjectives_().clone();
                 for(Objective objective : objectivesCopy){
                     switch (objective.getType()){
-                        case PLOT ->{
-                            if(isObjectivePlotCompleted((ObjectivePlot) objective)){
+                        case PLOTS ->{
+                            if(isObjectivePlotCompleted((ObjectivePlots) objective)){
                                 botProfil.setObjectiveCompleted(objective);
                             }
+                        }
+                        case GARDENER ->{
+                            if(isObjectiveGardenerCompleted((ObjectiveGardener) objective)){
+                                botProfil.setObjectiveCompleted(objective);
+                            }
+                        }
+                        case PANDA ->{/*
+
+                            if(isObjectivePandaCompleted((ObjectivePanda) objective)){
+                                botProfil.setObjectiveCompleted(objective);
+                            }
+                            */
                         }
                     }
                 }
@@ -113,12 +124,29 @@ public class Game {
         }
     }
 
-    public boolean isObjectivePlotCompleted(ObjectivePlot objectivePlot){
+    private boolean isObjectivePlotCompleted(ObjectivePlots objectivePlots){
         if(positionPlacedDuringRound_ != null) {
             if (gameEngine_.haveNeighbours(positionPlacedDuringRound_)) return true;
         }
         return false;
     }
+
+    private boolean isObjectiveGardenerCompleted(ObjectiveGardener objectiveGardener){
+        Position gardenerPosition = GameEngine.getGardenerPosition();
+        Plot gardenerPlot = gameEngine_.getMap().getPlot(gardenerPosition);
+        ArrayList<Bambou> bambouSections = gardenerPlot.getBambouSections();
+        if(bambouSections.size() == objectiveGardener.getNbBambouSections()){
+            return true;
+        }
+        return false;
+    }
+ /*
+
+    public boolean isObjectivePandaCompleted(ObjectivePanda objectivePanda){
+        return false;
+    }
+
+ */
 
     public BotProfil checkWinner(){
         BotProfil winner = botProfils_.get(0);
