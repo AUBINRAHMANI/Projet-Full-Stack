@@ -1,5 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
+import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectiveType;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +11,7 @@ public class GameEngineTest {
     @Test
     void pickObjectiveTest() {
         Deck<Objective> deck = new Deck<>();
-        Objective objective = new Objective(5, ObjectiveType.PLOT);
+        Objective objective = new Objective(5, ObjectiveType.PLOTS);
         deck.addCard(objective);
         GameEngine gameEngine = new GameEngine(deck, null, null);
 

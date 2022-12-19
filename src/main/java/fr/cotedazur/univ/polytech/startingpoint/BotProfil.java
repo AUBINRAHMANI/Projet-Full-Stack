@@ -1,5 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
+
 import java.util.ArrayList;
 
 public class BotProfil {
