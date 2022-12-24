@@ -1,17 +1,16 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-public class Objective {
-    private ObjectiveType _objectiveType;
+import fr.cotedazur.univ.polytech.startingpoint.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Position;
+
+public abstract class Objective {
     private int _points;
-    public Objective(int points, ObjectiveType objectiveType){
+    public Objective(int points){
         _points = points;
-        _objectiveType = objectiveType;
     }
     public int getPoint(){
         return _points;
     }
-
-    public ObjectiveType getType(){
-        return _objectiveType;
-    }
+    public abstract boolean isCompleted(GameEngine gameEngine, BotProfil botProfil);
 }

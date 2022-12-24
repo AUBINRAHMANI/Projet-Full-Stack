@@ -8,13 +8,13 @@ class ObjectiveGardenerTest {
 
     @Test
     void getNbBambouSection() {
-        ObjectiveGardener objectiveGardener = new ObjectiveGardener(2, 3, true);
+        ObjectiveGardener objectiveGardener = new ObjectiveGardener(2, 3, false, 1);
         assertEquals(3, objectiveGardener.getNbBambouSections());
     }
 
     @Test
     void needImprovement() {
-        ObjectiveGardener objectiveGardener = new ObjectiveGardener(2, 3, true);
+        ObjectiveGardener objectiveGardener = new ObjectiveGardener(2, 3, false, 1);
         assertTrue(objectiveGardener.needImprovement());
     }
 }

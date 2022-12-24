@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
+import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 public class GameEngine {
 
@@ -9,10 +9,11 @@ public class GameEngine {
     private Deck<Plot>      plotDeck_;
     private Map             map_;
 
+
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
-        objectiveDeck_  = objectiveDeck;
-        plotDeck_       = plotDeck;
-        map_            = map;
+        objectiveDeck_              = objectiveDeck;
+        plotDeck_                   = plotDeck;
+        map_                        = map;
     }
 
     public Objective pickObjective() {
@@ -35,4 +36,30 @@ public class GameEngine {
     public boolean haveNeighbours( Position position){
         return map_.haveNeighbours(position);
     }
+
+    public boolean isObjectivePlotCompleted(ObjectivePlots objectivePlots, BotProfil botProfil){
+        if(positionPlacedDuringRound_ != null) {
+            if (haveNeighbours(positionPlacedDuringRound_)) return true;
+        }
+        return false;
+    }
+    /*
+    public boolean isObjectiveGardenerCompleted(ObjectiveGardener objectiveGardener, BotProfil botProfil){
+        Position gardenerPosition = getGardenerPosition();
+        Plot gardenerPlot = getMap().getPlot(gardenerPosition);
+        ArrayList<Bambou> bambouSections = gardenerPlot.getBambouSections();
+        if(bambouSections.size() == objectiveGardener.getNbBambouSections()){
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public boolean isObjectivePandaCompleted(ObjectivePanda objectivePanda, BotProfil botProfil){
+        return false;
+    }
+
+     */
+
 }
