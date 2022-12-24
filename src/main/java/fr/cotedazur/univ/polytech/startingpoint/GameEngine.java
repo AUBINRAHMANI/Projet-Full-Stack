@@ -45,8 +45,17 @@ public class GameEngine {
         return false;
     }
 
-    public boolean computeObjectivePlot(ArrayList<Plot> configuration){
+    public boolean computeObjectivePlot(ArrayList<Plot> pattern){
         return false;
     }
+    public boolean computeObjectiveGardener(ArrayList<Plot> bambouPlots, boolean improvement){
+        return false;
+    }
+    /*
+    public boolean computeObjectivePanda(ArrayList<Bambou> bambous){
+        return false;
+    }
+
+     */
 
 }

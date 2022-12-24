@@ -1,7 +1,6 @@
 /*package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
-
 import java.util.ArrayList;
 
 public class ObjectivePanda extends Objective {
@@ -13,17 +12,19 @@ public class ObjectivePanda extends Objective {
         _bambouSections = bambouSections;
     }
 
-    public ArrayList<Bambou> getBambouSections() {
-        return _bambouSections;
-    }
-
-    public int getNbBamabouSections() {
-        return _bambouSections.size();
+     @Override
+    public boolean verifyPlotObj(GameEngine gameEngine) {
+        return gameEngine.computeObjectivePlot();
     }
 
     @Override
-    public boolean isCompleted(GameEngine gameEngine, BotProfil botProfil){
-        return gameEngine.isObjectivePandaCompleted(this, botProfil);
+    public boolean verifyGardenerObj(GameEngine gameEngine) {
+        return false;
+    }
+
+    @Override
+    public boolean verifyPandaObj(GameEngine gameEngine) {
+        return false;
     }
 }
 

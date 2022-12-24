@@ -2,31 +2,31 @@ package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 
+import java.util.ArrayList;
+
 public class ObjectiveGardener extends Objective{
 
-    int     _nbBambouSection;
-    int     _nbDifferentPLot;
+    ArrayList<Plot> _bambouPlots;
     boolean _improvement;
 
-    public ObjectiveGardener(int point, int nbBambouSection, boolean improvement, int nbDifferentPLot) {
+    public ObjectiveGardener(int point, ArrayList<Plot> bambouPlots, boolean improvement) {
         super(point);
-        _nbBambouSection    = nbBambouSection;
-        _improvement        = improvement;
-        _nbDifferentPLot    = nbDifferentPLot;
+        _bambouPlots    = bambouPlots;
+        _improvement    = improvement;
     }
-
-    public int getNbBambouSections() {
-        return _nbBambouSection;
-    }
-
-    public boolean needImprovement() {
-        return _improvement;
-    }
-
-    public int get_nbDifferentPLot() { return _nbDifferentPLot; }
 
     @Override
-    public boolean isCompleted(GameEngine gameEngine, BotProfil botProfil){
-        return gameEngine.isObjectiveGardenerCompleted(this, botProfil);
+    public boolean verifyPlotObj(GameEngine gameEngine) {
+        return false;
+    }
+
+    @Override
+    public boolean verifyGardenerObj(GameEngine gameEngine) {
+        return gameEngine.computeObjectiveGardener(_bambouPlots, _improvement);
+    }
+
+    @Override
+    public boolean verifyPandaObj(GameEngine gameEngine) {
+        return false;
     }
 }

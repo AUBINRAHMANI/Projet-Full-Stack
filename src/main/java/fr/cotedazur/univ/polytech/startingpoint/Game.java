@@ -1,7 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.Action.Action;
-import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
+import fr.cotedazur.univ.polytech.startingpoint.Action.*;
+import fr.cotedazur.univ.polytech.startingpoint.debugInterface.*;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
@@ -63,8 +63,8 @@ public class Game {
 
     public Deck<Objective> generateObjectiveDrawPile(){
         Deck<Objective> objectiveDeck = new Deck<>();
-        objectiveDeck.addCard(new ObjectivePlots(1, 2));
-        objectiveDeck.addCard(new ObjectivePlots(1, 2));
+        objectiveDeck.addCard(new ObjectivePlots(1, null));
+        objectiveDeck.addCard(new ObjectivePlots(1, null));
         objectiveDeck.shuffle();
         return objectiveDeck;
     }

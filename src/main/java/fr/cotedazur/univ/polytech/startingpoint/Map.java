@@ -10,7 +10,7 @@ public class Map {
     private MapInterface _mapInterface;
 
     public Map() {
-        this((MapInterface) null);
+        this( null);
     }
     public Map(MapInterface mapInterface){
         _mapInterface = mapInterface;
