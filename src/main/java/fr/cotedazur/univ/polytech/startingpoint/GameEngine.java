@@ -1,5 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import java.util.ArrayList;
+
 public class GameEngine {
 
 
@@ -23,7 +25,6 @@ public class GameEngine {
 
     public boolean askToPutPlot( Plot plot ){
         return  map_.putPlot(plot);
-
     }
 
     public Map getMap(){
@@ -33,4 +34,17 @@ public class GameEngine {
     public boolean haveNeighbours( Position position){
         return map_.haveNeighbours(position);
     }
+
+    public boolean moveGardener(Position position){
+        return false;
+    }
+
+    public boolean movePanda(Position position){
+        return false;
+    }
+
+    public boolean computeObjectivePlot(ArrayList<Plot> configuration){
+        return false;
+    }
+
 }
