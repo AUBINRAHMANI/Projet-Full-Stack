@@ -37,7 +37,7 @@ public class Map {
         return false;
     }
 
-    public boolean isSpaceFree(Position position) {
+    private boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))
             {
@@ -47,15 +47,22 @@ public class Map {
         return true;
     }
 
+    public boolean isPossibleToPutPlot(Position position) {
+        if(closestAvailableSpace(position).size() >4) return false;
+        return isSpaceFree(position);
+    }
+
 
     public ArrayList<Position> closestAvailableSpace(Position position) {
         ArrayList<Position> positionsAvailable = new ArrayList<>();
         for (Position potentialPosition : position.closestPositions()) {
             if(isSpaceFree(potentialPosition))
             {
+                System.out.println(potentialPosition);
                 positionsAvailable.add(potentialPosition);
             }
         }
+        System.out.println("");
         return positionsAvailable;
     }
 
