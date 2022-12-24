@@ -1,5 +1,6 @@
-/*
-package fr.cotedazur.univ.polytech.startingpoint.objective;
+/*package fr.cotedazur.univ.polytech.startingpoint.objective;
+
+import fr.cotedazur.univ.polytech.startingpoint.*;
 
 import java.util.ArrayList;
 
@@ -8,7 +9,7 @@ public class ObjectivePanda extends Objective {
     ArrayList<Bambou> _bambouSections;
 
     public ObjectivePanda(int point, ArrayList<Bambou> bambouSections) {
-        super(point, ObjectiveType.PANDA);
+        super(point);
         _bambouSections = bambouSections;
     }
 
@@ -19,5 +20,11 @@ public class ObjectivePanda extends Objective {
     public int getNbBamabouSections() {
         return _bambouSections.size();
     }
+
+    @Override
+    public boolean isCompleted(GameEngine gameEngine, BotProfil botProfil){
+        return gameEngine.isObjectivePandaCompleted(this, botProfil);
+    }
 }
+
  */

@@ -4,6 +4,7 @@ import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
+import java.util.Currency;
 
 public class Game {
 
@@ -11,13 +12,14 @@ public class Game {
     GameEngine gameEngine_;
     ArrayList<BotProfil> botProfils_;
     MapInterface _mapInterface;
-    private Position positionPlacedDuringRound_;
+
+    BotProfil currentPlayer;
 
     public Game(boolean debug){
         botProfils_                     = new ArrayList<>();
-        positionPlacedDuringRound_      = null;
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
+        currentPlayer = null;
 
         if(debug){
             _mapInterface   = new MapInterface();
@@ -39,6 +41,7 @@ public class Game {
         do {
             botProfils_.get(0).addObjective(gameEngine_.pickObjective());
             for(BotProfil botProfil : botProfils_){
+                currentPlayer = botProfil;
                 while (_mapInterface.next()==false);
                 botProfil.getBot_().play(this, gameEngine_.getMap());
                 computeCompletedObjective(botProfil.getBot_());
@@ -73,7 +76,7 @@ public class Game {
 
     public boolean askToPutPLot(Plot plot){
         if(gameEngine_.askToPutPlot(plot)){
-            positionPlacedDuringRound_ = plot.getPosition();
+            currentPlayer.setPositionPlacedDuringRound_(plot.getPosition());
             return true;
         }
         return false;
@@ -100,53 +103,11 @@ public class Game {
             if(botProfil.getBot_() == bot && botProfil.getObjectives_().size()>0){
                 ArrayList<Objective> objectivesCopy = (ArrayList<Objective>) botProfil.getObjectives_().clone();
                 for(Objective objective : objectivesCopy){
-                    switch (objective.getType()){
-                        case PLOTS ->{
-                            if(isObjectivePlotCompleted((ObjectivePlots) objective)){
-                                botProfil.setObjectiveCompleted(objective);
-                            }
-                        }
-                        case GARDENER ->{
-                            if(isObjectiveGardenerCompleted((ObjectiveGardener) objective)){
-                                botProfil.setObjectiveCompleted(objective);
-                            }
-                        }
-                        case PANDA ->{/*
-
-                            if(isObjectivePandaCompleted((ObjectivePanda) objective)){
-                                botProfil.setObjectiveCompleted(objective);
-                            }
-                            */
-                        }
-                    }
+                    objective.isCompleted(gameEngine_, botProfil);
                 }
             }
         }
     }
-
-    private boolean isObjectivePlotCompleted(ObjectivePlots objectivePlots){
-        if(positionPlacedDuringRound_ != null) {
-            if (gameEngine_.haveNeighbours(positionPlacedDuringRound_)) return true;
-        }
-        return false;
-    }
-
-    private boolean isObjectiveGardenerCompleted(ObjectiveGardener objectiveGardener){
-        Position gardenerPosition = GameEngine.getGardenerPosition();
-        Plot gardenerPlot = gameEngine_.getMap().getPlot(gardenerPosition);
-        ArrayList<Bambou> bambouSections = gardenerPlot.getBambouSections();
-        if(bambouSections.size() == objectiveGardener.getNbBambouSections()){
-            return true;
-        }
-        return false;
-    }
- /*
-
-    public boolean isObjectivePandaCompleted(ObjectivePanda objectivePanda){
-        return false;
-    }
-
- */
 
     public BotProfil checkWinner(){
         BotProfil winner = botProfils_.get(0);

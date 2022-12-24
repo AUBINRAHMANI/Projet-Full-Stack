@@ -1,7 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
-import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectiveType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
