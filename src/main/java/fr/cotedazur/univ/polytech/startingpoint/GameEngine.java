@@ -1,10 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-<<<<<<< HEAD
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
-=======
 import java.util.ArrayList;
->>>>>>> Action
 
 public class GameEngine {
 
