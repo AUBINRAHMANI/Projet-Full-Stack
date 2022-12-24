@@ -1,6 +1,10 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+<<<<<<< HEAD
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
+=======
+import java.util.ArrayList;
+>>>>>>> Action
 
 public class GameEngine {
 
@@ -26,7 +30,6 @@ public class GameEngine {
 
     public boolean askToPutPlot( Plot plot ){
         return  map_.putPlot(plot);
-
     }
 
     public Map getMap(){
@@ -37,29 +40,16 @@ public class GameEngine {
         return map_.haveNeighbours(position);
     }
 
-    public boolean isObjectivePlotCompleted(ObjectivePlots objectivePlots, BotProfil botProfil){
-        if(positionPlacedDuringRound_ != null) {
-            if (haveNeighbours(positionPlacedDuringRound_)) return true;
-        }
-        return false;
-    }
-    /*
-    public boolean isObjectiveGardenerCompleted(ObjectiveGardener objectiveGardener, BotProfil botProfil){
-        Position gardenerPosition = getGardenerPosition();
-        Plot gardenerPlot = getMap().getPlot(gardenerPosition);
-        ArrayList<Bambou> bambouSections = gardenerPlot.getBambouSections();
-        if(bambouSections.size() == objectiveGardener.getNbBambouSections()){
-            return true;
-        }
+    public boolean moveGardener(Position position){
         return false;
     }
 
-
-
-    public boolean isObjectivePandaCompleted(ObjectivePanda objectivePanda, BotProfil botProfil){
+    public boolean movePanda(Position position){
         return false;
     }
 
-     */
+    public boolean computeObjectivePlot(ArrayList<Plot> configuration){
+        return false;
+    }
 
 }

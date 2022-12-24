@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.Action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
@@ -38,13 +39,15 @@ public class Game {
     }
 
     public void start(){
+        Action action;
         do {
             botProfils_.get(0).addObjective(gameEngine_.pickObjective());
             for(BotProfil botProfil : botProfils_){
                 currentPlayer = botProfil;
                 while (_mapInterface.next()==false);
-                botProfil.getBot_().play(this, gameEngine_.getMap());
-                computeCompletedObjective(botProfil.getBot_());
+                action = botProfil.getBot_().play(this, gameEngine_.getMap());
+                action.play(gameEngine_);
+                action.verifyObjectiveAfterAction(this);
             }
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
@@ -98,17 +101,38 @@ public class Game {
         return gameEngine_.pickPlot();
     }
 
-    public void computeCompletedObjective(Bot bot){
-        for(BotProfil botProfil : botProfils_){
-            if(botProfil.getBot_() == bot && botProfil.getObjectives_().size()>0){
-                ArrayList<Objective> objectivesCopy = (ArrayList<Objective>) botProfil.getObjectives_().clone();
-                for(Objective objective : objectivesCopy){
-                    objective.isCompleted(gameEngine_, botProfil);
+    public boolean computeObjectivesPlot(){
+        for(BotProfil botProfil : botProfils_ ){
+            for(Objective objective : botProfil.getObjectives_()){
+                if(!objective.verifyPlotObj(gameEngine_)){
+                    return false;
                 }
             }
         }
+        return true;
     }
 
+    public boolean computeObjectivesGardener(){
+        for(BotProfil botProfil : botProfils_ ){
+            for(Objective objective : botProfil.getObjectives_()){
+                if(!objective.verifyGardenerObj(gameEngine_)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean computeObjectivesPanda(){
+        for(BotProfil botProfil : botProfils_ ){
+            for(Objective objective : botProfil.getObjectives_()){
+                if(!objective.verifyPandaObj(gameEngine_)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     public BotProfil checkWinner(){
         BotProfil winner = botProfils_.get(0);
         for(BotProfil botProfil : botProfils_){
