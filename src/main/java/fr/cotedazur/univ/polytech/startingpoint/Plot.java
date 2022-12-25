@@ -4,6 +4,8 @@ public class Plot {
 
     private PlotType _plotType;
     private Position _position;
+
+    private boolean isIrrigated = false;
     public Plot(PlotType plotType){
         _plotType = plotType;
         _position = null;
