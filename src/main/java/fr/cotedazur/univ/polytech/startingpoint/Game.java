@@ -63,8 +63,8 @@ public class Game {
 
     public Deck<Objective> generateObjectiveDrawPile(){
         Deck<Objective> objectiveDeck = new Deck<>();
-        objectiveDeck.addCard(new ObjectivePlots(1, 2));
-        objectiveDeck.addCard(new ObjectivePlots(1, 2));
+        objectiveDeck.addCard(new ObjectivePlots(1, null));
+        objectiveDeck.addCard(new ObjectivePlots(1, null));
         objectiveDeck.shuffle();
         return objectiveDeck;
     }

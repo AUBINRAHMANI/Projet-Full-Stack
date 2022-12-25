@@ -1,7 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.Action.Action;
-import fr.cotedazur.univ.polytech.startingpoint.Action.PutPlotAction;
+import fr.cotedazur.univ.polytech.startingpoint.Action.*;
+import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
 

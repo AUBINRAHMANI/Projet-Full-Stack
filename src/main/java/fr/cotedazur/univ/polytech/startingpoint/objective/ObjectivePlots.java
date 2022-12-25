@@ -2,20 +2,31 @@ package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 
+import java.util.ArrayList;
+
 
 public class ObjectivePlots extends Objective{
-    private int _nbPlotsAdjacents;
-    public ObjectivePlots(int point, int nbPlotsAdjacents) {
-        super(point);
-        _nbPlotsAdjacents = nbPlotsAdjacents;
-    }
 
-    public int getNbPlotsAdjacents(){
-            return this._nbPlotsAdjacents;
+    ArrayList<Plot> _pattern;
+
+    public ObjectivePlots(int point, ArrayList<Plot> pattern) {
+        super(point);
+        _pattern = pattern;
+
     }
 
     @Override
-    public boolean isCompleted(GameEngine gameEngine, BotProfil botProfil){
-        return gameEngine.isObjectivePlotCompleted(this, botProfil);
+    public boolean verifyPlotObj(GameEngine gameEngine) {
+        return gameEngine.computeObjectivePlot(_pattern);
+    }
+
+    @Override
+    public boolean verifyGardenerObj(GameEngine gameEngine) {
+        return false;
+    }
+
+    @Override
+    public boolean verifyPandaObj(GameEngine gameEngine) {
+        return false;
     }
 }

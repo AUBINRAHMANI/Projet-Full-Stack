@@ -67,4 +67,18 @@ public class GameEngine {
     public boolean movePanda(Position position){
         return false;
     }
+
+
+    public boolean computeObjectivePlot(ArrayList<Plot> pattern){
+        return false;
+    }
+    public boolean computeObjectiveGardener(ArrayList<Plot> bambouPlots, boolean improvement){
+        return false;
+    }
+    /*
+    public boolean computeObjectivePanda(ArrayList<Bambou> bambous){
+        return false;
+    }
+
+     */
 }
