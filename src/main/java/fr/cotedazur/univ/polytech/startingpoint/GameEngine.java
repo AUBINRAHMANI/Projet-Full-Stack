@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
+import fr.cotedazur.univ.polytech.startingpoint.Action.*;
 
 public class GameEngine {
 
@@ -16,7 +17,7 @@ public class GameEngine {
         map_                        = map;
     }
 
-    public Objective pickObjective() {
+    public fr.cotedazur.univ.polytech.startingpoint.objective.Objective pickObjective() {
         return objectiveDeck_.getNextCard();
     }
 
@@ -26,7 +27,6 @@ public class GameEngine {
 
     public boolean askToPutPlot( Plot plot ){
         return  map_.putPlot(plot);
-
     }
 
     public Map getMap(){
@@ -37,13 +37,11 @@ public class GameEngine {
         return map_.haveNeighbours(position);
     }
 
-    public boolean isObjectivePlotCompleted(ObjectivePlots objectivePlots, BotProfil botProfil){
-        if(positionPlacedDuringRound_ != null) {
-            if (haveNeighbours(positionPlacedDuringRound_)) return true;
-        }
+    /*
+    public boolean computeObjectivePlot(ArrayList<Plot> configuration){
         return false;
     }
-    /*
+
     public boolean isObjectiveGardenerCompleted(ObjectiveGardener objectiveGardener, BotProfil botProfil){
         Position gardenerPosition = getGardenerPosition();
         Plot gardenerPlot = getMap().getPlot(gardenerPosition);
@@ -61,5 +59,11 @@ public class GameEngine {
     }
 
      */
+    public boolean moveGardener(Position position){
+        return false;
+    }
 
+    public boolean movePanda(Position position){
+        return false;
+    }
 }
