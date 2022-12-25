@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Bot {
 
     private Map map= null;
-    private Action[] actions = new Action[2];
 
     public Bot() {
     }
@@ -30,10 +29,6 @@ public class Bot {
             }
         }
         return false;
-    }
-
-    public Action[] chooseActions() {
-        return actions;
     }
 
 }

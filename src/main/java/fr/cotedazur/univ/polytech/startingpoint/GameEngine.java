@@ -33,8 +33,4 @@ public class GameEngine {
     public boolean haveNeighbours( Position position){
         return map_.haveNeighbours(position);
     }
-
-    public void move(Position position) {
-        this.position = position;
-    }
 }

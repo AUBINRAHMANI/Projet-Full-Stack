@@ -2,20 +2,17 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public class Gardener {
     private Position position;
-    private Map map;
 
     public Gardener() {
         position = new Position(0, 0);
     }
 
-    public void move(Position position) {
-        this.position = position;
-    }
-
     public boolean isIrrigated(){
+        return false;
     }
 
     public boolean bambouIsPresent(){
+        return false;
     }
 
     public void addBambou(){
