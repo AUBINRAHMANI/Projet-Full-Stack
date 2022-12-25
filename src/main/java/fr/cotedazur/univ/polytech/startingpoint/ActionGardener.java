@@ -11,20 +11,5 @@ public class ActionGardener extends Action {
     }
 
     public Position getNewPosition(Position position) {
-        switch (direction) {
-            case NORTH_EAST:
-                return new Position(position.getX_() + nbStep, position.getY_() + nbStep);
-            case NORTH_WEST:
-                return new Position(position.getX_() - nbStep, position.getY_() + nbStep);
-            case SOUTH_EAST:
-                return new Position(position.getX_() + nbStep, position.getY_() - nbStep);
-            case SOUTH_WEST:
-                return new Position(position.getX_() - nbStep, position.getY_() - nbStep);
-            case EAST:
-                return new Position(position.getX_() + nbStep, position.getY_());
-            case WEST:
-                return new Position(position.getX_() - nbStep, position.getY_());
-        }
-        return position;
-    }
+
 }
