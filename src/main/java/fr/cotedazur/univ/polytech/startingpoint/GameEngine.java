@@ -33,4 +33,11 @@ public class GameEngine {
     public boolean haveNeighbours( Position position){
         return map_.haveNeighbours(position);
     }
+
+    public boolean moveGardener(Position position){
+        if(map_.isSpaceFree(position)){
+            return false;
+        }
+
+    }
 }
