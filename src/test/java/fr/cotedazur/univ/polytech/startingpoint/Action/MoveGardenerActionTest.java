@@ -13,7 +13,8 @@ class MoveGardenerActionTest {
     @Test
     void play() {
         Position position = new Position(2,1);
-        when(mockedGameEngine.moveGardener(position)).thenReturn(true);
+        Gardener gardener = new Gardener();
+        when(mockedGameEngine.moveGardener(gardener, position)).thenReturn(true);
 
         MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
         assertTrue(moveGardenerAction.play(mockedGameEngine));

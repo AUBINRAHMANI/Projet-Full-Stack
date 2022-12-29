@@ -21,6 +21,11 @@ public class Map {
     public boolean putPlot(Plot plot) {
         if (isSpaceFree(plot.getPosition()) == true) {
             map_.add(plot);
+            for(Position position : plot.getPosition().closestPositions()){
+                if(position.equals(new Position(0,0))){
+                    plot.isIrrigatedIsTrue();
+                }
+            }
             if(_mapInterface != null){
                 _mapInterface.drawHexagon(new Position(plot.getPosition()));
             }
@@ -31,10 +36,6 @@ public class Map {
 
     public ArrayList<Plot> getMap() {
         return new ArrayList<>(map_);
-    }
-
-    public boolean isIrrigated(Plot p) {
-        return false;
     }
 
     boolean isSpaceFree(Position position) {

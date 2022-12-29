@@ -7,15 +7,19 @@ public class Gardener {
         position = new Position(0, 0);
     }
 
-    public boolean isIrrigated(){
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public boolean nbOfBambou(){
         return false;
     }
 
-    public boolean bambouIsPresent(){
-        return false;
-    }
+    public void addBambou(Plot p){
+        if(p.isIrrigated()){
+            p.addBambou();
+        }
 
-    public void addBambou(){
     }
 
     public boolean sameSidePlotExist(){

@@ -38,12 +38,14 @@ public class GameEngine {
         return map_.haveNeighbours(position);
     }
 
-    public boolean moveGardener(Position position){
+    public boolean moveGardener(Gardener gardener, Position position){
         if(map_.isSpaceFree(position)){
             return false;
         }
-        return true;
-
+        else{
+            gardener.setPosition(position);
+            return true;
+        }
     }
     /*
     public boolean computeObjectivePlot(ArrayList<Plot> configuration){
@@ -65,9 +67,7 @@ public class GameEngine {
     public boolean isObjectivePandaCompleted(ObjectivePanda objectivePanda, BotProfil botProfil){
         return false;
     }
-
-     */
-
+    */
     public boolean movePanda(Position position){
         return false;
     }
@@ -83,6 +83,5 @@ public class GameEngine {
     public boolean computeObjectivePanda(ArrayList<Bambou> bambous){
         return false;
     }
-
-     */
+    */
 }

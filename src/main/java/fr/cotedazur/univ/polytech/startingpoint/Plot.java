@@ -24,5 +24,12 @@ public class Plot {
     public Position getPosition() {
         return _position;
     }
+
+    public void isIrrigatedIsTrue() {
+        isIrrigated = true;
+    }
+    public boolean isIrrigated(){
+        return isIrrigated;
+    }
 }
 
