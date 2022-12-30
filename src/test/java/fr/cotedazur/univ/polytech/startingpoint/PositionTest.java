@@ -24,12 +24,12 @@ class PositionTest {
     @Test
     void closestPosition() {
         ArrayList<Position> expected = new ArrayList<>();
+        expected.add(new Position(2,2));
         expected.add(new Position(2,3));
-        expected.add(new Position(2,4));
         expected.add(new Position(3,2));
         expected.add(new Position(3,4));
+        expected.add(new Position(4,2));
         expected.add(new Position(4,3));
-        expected.add(new Position(4,4));
 
         Position position = new Position(3,3);
         assertTrue(expected.equals(position.closestPositions()));

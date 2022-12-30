@@ -1,6 +1,10 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameEngineTest {
@@ -9,7 +13,7 @@ public class GameEngineTest {
     @Test
     void pickObjectiveTest() {
         Deck<Objective> deck = new Deck<>();
-        Objective objective = new Objective(5, ObjectiveType.PLOT);
+        Objective objective = new ObjectivePlots(5, null);
         deck.addCard(objective);
         GameEngine gameEngine = new GameEngine(deck, null, null);
 
@@ -31,4 +35,15 @@ public class GameEngineTest {
         GameEngine gameEngine = new GameEngine(null, null, map);
         assertEquals(map, gameEngine.getMap());
     }
+/*
+    @Test
+    void computeObjectivePlotTest(ArrayList<Plot> pattern){
+    }
+
+    @Test
+    void computeObjectiveGardenerTest(ArrayList<Plot> bambouPlots, boolean improvement){
+
+    }
+
+ */
 }
