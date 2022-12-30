@@ -1,19 +1,23 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import java.util.ArrayList;
+
 public class Plot {
 
     private PlotType _plotType;
     private Position _position;
-    private int bambou;
+    //private int bambou;
+    private ArrayList<Bambou> listeBambou;
+    private Bambou bambou;
     public Plot(PlotType plotType){
         _plotType = plotType;
         _position = null;
-        bambou=0;
+        listeBambou = new ArrayList<>();
     }
     public Plot(PlotType plotType, Position position){
         _plotType = plotType;
         _position = position;
-        bambou =0;
+        listeBambou = new ArrayList<>();
     }
 
     public void setPosition(Position _position) {
@@ -26,17 +30,22 @@ public class Plot {
         return _position;
     }
 
-    public int getNumberOfBambou(){return this.bambou;}
-    public void growBambou() {
-        if (this.bambou < 4) {
-            this.bambou = bambou + 1;
-        }
+    public int getNumberOfBambou(){
+        return this.listeBambou.size();
     }
-    public int eatBambou(){
-        if(this.bambou>0){
-            return this.bambou= bambou-1;
+    public boolean growBambou() {
+        if (this.listeBambou.size()<4) {
+            this.listeBambou.add(bambou);
+            return true ;
         }
-        return 0;
+        return false;
+    }
+    public boolean eatBambou(){
+        if (this.listeBambou.size()>0){
+            this.listeBambou.remove(bambou);
+            return true;
+        }
+        return false;
     }
 
 }
