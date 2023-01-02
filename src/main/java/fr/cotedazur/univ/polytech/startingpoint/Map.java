@@ -58,11 +58,9 @@ public class Map {
         for (Position potentialPosition : position.closestPositions()) {
             if(isSpaceFree(potentialPosition))
             {
-                System.out.println(potentialPosition);
                 positionsAvailable.add(potentialPosition);
             }
         }
-        System.out.println("");
         return positionsAvailable;
     }
 
