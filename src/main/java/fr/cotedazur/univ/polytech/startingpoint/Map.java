@@ -37,7 +37,7 @@ public class Map {
         return false;
     }
 
-    public boolean isSpaceFree(Position position) {
+    private boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))
             {
@@ -45,6 +45,11 @@ public class Map {
             }
         }
         return true;
+    }
+
+    public boolean isPossibleToPutPlot(Position position) {
+        if(closestAvailableSpace(position).size() >4) return false;
+        return isSpaceFree(position);
     }
 
 

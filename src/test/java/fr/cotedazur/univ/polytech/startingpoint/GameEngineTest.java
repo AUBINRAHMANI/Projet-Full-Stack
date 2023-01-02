@@ -36,6 +36,7 @@ public class GameEngineTest {
         assertEquals(map, gameEngine.getMap());
     }
 
+/*
     @Test
     void computeObjectivePlotTest(ArrayList<Plot> pattern){
     }
@@ -44,4 +45,5 @@ public class GameEngineTest {
     void computeObjectiveGardenerTest(ArrayList<Plot> bambouPlots, boolean improvement){
 
     }
+ */
 }

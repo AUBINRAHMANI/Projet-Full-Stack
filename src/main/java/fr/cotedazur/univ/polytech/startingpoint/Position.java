@@ -30,7 +30,7 @@ public class Position {
         ArrayList<Position> closestPositions = new ArrayList<>();
         for(int i=-1; i<=1; ++i){
             for(int j=-1; j<=1 ; ++j){
-                if(!(i==1 && j==-1) && !(i==0 && j==0) && !(i==-1 && j==-1)){
+                if(!(i==-1 && j==1) && !(i==0 && j==0) && !(i==+1 && j==+1)){
                     closestPositions.add(new Position(x_+i, y_+j));
                 }
             }

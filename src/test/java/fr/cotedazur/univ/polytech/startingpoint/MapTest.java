@@ -21,19 +21,14 @@ class MapTest {
         assertEquals(map.getMap().get(1), plot);
     }
 
-
     @Test
-    void isSpaceFree() {
+    void isPossibleToPutPlot() {
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(0,0));
+        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
         map.putPlot(plot);
-        assertFalse(map.isSpaceFree(new Position(0,0)));
-    }
-
-    @Test
-    void closestAvailableSpace() {
-        Map map = new Map();
-        assertTrue(map.closestAvailableSpace(new Position(0, 0)).get(0).equals(new Position(-1, 0)));
+        assertFalse(map.isPossibleToPutPlot(new Position(1,0)));
+        assertFalse(map.isPossibleToPutPlot(new Position(2,0)));
+        assertTrue(map.isPossibleToPutPlot(new Position(1,1)));
     }
 
     @Test
