@@ -54,8 +54,7 @@ public class MapInterface extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        _positionsToAdd.add(new Position(0, 0));
-        _colorsToAdd.add(new Color(0, 115,255, 163));
+        _colorsToAdd.add(new Color(0, 85, 189, 163));
         setVisible(true);
     }
 
@@ -114,13 +113,13 @@ public class MapInterface extends JFrame {
         }
 
         private Polygon getHexagon(Position position) {
-            int y   = (int) (position.getY_()*(HEXAGONE_SIZE/(1.33)) + _center.getY_());
+            int y = (int) (position.getY()*(HEXAGONE_SIZE/(1.33)) + _center.getY());
             int x;
-            if(position.getY_()%2 >0){
-                x = (int) ((position.getX_()+0.5)*HEXAGONE_SIZE + _center.getX_());
+            if(position.getY()%2 >0){
+                x = (int) ((position.getX()+0.5)*HEXAGONE_SIZE + _center.getX());
             }
             else {
-                x = position.getX_()*HEXAGONE_SIZE + _center.getX_() ;
+                x = position.getX()*HEXAGONE_SIZE + _center.getX() ;
             }
             int xPoints[] = {x, x+HEXAGONE_SIZE/2, x+HEXAGONE_SIZE/2, x, x-HEXAGONE_SIZE/2, x-HEXAGONE_SIZE/2};
             int yPoints[] = {y+HEXAGONE_SIZE/2, y+HEXAGONE_SIZE/4, y-HEXAGONE_SIZE/4, y-HEXAGONE_SIZE/2, y-HEXAGONE_SIZE/4, y+HEXAGONE_SIZE/4};

@@ -15,14 +15,14 @@ public class Map {
     public Map(MapInterface mapInterface){
         _mapInterface = mapInterface;
         map_ = new ArrayList<>();
-        putPlot(new Plot(PlotType.POND, new Position(0,0)));
+        putPlot(new Plot(PlotType.POND, new Position(0,0,0)));
     }
 
     public boolean putPlot(Plot plot) {
         if (isSpaceFree(plot.getPosition()) == true) {
             map_.add(plot);
             if(_mapInterface != null){
-                _mapInterface.drawHexagon(new Position(plot.getPosition()));
+                _mapInterface.drawHexagon(plot.getPosition());
             }
             return true;
         }
@@ -73,6 +73,14 @@ public class Map {
             }
         }
         return false;
+    }
+
+    public void rotatePattern(ArrayList<Plot> pattern){
+        for(Plot plot : pattern){
+            Position plotPosition = plot.getPosition();
+            plotPosition.rotate60Right();
+            plot.setPosition(plotPosition);
+        }
     }
 }
 
