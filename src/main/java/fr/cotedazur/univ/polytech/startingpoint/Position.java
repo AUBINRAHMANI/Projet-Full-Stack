@@ -32,6 +32,8 @@ public class Position {
         return r;
     }
     private int getR(int x, int y){
+        System.out.println(x);
+        System.out.println(y);
         return y - (x + (x&1))/ 2;
     }
 
@@ -80,6 +82,19 @@ public class Position {
         s           = getS(getX(), getY()-1);
         r           = rTemp;
     }
+    public void translateRight() {
+        int rTemp   = getR(getX()+1, getY()+1-(getX()&1));
+        s           = getS(getX()+1, getY()+1-(getX()&1));
+        r           = rTemp;
+        ++q;
+    }
+    public void translateLeft() {
+        int rTemp   = getR(getX()-1, getY()+1-(getX()&1));
+        s           = getS(getX()-1, getY()+1-(getX()&1));
+        r           = rTemp;
+        --q;
+    }
+
 
     Position plus(Position position){
         return new Position( q+position.q , r+position.r , s+position.s );
