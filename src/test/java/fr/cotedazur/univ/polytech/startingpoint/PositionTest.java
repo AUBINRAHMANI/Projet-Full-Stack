@@ -75,4 +75,33 @@ class PositionTest {
         assertEquals(-3, position.getR());
         assertEquals(1, position.getS());
     }
+
+    @Test
+    void translateUP() {
+        Position position1 = new Position(2,3);
+        Position position2 = new Position(2,4);
+        Position position3 = new Position(2,5);
+        position1.translateUP();
+        assertEquals(position2, position1);
+        position1.translateUP();
+        assertEquals(position3, position1);
+    }
+    @Test
+    void translateDown() {
+        Position position1 = new Position(2,3);
+        Position position2 = new Position(2,4);
+        Position position3 = new Position(2,5);
+        position3.translateDown();
+        assertEquals(position2, position3);
+        position3.translateDown();
+        assertEquals(position1, position3);
+    }
+    @Test
+    void plus(){
+        Position position1 = new Position(-1,0);
+        Position position2 = new Position(3,3);
+        Position position3 = new Position(3, 2);
+        assertEquals(new Position(2,2), position1.plus(position2) );
+        assertEquals(new Position(2,1), position1.plus(position3) );
+    }
 }

@@ -15,7 +15,6 @@ public class Position {
         this.r = r;
         this.s = s;
     }
-
     public Position(int x, int y){
         q = x;
         r = y - (x + (x&1)) / 2;
@@ -25,19 +24,27 @@ public class Position {
     public int getQ() {
         return q;
     }
+    private int getQ(int x, int y){
+        return x;
+    }
 
     public int getR() {
         return r;
+    }
+    private int getR(int x, int y){
+        return y - (x + (x&1))/ 2;
     }
 
     public int getS() {
         return s;
     }
+    private int getS(int x, int y){
+        return -getQ(x, y)-getR(x, y);
+    }
 
     public int getX() {
         return q;
     }
-
     public int getY() {
         return (r + (q + (q&1)) / 2);
     }
@@ -62,6 +69,20 @@ public class Position {
         q = s;
         r = qtemp;
         s = rtemp;
+    }
+    public void translateUP() {
+        int rTemp   = getR(getX(), getY()+1);
+        s           = getS(getX(), getY()+1);
+        r           = rTemp;
+    }
+    public void translateDown() {
+        int rTemp   = getR(getX(), getY()-1);
+        s           = getS(getX(), getY()-1);
+        r           = rTemp;
+    }
+
+    Position plus(Position position){
+        return new Position( q+position.q , r+position.r , s+position.s );
     }
 
     @Override
