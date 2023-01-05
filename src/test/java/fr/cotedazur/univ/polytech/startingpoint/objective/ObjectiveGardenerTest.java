@@ -15,7 +15,7 @@ class ObjectiveGardenerTest {
 
     @Test
     void verifyPlotObj() {
-        assertFalse(new ObjectiveGardener(0, null ,false).verifyPlotObj(null));
+        assertFalse(new ObjectiveGardener(0, null ,false).verifyPlotObj(null, null));
     }
 
     @Mock GameEngine mockedGameEngine = mock(GameEngine.class);

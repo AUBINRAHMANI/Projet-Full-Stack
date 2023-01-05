@@ -63,8 +63,8 @@ public class Game {
 
     public Deck<Objective> generateObjectiveDrawPile(){
         Deck<Objective> objectiveDeck = new Deck<>();
-        objectiveDeck.addCard(new ObjectivePlots(1, null));
-        objectiveDeck.addCard(new ObjectivePlots(1, null));
+        objectiveDeck.addCard(new ObjectivePlots(1, (Pattern) null));
+        objectiveDeck.addCard(new ObjectivePlots(1, (Pattern) null));
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
@@ -101,10 +101,10 @@ public class Game {
         return gameEngine_.pickPlot();
     }
 
-    public boolean computeObjectivesPlot(){
+    public boolean computeObjectivesPlot(Plot lastPlacedPlot){
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
-                if(!objective.verifyPlotObj(gameEngine_)){
+                if(!objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
                     return false;
                 }
             }

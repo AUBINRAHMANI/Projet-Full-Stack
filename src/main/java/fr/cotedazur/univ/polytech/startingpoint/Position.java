@@ -20,6 +20,11 @@ public class Position {
         r = y - (x + (x&1)) / 2;
         s = -r-q;
     }
+    public Position(Position position){
+        q = position.q;
+        r = position.r;
+        s = position.s;
+    }
 
     public int getQ() {
         return q;
@@ -32,8 +37,6 @@ public class Position {
         return r;
     }
     private int getR(int x, int y){
-        System.out.println(x);
-        System.out.println(y);
         return y - (x + (x&1))/ 2;
     }
 
@@ -100,6 +103,10 @@ public class Position {
         return new Position( q+position.q , r+position.r , s+position.s );
     }
 
+    boolean isCenter(){
+        return (q==0 && r==0 && s==0);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,9 +123,8 @@ public class Position {
     @Override
     public String toString() {
         return "Position{" +
-                "q=" + q +
-                ", r=" + r +
-                ", s=" + s +
+                "x=" + getX() +
+                ", y=" + getY() +
                 '}';
     }
 }

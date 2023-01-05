@@ -16,7 +16,7 @@ public class ObjectiveGardener extends Objective{
     }
 
     @Override
-    public boolean verifyPlotObj(GameEngine gameEngine) {
+    public boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot) {
         return false;
     }
 

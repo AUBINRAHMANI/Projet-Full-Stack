@@ -7,17 +7,22 @@ import java.util.ArrayList;
 
 public class ObjectivePlots extends Objective{
 
-    ArrayList<Plot> _pattern;
+    Pattern pattern;
 
-    public ObjectivePlots(int point, ArrayList<Plot> pattern) {
+    public ObjectivePlots(int point, ArrayList<Plot> plots) {
         super(point);
-        _pattern = pattern;
+        pattern = new Pattern(plots);
+
+    }
+    public ObjectivePlots(int point, Pattern pattern) {
+        super(point);
+        this.pattern = pattern;
 
     }
 
     @Override
-    public boolean verifyPlotObj(GameEngine gameEngine) {
-        return gameEngine.computeObjectivePlot(_pattern);
+    public boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot) {
+        return gameEngine.computeObjectivePlot(pattern, lastPlacedPlot);
     }
 
     @Override

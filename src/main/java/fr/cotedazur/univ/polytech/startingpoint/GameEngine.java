@@ -69,8 +69,39 @@ public class GameEngine {
     }
 
 
-    public boolean computeObjectivePlot(ArrayList<Plot> pattern){
+    public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot){
+        int area_size = pattern.size();
+        Position lastPlacedPosition = lastPLacedPlot.getPosition();
+        for (int i=0; i<area_size/2 ; ++i){
+            pattern.translateRight();
+        }
+        for (int i=0; i<area_size/4 ; ++i){
+            pattern.translateUp();
+        }
+
+        for (int i=0; i<area_size ; ++i){
+            for (int j=0; j<6 ; ++j){
+                for (int k=0 ; k<area_size ; ++k){
+                    Pattern tempPattern = new Pattern(pattern);
+                    tempPattern.applyMask(lastPlacedPosition);
+                    System.out.println(tempPattern);
+                    if(computePatternVerification(tempPattern))return true;
+                    pattern.translateDown();
+                }
+                for (int k=0 ; k<area_size ; ++k){
+                    pattern.translateUp();
+                }
+                pattern.rotate60Right();
+            }
+            pattern.translateLeft();
+        }
         return false;
+    }
+    private boolean computePatternVerification(Pattern pattern){
+        for(Plot plot : pattern.getPlots()){
+            if(map_.isSpaceFree(plot.getPosition()) || plot.getPosition().isCenter())return false;
+        }
+        return true;
     }
     public boolean computeObjectiveGardener(ArrayList<Plot> bambouPlots, boolean improvement){
         return false;

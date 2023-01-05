@@ -14,6 +14,6 @@ public class PutPlotAction implements Action{
     }
 
     public boolean verifyObjectiveAfterAction(Game game){
-        return game.computeObjectivesPlot();
+        return game.computeObjectivesPlot(_plot);
     }
 }

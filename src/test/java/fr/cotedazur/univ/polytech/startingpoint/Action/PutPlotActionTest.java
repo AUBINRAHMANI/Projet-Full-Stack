@@ -25,7 +25,7 @@ class PutPlotActionTest {
     Game mockedGame = mock(Game.class);
     @Test
     void verifyObjectiveAfterAction() {
-        when(mockedGame.computeObjectivesPlot()).thenReturn(true);
+        when(mockedGame.computeObjectivesPlot(null)).thenReturn(true);
         PutPlotAction putPlotAction = new PutPlotAction(null);
         assertTrue(putPlotAction.verifyObjectiveAfterAction(mockedGame));
     }
