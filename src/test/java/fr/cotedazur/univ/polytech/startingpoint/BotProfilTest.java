@@ -3,6 +3,8 @@ package fr.cotedazur.univ.polytech.startingpoint;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BotProfilTest {
@@ -43,5 +45,26 @@ class BotProfilTest {
         botProfil.addObjective(objective);
         botProfil.setObjectiveCompleted(objective);
         assertEquals(1, botProfil.getNbCompletedObjective_());
+    }
+    @Test
+    public void addBanbou(){
+        BotProfil botProfil = new BotProfil(new Bot());
+        Bambou bambou = new Bambou(PlotType.GREEN);
+        botProfil.addBanbou(bambou);
+        assertEquals(bambou , botProfil.getBambous().get(0));
+
+    }
+
+    @Test
+    public void removeBambous(){
+        BotProfil botProfil = new BotProfil(new Bot());
+        Bambou bambou = new Bambou(PlotType.GREEN);
+        botProfil.addBanbou(bambou);
+
+        ArrayList<Bambou> bambousToRemove =  new ArrayList<>();
+        bambousToRemove.add(bambou);
+
+        botProfil.removeBambous(bambousToRemove);
+        assertEquals(0 , botProfil.getBambous().size());
     }
 }
