@@ -21,6 +21,11 @@ public class Map {
     public boolean putPlot(Plot plot) {
         if (isSpaceFree(plot.getPosition()) == true) {
             map_.add(plot);
+            for(Position position : plot.getPosition().closestPositions()){
+                if(position.equals(new Position(0,0))){
+                    plot.isIrrigatedIsTrue();
+                }
+            }
             if(_mapInterface != null){
                 _mapInterface.drawHexagon(plot.getPosition());
             }
@@ -33,11 +38,7 @@ public class Map {
         return new ArrayList<>(map_);
     }
 
-    public boolean isIrrigated(Plot p) {
-        return false;
-    }
-
-    private boolean isSpaceFree(Position position) {
+    boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))
             {
@@ -80,6 +81,14 @@ public class Map {
             Position plotPosition = plot.getPosition();
             plotPosition.rotate60Right();
             plot.setPosition(plotPosition);
+        }
+    }
+
+    public void growBambou(Position position) {
+        for(Plot plot : map_){
+            if(plot.getPosition().equals(position)) {
+                plot.growBambou();
+            }
         }
     }
 }

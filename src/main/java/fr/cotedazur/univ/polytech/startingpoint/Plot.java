@@ -7,12 +7,19 @@ public class Plot {
 
     private PlotType _plotType;
     private Position _position;
+    private boolean isIrrigated = false;
     //private int bambou;
     private ArrayList<Bambou> listeBambou;
     private Bambou bambou;
 
 
-    public Plot(PlotType plotType, Position position){
+    public Plot(PlotType plotType) {
+        _plotType = plotType;
+        _position = null;
+        listeBambou = new ArrayList<>();
+    }
+
+    public Plot(PlotType plotType, Position position) {
         _plotType = plotType;
         _position = position;
         listeBambou = new ArrayList<>();
@@ -21,25 +28,35 @@ public class Plot {
     public void setPosition(Position _position) {
         this._position = _position;
     }
+
     public PlotType getType() {
         return _plotType;
     }
+
     public Position getPosition() {
         return _position;
     }
 
-    public int getNumberOfBambou(){
+    public void isIrrigatedIsTrue() {
+        isIrrigated = true;
+    }
+
+    public boolean isIrrigated() {
+        return isIrrigated;
+    }
+
+    public int getNumberOfBambou () {
         return this.listeBambou.size();
     }
-    public boolean growBambou() {
-        if (this.listeBambou.size()<4) {
+    public boolean growBambou () {
+        if (this.isIrrigated() && this.listeBambou.size() < 4) {
             this.listeBambou.add(bambou);
-            return true ;
+            return true;
         }
         return false;
     }
-    public boolean eatBambou(){
-        if (this.listeBambou.size()>0){
+    public boolean eatBambou () {
+        if (this.listeBambou.size() > 0) {
             this.listeBambou.remove(bambou);
             return true;
         }
@@ -47,7 +64,7 @@ public class Plot {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals (Object o){
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plot plot = (Plot) o;
@@ -55,7 +72,7 @@ public class Plot {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode () {
         return Objects.hash(_plotType, _position, listeBambou, bambou);
     }
 }
