@@ -64,7 +64,7 @@ public class Map {
     }
 
     public boolean isPossibleToPutPlot(Position position) {
-        if(closestAvailableSpace(position).size() >4) return false;
+        if(closestAvailableSpace(position).size() >4 && position.isCloseToCenter() ==false && position.isCenter() ==false) return false;
         return isSpaceFree(position);
     }
 
@@ -82,8 +82,11 @@ public class Map {
 
     public boolean haveNeighbours(Position position) {
         for(Plot plot : map_){
-            for (Position positions : position.closestPositions()) {
-                if (plot.getPosition().equals(positions)){
+            for (Position positionIt : position.closestPositions()) {
+                if (plot.getPosition().equals(positionIt)){
+                    System.out.println(positionIt);
+                    System.out.println(plot.getPosition());
+                    System.out.println("");
                     return true;
                 }
             }

@@ -100,6 +100,8 @@ public class GameEngine {
     public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement){
         if(nbBambou> 3){
             Plot plot = map_.findPlot(gardener_.getPosition());
+            System.out.println(plot.getNumberOfBambou());
+            System.out.println(plot.getType());
             if(plot.getNumberOfBambou() == nbBambou && plot.getType() == bambouType){
                 return true;
             }
