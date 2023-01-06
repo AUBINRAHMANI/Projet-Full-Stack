@@ -36,8 +36,8 @@ public class GameEngine {
         return map_;
     }
 
-    public boolean haveNeighbours( Position position){
-        return map_.haveNeighbours(position);
+    public ArrayList<Plot> haveNeighbours(Plot plot){
+        return map_.getNeighbours(plot);
     }
 
     public Position getGardenerPosition(){
