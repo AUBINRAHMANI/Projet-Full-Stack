@@ -34,11 +34,22 @@ class MapTest {
     }
 
     @Test
-    void haveNeighbours() {
+    void getNeighbours() {
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(0,0));
-        map.putPlot(plot);
-        assertTrue(map.haveNeighbours(new Position(0,1)));
+        ArrayList<Plot> plots = new ArrayList<>();
+        Plot plot1 = new Plot(PlotType.POND, new Position(0,0));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(0,1));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(1,1));
+
+        plots.add(plot1);
+        plots.add(plot2);
+
+        map.putPlot(plot1);
+        map.putPlot(plot2);
+        map.putPlot(plot3);
+        System.out.println(plots);
+        System.out.println(map.getNeighbours(plot3));
+        assertTrue(map.getNeighbours(plot3).containsAll(plots));
     }
 
     @Test
@@ -59,9 +70,7 @@ class MapTest {
         map.rotatePattern(pattern);
         assertEquals(patternExpected, pattern);
 
-
-
-
-
     }
+
+
 }

@@ -40,4 +40,5 @@ public class PlotTest {
         plot.eatBambou();
         assertEquals(0,plot.getNumberOfBambou());
     }
+
 }

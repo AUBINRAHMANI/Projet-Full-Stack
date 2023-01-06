@@ -64,15 +64,16 @@ public class Map {
         return positionsAvailable;
     }
 
-    public boolean haveNeighbours(Position position) {
-        for(Plot plot : map_){
-            for (Position positions : position.closestPositions()) {
-                if (plot.getPosition().equals(positions)){
-                    return true;
+    public ArrayList<Plot> getNeighbours(Plot plot) {
+        ArrayList<Plot> plots = new ArrayList<>();
+        for(Plot mapPlot : map_){
+            for (Position position : plot.getPosition().closestPositions()) {
+                if (mapPlot.getPosition().equals(position)){
+                    plots.add(mapPlot);
                 }
             }
         }
-        return false;
+        return plots;
     }
 
     public void rotatePattern(ArrayList<Plot> pattern){

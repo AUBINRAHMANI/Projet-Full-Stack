@@ -46,6 +46,7 @@ public class Plot {
         return false;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,6 +58,14 @@ public class Plot {
     @Override
     public int hashCode() {
         return Objects.hash(_plotType, _position, listeBambou, bambou);
+    }
+
+    @Override
+    public String toString() {
+        return "Plot{" +
+                "_plotType=" + _plotType +
+                ", _position=" + _position +
+                '}';
     }
 }
 
