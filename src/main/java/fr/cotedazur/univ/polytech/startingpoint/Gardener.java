@@ -15,6 +15,7 @@ public class Gardener {
         return false;
     }
 
+
     public void addBambou(Plot p){
         if(p.isIrrigated()){
             p.addBambou();
