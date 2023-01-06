@@ -79,14 +79,6 @@ public class Game {
         return plotDeck;
     }
 
-    public boolean askToPutPLot(Plot plot){
-        if(gameEngine_.askToPutPlot(plot)){
-            currentPlayer.setPositionPlacedDuringRound_(plot.getPosition());
-            return true;
-        }
-        return false;
-    }
-
     public Objective pickObjective(Bot bot){
         Objective objective=  gameEngine_.pickObjective();
 
