@@ -117,6 +117,7 @@ public class GameEngineTest {
         gameEngine.eatBambou(position);
 
         assertEquals(1,plot.getNumberOfBambou());
+        a
 
     }
 
