@@ -19,7 +19,7 @@ public class Map {
     }
 
     public boolean putPlot(Plot plot) {
-        if (isSpaceFree(plot.getPosition()) == true) {
+        if (isPossibleToPutPlot(plot.getPosition()) == true) {
             map_.add(plot);
             for(Position position : plot.getPosition().closestPositions()){
                 if(position.equals(new Position(0,0))){

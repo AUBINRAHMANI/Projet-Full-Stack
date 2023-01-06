@@ -55,7 +55,6 @@ class PositionTest {
         assertEquals(6, position.closestPositions().size());
     }
 
-
     @Test
     void rotate60Right() {
         Position position = new Position( -2,3, -1);
@@ -125,5 +124,11 @@ class PositionTest {
         assertEquals(new Position(2,1), position1.plus(position3) );
     }
 
-
+    @Test
+    void isCloseToCenter(){
+        Position position1 = new Position(1,0);
+        Position position2 = new Position(3,4);
+        assertTrue(position1.isCloseToCenter());
+        assertFalse(position2.isCloseToCenter());
+    }
 }

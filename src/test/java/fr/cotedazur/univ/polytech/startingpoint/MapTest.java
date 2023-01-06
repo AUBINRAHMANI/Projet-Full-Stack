@@ -11,15 +11,19 @@ class MapTest {
     @Test
     void putPlot() {
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
-        assertTrue(map.putPlot(plot));
+        Plot plot1 = new Plot(PlotType.GREEN, new Position(1,0));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(2,1));
+        assertTrue(map.putPlot(plot1));
+        assertTrue(map.putPlot(plot2));
+        assertFalse(map.putPlot(plot3));
     }
 
     @Test
     void getMap() {
         Map map = new Map();
         Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
-        map.putPlot(plot);
+        System.out.println(map.putPlot(plot));
         assertEquals(map.getMap().get(1), plot);
     }
 
