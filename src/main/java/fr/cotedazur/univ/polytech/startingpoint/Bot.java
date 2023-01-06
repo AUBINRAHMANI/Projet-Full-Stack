@@ -1,5 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.Action.*;
+import fr.cotedazur.univ.polytech.startingpoint.objective.*;
+
 import java.util.ArrayList;
 
 public class Bot {
@@ -11,12 +14,13 @@ public class Bot {
     public Bot() {
     }
 
-    public void play(Game game, Map map) {
+    public Action play(Game game, Map map) {
        this.map=map;
        Plot plot = game.pickPlot(this);
        if(positionToSet(plot)) {
-           game.askToPutPLot(plot);
+           return new PutPlotAction(plot);
        }
+       return null;
     }
 
     private boolean positionToSet(Plot plot) {

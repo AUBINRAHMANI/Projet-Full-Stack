@@ -10,19 +10,19 @@ public class Map {
     private MapInterface _mapInterface;
 
     public Map() {
-        this((MapInterface) null);
+        this( null);
     }
     public Map(MapInterface mapInterface){
         _mapInterface = mapInterface;
         map_ = new ArrayList<>();
-        putPlot(new Plot(PlotType.POND, new Position(0,0)));
+        putPlot(new Plot(PlotType.POND, new Position(0,0,0)));
     }
 
     public boolean putPlot(Plot plot) {
         if (isSpaceFree(plot.getPosition()) == true) {
             map_.add(plot);
             if(_mapInterface != null){
-                _mapInterface.drawHexagon(new Position(plot.getPosition()));
+                _mapInterface.drawHexagon(plot.getPosition());
             }
             return true;
         }
@@ -37,7 +37,7 @@ public class Map {
         return false;
     }
 
-    public boolean isSpaceFree(Position position) {
+    private boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))
             {
@@ -45,6 +45,11 @@ public class Map {
             }
         }
         return true;
+    }
+
+    public boolean isPossibleToPutPlot(Position position) {
+        if(closestAvailableSpace(position).size() >4) return false;
+        return isSpaceFree(position);
     }
 
 
@@ -68,6 +73,14 @@ public class Map {
             }
         }
         return false;
+    }
+
+    public void rotatePattern(ArrayList<Plot> pattern){
+        for(Plot plot : pattern){
+            Position plotPosition = plot.getPosition();
+            plotPosition.rotate60Right();
+            plot.setPosition(plotPosition);
+        }
     }
 }
 

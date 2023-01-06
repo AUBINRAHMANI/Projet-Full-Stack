@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import java.util.ArrayList;
 
 public class BotProfil {
@@ -9,11 +10,22 @@ public class BotProfil {
     private int points_;
     private int nbCompletedObjective_;
 
+    private Position positionPlacedDuringRound_;
+
     public BotProfil(Bot bot){
         bot_ = bot;
         objectives_ = new ArrayList<>();
         points_ = 0;
         nbCompletedObjective_ = 0;
+        positionPlacedDuringRound_ = null;
+    }
+
+    public void setPositionPlacedDuringRound_(Position positionPlacedDuringRound_) {
+        this.positionPlacedDuringRound_ = positionPlacedDuringRound_;
+    }
+
+    public Position getPositionPlacedDuringRound_() {
+        return positionPlacedDuringRound_;
     }
 
     public Bot getBot_() {
