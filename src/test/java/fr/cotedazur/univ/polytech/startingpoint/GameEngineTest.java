@@ -98,4 +98,20 @@ public class GameEngineTest {
         assertEquals(1, plot.getNumberOfBambou());
 
     }
+
+    @Test
+    public void computeObjectiveGardener(){
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
+        for(int i=0; i<4; ++i)plot.growBambou();
+        map.putPlot(plot);
+        GameEngine gameEngine = new GameEngine(null, null, map);
+
+
+        assertTrue(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false));
+        assertFalse(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false));
+        assertTrue(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false));
+        assertFalse(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false));
+        assertFalse(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false));
+    }
 }

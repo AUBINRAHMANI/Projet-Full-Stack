@@ -57,27 +57,7 @@ public class GameEngine {
     public void growBambou(){
         map_.growBambou(gardener_.getPosition());
     }
-    /*
-    public boolean computeObjectivePlot(ArrayList<Plot> configuration){
-        return false;
-    }
 
-    public boolean isObjectiveGardenerCompleted(ObjectiveGardener objectiveGardener, BotProfil botProfil){
-        Position gardenerPosition = getGardenerPosition();
-        Plot gardenerPlot = getMap().getPlot(gardenerPosition);
-        ArrayList<Bambou> bambouSections = gardenerPlot.getBambouSections();
-        if(bambouSections.size() == objectiveGardener.getNbBambouSections()){
-            return true;
-        }
-        return false;
-    }
-
-
-
-    public boolean isObjectivePandaCompleted(ObjectivePanda objectivePanda, BotProfil botProfil){
-        return false;
-    }
-    */
     public boolean movePanda(Position position){
         return false;
     }
@@ -98,7 +78,6 @@ public class GameEngine {
                 for (int k=0 ; k<area_size ; ++k){
                     Pattern tempPattern = new Pattern(pattern);
                     tempPattern.applyMask(lastPlacedPosition);
-                    System.out.println(tempPattern);
                     if(computePatternVerification(tempPattern))return true;
                     pattern.translateDown();
                 }
@@ -117,14 +96,21 @@ public class GameEngine {
         }
         return true;
     }
-    public boolean computeObjectiveGardener(ArrayList<Plot> bambouPlots, boolean improvement){
+
+    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement){
+        if(nbBambou> 3){
+            Plot plot = map_.findPlot(gardener_.getPosition());
+            if(plot.getNumberOfBambou() == nbBambou && plot.getType() == bambouType){
+                return true;
+            }
+        }
+        else {
+
+        }
         return false;
     }
-    /*
+
     public boolean computeObjectivePanda(ArrayList<Bambou> bambous){
         return false;
     }
-<<<<<<< HEAD
-
-     */
 }

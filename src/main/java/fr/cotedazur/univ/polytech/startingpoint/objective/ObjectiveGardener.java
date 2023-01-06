@@ -2,17 +2,20 @@ package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class ObjectiveGardener extends Objective{
 
-    ArrayList<Plot> _bambouPlots;
-    boolean _improvement;
+    int nbBambou;
+    PlotType bambouType;
+    boolean improvement;
 
-    public ObjectiveGardener(int point, ArrayList<Plot> bambouPlots, boolean improvement) {
+    public ObjectiveGardener(int point, int nbBambou, PlotType bambouType , boolean improvement) {
         super(point);
-        _bambouPlots    = bambouPlots;
-        _improvement    = improvement;
+        this.nbBambou       = nbBambou;
+        this.bambouType     = bambouType;
+        this.improvement    = improvement;
     }
 
     @Override
@@ -22,7 +25,7 @@ public class ObjectiveGardener extends Objective{
 
     @Override
     public boolean verifyGardenerObj(GameEngine gameEngine) {
-        return gameEngine.computeObjectiveGardener(_bambouPlots, _improvement);
+        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, improvement);
     }
 
     @Override
