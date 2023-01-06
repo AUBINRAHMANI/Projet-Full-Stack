@@ -95,4 +95,29 @@ public class GameEngineTest {
         assertEquals(1, plot.getNumberOfBambou());
 
     }
+
+    @Test
+    public void eatBambou(){
+        Map map = new Map();
+        Position position = new Position(1,0);
+        Plot plot = new Plot(PlotType.GREEN,position);
+        Bambou bambou = new Bambou(PlotType.GREEN);
+        Bambou bambou1 = new Bambou(PlotType.GREEN);
+
+        plot.isIrrigatedIsTrue();
+
+
+        map.putPlot(plot);
+        GameEngine gameEngine = new GameEngine(null,null,map);
+
+        gameEngine.moveGardener(position);
+        gameEngine.growBambou();
+        gameEngine.growBambou();
+
+        gameEngine.eatBambou(position);
+
+        assertEquals(1,plot.getNumberOfBambou());
+
+    }
+
 }

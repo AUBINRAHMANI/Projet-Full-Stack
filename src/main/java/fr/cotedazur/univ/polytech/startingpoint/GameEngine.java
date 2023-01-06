@@ -19,11 +19,10 @@ public class GameEngine {
         objectiveDeck_              = objectiveDeck;
         plotDeck_                   = plotDeck;
         map_                        = map;
-<<<<<<< HEAD
+
         panda                       = new Panda();
-=======
+
         gardener_                   = new Gardener();
->>>>>>> develop
     }
 
     public fr.cotedazur.univ.polytech.startingpoint.objective.Objective pickObjective() {
@@ -97,7 +96,9 @@ public class GameEngine {
     }
 
     public boolean eatBambou(Position position){
-       return false;
+       Plot plot = map_.findPlot(position);
+       plot.eatBambou();
+       return true;
     }
 
 
