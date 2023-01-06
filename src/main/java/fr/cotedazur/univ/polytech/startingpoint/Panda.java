@@ -14,19 +14,12 @@ public class Panda {
         return position;
     }
 
-    public void setPosition(Position position, Map map) {
-        Plot plot=null;
-        if(this.isPlot(map)){
+    public void setPosition(Position position) {
         this.position = position;
-            }
-
-        else{
-            System.out.println("Veuillez bouger votre pandat sur une plote existante");
 
         }
-        }
 
-    public boolean isBambouAround(Plot plot){
+   /* public boolean isBambouAround(Plot plot){
         //on recupere la position
         for(Bambou bambou : plot.getBambou()){
             if(bambou!=null){
@@ -37,16 +30,10 @@ public class Panda {
 
         return false;
     }
+     */
 
-    public void mangerBambou(Plot plot){
-        //plot.getBambou();
-        //foreach des bambous et manger le dernier de la liste
-        for(Bambou bambou : plot.getBambou()){
-            if(bambou!=null){
-                plot.getBambou().remove(bambou);
-            }
-        }
-    }
+
+
 
 
     //regarder si il y a un plot

@@ -37,7 +37,7 @@ public class Map {
         return false;
     }
 
-    private boolean isSpaceFree(Position position) {
+    public boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))
             {

@@ -36,7 +36,28 @@ public class GameEngineTest {
         GameEngine gameEngine = new GameEngine(null, null, map);
         assertEquals(map, gameEngine.getMap());
     }
-/*
+
+
+    @Test
+    void movePandaTest(){
+        Map map = new Map();
+        GameEngine gameEngine = new GameEngine(null, null,map);
+        Position position = new Position(1,0);
+        Position position2 = new Position(372,1);
+
+        Plot plot = new Plot(PlotType.GREEN, position);
+        map.putPlot(plot);
+
+
+        gameEngine.movePanda(position);
+        assertEquals(true,gameEngine.movePanda(position));
+        assertEquals(false, gameEngine.movePanda(position2));
+    }
+
+
+
+
+    /*
     @Test
     void computeObjectivePlotTest(ArrayList<Plot> pattern){
     }

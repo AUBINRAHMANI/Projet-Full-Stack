@@ -11,11 +11,14 @@ public class GameEngine {
     private Deck<Plot>      plotDeck_;
     private Map             map_;
 
+    private Panda           panda;
+
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
         objectiveDeck_              = objectiveDeck;
         plotDeck_                   = plotDeck;
         map_                        = map;
+        panda                       = new Panda();
     }
 
     public fr.cotedazur.univ.polytech.startingpoint.objective.Objective pickObjective() {
@@ -65,7 +68,19 @@ public class GameEngine {
     }
 
     public boolean movePanda(Position position){
+        if(!map_.isSpaceFree(position)){
+            panda.setPosition(position);
+            return true;
+        }
+        else{
+            System.out.println("Veuillez bouger votre pandat sur une plote existante");
+
+        }
         return false;
+    }
+
+    public boolean eatBambou(Position position){
+       return false;
     }
 
 
