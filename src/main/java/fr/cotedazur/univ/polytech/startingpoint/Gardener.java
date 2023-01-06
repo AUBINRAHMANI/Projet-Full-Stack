@@ -11,16 +11,8 @@ public class Gardener {
         this.position = position;
     }
 
-    public boolean nbOfBambou(){
-        return false;
-    }
-
-
-    public void addBambou(Plot p){
-        if(p.isIrrigated()){
-            p.addBambou();
-        }
-
+    public Position getPosition() {
+        return position;
     }
 
     public boolean sameSidePlotExist(){

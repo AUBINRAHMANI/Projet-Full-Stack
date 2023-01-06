@@ -10,7 +10,7 @@ public class MoveGardenerAction implements Action{
     }
 
     public boolean play(GameEngine gameEngine){
-        return gameEngine.moveGardener(_gardener, _position);
+        return gameEngine.moveGardener(_position);
     }
 
     public boolean verifyObjectiveAfterAction(Game game){

@@ -7,7 +7,6 @@ public class Plot {
 
     private PlotType _plotType;
     private Position _position;
-
     private boolean isIrrigated = false;
     //private int bambou;
     private ArrayList<Bambou> listeBambou;
@@ -49,7 +48,7 @@ public class Plot {
         return this.listeBambou.size();
     }
     public boolean growBambou () {
-        if (this.listeBambou.size() < 4) {
+        if (this.isIrrigated() && this.listeBambou.size() < 4) {
             this.listeBambou.add(bambou);
             return true;
         }

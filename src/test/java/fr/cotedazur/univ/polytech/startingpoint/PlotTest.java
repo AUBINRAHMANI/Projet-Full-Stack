@@ -18,6 +18,7 @@ public class PlotTest {
     @Test
     void getNumberOfBambouTest(){
         Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+        plot.isIrrigatedIsTrue();
         assertEquals(0,plot.getNumberOfBambou());
         plot.growBambou();
         assertEquals(1,plot.getNumberOfBambou());
@@ -27,12 +28,14 @@ public class PlotTest {
     @Test
     void checkIfgrowBambouWorksTest(){
         Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+        plot.isIrrigatedIsTrue();
         plot.growBambou();
         assertEquals(1,plot.getNumberOfBambou());
     }
     @Test
     void eatBambouTest(){
         Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+        plot.isIrrigatedIsTrue();
         assertEquals(0,plot.getNumberOfBambou());
         plot.growBambou();
         assertEquals(1,plot.getNumberOfBambou());
