@@ -22,8 +22,9 @@ public class GameEngineTest {
 
     @Test
     void pickPlotTest() {
+        Position position = new Position(2,2);
         Deck<Plot> deck = new Deck<>();
-        deck.addCard(new Plot(PlotType.GREEN));
+        deck.addCard(new Plot(PlotType.GREEN,position));
         GameEngine gameEngine = new GameEngine(null, deck, null);
 
         assertEquals(PlotType.GREEN , gameEngine.pickPlot().getType());
@@ -70,4 +71,31 @@ public class GameEngineTest {
 
     }
  */
+    @Test
+    void moveGardenerTest(){
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(0,0));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(2,1));
+        map.putPlot(plot);
+        map.putPlot(plot2);
+        GameEngine gameEngine = new GameEngine(null, null, map);
+        gameEngine.moveGardener(new Position(2,1));
+        assertEquals(new Position(2, 1), gameEngine.getGardenerPosition());
+
+        gameEngine.moveGardener(new Position(3,1));
+        assertEquals(new Position(2, 1), gameEngine.getGardenerPosition());
+    }
+
+    @Test
+    public void growBambouTest(){
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(2,2));
+        plot.isIrrigatedIsTrue();
+        map.putPlot(plot);
+        GameEngine gameEngine = new GameEngine(null, null, map);
+        gameEngine.moveGardener(new Position(2,2));
+        gameEngine.growBambou();
+        assertEquals(1, plot.getNumberOfBambou());
+
+    }
 }

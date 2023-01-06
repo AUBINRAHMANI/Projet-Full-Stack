@@ -70,9 +70,11 @@ public class Game {
     }
 
     public Deck<Plot> generatePlotDrawPile(){
+        Position position = new Position(1,0);
+        Position position2 = new Position(1,1);
         Deck<Plot> plotDeck = new Deck<>();
-        plotDeck.addCard(new Plot(PlotType.GREEN));
-        plotDeck.addCard(new Plot(PlotType.GREEN));
+        plotDeck.addCard(new Plot(PlotType.GREEN,position));
+        plotDeck.addCard(new Plot(PlotType.GREEN,position2));
         plotDeck.shuffle();
         return plotDeck;
     }

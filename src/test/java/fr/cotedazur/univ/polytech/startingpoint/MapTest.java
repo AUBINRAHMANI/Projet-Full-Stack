@@ -42,6 +42,14 @@ class MapTest {
     }
 
     @Test
+    void findPlot() {
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(3,3));
+        map.putPlot(plot);
+        assertEquals(plot, map.findPlot(new Position(3,3)));
+    }
+
+    @Test
     void rotatePattern() {
         Map map = new Map();
         ArrayList<Plot> pattern = new ArrayList<>();
@@ -58,10 +66,15 @@ class MapTest {
 
         map.rotatePattern(pattern);
         assertEquals(patternExpected, pattern);
+    }
 
-
-
-
-
+    @Test
+    public void growBambouTest() {
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(2,2));
+        map.putPlot(plot);
+        plot.isIrrigatedIsTrue();
+        map.growBambou(new Position(2,2));
+        assertEquals(1, plot.getNumberOfBambou());
     }
 }

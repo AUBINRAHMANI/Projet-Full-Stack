@@ -10,12 +10,14 @@ public class GameEngine {
     private Deck<Objective> objectiveDeck_;
     private Deck<Plot>      plotDeck_;
     private Map             map_;
+    private Gardener        gardener_;
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
         objectiveDeck_              = objectiveDeck;
         plotDeck_                   = plotDeck;
         map_                        = map;
+        gardener_                   = new Gardener();
     }
 
     public fr.cotedazur.univ.polytech.startingpoint.objective.Objective pickObjective() {
@@ -38,6 +40,23 @@ public class GameEngine {
         return map_.haveNeighbours(position);
     }
 
+    public Position getGardenerPosition(){
+        return gardener_.getPosition();
+    }
+
+    public boolean moveGardener(Position position){
+        if(map_.isSpaceFree(position)){
+            return false;
+        }
+        else{
+            gardener_.setPosition(position);
+            return true;
+        }
+    }
+
+    public void growBambou(){
+        map_.growBambou(gardener_.getPosition());
+    }
     /*
     public boolean computeObjectivePlot(ArrayList<Plot> configuration){
         return false;
@@ -58,12 +77,7 @@ public class GameEngine {
     public boolean isObjectivePandaCompleted(ObjectivePanda objectivePanda, BotProfil botProfil){
         return false;
     }
-
-     */
-    public boolean moveGardener(Position position){
-        return false;
-    }
-
+    */
     public boolean movePanda(Position position){
         return false;
     }
@@ -110,7 +124,7 @@ public class GameEngine {
     public boolean computeObjectivePanda(ArrayList<Bambou> bambous){
         return false;
     }
+<<<<<<< HEAD
 
      */
-
 }
