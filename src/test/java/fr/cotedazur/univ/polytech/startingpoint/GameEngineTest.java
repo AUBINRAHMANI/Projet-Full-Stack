@@ -22,8 +22,9 @@ public class GameEngineTest {
 
     @Test
     void pickPlotTest() {
+        Position position = new Position(2,2);
         Deck<Plot> deck = new Deck<>();
-        deck.addCard(new Plot(PlotType.GREEN));
+        deck.addCard(new Plot(PlotType.GREEN,position));
         GameEngine gameEngine = new GameEngine(null, deck, null);
 
         assertEquals(PlotType.GREEN , gameEngine.pickPlot().getType());
