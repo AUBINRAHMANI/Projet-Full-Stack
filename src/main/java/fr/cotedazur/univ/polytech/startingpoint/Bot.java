@@ -9,8 +9,6 @@ public class Bot {
 
     private Map map= null;
 
-
-
     public Bot() {
     }
 
@@ -35,6 +33,6 @@ public class Bot {
             }
         }
         return false;
-        }
+    }
 
 }
