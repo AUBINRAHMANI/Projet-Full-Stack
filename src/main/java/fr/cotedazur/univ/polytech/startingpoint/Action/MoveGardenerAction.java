@@ -4,6 +4,7 @@ import fr.cotedazur.univ.polytech.startingpoint.*;
 public class MoveGardenerAction implements Action{
 
     Position _position;
+    Gardener _gardener;
     public MoveGardenerAction(Position position){
         _position = position;
     }
