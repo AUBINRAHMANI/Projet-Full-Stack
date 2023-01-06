@@ -15,4 +15,28 @@ public class PlotTest {
         Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
         assertEquals(position, plot.getPosition());
     }
+    @Test
+    void getNumberOfBambouTest(){
+        Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+        assertEquals(0,plot.getNumberOfBambou());
+        plot.growBambou();
+        assertEquals(1,plot.getNumberOfBambou());
+        plot.growBambou();
+        assertEquals(2,plot.getNumberOfBambou());
+    }
+    @Test
+    void checkIfgrowBambouWorksTest(){
+        Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+        plot.growBambou();
+        assertEquals(1,plot.getNumberOfBambou());
+    }
+    @Test
+    void eatBambouTest(){
+        Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+        assertEquals(0,plot.getNumberOfBambou());
+        plot.growBambou();
+        assertEquals(1,plot.getNumberOfBambou());
+        plot.eatBambou();
+        assertEquals(0,plot.getNumberOfBambou());
+    }
 }
