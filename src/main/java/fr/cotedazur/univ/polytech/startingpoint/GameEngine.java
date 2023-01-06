@@ -97,22 +97,27 @@ public class GameEngine {
         return true;
     }
 
-    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement){
+    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbSections){
+        Plot plot = map_.findPlot(gardener_.getPosition());
         if(nbBambou> 3){
-            Plot plot = map_.findPlot(gardener_.getPosition());
-            System.out.println(plot.getNumberOfBambou());
-            System.out.println(plot.getType());
             if(plot.getNumberOfBambou() == nbBambou && plot.getType() == bambouType){
                 return true;
             }
         }
         else {
-
+            if(plot.getNumberOfBambou() != nbBambou || plot.getType() != bambouType)return  false;
+            int nbValidatedPlots = 0;
+            for(Plot neighbour : map_.getNeighbours(plot)){
+                if(neighbour.getNumberOfBambou() == nbBambou && neighbour.getType() == bambouType){
+                    nbValidatedPlots++;
+                }
+            }
+            if(nbValidatedPlots == nbSections-1)return true;
         }
         return false;
     }
 
-    public boolean computeObjectivePanda(ArrayList<Bambou> bambous){
-        return false;
+    public boolean computeObjectivePanda(ArrayList<Bambou> playerBambous, ArrayList<Bambou> bambousToHave){
+        return playerBambous.containsAll(bambousToHave);
     }
 }

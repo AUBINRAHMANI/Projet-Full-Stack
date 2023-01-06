@@ -102,19 +102,32 @@ public class GameEngineTest {
     @Test
     public void computeObjectiveGardener(){
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
-        plot.isIrrigatedIsTrue();
-        for(int i=0; i<4; ++i)plot.growBambou();
-        map.putPlot(plot);
+        Plot plot1 = new Plot(PlotType.GREEN, new Position(0,1));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(1,0));
+        plot1.isIrrigatedIsTrue();
+        plot2.isIrrigatedIsTrue();
+        plot3.isIrrigatedIsTrue();
+
+        for(int i=0; i<4; ++i)plot1.growBambou();
+        for(int i=0; i<3; ++i){
+            plot2.growBambou();
+            plot3.growBambou();
+        }
+        map.putPlot(plot1);
+        map.putPlot(plot2);
+        map.putPlot(plot3);
+
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.moveGardener(new Position(0,1));
 
 
-        assertTrue(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false));
+        assertTrue(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false, 1));
         gameEngine.moveGardener(new Position(0, 0));
-        assertFalse(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false));
-        assertTrue(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false));
-        assertFalse(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false));
-        assertFalse(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false));
+        assertFalse(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false, 1));
+        gameEngine.moveGardener(new Position(1, 1));
+        assertTrue(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false,  2));
+        gameEngine.moveGardener(new Position(0, 1));
+        assertFalse(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false, 2));
     }
 }
