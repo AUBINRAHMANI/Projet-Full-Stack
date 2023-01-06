@@ -1,16 +1,21 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Plot {
 
     private PlotType _plotType;
     private Position _position;
-    public Plot(PlotType plotType){
-        _plotType = plotType;
-        _position = null;
-    }
+    //private int bambou;
+    private ArrayList<Bambou> listeBambou;
+    private Bambou bambou;
+
+
     public Plot(PlotType plotType, Position position){
         _plotType = plotType;
         _position = position;
+        listeBambou = new ArrayList<>();
     }
 
     public void setPosition(Position _position) {
@@ -21,6 +26,37 @@ public class Plot {
     }
     public Position getPosition() {
         return _position;
+    }
+
+    public int getNumberOfBambou(){
+        return this.listeBambou.size();
+    }
+    public boolean growBambou() {
+        if (this.listeBambou.size()<4) {
+            this.listeBambou.add(bambou);
+            return true ;
+        }
+        return false;
+    }
+    public boolean eatBambou(){
+        if (this.listeBambou.size()>0){
+            this.listeBambou.remove(bambou);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plot plot = (Plot) o;
+        return _plotType == plot._plotType && _position.equals(plot._position) && listeBambou.equals(plot.listeBambou) && Objects.equals(bambou, plot.bambou);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_plotType, _position, listeBambou, bambou);
     }
 }
 
