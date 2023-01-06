@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PlotTest {
     @Test
     void getTypeTest() {
-        Plot plot = new Plot(PlotType.GREEN);
+        Position position = new Position(2,2);
+        Plot plot = new Plot(PlotType.GREEN,position);
         assertEquals(PlotType.GREEN, plot.getType());
     }
     @Test

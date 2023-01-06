@@ -10,11 +10,8 @@ public class Plot {
     //private int bambou;
     private ArrayList<Bambou> listeBambou;
     private Bambou bambou;
-    public Plot(PlotType plotType){
-        _plotType = plotType;
-        _position = null;
-        listeBambou = new ArrayList<>();
-    }
+
+
     public Plot(PlotType plotType, Position position){
         _plotType = plotType;
         _position = position;
