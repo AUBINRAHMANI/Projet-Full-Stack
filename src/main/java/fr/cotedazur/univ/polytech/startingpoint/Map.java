@@ -37,6 +37,16 @@ public class Map {
         return false;
     }
 
+    public Plot findPlot(Position position) {
+        Plot plot1 = null;
+        for(Plot plot : map_){
+            if(plot.getPosition().equals(position)){
+                plot1= plot;
+            }
+        }
+        return plot1;
+    }
+
     private boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))

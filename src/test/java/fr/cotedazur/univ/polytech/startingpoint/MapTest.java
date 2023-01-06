@@ -38,4 +38,12 @@ class MapTest {
         map.putPlot(plot);
         assertTrue(map.haveNeighbours(new Position(0,1)));
     }
+
+    @Test
+    void findPlot() {
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(3,3));
+        map.putPlot(plot);
+        assertEquals(plot, map.findPlot(new Position(3,3)));
+    }
 }
