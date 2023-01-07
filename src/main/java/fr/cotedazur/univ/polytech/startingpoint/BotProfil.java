@@ -1,17 +1,21 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import java.util.ArrayList;
 
 public class BotProfil {
 
     private Bot bot_;
     private ArrayList<Objective> objectives_;
+
+    private ArrayList<Bambou> bambous;
     private int points_;
     private int nbCompletedObjective_;
 
     public BotProfil(Bot bot){
         bot_ = bot;
         objectives_ = new ArrayList<>();
+        bambous = new ArrayList<>();
         points_ = 0;
         nbCompletedObjective_ = 0;
     }
@@ -23,10 +27,11 @@ public class BotProfil {
     public int getPoints_() {
         return points_;
     }
-
-    public int getNbCompletedObjective_() {
-        return nbCompletedObjective_;
+    public void addPoints_(int nbPoints){
+        points_+=nbPoints;
     }
+
+    public int getNbCompletedObjective_() {return nbCompletedObjective_;}
 
     public ArrayList<Objective> getObjectives_() {
         return objectives_;
@@ -40,5 +45,17 @@ public class BotProfil {
         objectives_.remove(objective);
         ++nbCompletedObjective_;
         points_ += objective.getPoint();
+    }
+
+    public void addBanbou(Bambou bambou){
+        bambous.add(bambou);
+    }
+
+    public void setBambous(ArrayList<Bambou> bambous){
+        this.bambous = bambous;
+    }
+
+    public ArrayList<Bambou> getBambous(){
+        return bambous;
     }
 }

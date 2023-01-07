@@ -1,68 +1,111 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
-    public Plot pond;//on initialise l'etang
-    public ArrayList<Plot> map;
+    public ArrayList<Plot> map_;
+    private MapInterface _mapInterface;
 
     public Map() {
-        this.map = new ArrayList<Plot>();
+        this( null);
+    }
+    public Map(MapInterface mapInterface){
+        _mapInterface = mapInterface;
+        map_ = new ArrayList<>();
+        putPlot(new Plot(PlotType.POND, new Position(0,0,0)));
     }
 
-    public ArrayList<Plot> initializeMap(ArrayList<Plot> map) {
-        this.putPlot(pond);
-        return map;
-    }
-
-    public boolean putPlot(Plot parcel) {
-        if (isSpaceFree(parcel) == true) {
-            map.add(parcel);
+    public boolean putPlot(Plot plot) {
+        if (isSpaceFree(plot.getPosition()) == true) {
+            map_.add(plot);
+            for(Position position : plot.getPosition().closestPositions()){
+                if(position.equals(new Position(0,0))){
+                    plot.isIrrigatedIsTrue();
+                }
+            }
+            if(_mapInterface != null){
+                _mapInterface.drawHexagon(plot.getPosition());
+            }
             return true;
         }
         return false;
     }
 
     public ArrayList<Plot> getMap() {
-        return map;
+        return new ArrayList<>(map_);
     }
 
     public boolean isIrrigated(Plot p) {
         return false;
     }
 
-    public boolean isSpaceFree(Plot parcel) {
-        for (int i = 0; i < map.size(); i++) {
-            if (parcel == map.get(i)) {
-                return true;
+    public Plot findPlot(Position position) {
+        Plot plot1 = null;
+        for(Plot plot : map_){
+            if(plot.getPosition().equals(position)){
+                plot1= plot;
             }
         }
-        return false;
+        return plot1;
     }
 
 
-    public ArrayList<Position> closestAvailableSpace(Plot plot) {
+    boolean isSpaceFree(Position position) {
+        for (Plot plot : map_) {
+            if(plot.getPosition().equals(position))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isPossibleToPutPlot(Position position) {
+        if(closestAvailableSpace(position).size() >4 && position.isCloseToCenter() ==false && position.isCenter() ==false) return false;
+        return isSpaceFree(position);
+    }
+
+
+    public ArrayList<Position> closestAvailableSpace(Position position) {
         ArrayList<Position> positionsAvailable = new ArrayList<>();
-        for (int i = 0; i < plot.getPosition().closestPositions().size(); i++) {
-            for (int j = 0; j < map.size(); j++) {
-                if (map.get(j).getPosition() != plot.getPosition().closestPositions().get(i)) {
-                    positionsAvailable.add(plot.getPosition().closestPositions().get(i));
-                }
+        for (Position potentialPosition : position.closestPositions()) {
+            if(isSpaceFree(potentialPosition))
+            {
+                positionsAvailable.add(potentialPosition);
             }
         }
         return positionsAvailable;
     }
 
-    public boolean haveNeighbours(Position position) {//on parcourt la map puis on parcourt la liste des plus proche voisin du plot et si la position d'un voisin est egale a la position d'un plot alors on return true
-        for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; j < position.closestPositions().size(); j++) {
-                if (map.get(i).getPosition().equals(position.closestPositions().get(j))){
-                    return true;
+    public ArrayList<Plot> getNeighbours(Plot plot) {
+        ArrayList<Plot> plots = new ArrayList<>();
+        for(Plot mapPlot : map_){
+            for (Position position : plot.getPosition().closestPositions()) {
+                if (mapPlot.getPosition().equals(position)){
+                    plots.add(mapPlot);
                 }
             }
         }
-        return false;
+        return plots;
+    }
+
+    public void rotatePattern(ArrayList<Plot> pattern){
+        for(Plot plot : pattern){
+            Position plotPosition = plot.getPosition();
+            plotPosition.rotate60Right();
+            plot.setPosition(plotPosition);
+        }
+    }
+
+    public void growBambou(Position position) {
+        for(Plot plot : map_){
+            if(plot.getPosition().equals(position)) {
+                plot.growBambou();
+            }
+        }
     }
 }
 
