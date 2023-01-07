@@ -37,6 +37,21 @@ public class GameEngineTest {
         assertEquals(map, gameEngine.getMap());
     }
 
+    @Test
+    void movePandaTest(){
+        Map map = new Map();
+        GameEngine gameEngine = new GameEngine(null, null,map);
+        Position position = new Position(1,0);
+        Position position2 = new Position(372,1);
+
+        Plot plot = new Plot(PlotType.GREEN, position);
+        map.putPlot(plot);
+
+
+        gameEngine.movePanda(position);
+        assertEquals(true,gameEngine.movePanda(position));
+        assertEquals(false, gameEngine.movePanda(position2));
+    }
 
     @Test
     void computeObjectivePlotTest(){
@@ -142,5 +157,28 @@ public class GameEngineTest {
         assertTrue(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false,  2));
         gameEngine.moveGardener(new Position(0, 1));
         assertFalse(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false, 2));
+    }
+
+    @Test
+    public void eatBambou(){
+        Map map = new Map();
+        Position position = new Position(1,0);
+        Plot plot = new Plot(PlotType.GREEN,position);
+        Bambou bambou = new Bambou(PlotType.GREEN);
+        Bambou bambou1 = new Bambou(PlotType.GREEN);
+
+        plot.isIrrigatedIsTrue();
+
+
+        map.putPlot(plot);
+        GameEngine gameEngine = new GameEngine(null,null,map);
+
+        gameEngine.moveGardener(position);
+        gameEngine.growBambou();
+        gameEngine.growBambou();
+
+        gameEngine.eatBambou(position);
+
+        assertEquals(1,plot.getNumberOfBambou());
     }
 }

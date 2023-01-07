@@ -12,11 +12,16 @@ public class GameEngine {
     private Map             map_;
     private Gardener        gardener_;
 
+    private Panda           panda;
+
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
         objectiveDeck_              = objectiveDeck;
         plotDeck_                   = plotDeck;
         map_                        = map;
+
+        panda                       = new Panda();
+
         gardener_                   = new Gardener();
     }
 
@@ -59,7 +64,21 @@ public class GameEngine {
     }
 
     public boolean movePanda(Position position){
+        if(!map_.isSpaceFree(position)){
+            panda.setPosition(position);
+            return true;
+        }
+        else{
+            System.out.println("Veuillez bouger votre pandat sur une plote existante");
+
+        }
         return false;
+    }
+
+    public boolean eatBambou(Position position){
+       Plot plot = map_.findPlot(position);
+       plot.eatBambou();
+       return true;
     }
 
 

@@ -34,7 +34,7 @@ class MapTest {
         Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
         map.putPlot(plot);
         assertFalse(map.isPossibleToPutPlot(new Position(1,0)));
-        assertFalse(map.isPossibleToPutPlot(new Position(2,0)));
+        assertFalse(map.isPossibleToPutPlot(new Position(5,6)));
         assertTrue(map.isPossibleToPutPlot(new Position(1,1)));
     }
 
