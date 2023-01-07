@@ -54,17 +54,4 @@ class BotProfilTest {
         assertEquals(bambou , botProfil.getBambous().get(0));
 
     }
-
-    @Test
-    public void removeBambous(){
-        BotProfil botProfil = new BotProfil(new Bot());
-        Bambou bambou = new Bambou(PlotType.GREEN);
-        botProfil.addBanbou(bambou);
-
-        ArrayList<Bambou> bambousToRemove =  new ArrayList<>();
-        bambousToRemove.add(bambou);
-
-        botProfil.removeBambous(bambousToRemove);
-        assertEquals(0 , botProfil.getBambous().size());
-    }
 }

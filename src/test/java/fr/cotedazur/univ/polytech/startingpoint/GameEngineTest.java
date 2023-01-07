@@ -65,12 +65,25 @@ public class GameEngineTest {
         gameEngine.askToPutPlot(plot6);
         assertTrue(gameEngine.computeObjectivePlot(pattern, plot8));
     }
-/*
+
     @Test
-    void computeObjectiveGardenerTest(ArrayList<Plot> bambouPlots, boolean improvement){
+    void computeObjectivePanda(){
+        GameEngine gameEngine = new GameEngine(null, null, null);
+
+        BotProfil botProfil = new BotProfil(new Bot());
+        botProfil.addBanbou(new Bambou(PlotType.GREEN));
+
+        ArrayList<Bambou> bambousObjective = new ArrayList<>();
+        bambousObjective.add(new Bambou(PlotType.GREEN));
+        bambousObjective.add(new Bambou(PlotType.GREEN));
+
+        assertFalse(gameEngine.computeObjectivePanda(botProfil, bambousObjective));
+        botProfil.addBanbou(new Bambou(PlotType.GREEN));
+        assertTrue(gameEngine.computeObjectivePanda(botProfil, bambousObjective));
+        assertTrue(botProfil.getBambous().isEmpty());
 
     }
- */
+
     @Test
     void moveGardenerTest(){
         Map map = new Map();

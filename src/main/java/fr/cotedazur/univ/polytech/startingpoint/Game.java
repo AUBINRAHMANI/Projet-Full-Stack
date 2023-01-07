@@ -120,7 +120,7 @@ public class Game {
     public boolean computeObjectivesPanda(){
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
-                if(!objective.verifyPandaObj(gameEngine_)){
+                if(!objective.verifyPandaObj(gameEngine_, botProfil)){
                     return false;
                 }
             }

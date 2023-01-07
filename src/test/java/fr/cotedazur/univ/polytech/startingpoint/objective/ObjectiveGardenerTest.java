@@ -28,6 +28,6 @@ class ObjectiveGardenerTest {
 
     @Test
     void verifyPandaObj() {
-        assertFalse(new ObjectiveGardener(0, 0, null ,false, 0).verifyPandaObj(null));
+        assertFalse(new ObjectiveGardener(0, 0, null ,false, 0).verifyPandaObj(null, null));
     }
 }

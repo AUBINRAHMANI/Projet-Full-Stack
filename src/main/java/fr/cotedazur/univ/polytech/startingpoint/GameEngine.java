@@ -117,7 +117,22 @@ public class GameEngine {
         return false;
     }
 
-    public boolean computeObjectivePanda(ArrayList<Bambou> playerBambous, ArrayList<Bambou> bambousToHave){
-        return playerBambous.containsAll(bambousToHave);
+    public boolean computeObjectivePanda(BotProfil botProfil, ArrayList<Bambou> bambousToHave){
+        ArrayList<Bambou> playerBambous = new ArrayList<>(botProfil.getBambous());
+        ArrayList<Bambou> BambousToRemove = new ArrayList<>();
+
+        for(Bambou bambou : bambousToHave){
+            System.out.println(botProfil.getBambous());
+            System.out.println(bambousToHave);
+            System.out.println("");
+            if(playerBambous.contains(bambou)){
+                playerBambous.remove(bambou);
+            }
+            else {
+                return false;
+            }
+        }
+        botProfil.setBambous(playerBambous);
+        return true;
     }
 }

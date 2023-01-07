@@ -48,8 +48,8 @@ public class BotProfil {
         bambous.add(bambou);
     }
 
-    public void removeBambous(ArrayList<Bambou> bambous){
-        this.bambous.removeAll(bambous);
+    public void setBambous(ArrayList<Bambou> bambous){
+        this.bambous = bambous;
     }
 
     public ArrayList<Bambou> getBambous(){

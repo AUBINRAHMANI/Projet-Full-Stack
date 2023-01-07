@@ -31,7 +31,7 @@ public class ObjectiveGardener extends Objective{
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
         return false;
     }
 }
