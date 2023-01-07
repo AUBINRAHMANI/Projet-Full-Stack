@@ -40,7 +40,6 @@ public class Game {
     }
 
     public void start(){
-        Action action;
         do {
             botProfils_.get(0).addObjective(gameEngine_.pickObjective());
             for(BotProfil botProfil : botProfils_){
