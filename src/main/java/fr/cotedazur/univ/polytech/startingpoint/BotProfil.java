@@ -27,6 +27,9 @@ public class BotProfil {
     public int getPoints_() {
         return points_;
     }
+    public void addPoints_(int nbPoints){
+        points_+=nbPoints;
+    }
 
     public int getNbCompletedObjective_() {return nbCompletedObjective_;}
 

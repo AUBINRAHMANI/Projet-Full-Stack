@@ -96,37 +96,47 @@ public class Game {
     }
 
     public boolean computeObjectivesPlot(Plot lastPlacedPlot){
+        ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
-                if(!objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
-                    return false;
+                if(objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
+                    botProfil.addPoints_(objective.getPoint());
+                    validatedObjective.add(objective);
                 }
             }
+            botProfil.getObjectives_().removeAll(validatedObjective);
         }
         return true;
     }
 
     public boolean computeObjectivesGardener(){
+        ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
                 if(!objective.verifyGardenerObj(gameEngine_)){
-                    return false;
+                    botProfil.addPoints_(objective.getPoint());
+                    validatedObjective.add(objective);
                 }
             }
+            botProfil.getObjectives_().removeAll(validatedObjective);
         }
         return true;
     }
 
     public boolean computeObjectivesPanda(){
+        ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
                 if(!objective.verifyPandaObj(gameEngine_, botProfil)){
-                    return false;
+                    botProfil.addPoints_(objective.getPoint());
+                    validatedObjective.add(objective);
                 }
             }
+            botProfil.getObjectives_().removeAll(validatedObjective);
         }
         return true;
     }
+
     public BotProfil checkWinner(){
         BotProfil winner = botProfils_.get(0);
         for(BotProfil botProfil : botProfils_){
