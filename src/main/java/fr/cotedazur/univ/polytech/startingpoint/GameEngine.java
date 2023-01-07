@@ -6,6 +6,9 @@ public class GameEngine {
     private Deck<Objective> objectiveDeck_;
     private Deck<Plot>      plotDeck_;
     private Map             map_;
+    private Gardener        gardener_;
+    private Panda           panda;
+
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
         objectiveDeck_  = objectiveDeck;
@@ -18,6 +21,8 @@ public class GameEngine {
     }
 
     public Plot pickPlot() {
+        System.out.println(plotDeck_);
+        System.out.println("");
         return plotDeck_.getNextCard();
     }
 

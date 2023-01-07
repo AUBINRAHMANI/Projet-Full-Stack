@@ -4,9 +4,14 @@ public class Plot {
 
     private PlotType _plotType;
     private Position _position;
-    public Plot(PlotType plotType){
-        _plotType = plotType;
-        _position = null;
+    private boolean isIrrigated = false;
+    //private int bambou;
+    private ArrayList<Bambou> listeBambou;
+    private Bambou bambou;
+
+
+    public Plot(PlotType plotType) {
+        this(plotType, new Position(0,0));
     }
     public Plot(PlotType plotType, Position position){
         _plotType = plotType;

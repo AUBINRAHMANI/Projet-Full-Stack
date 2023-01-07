@@ -1,6 +1,13 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.Action.*;
+import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
+import fr.cotedazur.univ.polytech.startingpoint.objective.*;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Random;
 
 public class Game {
 
@@ -9,12 +16,21 @@ public class Game {
     ArrayList<BotProfil> botProfils_;
     private Position positionPlacedDuringRound;
 
-    public Game(){
+    public Game(boolean debug){
         botProfils_                     = new ArrayList<>();
         positionPlacedDuringRound       = null;
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
-        Map map                         = new Map();
+
+        if(debug){
+            _mapInterface   = new MapInterface();
+            Map map                     = new Map(_mapInterface);
+            gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, map);
+        }
+        else {
+            Map map= new Map();
+            gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, map);
+        }
 
         gameEngine_                     = new GameEngine( objectiveDeck, plotDeck, map);
         botProfils_.add(new BotProfil(new Bot()));
@@ -24,8 +40,10 @@ public class Game {
     public void start(){
         do {
             for(BotProfil botProfil : botProfils_){
-                botProfil.getBot_().play(this, gameEngine_.getMap());
-                computeCompletedObjective(botProfil.getBot_());
+                if(_mapInterface != null) while (_mapInterface.next()==false);
+                Action action = botProfil.getBot_().play(this, gameEngine_.getMap());
+                action.play(gameEngine_);
+                action.verifyObjectiveAfterAction(this);
             }
         }while (checkFinishingCondition());
         BotProfil winner = checkWinner();
@@ -39,17 +57,44 @@ public class Game {
         return false;
     }
 
-    public Deck<Objective> generateObjectiveDrawPile(){
+    private Deck<Objective> generateObjectiveDrawPile(){
         Deck<Objective> objectiveDeck = new Deck<>();
-        objectiveDeck.addCard(new Objective(1, ObjectiveType.PLOT));
+        Random rand = new Random();
+        int upperRandForPlotType = 3;
+
+        for (int i=0 ; i<20 ; ++i){
+            objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
+        }
+        for (int i=0 ; i<20 ; ++i){
+            int nbBambous = rand.nextInt(2)+3;
+            if(nbBambous == 3){
+                objectiveDeck.addCard(new ObjectiveGardener(rand.nextInt(4)+1, nbBambous, PlotType.values()[rand.nextInt(upperRandForPlotType)+1], false,rand.nextInt(3)+2));
+            }
+            else {
+                objectiveDeck.addCard(new ObjectiveGardener(rand.nextInt(4)+1, nbBambous, PlotType.values()[rand.nextInt(upperRandForPlotType)+1], false,1));
+            }
+
+        }
+        for (int i=0 ; i<20 ; ++i){
+            ArrayList<Bambou> bambous = new ArrayList<>();
+            for(int j=0 ; j<(rand.nextInt(2)+2) ; ++j){
+                bambous.add(new Bambou(PlotType.values()[rand.nextInt(upperRandForPlotType)+1]));
+            }
+            objectiveDeck.addCard(new ObjectivePanda(rand.nextInt(4)+1, bambous));
+        }
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
 
-    public Deck<Plot> generatePlotDrawPile(){
+
+    private Deck<Plot> generatePlotDrawPile(){
         Deck<Plot> plotDeck = new Deck<>();
-        plotDeck.addCard(new Plot(PlotType.GREEN));
-        plotDeck.addCard(new Plot(PlotType.GREEN));
+        Random rand = new Random();
+        int upperRandForPlotType = 3;
+
+        for(int i=0 ; i<60 ; ++i){
+            plotDeck.addCard(new Plot(PlotType.values()[rand.nextInt(upperRandForPlotType)+1]));
+        }
         plotDeck.shuffle();
         return plotDeck;
     }
@@ -70,7 +115,7 @@ public class Game {
         return null;
     }
 
-    public Plot pickPlot(Bot bot){
+    public Plot pickPlot(){
         return gameEngine_.pickPlot();
     }
 
