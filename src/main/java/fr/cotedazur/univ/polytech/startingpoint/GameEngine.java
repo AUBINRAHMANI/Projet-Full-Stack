@@ -40,10 +40,6 @@ public class GameEngine {
         return map_;
     }
 
-    public ArrayList<Plot> haveNeighbours(Plot plot){
-        return map_.getNeighbours(plot);
-    }
-
     public Position getGardenerPosition(){
         return gardener_.getPosition();
     }
@@ -121,7 +117,7 @@ public class GameEngine {
         else {
             if(plot.getNumberOfBambou() != nbBambou || plot.getType() != bambouType)return  false;
             int nbValidatedPlots = 0;
-            for(Plot neighbour : map_.getNeighbours(plot)){
+            for(Plot neighbour : map_.getNeighbours(plot.getPosition())){
                 if(neighbour.getNumberOfBambou() == nbBambou && neighbour.getType() == bambouType){
                     nbValidatedPlots++;
                 }
