@@ -89,7 +89,7 @@ class MapTest {
 
         //System.out.println(plots);
         //System.out.println(map.getNeighbours(plot3));
-        assertTrue(map.getNeighbours(plot3).containsAll(plots));
+        assertTrue(map.getNeighbours(plot3.getPosition()).containsAll(plots));
     }
 
     @Test

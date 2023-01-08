@@ -66,7 +66,7 @@ public class Map {
     }
 
     public boolean isPossibleToPutPlot(Position position) {
-        if((getNeighbours(new Plot(PlotType.GREEN, position)).size() >1 ||  position.isCloseToCenter()) && (position.isCenter() ==false)) return isSpaceFree(position);
+        if((getNeighbours( position).size() >1 ||  position.isCloseToCenter()) && (position.isCenter() ==false)) return isSpaceFree(position);
         return false;
     }
 
@@ -82,11 +82,11 @@ public class Map {
         return positionsAvailable;
     }
 
-    public ArrayList<Plot> getNeighbours(Plot plot) {
+    public ArrayList<Plot> getNeighbours(Position position) {
         ArrayList<Plot> plots = new ArrayList<>();
         for(Plot mapPlot : map_){
-            for (Position position : plot.getPosition().closestPositions()) {
-                if (mapPlot.getPosition().equals(position)){
+            for (Position tempPosition : position.closestPositions()) {
+                if (mapPlot.getPosition().equals(tempPosition)){
                     plots.add(mapPlot);
                 }
             }
