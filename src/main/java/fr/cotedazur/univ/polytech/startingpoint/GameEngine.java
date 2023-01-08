@@ -55,12 +55,10 @@ public class GameEngine {
     }
 
     public void growBambou(){
-        if(map_.getNeighbours(gardener_.getPosition()).isEmpty()){
-            map_.growBambou(gardener_.getPosition());
-        }
-        else{
-            for(Plot plot : map_.getNeighbours(gardener_.getPosition())){
+        for(Plot plot : map_.getNeighbours(gardener_.getPosition())){
+            if(plot.getType() == map_.findPlot(gardener_.getPosition()).getType()){
                 map_.growBambou(plot.getPosition());
+                map_.growBambou(gardener_.getPosition());
             }
         }
     }
