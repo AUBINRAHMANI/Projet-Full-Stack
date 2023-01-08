@@ -26,4 +26,12 @@ public class ObjectivePanda extends Objective {
     public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
         return gameEngine.computeObjectivePanda(botProfil, bambouSections);
     }
+
+    @Override
+    public String toString() {
+        return "ObjectivePanda{" +
+                "points=" + _points +
+                "bambouSections=" + bambouSections +
+                '}';
+    }
 }

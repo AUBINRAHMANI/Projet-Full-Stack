@@ -14,7 +14,7 @@ public class Bot {
 
     public Action play(Game game, Map map) {
        this.map=map;
-       Plot plot = game.pickPlot(this);
+       Plot plot = game.pickPlot();
        if(positionToSet(plot)) {
            return new PutPlotAction(plot);
        }

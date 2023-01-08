@@ -4,8 +4,11 @@ import fr.cotedazur.univ.polytech.startingpoint.Action.*;
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Random;
+
 
 public class Game {
 
@@ -14,13 +17,11 @@ public class Game {
     ArrayList<BotProfil> botProfils_;
     MapInterface _mapInterface;
 
-    BotProfil currentPlayer;
 
     public Game(boolean debug){
         botProfils_                     = new ArrayList<>();
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
-        currentPlayer = null;
 
         if(debug){
             _mapInterface   = new MapInterface();
@@ -39,13 +40,11 @@ public class Game {
     }
 
     public void start(){
-        Action action;
         do {
             botProfils_.get(0).addObjective(gameEngine_.pickObjective());
             for(BotProfil botProfil : botProfils_){
-                currentPlayer = botProfil;
-                while (_mapInterface.next()==false);
-                action = botProfil.getBot_().play(this, gameEngine_.getMap());
+                if(_mapInterface != null) while (_mapInterface.next()==false);
+                Action action = botProfil.getBot_().play(this, gameEngine_.getMap());
                 action.play(gameEngine_);
                 action.verifyObjectiveAfterAction(this);
             }
@@ -61,20 +60,43 @@ public class Game {
         return false;
     }
 
-    public Deck<Objective> generateObjectiveDrawPile(){
+    private Deck<Objective> generateObjectiveDrawPile(){
         Deck<Objective> objectiveDeck = new Deck<>();
-        objectiveDeck.addCard(new ObjectivePlots(1, (Pattern) null));
-        objectiveDeck.addCard(new ObjectivePlots(1, (Pattern) null));
+        Random rand = new Random();
+        int upperRandForPlotType = 3;
+
+        for (int i=0 ; i<20 ; ++i){
+            objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
+        }
+        for (int i=0 ; i<20 ; ++i){
+            int nbBambous = rand.nextInt(2)+3;
+            if(nbBambous == 3){
+                objectiveDeck.addCard(new ObjectiveGardener(rand.nextInt(4)+1, nbBambous, PlotType.values()[rand.nextInt(upperRandForPlotType)+1], false,rand.nextInt(3)+2));
+            }
+            else {
+                objectiveDeck.addCard(new ObjectiveGardener(rand.nextInt(4)+1, nbBambous, PlotType.values()[rand.nextInt(upperRandForPlotType)+1], false,1));
+            }
+
+        }
+        for (int i=0 ; i<20 ; ++i){
+            ArrayList<Bambou> bambous = new ArrayList<>();
+            for(int j=0 ; j<(rand.nextInt(2)+2) ; ++j){
+                bambous.add(new Bambou(PlotType.values()[rand.nextInt(upperRandForPlotType)+1]));
+            }
+            objectiveDeck.addCard(new ObjectivePanda(rand.nextInt(4)+1, bambous));
+        }
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
 
-    public Deck<Plot> generatePlotDrawPile(){
-        Position position = new Position(1,0);
-        Position position2 = new Position(1,1);
+    private Deck<Plot> generatePlotDrawPile(){
         Deck<Plot> plotDeck = new Deck<>();
-        plotDeck.addCard(new Plot(PlotType.GREEN,position));
-        plotDeck.addCard(new Plot(PlotType.GREEN,position2));
+        Random rand = new Random();
+        int upperRandForPlotType = 3;
+
+        for(int i=0 ; i<60 ; ++i){
+            plotDeck.addCard(new Plot(PlotType.values()[rand.nextInt(upperRandForPlotType)+1]));
+        }
         plotDeck.shuffle();
         return plotDeck;
     }
@@ -91,7 +113,7 @@ public class Game {
         return null;
     }
 
-    public Plot pickPlot(Bot bot){
+    public Plot pickPlot(){
         return gameEngine_.pickPlot();
     }
 

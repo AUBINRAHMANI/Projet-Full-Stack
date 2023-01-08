@@ -14,9 +14,7 @@ public class Plot {
 
 
     public Plot(PlotType plotType) {
-        _plotType = plotType;
-        _position = null;
-        listeBambou = new ArrayList<>();
+        this(plotType, new Position(0,0));
     }
 
     public Plot(PlotType plotType, Position position) {

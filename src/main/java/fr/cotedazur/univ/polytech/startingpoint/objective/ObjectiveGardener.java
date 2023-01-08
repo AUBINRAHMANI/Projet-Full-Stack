@@ -34,4 +34,16 @@ public class ObjectiveGardener extends Objective{
     public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "ObjectiveGardener{" +
+                "points=" + _points +
+                "nbBambou=" + nbBambou +
+                ", nbSection=" + nbSection +
+                ", bambouType=" + bambouType +
+                ", improvement=" + improvement +
+                '}';
+    }
+
 }

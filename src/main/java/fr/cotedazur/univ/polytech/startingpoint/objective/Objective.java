@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 public abstract class Objective {
-    private int _points;
+    protected int _points;
 
     protected Objective(int points){
         _points = points;
@@ -18,4 +18,6 @@ public abstract class Objective {
     public abstract boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot);
     public abstract boolean verifyGardenerObj(GameEngine gameEngine);
     public abstract boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil);
+    public abstract String toString();
+
 }
