@@ -81,4 +81,29 @@ class MapTest {
         map.growBambou(new Position(2,2));
         assertEquals(1, plot.getNumberOfBambou());
     }
+
+    @Test
+    public void closestAvailableSpace(){
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(1,1));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(2,0));
+
+        map.putPlot(plot);
+        map.putPlot(plot2);
+        map.putPlot(plot3);
+
+        ArrayList<Position> expected = new ArrayList<>();
+        expected.add(new  Position(0,1));
+        expected.add(new  Position(2,1));
+
+
+        assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(1,1)));
+        assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(1,-1)));
+        assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(2,0)));
+        assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(0,1)));
+        assertTrue(map.closestAvailableSpace(new Position(1,1)).containsAll(expected));
+        assertTrue(map.closestAvailableSpace(new Position(1,1)).size() == 2);
+
+    }
 }
