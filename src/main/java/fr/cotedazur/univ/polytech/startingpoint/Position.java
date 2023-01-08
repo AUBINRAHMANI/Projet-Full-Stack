@@ -3,6 +3,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import static java.lang.Math.abs;
 
 public class Position {
 
@@ -19,6 +20,11 @@ public class Position {
         q = x;
         r = y - (x + (x&1)) / 2;
         s = -r-q;
+    }
+    public Position(Position position){
+        q = position.q;
+        r = position.r;
+        s = position.s;
     }
 
     public int getQ() {
@@ -80,9 +86,30 @@ public class Position {
         s           = getS(getX(), getY()-1);
         r           = rTemp;
     }
+    public void translateRight() {
+        int rTemp   = getR(getX()+1, getY()+1-(getX()&1));
+        s           = getS(getX()+1, getY()+1-(getX()&1));
+        r           = rTemp;
+        ++q;
+    }
+    public void translateLeft() {
+        int rTemp   = getR(getX()-1, getY()+1-(getX()&1));
+        s           = getS(getX()-1, getY()+1-(getX()&1));
+        r           = rTemp;
+        --q;
+    }
+
 
     Position plus(Position position){
         return new Position( q+position.q , r+position.r , s+position.s );
+    }
+
+    public boolean isCenter(){
+        return (q==0 && r==0 && s==0);
+    }
+
+    public boolean isCloseToCenter(){
+        return (abs(q) + abs(r) + abs(s) == 2);
     }
 
     @Override
@@ -101,9 +128,8 @@ public class Position {
     @Override
     public String toString() {
         return "Position{" +
-                "q=" + q +
-                ", r=" + r +
-                ", s=" + s +
+                "x=" + getX() +
+                ", y=" + getY() +
                 '}';
     }
 }

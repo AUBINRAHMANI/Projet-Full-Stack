@@ -12,6 +12,7 @@ public class Plot {
     private ArrayList<Bambou> listeBambou;
     private Bambou bambou;
 
+
     public Plot(PlotType plotType) {
         _plotType = plotType;
         _position = null;
@@ -22,6 +23,12 @@ public class Plot {
         _plotType = plotType;
         _position = position;
         listeBambou = new ArrayList<>();
+    }
+    public Plot(Plot plot){
+        _plotType = plot.getType();
+        _position = new Position(plot.getPosition());
+        listeBambou = plot.getBambou();
+
     }
 
     public void setPosition(Position _position) {
@@ -62,6 +69,11 @@ public class Plot {
         return false;
     }
 
+    private ArrayList<Bambou> getBambou(){
+        return listeBambou;
+    }
+
+
     @Override
     public boolean equals (Object o){
         if (this == o) return true;
@@ -73,6 +85,14 @@ public class Plot {
     @Override
     public int hashCode () {
         return Objects.hash(_plotType, _position, listeBambou, bambou);
+    }
+
+    @Override
+    public String toString() {
+        return "Plot{" +
+                "_plotType=" + _plotType +
+                ", _position=" + _position +
+                '}';
     }
 }
 

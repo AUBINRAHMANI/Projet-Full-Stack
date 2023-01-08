@@ -63,26 +63,20 @@ public class Game {
 
     public Deck<Objective> generateObjectiveDrawPile(){
         Deck<Objective> objectiveDeck = new Deck<>();
-        objectiveDeck.addCard(new ObjectivePlots(1, null));
-        objectiveDeck.addCard(new ObjectivePlots(1, null));
+        objectiveDeck.addCard(new ObjectivePlots(1, (Pattern) null));
+        objectiveDeck.addCard(new ObjectivePlots(1, (Pattern) null));
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
 
     public Deck<Plot> generatePlotDrawPile(){
+        Position position = new Position(1,0);
+        Position position2 = new Position(1,1);
         Deck<Plot> plotDeck = new Deck<>();
-        plotDeck.addCard(new Plot(PlotType.GREEN));
-        plotDeck.addCard(new Plot(PlotType.GREEN));
+        plotDeck.addCard(new Plot(PlotType.GREEN,position));
+        plotDeck.addCard(new Plot(PlotType.GREEN,position2));
         plotDeck.shuffle();
         return plotDeck;
-    }
-
-    public boolean askToPutPLot(Plot plot){
-        if(gameEngine_.askToPutPlot(plot)){
-            currentPlayer.setPositionPlacedDuringRound_(plot.getPosition());
-            return true;
-        }
-        return false;
     }
 
     public Objective pickObjective(Bot bot){
@@ -101,37 +95,44 @@ public class Game {
         return gameEngine_.pickPlot();
     }
 
-
-    public boolean computeObjectivesPlot(){
+    public boolean computeObjectivesPlot(Plot lastPlacedPlot){
+        ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
-                if(!objective.verifyPlotObj(gameEngine_)){
-                    return false;
+                if(objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
+                    botProfil.addPoints_(objective.getPoint());
+                    validatedObjective.add(objective);
                 }
             }
+            botProfil.getObjectives_().removeAll(validatedObjective);
         }
         return true;
     }
 
-
     public boolean computeObjectivesGardener(){
+        ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
                 if(!objective.verifyGardenerObj(gameEngine_)){
-                    return false;
+                    botProfil.addPoints_(objective.getPoint());
+                    validatedObjective.add(objective);
                 }
             }
+            botProfil.getObjectives_().removeAll(validatedObjective);
         }
         return true;
     }
 
     public boolean computeObjectivesPanda(){
+        ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
-                if(!objective.verifyPandaObj(gameEngine_)){
-                    return false;
+                if(!objective.verifyPandaObj(gameEngine_, botProfil)){
+                    botProfil.addPoints_(objective.getPoint());
+                    validatedObjective.add(objective);
                 }
             }
+            botProfil.getObjectives_().removeAll(validatedObjective);
         }
         return true;
     }

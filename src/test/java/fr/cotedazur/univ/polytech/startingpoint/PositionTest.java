@@ -97,6 +97,26 @@ class PositionTest {
         assertEquals(position1, position3);
     }
     @Test
+    void translateRight() {
+        Position position1 = new Position(3,3);
+        Position position2 = new Position(4,3);
+        Position position3 = new Position(5,4);
+        position1.translateRight();
+        assertEquals(position2, position1);
+        position1.translateRight();
+        assertEquals(position3, position1);
+    }
+    @Test
+    void translateLeft() {
+        Position position1 = new Position(3,3);
+        Position position2 = new Position(2,3);
+        Position position3 = new Position(1,4);
+        position1.translateLeft();
+        assertEquals(position2, position1);
+        position1.translateLeft();
+        assertEquals(position3, position1);
+    }
+    @Test
     void plus(){
         Position position1 = new Position(-1,0);
         Position position2 = new Position(3,3);
@@ -104,4 +124,6 @@ class PositionTest {
         assertEquals(new Position(2,2), position1.plus(position2) );
         assertEquals(new Position(2,1), position1.plus(position3) );
     }
+
+
 }

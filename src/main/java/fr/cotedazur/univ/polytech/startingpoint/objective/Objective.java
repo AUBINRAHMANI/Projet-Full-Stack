@@ -1,8 +1,9 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.BotProfil;
-import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
-import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.*;
+
+import java.util.ArrayList;
+
 
 public abstract class Objective {
     private int _points;
@@ -14,7 +15,7 @@ public abstract class Objective {
         return _points;
     }
 
-    public abstract boolean verifyPlotObj(GameEngine gameEngine);
+    public abstract boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot);
     public abstract boolean verifyGardenerObj(GameEngine gameEngine);
-    public abstract boolean verifyPandaObj(GameEngine gameEngine);
+    public abstract boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil);
 }

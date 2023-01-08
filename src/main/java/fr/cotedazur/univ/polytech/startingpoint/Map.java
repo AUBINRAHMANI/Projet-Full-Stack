@@ -38,6 +38,21 @@ public class Map {
         return new ArrayList<>(map_);
     }
 
+    public boolean isIrrigated(Plot p) {
+        return false;
+    }
+
+    public Plot findPlot(Position position) {
+        Plot plot1 = null;
+        for(Plot plot : map_){
+            if(plot.getPosition().equals(position)){
+                plot1= plot;
+            }
+        }
+        return plot1;
+    }
+
+
     boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))
@@ -49,7 +64,7 @@ public class Map {
     }
 
     public boolean isPossibleToPutPlot(Position position) {
-        if(closestAvailableSpace(position).size() >4) return false;
+        if(closestAvailableSpace(position).size() >4 && position.isCloseToCenter() ==false && position.isCenter() ==false) return false;
         return isSpaceFree(position);
     }
 
@@ -75,15 +90,16 @@ public class Map {
         return closestPlots;
     }
 
-    public boolean haveNeighbours(Position position) {
-        for(Plot plot : map_){
-            for (Position positions : position.closestPositions()) {
-                if (plot.getPosition().equals(positions)){
-                    return true;
+    public ArrayList<Plot> getNeighbours(Plot plot) {
+        ArrayList<Plot> plots = new ArrayList<>();
+        for(Plot mapPlot : map_){
+            for (Position position : plot.getPosition().closestPositions()) {
+                if (mapPlot.getPosition().equals(position)){
+                    plots.add(mapPlot);
                 }
             }
         }
-        return false;
+        return plots;
     }
 
     public void rotatePattern(ArrayList<Plot> pattern){

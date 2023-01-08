@@ -18,9 +18,14 @@ class MapTest {
     @Test
     void getMap() {
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
-        map.putPlot(plot);
-        assertEquals(map.getMap().get(1), plot);
+        ArrayList<Plot> plots = new ArrayList<>();
+        plots.add(new Plot(PlotType.GREEN, new Position(1,0)));
+        plots.add(new Plot(PlotType.POND, new Position(0, 0)));
+
+        for(Plot plot : plots){
+            map.putPlot(plot);
+        }
+        assertTrue(plots.containsAll(map.getMap()));
     }
 
     @Test
@@ -39,11 +44,10 @@ class MapTest {
         Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
         map.putPlot(plot);
         assertFalse(map.isPossibleToPutPlot(new Position(1,0)));
-        assertFalse(map.isPossibleToPutPlot(new Position(2,0)));
+        assertFalse(map.isPossibleToPutPlot(new Position(5,6)));
         assertTrue(map.isPossibleToPutPlot(new Position(1,1)));
     }
 
-    @Test
     public void closestAvailableSpace(){
         Map map = new Map();
         Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
@@ -78,12 +82,30 @@ class MapTest {
         assertFalse(map.closestPlot(new Position(1,0)).contains(new Position(1,1)));
     }
 
-    @Test
-    void haveNeighbours() {
+    void getNeighbours() {
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(0,0));
+        ArrayList<Plot> plots = new ArrayList<>();
+        Plot plot1 = new Plot(PlotType.POND, new Position(0,0));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(0,1));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(1,1));
+
+        plots.add(plot1);
+        plots.add(plot2);
+
+        map.putPlot(plot1);
+        map.putPlot(plot2);
+        map.putPlot(plot3);
+        System.out.println(plots);
+        System.out.println(map.getNeighbours(plot3));
+        assertTrue(map.getNeighbours(plot3).containsAll(plots));
+    }
+
+    @Test
+    void findPlot() {
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
         map.putPlot(plot);
-        assertTrue(map.haveNeighbours(new Position(0,1)));
+        assertEquals(plot, map.findPlot(new Position(0,1)));
     }
 
     @Test
@@ -108,10 +130,12 @@ class MapTest {
     @Test
     public void growBambouTest() {
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(2,2));
+        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
         map.putPlot(plot);
         plot.isIrrigatedIsTrue();
-        map.growBambou(new Position(2,2));
+        map.growBambou(new Position(1,0));
         assertEquals(1, plot.getNumberOfBambou());
     }
+
+
 }
