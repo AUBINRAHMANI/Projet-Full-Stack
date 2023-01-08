@@ -27,6 +27,6 @@ class ObjectivePlotsTest {
 
     @Test
     void verifyPandaObj() {
-        assertFalse(new ObjectivePlots(0, (Pattern) null).verifyPandaObj(null));
+        assertFalse(new ObjectivePlots(0, (Pattern) null).verifyPandaObj(null, null));
     }
 }

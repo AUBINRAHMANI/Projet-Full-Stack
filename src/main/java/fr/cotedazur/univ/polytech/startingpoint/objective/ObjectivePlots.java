@@ -31,7 +31,15 @@ public class ObjectivePlots extends Objective{
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "ObjectivePlots{" +
+                "points=" + _points +
+                "pattern=" + pattern +
+                '}';
     }
 }

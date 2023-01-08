@@ -15,19 +15,19 @@ class ObjectiveGardenerTest {
 
     @Test
     void verifyPlotObj() {
-        assertFalse(new ObjectiveGardener(0, 0 ,null, false).verifyPlotObj(null, null));
+        assertFalse(new ObjectiveGardener(0, 0 ,null, false, 0).verifyPlotObj(null, null));
     }
 
     @Mock GameEngine mockedGameEngine = mock(GameEngine.class);
     @Test
     void verifyGardenerObj() {
-        when(mockedGameEngine.computeObjectiveGardener(0, null, true)).thenReturn(true);
-        ObjectiveGardener objectiveGardener = new ObjectiveGardener(0, 0, null, true);
+        when(mockedGameEngine.computeObjectiveGardener(0, null, true, 0)).thenReturn(true);
+        ObjectiveGardener objectiveGardener = new ObjectiveGardener(0, 0, null, true, 0);
         assertTrue(objectiveGardener.verifyGardenerObj(mockedGameEngine));
     }
 
     @Test
     void verifyPandaObj() {
-        assertFalse(new ObjectiveGardener(0, 0, null ,false).verifyPandaObj(null));
+        assertFalse(new ObjectiveGardener(0, 0, null ,false, 0).verifyPandaObj(null, null));
     }
 }

@@ -7,25 +7,17 @@ public class BotProfil {
 
     private Bot bot_;
     private ArrayList<Objective> objectives_;
+
+    private ArrayList<Bambou> bambous;
     private int points_;
     private int nbCompletedObjective_;
-
-    private Position positionPlacedDuringRound_;
 
     public BotProfil(Bot bot){
         bot_ = bot;
         objectives_ = new ArrayList<>();
+        bambous = new ArrayList<>();
         points_ = 0;
         nbCompletedObjective_ = 0;
-        positionPlacedDuringRound_ = null;
-    }
-
-    public void setPositionPlacedDuringRound_(Position positionPlacedDuringRound_) {
-        this.positionPlacedDuringRound_ = positionPlacedDuringRound_;
-    }
-
-    public Position getPositionPlacedDuringRound_() {
-        return positionPlacedDuringRound_;
     }
 
     public Bot getBot_() {
@@ -34,6 +26,9 @@ public class BotProfil {
 
     public int getPoints_() {
         return points_;
+    }
+    public void addPoints_(int nbPoints){
+        points_+=nbPoints;
     }
 
     public int getNbCompletedObjective_() {return nbCompletedObjective_;}
@@ -50,5 +45,17 @@ public class BotProfil {
         objectives_.remove(objective);
         ++nbCompletedObjective_;
         points_ += objective.getPoint();
+    }
+
+    public void addBanbou(Bambou bambou){
+        bambous.add(bambou);
+    }
+
+    public void setBambous(ArrayList<Bambou> bambous){
+        this.bambous = bambous;
+    }
+
+    public ArrayList<Bambou> getBambous(){
+        return bambous;
     }
 }

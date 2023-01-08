@@ -11,12 +11,16 @@ public class GameEngine {
     private Deck<Plot>      plotDeck_;
     private Map             map_;
     private Gardener        gardener_;
+    private Panda           panda;
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
         objectiveDeck_              = objectiveDeck;
         plotDeck_                   = plotDeck;
         map_                        = map;
+
+        panda                       = new Panda();
+
         gardener_                   = new Gardener();
     }
 
@@ -25,6 +29,8 @@ public class GameEngine {
     }
 
     public Plot pickPlot() {
+        System.out.println(plotDeck_);
+        System.out.println("");
         return plotDeck_.getNextCard();
     }
 
@@ -36,8 +42,8 @@ public class GameEngine {
         return map_;
     }
 
-    public boolean haveNeighbours( Position position){
-        return map_.haveNeighbours(position);
+    public ArrayList<Plot> haveNeighbours(Plot plot){
+        return map_.getNeighbours(plot);
     }
 
     public Position getGardenerPosition(){
@@ -59,7 +65,21 @@ public class GameEngine {
     }
 
     public boolean movePanda(Position position){
+        if(!map_.isSpaceFree(position)){
+            panda.setPosition(position);
+            return true;
+        }
+        else{
+            System.out.println("Veuillez bouger votre pandat sur une plote existante");
+
+        }
         return false;
+    }
+
+    public boolean eatBambou(Position position){
+       Plot plot = map_.findPlot(position);
+       plot.eatBambou();
+       return true;
     }
 
 
@@ -97,20 +117,42 @@ public class GameEngine {
         return true;
     }
 
-    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement){
+    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbSections){
+        Plot plot = map_.findPlot(gardener_.getPosition());
         if(nbBambou> 3){
-            Plot plot = map_.findPlot(gardener_.getPosition());
             if(plot.getNumberOfBambou() == nbBambou && plot.getType() == bambouType){
                 return true;
             }
         }
         else {
-
+            if(plot.getNumberOfBambou() != nbBambou || plot.getType() != bambouType)return  false;
+            int nbValidatedPlots = 0;
+            for(Plot neighbour : map_.getNeighbours(plot)){
+                if(neighbour.getNumberOfBambou() == nbBambou && neighbour.getType() == bambouType){
+                    nbValidatedPlots++;
+                }
+            }
+            if(nbValidatedPlots == nbSections-1)return true;
         }
         return false;
     }
 
-    public boolean computeObjectivePanda(ArrayList<Bambou> bambous){
-        return false;
+    public boolean computeObjectivePanda(BotProfil botProfil, ArrayList<Bambou> bambousToHave){
+        ArrayList<Bambou> playerBambous = new ArrayList<>(botProfil.getBambous());
+        ArrayList<Bambou> BambousToRemove = new ArrayList<>();
+
+        for(Bambou bambou : bambousToHave){
+            System.out.println(botProfil.getBambous());
+            System.out.println(bambousToHave);
+            System.out.println("");
+            if(playerBambous.contains(bambou)){
+                playerBambous.remove(bambou);
+            }
+            else {
+                return false;
+            }
+        }
+        botProfil.setBambous(playerBambous);
+        return true;
     }
 }

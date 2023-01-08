@@ -3,6 +3,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import static java.lang.Math.abs;
 
 public class Position {
 
@@ -103,8 +104,12 @@ public class Position {
         return new Position( q+position.q , r+position.r , s+position.s );
     }
 
-    boolean isCenter(){
+    public boolean isCenter(){
         return (q==0 && r==0 && s==0);
+    }
+
+    public boolean isCloseToCenter(){
+        return (abs(q) + abs(r) + abs(s) == 2);
     }
 
     @Override

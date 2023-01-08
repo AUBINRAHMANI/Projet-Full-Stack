@@ -2,5 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public enum PlotType {
     POND,
-    GREEN
+    GREEN,
+    YELLOW,
+    RED
 }

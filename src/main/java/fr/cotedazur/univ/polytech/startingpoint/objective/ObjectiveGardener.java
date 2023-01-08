@@ -8,12 +8,14 @@ import java.util.ArrayList;
 public class ObjectiveGardener extends Objective{
 
     int nbBambou;
+    int nbSection;
     PlotType bambouType;
     boolean improvement;
 
-    public ObjectiveGardener(int point, int nbBambou, PlotType bambouType , boolean improvement) {
+    public ObjectiveGardener(int point, int nbBambou, PlotType bambouType , boolean improvement, int nbSection) {
         super(point);
         this.nbBambou       = nbBambou;
+        this.nbSection      = nbSection;
         this.bambouType     = bambouType;
         this.improvement    = improvement;
     }
@@ -25,11 +27,23 @@ public class ObjectiveGardener extends Objective{
 
     @Override
     public boolean verifyGardenerObj(GameEngine gameEngine) {
-        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, improvement);
+        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, improvement, nbSection);
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "ObjectiveGardener{" +
+                "points=" + _points +
+                "nbBambou=" + nbBambou +
+                ", nbSection=" + nbSection +
+                ", bambouType=" + bambouType +
+                ", improvement=" + improvement +
+                '}';
+    }
+
 }
