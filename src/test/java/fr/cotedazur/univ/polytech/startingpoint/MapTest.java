@@ -24,6 +24,16 @@ class MapTest {
     }
 
     @Test
+    void isSpaceFree() {
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
+        map.putPlot(plot);
+        assertFalse(map.isSpaceFree(new Position(1,0)));
+        assertTrue(map.isSpaceFree(new Position(2,0)));
+        assertTrue(map.isSpaceFree(new Position(1,1)));
+    }
+
+    @Test
     void isPossibleToPutPlot() {
         Map map = new Map();
         Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
@@ -31,6 +41,36 @@ class MapTest {
         assertFalse(map.isPossibleToPutPlot(new Position(1,0)));
         assertFalse(map.isPossibleToPutPlot(new Position(2,0)));
         assertTrue(map.isPossibleToPutPlot(new Position(1,1)));
+    }
+
+    @Test
+    void closestAvailableSpace(){
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(2,0));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(1,1));
+        map.putPlot(plot);
+        map.putPlot(plot2);
+        map.putPlot(plot3);
+        assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(1,1)));
+        assertTrue(map.closestAvailableSpace(new Position(1,0)).contains(new Position(1,-1)));
+        assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(2,0)));
+        assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(0,1)));
+    }
+
+    @Test
+    void closestPlot(){
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(2,0));
+        map.putPlot(plot);
+        map.putPlot(plot2);
+        map.putPlot(plot3);
+        assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(1,1)));
+        assertTrue(map.closestPlot(new Position(1,0)).contains(new Position(1,-1)));
+        assertFalse(map.closestPlot(new Position(1,0)).contains(new Position(2,0)));
+        assertFalse(map.closestPlot(new Position(1,0)).contains(new Position(1,1)));
     }
 
     @Test

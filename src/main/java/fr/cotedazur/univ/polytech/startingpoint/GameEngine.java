@@ -55,7 +55,20 @@ public class GameEngine {
     }
 
     public void growBambou(){
-        map_.growBambou(gardener_.getPosition());
+        if(map_.closestPlot(gardener_.getPosition()).isEmpty()){
+            map_.growBambou(gardener_.getPosition());
+        }
+        else{
+            for(Position position : map_.closestPlot(gardener_.getPosition())){
+                map_.growBambou(position);
+            }
+        }
+    }
+
+    public void addBambouToSameSidePlot(){
+        if(map_.closestPlot(gardener_.getPosition()).isEmpty()){
+
+        }
     }
     /*
     public boolean computeObjectivePlot(ArrayList<Plot> configuration){

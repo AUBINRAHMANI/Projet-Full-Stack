@@ -65,6 +65,16 @@ public class Map {
         return positionsAvailable;
     }
 
+    public ArrayList<Position> closestPlot(Position position) {
+        ArrayList<Position> closestPlots = new ArrayList<>();
+        for (Position potentialPosition : position.closestPositions()) {
+            if (getMap().contains(new Plot(PlotType.GREEN, potentialPosition))) {
+                closestPlots.add(potentialPosition);
+            }
+        }
+        return closestPlots;
+    }
+
     public boolean haveNeighbours(Position position) {
         for(Plot plot : map_){
             for (Position positions : position.closestPositions()) {
