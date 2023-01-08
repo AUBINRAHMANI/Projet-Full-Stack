@@ -82,6 +82,7 @@ class MapTest {
         assertFalse(map.closestPlot(new Position(1,0)).contains(new Position(1,1)));
     }
 
+    @Test
     void getNeighbours() {
         Map map = new Map();
         ArrayList<Plot> plots = new ArrayList<>();
