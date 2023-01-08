@@ -64,12 +64,6 @@ public class GameEngine {
             }
         }
     }
-
-    public void addBambouToSameSidePlot(){
-        if(map_.closestPlot(gardener_.getPosition()).isEmpty()){
-
-        }
-    }
     /*
     public boolean computeObjectivePlot(ArrayList<Plot> configuration){
         return false;
