@@ -15,17 +15,19 @@ public class Map {
     public Map(MapInterface mapInterface){
         _mapInterface = mapInterface;
         map_ = new ArrayList<>();
-        putPlot(new Plot(PlotType.POND, new Position(0,0,0)));
+        map_.add( new Plot(PlotType.POND, new Position(0,0)));
     }
 
     public boolean putPlot(Plot plot) {
         if (isPossibleToPutPlot(plot.getPosition()) == true) {
             map_.add(plot);
+            /*
             for(Position position : plot.getPosition().closestPositions()){
                 if(position.equals(new Position(0,0))){
                     plot.isIrrigatedIsTrue();
                 }
-            }
+            }*/
+
             if(_mapInterface != null){
                 _mapInterface.drawHexagon(plot.getPosition());
             }
@@ -64,15 +66,15 @@ public class Map {
     }
 
     public boolean isPossibleToPutPlot(Position position) {
-        if(closestAvailableSpace(position).size() >4 && position.isCloseToCenter() ==false && position.isCenter() ==false) return false;
-        return isSpaceFree(position);
+        if((getNeighbours(new Plot(PlotType.GREEN, position)).size() >1 ||  position.isCloseToCenter()) && (position.isCenter() ==false)) return isSpaceFree(position);
+        return false;
     }
 
 
     public ArrayList<Position> closestAvailableSpace(Position position) {
         ArrayList<Position> positionsAvailable = new ArrayList<>();
         for (Position potentialPosition : position.closestPositions()) {
-            if(isSpaceFree(potentialPosition))
+            if(isPossibleToPutPlot(potentialPosition))
             {
                 positionsAvailable.add(potentialPosition);
             }

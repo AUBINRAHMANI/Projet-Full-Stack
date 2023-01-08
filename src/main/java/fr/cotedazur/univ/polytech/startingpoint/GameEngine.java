@@ -29,8 +29,6 @@ public class GameEngine {
     }
 
     public Plot pickPlot() {
-        System.out.println(plotDeck_);
-        System.out.println("");
         return plotDeck_.getNextCard();
     }
 
@@ -68,10 +66,6 @@ public class GameEngine {
         if(!map_.isSpaceFree(position)){
             panda.setPosition(position);
             return true;
-        }
-        else{
-            System.out.println("Veuillez bouger votre pandat sur une plote existante");
-
         }
         return false;
     }
@@ -142,9 +136,6 @@ public class GameEngine {
         ArrayList<Bambou> BambousToRemove = new ArrayList<>();
 
         for(Bambou bambou : bambousToHave){
-            System.out.println(botProfil.getBambous());
-            System.out.println(bambousToHave);
-            System.out.println("");
             if(playerBambous.contains(bambou)){
                 playerBambous.remove(bambou);
             }
