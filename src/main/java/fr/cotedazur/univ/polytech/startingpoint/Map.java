@@ -9,11 +9,7 @@ public class Map {
     public ArrayList<Plot> map_;
     private MapInterface _mapInterface;
 
-    public Map() {
-        this( null);
-    }
-    public Map(MapInterface mapInterface){
-        _mapInterface = mapInterface;
+    public Map(){
         map_ = new ArrayList<>();
         map_.add( new Plot(PlotType.POND, new Position(0,0)));
     }
@@ -21,15 +17,10 @@ public class Map {
     public boolean putPlot(Plot plot) {
         if (isPossibleToPutPlot(plot.getPosition()) == true) {
             map_.add(plot);
-            /*
             for(Position position : plot.getPosition().closestPositions()){
                 if(position.equals(new Position(0,0))){
                     plot.isIrrigatedIsTrue();
                 }
-            }*/
-
-            if(_mapInterface != null){
-                _mapInterface.drawHexagon(plot.getPosition());
             }
             return true;
         }

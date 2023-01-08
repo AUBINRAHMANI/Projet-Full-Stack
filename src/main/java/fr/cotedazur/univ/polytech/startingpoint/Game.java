@@ -22,18 +22,11 @@ public class Game {
         botProfils_                     = new ArrayList<>();
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
-
-        if(debug){
-            _mapInterface   = new MapInterface();
-            Map map                     = new Map(_mapInterface);
-            gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, map);
-        }
-        else {
-            Map map= new Map();
-            gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, map);
-        }
-
+        gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, new Map());
         botProfils_.add(new BotProfil(new Bot()));
+
+        _mapInterface = new MapInterface();
+        _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
     }
     public Game(){
         this(false);
@@ -44,6 +37,7 @@ public class Game {
             botProfils_.get(0).addObjective(gameEngine_.pickObjective());
             for(BotProfil botProfil : botProfils_){
                 if(_mapInterface != null) while (_mapInterface.next()==false);
+                _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
                 Action action = botProfil.getBot_().play(this, gameEngine_.getMap());
                 action.play(gameEngine_);
                 action.verifyObjectiveAfterAction(this);
