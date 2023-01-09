@@ -3,17 +3,21 @@ package fr.cotedazur.univ.polytech.startingpoint;
 import fr.cotedazur.univ.polytech.startingpoint.Action.*;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 
 public class Bot {
 
     Game game;
+    Map map;
 
-    public Bot() {
+    public Bot(Game game, Map map) {
+        this.map = map ;
     }
 
     public Action play(Game game, Map map) {
-        this.game = game;
+        this.game   = game;
+        this.map    = map;
        ArrayList<Objective> objectives = game.getMyObjectives(this);
        if(objectives == null){
            assert false;
@@ -36,6 +40,30 @@ public class Bot {
     }
 
     public Action fillObjectivePlots(Pattern pattern){
+        for(Plot plot : map.getMap()){
+            if(plot.getType() == pattern.getPlots().get(0).getType()){
+                Pattern patternToPlace = checkIfPossibleToPlacePattern(pattern, plot.getPosition());
+                if( patternToPlace != null){
+                    for(Plot tempPlot : patternToPlace.getPlots()){
+                        if(map.isPossibleToPutPlot(tempPlot.getPosition())){
+                            return new PutPlotAction(tempPlot);
+                        }
+                        else {
+                            if(map.isSpaceFree(tempPlot.getPosition())){
+                                return new PutPlotAction(new Plot(tempPlot.getType(), map.closestAvailableSpace(tempPlot.getPosition()).get(0)));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for(Plot plot : map.getMap()){
+            return new PutPlotAction(new Plot(pattern.getPlots().get(0).getType(), map.closestAvailableSpace(plot.getPosition()).get(0)));
+        }
+        return null;
+    }
+
+    private Pattern checkIfPossibleToPlacePattern(Pattern pattern, Position position) {
         return null;
     }
 

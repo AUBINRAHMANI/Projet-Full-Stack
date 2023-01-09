@@ -23,7 +23,7 @@ public class Game {
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
         gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, new Map());
-        botProfils_.add(new BotProfil(new Bot()));
+        botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap())));
 
         _mapInterface = new MapInterface();
         _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());

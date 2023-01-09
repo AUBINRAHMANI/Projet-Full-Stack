@@ -85,7 +85,7 @@ public class GameEngineTest {
     void computeObjectivePanda(){
         GameEngine gameEngine = new GameEngine(null, null, null);
 
-        BotProfil botProfil = new BotProfil(new Bot());
+        BotProfil botProfil = new BotProfil(new Bot(null, null));
         botProfil.addBanbou(new Bambou(PlotType.GREEN));
 
         ArrayList<Bambou> bambousObjective = new ArrayList<>();
