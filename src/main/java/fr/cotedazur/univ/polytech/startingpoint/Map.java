@@ -9,11 +9,7 @@ public class Map {
     public ArrayList<Plot> map_;
     private MapInterface _mapInterface;
 
-    public Map() {
-        this( null);
-    }
-    public Map(MapInterface mapInterface){
-        _mapInterface = mapInterface;
+    public Map(){
         map_ = new ArrayList<>();
         Plot Pond = new Plot(PlotType.POND, new Position(0,0));
         Pond.isIrrigatedIsTrue();
@@ -24,9 +20,6 @@ public class Map {
         if (isPossibleToPutPlot(plot.getPosition()) == true) {
             map_.add(plot);
             verifyIrrigation(plot);
-            if(_mapInterface != null){
-                _mapInterface.drawHexagon(plot.getPosition());
-            }
             return true;
         }
         return false;

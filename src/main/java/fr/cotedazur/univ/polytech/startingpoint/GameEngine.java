@@ -43,6 +43,9 @@ public class GameEngine {
     public Position getGardenerPosition(){
         return gardener_.getPosition();
     }
+    public Position getPandaPosition(){
+        return panda.getPosition();
+    }
 
     public boolean moveGardener(Position position){
         if(!map_.isSpaceFree(position) && position.isDeplacementALine(gardener_.getPosition())){
