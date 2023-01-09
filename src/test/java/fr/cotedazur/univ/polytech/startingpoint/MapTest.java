@@ -28,7 +28,6 @@ class MapTest {
         map.putPlot(plot1);
         map.putPlot(plot2);
         map.putPlot(plot3);
-        System.out.println(map.getNeighbours(plot1.getPosition()));
         assertTrue(map.verifyIrrigation(plot1));
         assertTrue(map.verifyIrrigation(plot2));
         assertFalse(map.verifyIrrigation(plot3));
