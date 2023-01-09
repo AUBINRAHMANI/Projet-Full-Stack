@@ -1,6 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.Action.Action;
+
 import java.util.ArrayList;
 
 public class ObjectivePanda extends Objective {
@@ -25,6 +27,11 @@ public class ObjectivePanda extends Objective {
     @Override
     public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
         return gameEngine.computeObjectivePanda(botProfil, bambouSections);
+    }
+
+    @Override
+    public Action tryToFillObjective(Bot bot) {
+        return bot.fillObjectivePanda(bambouSections);
     }
 
     @Override

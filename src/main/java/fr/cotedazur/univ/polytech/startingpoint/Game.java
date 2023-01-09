@@ -163,6 +163,15 @@ public class Game {
         return winner;
     }
 
+    ArrayList<Objective> getMyObjectives(Bot bot){
+        for(BotProfil botProfil : botProfils_){
+            if(bot == botProfil.getBot_()){
+                return botProfil.getObjectives_();
+            }
+        }
+        return null;
+    }
+
     public void printWinner(BotProfil botProfil){
         System.out.println("Le Bot gagne avec : "+botProfil.getPoints_() +" points");
     }
