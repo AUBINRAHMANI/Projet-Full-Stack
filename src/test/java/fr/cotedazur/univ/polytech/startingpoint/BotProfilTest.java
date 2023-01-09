@@ -52,6 +52,5 @@ class BotProfilTest {
         Bambou bambou = new Bambou(PlotType.GREEN);
         botProfil.addBanbou(bambou);
         assertEquals(bambou , botProfil.getBambous().get(0));
-
     }
 }
