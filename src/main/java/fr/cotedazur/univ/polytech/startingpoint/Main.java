@@ -14,7 +14,6 @@ public class Main {
         map.putPlot(plot2);
         map.putPlot(plot3);
         map.putPlot(plot4);
-        System.out.println(map.closestPlot(new Position(1,0)));
         System.out.println(map.closestAvailableSpace(new Position(1,0)));
     }
 

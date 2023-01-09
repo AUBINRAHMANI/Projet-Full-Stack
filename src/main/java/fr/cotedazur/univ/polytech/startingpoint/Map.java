@@ -15,19 +15,15 @@ public class Map {
     public Map(MapInterface mapInterface){
         _mapInterface = mapInterface;
         map_ = new ArrayList<>();
-        map_.add( new Plot(PlotType.POND, new Position(0,0)));
+        Plot Pond = new Plot(PlotType.POND, new Position(0,0));
+        Pond.isIrrigatedIsTrue();
+        map_.add(Pond);
     }
 
     public boolean putPlot(Plot plot) {
         if (isPossibleToPutPlot(plot.getPosition()) == true) {
             map_.add(plot);
-            /*
-            for(Position position : plot.getPosition().closestPositions()){
-                if(position.equals(new Position(0,0))){
-                    plot.isIrrigatedIsTrue();
-                }
-            }*/
-
+            verifyIrrigation(plot);
             if(_mapInterface != null){
                 _mapInterface.drawHexagon(plot.getPosition());
             }
@@ -40,7 +36,11 @@ public class Map {
         return new ArrayList<>(map_);
     }
 
-    public boolean isIrrigated(Plot p) {
+    public boolean verifyIrrigation(Plot p) {
+        if(this.getNeighbours(p.getPosition()).contains(new Plot(PlotType.POND, new Position(0,0)))){
+            p.isIrrigatedIsTrue();
+            return true;
+        }
         return false;
     }
 
@@ -53,8 +53,6 @@ public class Map {
         }
         return plot1;
     }
-
-
     boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))

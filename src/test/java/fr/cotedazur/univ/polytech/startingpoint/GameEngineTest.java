@@ -102,9 +102,7 @@ public class GameEngineTest {
     @Test
     void moveGardenerTest(){
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(0,0));
         Plot plot2 = new Plot(PlotType.GREEN, new Position(0,1));
-        map.putPlot(plot);
         map.putPlot(plot2);
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.moveGardener(new Position(0,1));
@@ -118,12 +116,14 @@ public class GameEngineTest {
     public void growBambouTest(){
         Map map = new Map();
         Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
-        plot.isIrrigatedIsTrue();
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
         map.putPlot(plot);
+        map.putPlot(plot2);
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.moveGardener(new Position(0,1));
         gameEngine.growBambou();
         assertEquals(1, plot.getNumberOfBambou());
+        assertEquals(1, plot2.getNumberOfBambou());
 
     }
 

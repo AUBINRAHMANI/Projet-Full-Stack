@@ -45,13 +45,11 @@ public class GameEngine {
     }
 
     public boolean moveGardener(Position position){
-        if(map_.isSpaceFree(position)){
-            return false;
-        }
-        else{
+        if(!map_.isSpaceFree(position) && position.isDeplacementALine(gardener_.getPosition())){
             gardener_.setPosition(position);
             return true;
         }
+        return false;
     }
 
     public void growBambou(){
@@ -65,7 +63,7 @@ public class GameEngine {
     }
 
     public boolean movePanda(Position position){
-        if(!map_.isSpaceFree(position)){
+        if(!map_.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
             panda.setPosition(position);
             return true;
         }

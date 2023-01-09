@@ -112,6 +112,10 @@ public class Position {
         return (abs(q) + abs(r) + abs(s) == 2);
     }
 
+    public boolean isDeplacementALine(Position position){
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
