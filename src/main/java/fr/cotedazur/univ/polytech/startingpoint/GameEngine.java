@@ -56,7 +56,7 @@ public class GameEngine {
         Plot gardenerPlot = map_.findPlot(gardener_.getPosition());
         gardenerPlot.growBambou();
         for(Plot plot : map_.getNeighbours(gardener_.getPosition())){
-            if(plot.getType() == gardenerPlot.getType()){
+            if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated()){
                 plot.growBambou();
             }
         }

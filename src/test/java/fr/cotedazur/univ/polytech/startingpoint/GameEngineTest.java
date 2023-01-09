@@ -103,12 +103,17 @@ public class GameEngineTest {
     void moveGardenerTest(){
         Map map = new Map();
         Plot plot2 = new Plot(PlotType.GREEN, new Position(0,1));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(1,2));
         map.putPlot(plot2);
+        map.putPlot(plot3);
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.moveGardener(new Position(0,1));
         assertEquals(new Position(0, 1), gameEngine.getGardenerPosition());
 
         gameEngine.moveGardener(new Position(3,1));
+        assertEquals(new Position(0, 1), gameEngine.getGardenerPosition());
+
+        gameEngine.moveGardener(new Position(1,2));
         assertEquals(new Position(0, 1), gameEngine.getGardenerPosition());
     }
 
@@ -133,18 +138,15 @@ public class GameEngineTest {
         Plot plot1 = new Plot(PlotType.GREEN, new Position(0,1));
         Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
         Plot plot3 = new Plot(PlotType.GREEN, new Position(1,0));
-        plot1.isIrrigatedIsTrue();
-        plot2.isIrrigatedIsTrue();
-        plot3.isIrrigatedIsTrue();
+        map.putPlot(plot1);
+        map.putPlot(plot2);
+        map.putPlot(plot3);
 
         for(int i=0; i<4; ++i)plot1.growBambou();
         for(int i=0; i<3; ++i){
             plot2.growBambou();
             plot3.growBambou();
         }
-        map.putPlot(plot1);
-        map.putPlot(plot2);
-        map.putPlot(plot3);
 
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.moveGardener(new Position(0,1));

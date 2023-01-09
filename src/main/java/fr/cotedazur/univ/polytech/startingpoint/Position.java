@@ -113,7 +113,10 @@ public class Position {
     }
 
     public boolean isDeplacementALine(Position position){
-        return true;
+        if(this.getQ() == position.getQ() || this.getR() == position.getR() || this.getS() == position.getS()){
+            return true;
+        }
+        return false;
     }
 
     @Override
