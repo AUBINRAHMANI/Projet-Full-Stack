@@ -48,21 +48,25 @@ public class GameEngine {
     }
 
     public boolean moveGardener(Position position){
-        if(map_.isSpaceFree(position)){
-            return false;
-        }
-        else{
+        if(!map_.isSpaceFree(position) && position.isDeplacementALine(gardener_.getPosition())){
             gardener_.setPosition(position);
             return true;
         }
+        return false;
     }
 
     public void growBambou(){
-        map_.growBambou(gardener_.getPosition());
+        Plot gardenerPlot = map_.findPlot(gardener_.getPosition());
+        gardenerPlot.growBambou();
+        for(Plot plot : map_.getNeighbours(gardener_.getPosition())){
+            if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated()){
+                plot.growBambou();
+            }
+        }
     }
 
     public boolean movePanda(Position position){
-        if(!map_.isSpaceFree(position)){
+        if(!map_.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
             panda.setPosition(position);
             return true;
         }

@@ -112,6 +112,13 @@ public class Position {
         return (abs(q) + abs(r) + abs(s) == 2);
     }
 
+    public boolean isDeplacementALine(Position position){
+        if(this.getQ() == position.getQ() || this.getR() == position.getR() || this.getS() == position.getS()){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

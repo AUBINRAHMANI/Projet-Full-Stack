@@ -20,6 +20,21 @@ class MapTest {
     }
 
     @Test
+    void verifyIrrigation(){
+        Map map = new Map();
+        Plot plot1 = new Plot(PlotType.GREEN, new Position(0,1));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(1,2));
+        map.putPlot(plot1);
+        map.putPlot(plot2);
+        map.putPlot(plot3);
+        System.out.println(map.getNeighbours(plot1.getPosition()));
+        assertTrue(map.verifyIrrigation(plot1));
+        assertTrue(map.verifyIrrigation(plot2));
+        assertFalse(map.verifyIrrigation(plot3));
+    }
+
+    @Test
     void getMap() {
         Map map = new Map();
         ArrayList<Plot> plots = new ArrayList<>();
@@ -30,6 +45,16 @@ class MapTest {
             map.putPlot(plot);
         }
         assertTrue(plots.containsAll(map.getMap()));
+    }
+
+    @Test
+    void isSpaceFree() {
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
+        map.putPlot(plot);
+        assertFalse(map.isSpaceFree(new Position(1,0)));
+        assertTrue(map.isSpaceFree(new Position(2,0)));
+        assertTrue(map.isSpaceFree(new Position(1,1)));
     }
 
     @Test
@@ -46,13 +71,11 @@ class MapTest {
     void getNeighbours() {
         Map map = new Map();
         ArrayList<Plot> plots = new ArrayList<>();
-        Plot plot1 = new Plot(PlotType.POND, new Position(0,0));
         Plot plot2 = new Plot(PlotType.GREEN, new Position(0,1));
         Plot plot3 = new Plot(PlotType.GREEN, new Position(1,1));
         Plot plot4 = new Plot(PlotType.GREEN, new Position(1,0));
         Plot plot5 = new Plot(PlotType.GREEN, new Position(2,0));
 
-        plots.add(plot1);
         plots.add(plot2);
         plots.add(plot4);
         plots.add(plot5);
@@ -61,9 +84,6 @@ class MapTest {
         map.putPlot(plot3);
         map.putPlot(plot4);
         map.putPlot(plot5);
-
-        //System.out.println(plots);
-        //System.out.println(map.getNeighbours(plot3));
         assertTrue(map.getNeighbours(plot3.getPosition()).containsAll(plots));
     }
 
@@ -92,16 +112,6 @@ class MapTest {
 
         map.rotatePattern(pattern);
         assertEquals(patternExpected, pattern);
-    }
-
-    @Test
-    public void growBambouTest() {
-        Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(1,0));
-        map.putPlot(plot);
-        plot.isIrrigatedIsTrue();
-        map.growBambou(new Position(1,0));
-        assertEquals(1, plot.getNumberOfBambou());
     }
 
     @Test

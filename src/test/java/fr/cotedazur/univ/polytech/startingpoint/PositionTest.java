@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -130,5 +131,28 @@ class PositionTest {
         Position position2 = new Position(3,4);
         assertTrue(position1.isCloseToCenter());
         assertFalse(position2.isCloseToCenter());
+    }
+
+    @Test
+    void isDeplacementALine(){
+        Position position1 = new Position(1,4);
+        Position position2 = new Position(3,4);
+        Position position3 = new Position(5,2);
+        Position position4 = new Position(1,1);
+        Position position5 = new Position(1,5);
+        Position position6 = new Position(0,3);
+        Position position7 = new Position(0,4);
+        Position position8 = new Position(2,4);
+        Position position9 = new Position(0,2);
+
+        assertFalse(position1.isDeplacementALine(position2));
+        assertTrue(position1.isDeplacementALine(position3));
+        assertTrue(position1.isDeplacementALine(position4));
+        assertTrue(position1.isDeplacementALine(position5));
+        assertTrue(position1.isDeplacementALine(position6));
+        assertTrue(position1.isDeplacementALine(position7));
+        assertTrue(position1.isDeplacementALine(position8));
+        assertFalse(position1.isDeplacementALine(position9));
+
     }
 }
