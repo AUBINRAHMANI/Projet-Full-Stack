@@ -101,4 +101,22 @@ class PatternTest {
 
         assertEquals(pattern2, pattern1);
     }
+
+    @Test
+    public void applyMask(){
+        ArrayList<Plot> plots = new ArrayList<>();
+        plots.add(new Plot(PlotType.GREEN, new Position(-1,1)));
+        plots.add(new Plot(PlotType.GREEN, new Position(0,0)));
+        plots.add(new Plot(PlotType.GREEN, new Position(1,0)));
+        plots.add(new Plot(PlotType.GREEN, new Position(1,1)));
+        Pattern pattern = new Pattern(plots);
+
+        ArrayList<Plot> expected = new ArrayList<>();
+        expected.add(new Plot(PlotType.GREEN, new Position(3,4)));
+        expected.add(new Plot(PlotType.GREEN, new Position(4,3)));
+        expected.add(new Plot(PlotType.GREEN, new Position(5,3)));
+        expected.add(new Plot(PlotType.GREEN, new Position(5,4)));
+        pattern.applyMask(new Position(4,3));
+        assertEquals(expected, pattern.getPlots());
+    }
 }

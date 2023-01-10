@@ -93,9 +93,8 @@ public class GameEngine {
         for (int i=0; i<area_size ; ++i){
             for (int j=0; j<6 ; ++j){
                 for (int k=0 ; k<area_size ; ++k){
-                    Pattern tempPattern = new Pattern(pattern);
-                    tempPattern.applyMask(lastPlacedPosition);
-                    if(computePatternVerification(tempPattern))return true;
+                    ArrayList<Plot> incompletePlot = map_.computePatternVerification(new Pattern(pattern), lastPlacedPosition);
+                    if(incompletePlot != null  && incompletePlot.isEmpty())return true;
                     pattern.translateDown();
                 }
                 for (int k=0 ; k<area_size ; ++k){
@@ -107,12 +106,7 @@ public class GameEngine {
         }
         return false;
     }
-    private boolean computePatternVerification(Pattern pattern){
-        for(Plot plot : pattern.getPlots()){
-            if(map_.isSpaceFree(plot.getPosition()) || plot.getPosition().isCenter())return false;
-        }
-        return true;
-    }
+
 
     public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbSections){
         Plot plot = map_.findPlot(gardener_.getPosition());

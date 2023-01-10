@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,12 +86,22 @@ public class Map {
         return plots;
     }
 
-    public void rotatePattern(ArrayList<Plot> pattern){
-        for(Plot plot : pattern){
-            Position plotPosition = plot.getPosition();
-            plotPosition.rotate60Right();
-            plot.setPosition(plotPosition);
+    public ArrayList<Plot> computePatternVerification(Pattern pattern, Position currentPosition){
+        Pattern tempPattern = new Pattern(pattern);
+        tempPattern.applyMask(currentPosition);
+        System.out.println(tempPattern);
+        ArrayList<Plot> incompletePlot = new ArrayList<>();
+        for(Plot plot : tempPattern.getPlots()){
+            if(plot.getPosition().isCenter()){
+                return null;
+            }
+            else {
+                if(isSpaceFree(plot.getPosition())){
+                    incompletePlot.add(plot);
+                }
+            }
         }
+        return incompletePlot;
     }
 }
 

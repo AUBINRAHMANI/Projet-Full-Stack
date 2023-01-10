@@ -22,7 +22,7 @@ public class Pattern {
 
     public void applyMask(Position position){
         for (Plot plot : pattern){
-            plot.getPosition().plus(position);
+            plot.setPosition(plot.getPosition().plus(position));
         }
     }
 
@@ -35,6 +35,7 @@ public class Pattern {
             plot.getPosition().rotate60Right();
         }
     }
+
     public void translateLeft(){
         for (Plot plot : pattern){
             plot.getPosition().translateLeft();

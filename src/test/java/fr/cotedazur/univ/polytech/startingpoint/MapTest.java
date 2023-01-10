@@ -94,24 +94,6 @@ class MapTest {
         assertEquals(plot, map.findPlot(new Position(0,1)));
     }
 
-    @Test
-    void rotatePattern() {
-        Map map = new Map();
-        ArrayList<Plot> pattern = new ArrayList<>();
-        pattern.add( new Plot(PlotType.GREEN, new Position(0,1)));
-        pattern.add( new Plot(PlotType.GREEN, new Position(1,1)));
-        pattern.add( new Plot(PlotType.GREEN, new Position(1,2)));
-        pattern.add( new Plot(PlotType.GREEN, new Position(2,1)));
-
-        ArrayList<Plot> patternExpected = new ArrayList<>();
-        patternExpected.add( new Plot(PlotType.GREEN, new Position(1,1)));
-        patternExpected.add( new Plot(PlotType.GREEN, new Position(1,0)));
-        patternExpected.add( new Plot(PlotType.GREEN, new Position(2,0)));
-        patternExpected.add( new Plot(PlotType.GREEN, new Position(2,-1)));
-
-        map.rotatePattern(pattern);
-        assertEquals(patternExpected, pattern);
-    }
 
     @Test
     public void closestAvailableSpace(){
@@ -134,6 +116,38 @@ class MapTest {
         assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(0,1)));
         assertTrue(map.closestAvailableSpace(new Position(1,1)).containsAll(expected));
         assertTrue(map.closestAvailableSpace(new Position(1,1)).size() == 2);
+
+    }
+
+    @Test
+    public void computePatternVerification(){
+            ArrayList<Plot> plots = new ArrayList<>();
+            plots.add(new Plot(PlotType.GREEN, new Position(-1,1)));
+            plots.add(new Plot(PlotType.GREEN, new Position(0,0)));
+            plots.add(new Plot(PlotType.GREEN, new Position(1,0)));
+            plots.add(new Plot(PlotType.GREEN, new Position(1,1)));
+
+            Pattern pattern = new Pattern(plots);
+            Plot currentPlot = new Plot(PlotType.GREEN, new Position(1,1));
+
+            ArrayList<Plot> plotsInMap =new ArrayList<>();
+            Map map = new Map();
+            map.putPlot(new Plot(PlotType.GREEN, new Position(0, 1)));
+            map.putPlot(new Plot(PlotType.GREEN, new Position(1, 0)));
+            map.putPlot(currentPlot);
+
+            Plot plot1 = new Plot(PlotType.GREEN, new Position(2,0));
+            Plot plot2 = new Plot(PlotType.GREEN, new Position(2,1));
+            ArrayList<Plot> expected = new ArrayList<>();
+            expected.add(plot1);
+            expected.add(plot2);
+
+            assertTrue(map.computePatternVerification(pattern, new Position(0,0)) ==null);
+            assertEquals(expected, map.computePatternVerification(pattern, currentPlot.getPosition()));
+
+            map.putPlot(plot1);
+            map.putPlot(plot2);
+            assertTrue(map.computePatternVerification(pattern, currentPlot.getPosition()).isEmpty());
 
     }
 
