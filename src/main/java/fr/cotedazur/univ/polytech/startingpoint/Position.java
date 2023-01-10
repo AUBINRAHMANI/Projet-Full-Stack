@@ -103,6 +103,9 @@ public class Position {
     Position plus(Position position){
         return new Position( q+position.q , r+position.r , s+position.s );
     }
+    Position minus(Position position){
+        return new Position( q-position.q , r-position.r , s-position.s );
+    }
 
     public boolean isCenter(){
         return (q==0 && r==0 && s==0);

@@ -126,6 +126,16 @@ class PositionTest {
     }
 
     @Test
+    public void minus(){
+        Position position1 = new Position(4,2);
+        Position position2 = new Position(3,2);
+        Position position3 = new Position(3, 1);
+
+        assertEquals(new Position(1,1), position1.minus(position2) );
+        assertEquals(new Position(1,2), position1.minus(position3) );
+    }
+
+    @Test
     void isCloseToCenter(){
         Position position1 = new Position(1,0);
         Position position2 = new Position(3,4);
