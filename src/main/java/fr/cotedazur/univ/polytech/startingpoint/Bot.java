@@ -52,9 +52,6 @@ public class Bot {
                         else {
                             if(map.isSpaceFree(tempPlotPosition) && map.getNeighbours(tempPlotPosition).size()>0){
                                 ArrayList<Position> positions = map.closestAvailableSpace(tempPlotPosition);
-                                System.out.println(positions);
-                                System.out.println(tempPlot.getPosition());
-                                System.out.println("");
                                 return new PutPlotAction(new Plot(tempPlot.getType(), positions.get(0)));
                             }
                         }

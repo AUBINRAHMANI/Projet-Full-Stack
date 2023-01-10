@@ -70,11 +70,10 @@ public class GameEngineTest {
         Plot plot8 = new Plot(PlotType.GREEN, new Position(1, 1));
         Plot plot9 = new Plot(PlotType.GREEN, new Position(2, 0));
 
-        System.out.println(gameEngine.askToPutPlot(plot6));
-        System.out.println(gameEngine.askToPutPlot(plot7));
-        System.out.println(gameEngine.askToPutPlot(plot8));
+        gameEngine.askToPutPlot(plot6);
+        gameEngine.askToPutPlot(plot7);
+        gameEngine.askToPutPlot(plot8);
 
-        System.out.println(pattern);
         assertFalse(gameEngine.computeObjectivePlot(new Pattern(pattern), plot7));
         gameEngine.askToPutPlot(plot9);
         assertTrue(gameEngine.computeObjectivePlot(pattern, plot7));

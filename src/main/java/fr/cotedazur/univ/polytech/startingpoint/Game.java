@@ -60,7 +60,7 @@ public class Game {
 
         for (int i=0 ; i<20 ; ++i){
             objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
-        }/*
+        }
         for (int i=0 ; i<20 ; ++i){
             int nbBambous = rand.nextInt(2)+3;
             if(nbBambous == 3){
@@ -78,7 +78,6 @@ public class Game {
             }
             objectiveDeck.addCard(new ObjectivePanda(rand.nextInt(4)+1, bambous));
         }
-        */
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
@@ -116,9 +115,9 @@ public class Game {
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
-                System.out.println(objective);
                 if(objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
-                    System.out.println("Est validé" + objective);
+                    System.out.println( "L'objectif suivant a été validé : " + objective );
+                    System.out.println("Le bot gagne " + objective.getPoint() + " points");
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
                 }
