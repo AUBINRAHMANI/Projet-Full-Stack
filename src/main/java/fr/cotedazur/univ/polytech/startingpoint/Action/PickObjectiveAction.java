@@ -1,13 +1,20 @@
 package fr.cotedazur.univ.polytech.startingpoint.Action;
 
+import fr.cotedazur.univ.polytech.startingpoint.Bot;
 import fr.cotedazur.univ.polytech.startingpoint.Game;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 
-public class pickObjectiveAction implements Action{
+public class PickObjectiveAction implements Action{
+
+    Bot bot;
+
+    public PickObjectiveAction(Bot bot){
+        this.bot = bot;
+    }
 
     @Override
-    public boolean play(GameEngine gameEngine) {
-        return false;
+    public boolean play(Game game, GameEngine gameEngine) {
+        return game.pickObjective(bot);
     }
 
     @Override

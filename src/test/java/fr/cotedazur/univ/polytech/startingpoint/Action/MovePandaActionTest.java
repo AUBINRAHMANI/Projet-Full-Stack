@@ -20,7 +20,7 @@ class MovePandaActionTest {
         when(mockedGameEngine.movePanda(position)).thenReturn(true);
 
         MovePandaAction movePandaAction = new MovePandaAction(position);
-        assertTrue(movePandaAction.play(mockedGameEngine));
+        assertTrue(movePandaAction.play(null, mockedGameEngine));
     }
 
     @Mock

@@ -34,12 +34,11 @@ public class Game {
 
     public void start(){
         do {
-            botProfils_.get(0).addObjective(gameEngine_.pickObjective());
             for(BotProfil botProfil : botProfils_){
                 if(_mapInterface != null) while (_mapInterface.next()==false);
                 _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
                 Action action = botProfil.getBot_().play(this, gameEngine_.getMap());
-                action.play(gameEngine_);
+                action.play(this, gameEngine_);
                 action.verifyObjectiveAfterAction(this);
             }
         }while (!checkFinishingCondition());
@@ -61,7 +60,7 @@ public class Game {
 
         for (int i=0 ; i<20 ; ++i){
             objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
-        }
+        }/*
         for (int i=0 ; i<20 ; ++i){
             int nbBambous = rand.nextInt(2)+3;
             if(nbBambous == 3){
@@ -79,6 +78,7 @@ public class Game {
             }
             objectiveDeck.addCard(new ObjectivePanda(rand.nextInt(4)+1, bambous));
         }
+        */
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
@@ -95,16 +95,17 @@ public class Game {
         return plotDeck;
     }
 
-    public Objective pickObjective(Bot bot){
+    public boolean pickObjective(Bot bot){
         Objective objective=  gameEngine_.pickObjective();
 
         for(BotProfil botProfil : botProfils_){
             if(bot == botProfil.getBot_()){
                 botProfil.addObjective(objective);
-                return objective;
+                System.out.println("Le bot a prix un objectif :" + objective);
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public Plot pickPlot(){
@@ -115,7 +116,9 @@ public class Game {
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
+                System.out.println(objective);
                 if(objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
+                    System.out.println("Est validé" + objective);
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
                 }

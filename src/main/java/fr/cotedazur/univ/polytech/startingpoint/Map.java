@@ -89,16 +89,13 @@ public class Map {
     public ArrayList<Plot> computePatternVerification(Pattern pattern, Position currentPosition){
         Pattern tempPattern = new Pattern(pattern);
         tempPattern.applyMask(currentPosition);
-        System.out.println(tempPattern);
         ArrayList<Plot> incompletePlot = new ArrayList<>();
         for(Plot plot : tempPattern.getPlots()){
-            if(plot.getPosition().isCenter()){
-                return null;
+            if (isSpaceFree(plot.getPosition())){
+                incompletePlot.add(plot);
             }
-            else {
-                if(isSpaceFree(plot.getPosition())){
-                    incompletePlot.add(plot);
-                }
+            else if (plot.getType() != findPlot(plot.getPosition()).getType()){
+                return null;
             }
         }
         return incompletePlot;

@@ -81,6 +81,7 @@ public class GameEngine {
 
 
     public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot){
+        pattern = new Pattern(pattern);
         int area_size = pattern.size();
         Position lastPlacedPosition = lastPLacedPlot.getPosition();
         for (int i=0; i<area_size/2 ; ++i){

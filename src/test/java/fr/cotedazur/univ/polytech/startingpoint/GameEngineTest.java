@@ -56,29 +56,28 @@ public class GameEngineTest {
     @Test
     void computeObjectivePlotTest(){
         Map map = new Map();
-        Pattern pattern= new Pattern();
         GameEngine gameEngine = new GameEngine(null, null, map);
-        Plot plot1 = new Plot(PlotType.GREEN, new Position(-1, 1));
-        Plot plot2 = new Plot(PlotType.GREEN, new Position(0, 0));
-        Plot plot3 = new Plot(PlotType.GREEN, new Position(0, -1));
-        Plot plot4 = new Plot(PlotType.GREEN, new Position(1, 0));
 
-        pattern.add(plot1);
-        pattern.add(plot2);
-        pattern.add(plot3);
-        pattern.add(plot4);
+        ArrayList<Plot> plots = new ArrayList<>();
+        plots.add( new Plot(PlotType.GREEN, new Position(-1, 1)));
+        plots.add( new Plot(PlotType.GREEN, new Position(0, 0)));
+        plots.add( new Plot(PlotType.GREEN, new Position(0, -1)));
+        plots.add( new Plot(PlotType.GREEN, new Position(1, 0)));
+        Pattern pattern = new Pattern(plots);
 
-        Plot plot5 = new Plot(PlotType.GREEN, new Position(1, 0));
-        Plot plot6 = new Plot(PlotType.GREEN, new Position(2, 0));
+        Plot plot6 = new Plot(PlotType.GREEN, new Position(1, 0));
         Plot plot7 = new Plot(PlotType.GREEN, new Position(0, 1));
         Plot plot8 = new Plot(PlotType.GREEN, new Position(1, 1));
+        Plot plot9 = new Plot(PlotType.GREEN, new Position(2, 0));
 
-        gameEngine.askToPutPlot(plot5);
-        gameEngine.askToPutPlot(plot7);
-        gameEngine.askToPutPlot(plot8);
+        System.out.println(gameEngine.askToPutPlot(plot6));
+        System.out.println(gameEngine.askToPutPlot(plot7));
+        System.out.println(gameEngine.askToPutPlot(plot8));
+
+        System.out.println(pattern);
         assertFalse(gameEngine.computeObjectivePlot(new Pattern(pattern), plot7));
-        gameEngine.askToPutPlot(plot6);
-        assertTrue(gameEngine.computeObjectivePlot(pattern, plot8));
+        gameEngine.askToPutPlot(plot9);
+        assertTrue(gameEngine.computeObjectivePlot(pattern, plot7));
     }
 
     @Test

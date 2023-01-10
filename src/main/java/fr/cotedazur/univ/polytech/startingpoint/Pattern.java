@@ -1,14 +1,20 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import com.sun.source.tree.ArrayAccessTree;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 
 public class Pattern {
 
     ArrayList<Plot> pattern;
 
     public Pattern(){
-        pattern = new ArrayList<>();
+        pattern = new ArrayList<>(Arrays.asList(new Plot(PlotType.GREEN, new Position(0,0))));
+        generateRandomPattern();
+
     }
     public Pattern(Pattern pattern){
         this.pattern = new ArrayList<>();
@@ -84,5 +90,35 @@ public class Pattern {
         return "Pattern{" +
                 "pattern=" + pattern +
                 '}';
+    }
+
+    public void setAncerPoint(Position position) {
+        Position gap = new Position(0,0).minus(position);
+        for(Plot patternPlot : pattern){
+            Position newPosition = patternPlot.getPosition().plus(gap);
+            patternPlot.setPosition(newPosition);
+        }
+    }
+
+    private void generateRandomPattern(){
+        Random rand = new Random();
+        for(int i=0; i<rand.nextInt(2,4) ; i++){
+            Plot plot = pattern.get(rand.nextInt(pattern.size()));
+            ArrayList<Position> neighboursPosition = plot.getPosition().closestPositions();
+            out:
+            for(int j=0; i<neighboursPosition.size() ; ++i){
+                Position position = neighboursPosition.get(rand.nextInt(neighboursPosition.size()));
+                for(Plot tempPlot : pattern){
+                    if(tempPlot.getPosition().equals(position)){
+                        neighboursPosition.remove(position);
+                        break out;
+                    }
+                }
+                pattern.add(new Plot(PlotType.values()[rand.nextInt(3)+1], position));
+                break;
+            }
+
+
+        }
     }
 }

@@ -8,10 +8,11 @@ public class MoveGardenerAction implements Action{
         _position = position;
     }
 
-    public boolean play(GameEngine gameEngine){
+    @Override
+    public boolean play(Game game, GameEngine gameEngine) {
         return gameEngine.moveGardener(_position);
     }
-
+    @Override
     public boolean verifyObjectiveAfterAction(Game game){
         return game.computeObjectivesGardener();
     }

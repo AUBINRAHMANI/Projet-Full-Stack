@@ -119,4 +119,36 @@ class PatternTest {
         pattern.applyMask(new Position(4,3));
         assertEquals(expected, pattern.getPlots());
     }
+
+    @Test
+    public void setAncerPoint(){
+        ArrayList<Plot> plots = new ArrayList<>();
+        plots.add(new Plot(PlotType.GREEN, new Position(-1,1)));
+        plots.add(new Plot(PlotType.GREEN, new Position(0,0)));
+        plots.add(new Plot(PlotType.GREEN, new Position(1,0)));
+        plots.add(new Plot(PlotType.GREEN, new Position(1,1)));
+
+        Pattern pattern = new Pattern(plots);
+
+        ArrayList<Plot> expected1 = new ArrayList<>();
+        expected1.add(new Plot(PlotType.GREEN, new Position(0,0)));
+        expected1.add(new Plot(PlotType.GREEN, new Position(1,0)));
+        expected1.add(new Plot(PlotType.GREEN, new Position(2,-1)));
+        expected1.add(new Plot(PlotType.GREEN, new Position(2,0)));
+
+        ArrayList<Plot> expected2 = new ArrayList<>();
+        expected2.add(new Plot(PlotType.GREEN, new Position(-2,1)));
+        expected2.add(new Plot(PlotType.GREEN, new Position(-1,1)));
+        expected2.add(new Plot(PlotType.GREEN, new Position(0,0)));
+        expected2.add(new Plot(PlotType.GREEN, new Position(0,1)));
+
+        pattern.setAncerPoint(new Position(-1,1));
+        assertEquals(expected1, pattern.getPlots());
+
+        pattern.setAncerPoint(new Position(2,-1));
+        assertEquals(expected2, pattern.getPlots());
+
+
+    }
+
 }

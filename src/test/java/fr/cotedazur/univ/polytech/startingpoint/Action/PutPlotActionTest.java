@@ -18,7 +18,7 @@ class PutPlotActionTest {
         when(mockedGameEngine.askToPutPlot(plot)).thenReturn(true);
 
         PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertTrue(putPlotAction.play(mockedGameEngine));
+        assertTrue(putPlotAction.play(null, mockedGameEngine));
     }
 
     @Mock

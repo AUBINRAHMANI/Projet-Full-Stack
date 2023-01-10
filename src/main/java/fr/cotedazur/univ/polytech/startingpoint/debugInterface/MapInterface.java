@@ -164,13 +164,10 @@ public class MapInterface extends JFrame {
                 Position pandaPositionInGrid = getPlotPositionInGrid(pandaPosition);
                 graphics.drawString("P", pandaPositionInGrid.getX()-4, pandaPositionInGrid.getY()+15);
 
-                System.out.println("");
-
             }
         }
 
         private Polygon getHexagon(Position position) {
-            System.out.println(position);
             int x = (int)((HEXAGONE_SIZE/2) * (3./2 * position.getQ())) + _center.getX();
             int y = (int)((HEXAGONE_SIZE/2) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + _center.getY();
             int xPoints[] = {x+HEXAGONE_SIZE/4, x+HEXAGONE_SIZE/2, x+HEXAGONE_SIZE/4,   x-HEXAGONE_SIZE/4,  x-HEXAGONE_SIZE/2, x-HEXAGONE_SIZE/4};

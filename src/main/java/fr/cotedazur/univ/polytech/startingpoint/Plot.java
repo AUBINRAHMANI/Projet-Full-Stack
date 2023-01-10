@@ -87,9 +87,9 @@ public class Plot {
 
     @Override
     public String toString() {
-        return "Plot{" +
-                "_plotType=" + _plotType +
-                ", _position=" + _position +
+        return "{" +
+                _plotType +
+                " - " + _position +
                 '}';
     }
 }

@@ -31,8 +31,8 @@ public class Bot {
        }
     }
 
-    pickObjectiveAction pickObjective(){
-        return null;
+    PickObjectiveAction pickObjective(){
+        return new PickObjectiveAction(this);
     }
 
     public Action fillObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbSection) {
@@ -42,15 +42,20 @@ public class Bot {
     public Action fillObjectivePlots(Pattern pattern){
         for(Plot plot : map.getMap()){
             if(plot.getType() == pattern.getPlots().get(0).getType()){
-                Pattern patternToPlace = checkIfPossibleToPlacePattern(pattern, plot.getPosition());
-                if( patternToPlace != null){
-                    for(Plot tempPlot : patternToPlace.getPlots()){
-                        if(map.isPossibleToPutPlot(tempPlot.getPosition())){
+                ArrayList<Plot> missingPLots = checkIfPossibleToPlacePattern(pattern, plot.getPosition());
+                if( missingPLots != null){
+                    for(Plot tempPlot : missingPLots){
+                        Position tempPlotPosition = tempPlot.getPosition();
+                        if(map.isPossibleToPutPlot(tempPlotPosition)){
                             return new PutPlotAction(tempPlot);
                         }
                         else {
-                            if(map.isSpaceFree(tempPlot.getPosition())){
-                                return new PutPlotAction(new Plot(tempPlot.getType(), map.closestAvailableSpace(tempPlot.getPosition()).get(0)));
+                            if(map.isSpaceFree(tempPlotPosition) && map.getNeighbours(tempPlotPosition).size()>0){
+                                ArrayList<Position> positions = map.closestAvailableSpace(tempPlotPosition);
+                                System.out.println(positions);
+                                System.out.println(tempPlot.getPosition());
+                                System.out.println("");
+                                return new PutPlotAction(new Plot(tempPlot.getType(), positions.get(0)));
                             }
                         }
                     }
@@ -58,13 +63,25 @@ public class Bot {
             }
         }
         for(Plot plot : map.getMap()){
-            return new PutPlotAction(new Plot(pattern.getPlots().get(0).getType(), map.closestAvailableSpace(plot.getPosition()).get(0)));
+            if(map.closestAvailableSpace(plot.getPosition()).isEmpty() == false) {
+                return new PutPlotAction(new Plot(pattern.getPlots().get(0).getType(), map.closestAvailableSpace(plot.getPosition()).get(0)));
+            }
         }
         return null;
     }
 
-    private Pattern checkIfPossibleToPlacePattern(Pattern pattern, Position position) {
-        return null;
+    private ArrayList<Plot> checkIfPossibleToPlacePattern(Pattern pattern, Position position) {
+       Pattern tempPattern = new Pattern(pattern);
+       for(Plot plot : pattern.getPlots()){
+           tempPattern.setAncerPoint(plot.getPosition());
+           for(int i=0 ; i<5 ; i++){
+               ArrayList<Plot> missingPLots = map.computePatternVerification(tempPattern, position);
+               if(missingPLots != null)return missingPLots;
+               tempPattern.rotate60Right();
+           }
+           tempPattern.rotate60Right();
+       }
+       return null;
     }
 
     public Action fillObjectivePanda(ArrayList<Bambou> bambouSections){

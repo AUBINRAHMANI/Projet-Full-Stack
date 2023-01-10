@@ -137,10 +137,10 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
-                "x=" + getX() +
-                ", y=" + getY() +
-                '}';
+        return
+                "(" + getX() +
+                " , " + getY() +
+                ')';
     }
 }
 
