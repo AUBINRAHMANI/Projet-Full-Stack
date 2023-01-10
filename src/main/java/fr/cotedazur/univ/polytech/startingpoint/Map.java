@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,17 +12,15 @@ public class Map {
 
     public Map(){
         map_ = new ArrayList<>();
-        map_.add( new Plot(PlotType.POND, new Position(0,0)));
+        Plot Pond = new Plot(PlotType.POND, new Position(0,0));
+        Pond.isIrrigatedIsTrue();
+        map_.add(Pond);
     }
 
     public boolean putPlot(Plot plot) {
         if (isPossibleToPutPlot(plot.getPosition()) == true) {
             map_.add(plot);
-            for(Position position : plot.getPosition().closestPositions()){
-                if(position.equals(new Position(0,0))){
-                    plot.isIrrigatedIsTrue();
-                }
-            }
+            verifyIrrigation(plot);
             return true;
         }
         return false;
@@ -31,7 +30,11 @@ public class Map {
         return new ArrayList<>(map_);
     }
 
-    public boolean isIrrigated(Plot p) {
+    public boolean verifyIrrigation(Plot p) {
+        if(this.getNeighbours(p.getPosition()).contains(new Plot(PlotType.POND, new Position(0,0)))){
+            p.isIrrigatedIsTrue();
+            return true;
+        }
         return false;
     }
 
@@ -44,8 +47,6 @@ public class Map {
         }
         return plot1;
     }
-
-
     boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))
@@ -85,20 +86,22 @@ public class Map {
         return plots;
     }
 
-    public void rotatePattern(ArrayList<Plot> pattern){
-        for(Plot plot : pattern){
-            Position plotPosition = plot.getPosition();
-            plotPosition.rotate60Right();
-            plot.setPosition(plotPosition);
-        }
-    }
-
-    public void growBambou(Position position) {
-        for(Plot plot : map_){
-            if(plot.getPosition().equals(position)) {
-                plot.growBambou();
+    public ArrayList<Plot> computePatternVerification(Pattern pattern, Position currentPosition){
+        Pattern tempPattern = new Pattern(pattern);
+        tempPattern.applyMask(currentPosition);
+        System.out.println(tempPattern);
+        ArrayList<Plot> incompletePlot = new ArrayList<>();
+        for(Plot plot : tempPattern.getPlots()){
+            if(plot.getPosition().isCenter()){
+                return null;
+            }
+            else {
+                if(isSpaceFree(plot.getPosition())){
+                    incompletePlot.add(plot);
+                }
             }
         }
+        return incompletePlot;
     }
 }
 

@@ -103,6 +103,9 @@ public class Position {
     Position plus(Position position){
         return new Position( q+position.q , r+position.r , s+position.s );
     }
+    Position minus(Position position){
+        return new Position( q-position.q , r-position.r , s-position.s );
+    }
 
     public boolean isCenter(){
         return (q==0 && r==0 && s==0);
@@ -110,6 +113,13 @@ public class Position {
 
     public boolean isCloseToCenter(){
         return (abs(q) + abs(r) + abs(s) == 2);
+    }
+
+    public boolean isDeplacementALine(Position position){
+        if(this.getQ() == position.getQ() || this.getR() == position.getR() || this.getS() == position.getS()){
+            return true;
+        }
+        return false;
     }
 
     @Override

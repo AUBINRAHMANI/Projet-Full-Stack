@@ -48,21 +48,25 @@ public class GameEngine {
     }
 
     public boolean moveGardener(Position position){
-        if(map_.isSpaceFree(position)){
-            return false;
-        }
-        else{
+        if(!map_.isSpaceFree(position) && position.isDeplacementALine(gardener_.getPosition())){
             gardener_.setPosition(position);
             return true;
         }
+        return false;
     }
 
     public void growBambou(){
-        map_.growBambou(gardener_.getPosition());
+        Plot gardenerPlot = map_.findPlot(gardener_.getPosition());
+        gardenerPlot.growBambou();
+        for(Plot plot : map_.getNeighbours(gardener_.getPosition())){
+            if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated()){
+                plot.growBambou();
+            }
+        }
     }
 
     public boolean movePanda(Position position){
-        if(!map_.isSpaceFree(position)){
+        if(!map_.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
             panda.setPosition(position);
             return true;
         }
@@ -89,9 +93,8 @@ public class GameEngine {
         for (int i=0; i<area_size ; ++i){
             for (int j=0; j<6 ; ++j){
                 for (int k=0 ; k<area_size ; ++k){
-                    Pattern tempPattern = new Pattern(pattern);
-                    tempPattern.applyMask(lastPlacedPosition);
-                    if(computePatternVerification(tempPattern))return true;
+                    ArrayList<Plot> incompletePlot = map_.computePatternVerification(new Pattern(pattern), lastPlacedPosition);
+                    if(incompletePlot != null  && incompletePlot.isEmpty())return true;
                     pattern.translateDown();
                 }
                 for (int k=0 ; k<area_size ; ++k){
@@ -103,12 +106,7 @@ public class GameEngine {
         }
         return false;
     }
-    private boolean computePatternVerification(Pattern pattern){
-        for(Plot plot : pattern.getPlots()){
-            if(map_.isSpaceFree(plot.getPosition()) || plot.getPosition().isCenter())return false;
-        }
-        return true;
-    }
+
 
     public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbSections){
         Plot plot = map_.findPlot(gardener_.getPosition());

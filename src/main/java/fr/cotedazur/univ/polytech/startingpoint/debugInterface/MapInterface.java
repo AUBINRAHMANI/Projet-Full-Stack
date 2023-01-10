@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
 public class MapInterface extends JFrame {
 
@@ -163,34 +164,23 @@ public class MapInterface extends JFrame {
                 Position pandaPositionInGrid = getPlotPositionInGrid(pandaPosition);
                 graphics.drawString("P", pandaPositionInGrid.getX()-4, pandaPositionInGrid.getY()+15);
 
-
+                System.out.println("");
 
             }
         }
 
         private Polygon getHexagon(Position position) {
-            int y = (int) (position.getY()*(HEXAGONE_SIZE/(1.33)) + _center.getY());
-            int x;
-            if(abs(position.getY())%2 >0){
-                x = (int) ((position.getX()+0.5)*HEXAGONE_SIZE + _center.getX());
-            }
-            else {
-                x = position.getX()*HEXAGONE_SIZE + _center.getX() ;
-            }
-            int xPoints[] = {x, x+HEXAGONE_SIZE/2, x+HEXAGONE_SIZE/2, x, x-HEXAGONE_SIZE/2, x-HEXAGONE_SIZE/2};
-            int yPoints[] = {y+HEXAGONE_SIZE/2, y+HEXAGONE_SIZE/4, y-HEXAGONE_SIZE/4, y-HEXAGONE_SIZE/2, y-HEXAGONE_SIZE/4, y+HEXAGONE_SIZE/4};
+            System.out.println(position);
+            int x = (int)((HEXAGONE_SIZE/2) * (3./2 * position.getQ())) + _center.getX();
+            int y = (int)((HEXAGONE_SIZE/2) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + _center.getY();
+            int xPoints[] = {x+HEXAGONE_SIZE/4, x+HEXAGONE_SIZE/2, x+HEXAGONE_SIZE/4,   x-HEXAGONE_SIZE/4,  x-HEXAGONE_SIZE/2, x-HEXAGONE_SIZE/4};
+            int yPoints[] = {(int)(y+(HEXAGONE_SIZE*(0.42))),                 y, (int) (y-(HEXAGONE_SIZE*(0.42))), (int) (y-(HEXAGONE_SIZE*(0.42))),                  y, (int) (y+(HEXAGONE_SIZE*(0.42)))};
             return new Polygon(xPoints, yPoints, 6);
         }
 
         private Position getPlotPositionInGrid(Position position){
-            int y = (int) (position.getY()*(HEXAGONE_SIZE/(1.33)) + _center.getY());
-            int x;
-            if(abs(position.getY())%2 >0){
-                x = (int) ((position.getX()+0.5)*HEXAGONE_SIZE + _center.getX());
-            }
-            else {
-                x = position.getX()*HEXAGONE_SIZE + _center.getX() ;
-            }
+            int x = (int)((HEXAGONE_SIZE/2) * (3./2 * position.getQ())) + _center.getX();
+            int y = (int)((HEXAGONE_SIZE/2) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + _center.getY();
             return new Position(x, y);
         }
     }
