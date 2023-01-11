@@ -141,6 +141,10 @@ public class Game {
         return true;
     }
 
+    public Position getGardenerPosition(){
+        return gameEngine_.getGardenerPosition();
+    }
+
     public boolean computeObjectivesPanda(){
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){

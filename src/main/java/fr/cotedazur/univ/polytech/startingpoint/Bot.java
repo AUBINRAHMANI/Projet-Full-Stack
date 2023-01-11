@@ -12,32 +12,76 @@ public class Bot {
     Map map;
 
     public Bot(Game game, Map map) {
-        this.map = map ;
+        this.map = map;
     }
 
     public Action play(Game game, Map map) {
-        this.game   = game;
-        this.map    = map;
-       ArrayList<Objective> objectives = game.getMyObjectives(this);
-       if(objectives == null){
-           assert false;
-           return null;
-       }
-       else {
-           if(objectives.isEmpty())return pickObjective();
-           else {
-               return objectives.get(0).tryToFillObjective(this);
-           }
-       }
+        this.game = game;
+        this.map = map;
+        ArrayList<Objective> objectives = game.getMyObjectives(this);
+        if (objectives == null) {
+            assert false;
+            return null;
+        } else {
+            if (objectives.isEmpty()) return pickObjective();
+            else {
+                return objectives.get(0).tryToFillObjective(this);
+            }
+        }
     }
 
-    PickObjectiveAction pickObjective(){
+    PickObjectiveAction pickObjective() {
         return new PickObjectiveAction(this);
     }
 
     public Action fillObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbSection) {
-        return null;
+        ArrayList<Plot> typeValid = new ArrayList<>();
+        ArrayList<Plot> typeAndDeplacementValid = new ArrayList<>();
+        ArrayList<Plot> deplacementValid = new ArrayList<>();
+        int maxNbBambou = 0;
+        int IndexeMaxNbBambou = 0;
+        if (map.getMap().size() > 1) {
+            for (Plot plot : map.getMap()) {
+                if (plot.getPosition().isDeplacementALine(game.getGardenerPosition())) {
+                    deplacementValid.add(plot);
+                }
+                if (plot.getType() == bambouType) {
+                    typeValid.add(plot);
+                }
+                if ((plot.getType() == bambouType) && (plot.getPosition().isDeplacementALine(game.getGardenerPosition()))) {
+                    typeAndDeplacementValid.add(plot);
+                }
+            }
+            if (!typeAndDeplacementValid.isEmpty()) {
+                for (int i = 0; i < typeAndDeplacementValid.size(); i++) {
+                    if (typeAndDeplacementValid.get(i).getNumberOfBambou() > maxNbBambou) {
+                        maxNbBambou = typeAndDeplacementValid.get(i).getNumberOfBambou();
+                        IndexeMaxNbBambou = i;
+                    }
+                }
+                return new MoveGardenerAction(typeAndDeplacementValid.get(IndexeMaxNbBambou).getPosition());
+            } else if (!typeValid.isEmpty()) {
+                for (Plot plot : typeValid) {
+                    ArrayList<Plot> neighboursPlots = map.getNeighbours(plot.getPosition());
+                    for (int i = 0; i <= neighboursPlots.size(); i++) {
+                        if (neighboursPlots.get(i).getPosition().isDeplacementALine(game.getGardenerPosition())) {
+                            return new MoveGardenerAction(neighboursPlots.get(i).getPosition());
+                        }
+                        ArrayList<Plot> neighboursOfNeighboursPlots = map.getNeighbours(neighboursPlots.get(i).getPosition());
+                        for (int j = 0; j <= neighboursOfNeighboursPlots.size(); j++) {
+                            if (neighboursOfNeighboursPlots.get(j).getPosition().isDeplacementALine(game.getGardenerPosition())) {
+                                return new MoveGardenerAction(neighboursOfNeighboursPlots.get(j).getPosition());
+                            }
+                        }
+                    }
+                }
+            } else if (!deplacementValid.isEmpty()) {
+                return new MoveGardenerAction(deplacementValid.get(0).getPosition());
+            }
+        }
+        return new PutPlotAction(game.pickPlot());
     }
+
 
     public Action fillObjectivePlots(Pattern pattern){
         for(Plot plot : map.getMap()){
