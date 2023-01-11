@@ -4,6 +4,7 @@ import fr.cotedazur.univ.polytech.startingpoint.Action.*;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.lang.reflect.Parameter;
+import java.security.Principal;
 import java.util.ArrayList;
 
 public class Bot {
@@ -75,15 +76,10 @@ public class Bot {
                         }
                     }
                 }
-            } else if (!deplacementValid.isEmpty()) {
-                return new MoveGardenerAction(deplacementValid.get(0).getPosition());
             }
         }
-        Plot pickOnePlot = game.pickPlot();
-        while(map.putPlot(pickOnePlot) == false){
-            pickOnePlot = game.pickPlot();
-        }
-        return new PutPlotAction(pickOnePlot);
+        //Plot pickOnePlot = game.pickPlot(); PLot deck not implemented yet
+        return putRandomlyAPLot(bambouType);
     }
 
 
@@ -136,7 +132,15 @@ public class Bot {
 
 
 
-
+    PutPlotAction putRandomlyAPLot(PlotType plotType){
+        for(Plot plot : map.getMap()){
+            ArrayList<Position> positions = map.closestAvailableSpace(plot.getPosition());
+            if(positions != null && positions.isEmpty()==false ){
+                return new PutPlotAction(new Plot(plotType, positions.get(0)));
+            }
+        }
+        return null;
+    }
 
     private boolean positionToSet(Map map, Plot plot) {
 

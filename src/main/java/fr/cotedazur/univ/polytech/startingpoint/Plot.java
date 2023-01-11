@@ -90,6 +90,7 @@ public class Plot {
         return "{" +
                 _plotType +
                 " - " + _position +
+                "/"+ getNumberOfBambou() +
                 '}';
     }
 }

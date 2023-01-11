@@ -16,6 +16,7 @@ public class MapInterface extends JFrame {
 
     final static int HEXAGONE_SIZE = 40;
 
+    ArrayList<Plot> map;
     Position _center;
     volatile boolean _next;
     ArrayList<Position> _positionsToAdd;
@@ -37,6 +38,7 @@ public class MapInterface extends JFrame {
         _colorsToAdd        = new ArrayList<>();
         gardenerPosition    = new Position(0,0);
         pandaPosition       = new Position(0, 0);
+        map = new ArrayList<>();
         updateSize();
 
         JButton nextButton=new JButton("Next");
@@ -84,14 +86,18 @@ public class MapInterface extends JFrame {
     }
 
     public void drawMap(Map map, Position gardenePosition, Position pandaPosition){
+        this.map = map.getMap();
         this.gardenerPosition   = gardenePosition;
         this.pandaPosition      = pandaPosition;
         ArrayList<Plot> plots = map.getMap();
         plots.removeAll(plotsDrawen);
         for(Plot plot : plots){
-            plotsDrawen.add(plot);
+            plotsDrawen.add(new Plot(plot));
             drawHexagon(plot);
         }
+        try {
+            paintComponents(getGraphics());
+        }catch (ConcurrentModificationException e){System.out.println("Arretez de modifier en meme temps");}
     }
     private void drawHexagon(Plot plot){
         Position position   = plot.getPosition();
@@ -119,10 +125,6 @@ public class MapInterface extends JFrame {
         _positionsToAdd.add(position);
         _colorsToAdd.add(color);
         correspondingNbBambous.add(nbBambous);
-        try {
-            paintComponents(getGraphics());
-        }catch (ConcurrentModificationException e){System.out.println("Arretez de modifier en meme temps");}
-
     }
 
 
@@ -152,12 +154,12 @@ public class MapInterface extends JFrame {
 
                 graphics.setColor(Color.WHITE);
 
-                Position stringPosition = getPlotPositionInGrid(position);
-                int nbOfBambous = correspondingNbBambous.get(_positionsToAdd.indexOf(position));
-                if(nbOfBambous != 0){
-                    graphics.drawString(String.valueOf(nbOfBambous), stringPosition.getX(), stringPosition.getY());
+                for (Plot plot : plotsDrawen){
+                    if(plot.getNumberOfBambou() >0){
+                        Position stringPosition = getPlotPositionInGrid(plot.getPosition());
+                        graphics.drawString(String.valueOf(plot.getNumberOfBambou()), stringPosition.getX(), stringPosition.getY());
+                    }
                 }
-
                 Position gardenerPositionInGrid = getPlotPositionInGrid(gardenerPosition);
                 graphics.drawString("G", gardenerPositionInGrid.getX()-12, gardenerPositionInGrid.getY());
 

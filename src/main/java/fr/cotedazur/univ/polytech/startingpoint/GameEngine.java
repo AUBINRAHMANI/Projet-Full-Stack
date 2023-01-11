@@ -50,6 +50,7 @@ public class GameEngine {
     public boolean moveGardener(Position position){
         if(!map_.isSpaceFree(position) && position.isDeplacementALine(gardener_.getPosition())){
             gardener_.setPosition(position);
+            growBambou();
             return true;
         }
         return false;
@@ -57,9 +58,9 @@ public class GameEngine {
 
     public void growBambou(){
         Plot gardenerPlot = map_.findPlot(gardener_.getPosition());
-        gardenerPlot.growBambou();
+        if( gardenerPlot.getPosition().isCenter()==false )gardenerPlot.growBambou();
         for(Plot plot : map_.getNeighbours(gardener_.getPosition())){
-            if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated()){
+            if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && plot.getPosition().isCenter()==false ){
                 plot.growBambou();
             }
         }

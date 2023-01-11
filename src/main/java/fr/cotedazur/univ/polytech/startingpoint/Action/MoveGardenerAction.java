@@ -16,4 +16,11 @@ public class MoveGardenerAction implements Action{
     public boolean verifyObjectiveAfterAction(Game game){
         return game.computeObjectivesGardener();
     }
+
+    @Override
+    public String toString() {
+        return "MoveGardenerAction{" +
+                "_position=" + _position +
+                '}';
+    }
 }

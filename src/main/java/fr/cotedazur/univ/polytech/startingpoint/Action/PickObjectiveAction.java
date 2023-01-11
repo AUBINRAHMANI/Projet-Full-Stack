@@ -21,4 +21,11 @@ public class PickObjectiveAction implements Action{
     public boolean verifyObjectiveAfterAction(Game game) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "PickObjectiveAction{" +
+                "bot=" + bot +
+                '}';
+    }
 }

@@ -40,6 +40,8 @@ public class Game {
                 Action action = botProfil.getBot_().play(this, gameEngine_.getMap());
                 action.play(this, gameEngine_);
                 action.verifyObjectiveAfterAction(this);
+                for(Plot plot : gameEngine_.getMap().getMap()){
+                }
             }
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
@@ -57,12 +59,14 @@ public class Game {
         Deck<Objective> objectiveDeck = new Deck<>();
         Random rand = new Random();
         int upperRandForPlotType = 3;
-
-        /*for (int i=0 ; i<20 ; ++i){
-            objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
-        }*/
+        /*
         for (int i=0 ; i<20 ; ++i){
-            int nbBambous = rand.nextInt(2)+3;
+            objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
+        }
+         */
+        for (int i=0 ; i<20 ; ++i){
+            //int nbBambous = rand.nextInt(2)+3;
+            int nbBambous = 4;
             if(nbBambous == 3){
                 objectiveDeck.addCard(new ObjectiveGardener(rand.nextInt(4)+1, nbBambous, PlotType.values()[rand.nextInt(upperRandForPlotType)+1], false,rand.nextInt(3)+2));
             }
@@ -71,13 +75,16 @@ public class Game {
             }
 
         }
-        /*for (int i=0 ; i<20 ; ++i){
+        /*
+        for (int i=0 ; i<20 ; ++i){
             ArrayList<Bambou> bambous = new ArrayList<>();
             for(int j=0 ; j<(rand.nextInt(2)+2) ; ++j){
                 bambous.add(new Bambou(PlotType.values()[rand.nextInt(upperRandForPlotType)+1]));
             }
             objectiveDeck.addCard(new ObjectivePanda(rand.nextInt(4)+1, bambous));
-        }*/
+        }
+        ‹
+         */
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
@@ -131,7 +138,9 @@ public class Game {
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
-                if(!objective.verifyGardenerObj(gameEngine_)){
+                if(objective.verifyGardenerObj(gameEngine_)){
+                    System.out.println( "L'objectif suivant a été validé : " + objective);
+                    System.out.println("Le bot gagne " + objective.getPoint() + " points");
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
                 }

@@ -6,4 +6,5 @@ public interface Action {
 
     boolean play(Game game, GameEngine gameEngine);
     boolean verifyObjectiveAfterAction(Game game);
+    String toString();
 }

@@ -20,4 +20,11 @@ public class MovePandaAction implements Action{
 
         return game.computeObjectivesPanda();
     }
+
+    @Override
+    public String toString() {
+        return "MovePandaAction{" +
+                "_position=" + _position +
+                '}';
+    }
 }

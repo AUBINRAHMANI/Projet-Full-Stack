@@ -17,4 +17,11 @@ public class PutPlotAction implements Action{
     public boolean verifyObjectiveAfterAction(Game game){
         return game.computeObjectivesPlot(_plot);
     }
+
+    @Override
+    public String toString() {
+        return "PutPlotAction{" +
+                "_plot=" + _plot +
+                '}';
+    }
 }
