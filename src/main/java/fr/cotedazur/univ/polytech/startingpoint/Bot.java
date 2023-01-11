@@ -79,7 +79,11 @@ public class Bot {
                 return new MoveGardenerAction(deplacementValid.get(0).getPosition());
             }
         }
-        return new PutPlotAction(game.pickPlot());
+        Plot pickOnePlot = game.pickPlot();
+        while(map.putPlot(pickOnePlot) == false){
+            pickOnePlot = game.pickPlot();
+        }
+        return new PutPlotAction(pickOnePlot);
     }
 
 

@@ -58,9 +58,9 @@ public class Game {
         Random rand = new Random();
         int upperRandForPlotType = 3;
 
-        for (int i=0 ; i<20 ; ++i){
+        /*for (int i=0 ; i<20 ; ++i){
             objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
-        }
+        }*/
         for (int i=0 ; i<20 ; ++i){
             int nbBambous = rand.nextInt(2)+3;
             if(nbBambous == 3){
@@ -71,13 +71,13 @@ public class Game {
             }
 
         }
-        for (int i=0 ; i<20 ; ++i){
+        /*for (int i=0 ; i<20 ; ++i){
             ArrayList<Bambou> bambous = new ArrayList<>();
             for(int j=0 ; j<(rand.nextInt(2)+2) ; ++j){
                 bambous.add(new Bambou(PlotType.values()[rand.nextInt(upperRandForPlotType)+1]));
             }
             objectiveDeck.addCard(new ObjectivePanda(rand.nextInt(4)+1, bambous));
-        }
+        }*/
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
