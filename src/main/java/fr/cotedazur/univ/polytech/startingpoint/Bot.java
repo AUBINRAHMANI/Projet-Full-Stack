@@ -35,7 +35,7 @@ public class Bot {
         return new PickObjectiveAction(this);
     }
 
-    public Action fillObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbSection) {
+    public Action fillObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbPlot) {
         return null;
     }
 

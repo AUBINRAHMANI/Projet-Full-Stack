@@ -109,7 +109,7 @@ public class GameEngine {
     }
 
 
-    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbSections){
+    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbPlot){
         Plot plot = map_.findPlot(gardener_.getPosition());
         if(nbBambou> 3){
             if(plot.getNumberOfBambou() == nbBambou && plot.getType() == bambouType){
@@ -124,7 +124,7 @@ public class GameEngine {
                     nbValidatedPlots++;
                 }
             }
-            if(nbValidatedPlots == nbSections-1)return true;
+            if(nbValidatedPlots == nbPlot-1)return true;
         }
         return false;
     }
