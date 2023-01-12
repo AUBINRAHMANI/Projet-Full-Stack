@@ -23,7 +23,8 @@ public class Game {
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
         gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, new Map());
-        botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap())));
+        botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(),"Amber")));
+        botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(), "Yvann")));
 
         _mapInterface = new MapInterface();
         _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
@@ -36,12 +37,10 @@ public class Game {
         do {
             for(BotProfil botProfil : botProfils_){
                 if(_mapInterface != null) while (_mapInterface.next()==false);
-                _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
                 Action action = botProfil.getBot_().play(this, gameEngine_.getMap());
                 action.play(this, gameEngine_);
                 action.verifyObjectiveAfterAction(this);
-                for(Plot plot : gameEngine_.getMap().getMap()){
-                }
+                _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
             }
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
@@ -59,11 +58,11 @@ public class Game {
         Deck<Objective> objectiveDeck = new Deck<>();
         Random rand = new Random();
         int upperRandForPlotType = 3;
-        /*
+
         for (int i=0 ; i<20 ; ++i){
             objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
         }
-         */
+
         for (int i=0 ; i<20 ; ++i){
             //int nbBambous = rand.nextInt(2)+3;
             int nbBambous = 4;
@@ -75,16 +74,14 @@ public class Game {
             }
 
         }
-        /*
-        for (int i=0 ; i<20 ; ++i){
+
+        for (int i=0 ; i<20 ; ++i) {
             ArrayList<Bambou> bambous = new ArrayList<>();
-            for(int j=0 ; j<(rand.nextInt(2)+2) ; ++j){
-                bambous.add(new Bambou(PlotType.values()[rand.nextInt(upperRandForPlotType)+1]));
+            for (int j = 0; j < (rand.nextInt(2) + 2); ++j) {
+                bambous.add(new Bambou(PlotType.values()[rand.nextInt(upperRandForPlotType) + 1]));
             }
-            objectiveDeck.addCard(new ObjectivePanda(rand.nextInt(4)+1, bambous));
+            objectiveDeck.addCard(new ObjectivePanda(rand.nextInt(4) + 1, bambous));
         }
-        ‹
-         */
         objectiveDeck.shuffle();
         return objectiveDeck;
     }
@@ -107,7 +104,7 @@ public class Game {
         for(BotProfil botProfil : botProfils_){
             if(bot == botProfil.getBot_()){
                 botProfil.addObjective(objective);
-                System.out.println("Le bot a prix un objectif :" + objective);
+                System.out.println(bot.getBotName() +" a prix un objectif :" + objective);
                 return true;
             }
         }
@@ -123,8 +120,10 @@ public class Game {
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
                 if(objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
+                    String botName = botProfil.getBot_().getBotName();
                     System.out.println( "L'objectif suivant a été validé : " + objective );
-                    System.out.println("Le bot gagne " + objective.getPoint() + " points");
+                    System.out.println(botName + " gagne " + objective.getPoint() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
                 }
@@ -139,8 +138,11 @@ public class Game {
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
                 if(objective.verifyGardenerObj(gameEngine_)){
-                    System.out.println( "L'objectif suivant a été validé : " + objective);
-                    System.out.println("Le bot gagne " + objective.getPoint() + " points");
+                    String botName = botProfil.getBot_().getBotName();
+                    System.out.println( "L'objectif suivant a été validé : " + objective );
+                    System.out.println(botName + " gagne " + objective.getPoint() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
+                    botProfil.addPoints_(objective.getPoint());
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
                 }
@@ -153,12 +155,20 @@ public class Game {
     public Position getGardenerPosition(){
         return gameEngine_.getGardenerPosition();
     }
+    public Position getPandaPosition() {
+        return gameEngine_.getPandaPosition();
+    }
 
     public boolean computeObjectivesPanda(){
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
             for(Objective objective : botProfil.getObjectives_()){
-                if(!objective.verifyPandaObj(gameEngine_, botProfil)){
+                if(objective.verifyPandaObj(gameEngine_, botProfil)){
+                    String botName = botProfil.getBot_().getBotName();
+                    System.out.println( "L'objectif suivant a été validé : " + objective );
+                    System.out.println(botName + " gagne " + objective.getPoint() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
+                    botProfil.addPoints_(objective.getPoint());
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
                 }
@@ -188,6 +198,21 @@ public class Game {
     }
 
     public void printWinner(BotProfil botProfil){
-        System.out.println("Le Bot gagne avec : "+botProfil.getPoints_() +" points");
+        System.out.println(botProfil.getBot_().getBotName() + " gagne avec : "+botProfil.getPoints_() +" points");
+    }
+
+    public ArrayList<Bambou> getMyBambous(Bot bot) {
+        for(BotProfil botProfil : botProfils_){
+            if(botProfil.getBot_()==bot)return botProfil.getBambous();
+        }
+        return null;
+    }
+
+    public void addBamboutToBot(Bot bot, Bambou bambou) {
+        for(BotProfil botProfil : botProfils_){
+            if(botProfil.getBot_()==bot){
+                botProfil.addBanbou( bambou );
+            }
+        }
     }
 }

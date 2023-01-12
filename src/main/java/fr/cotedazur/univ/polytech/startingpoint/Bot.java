@@ -3,22 +3,32 @@ package fr.cotedazur.univ.polytech.startingpoint;
 import fr.cotedazur.univ.polytech.startingpoint.Action.*;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
-import java.lang.reflect.Parameter;
-import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Bot {
 
     Game game;
     Map map;
+    String botName;
+    ArrayList<Bambou> myBambous;
 
-    public Bot(Game game, Map map) {
+    public Bot(Game game, Map map, String botName) {
         this.map = map;
+        this.botName = botName;
+        game    = null;
+        map     = null;
+        myBambous = null;
+    }
+
+    public String getBotName() {
+        return botName;
     }
 
     public Action play(Game game, Map map) {
         this.game = game;
         this.map = map;
+        this.myBambous = game.getMyBambous(this);
         ArrayList<Objective> objectives = game.getMyObjectives(this);
         if (objectives == null) {
             assert false;
@@ -126,10 +136,41 @@ public class Bot {
     }
 
     public Action fillObjectivePanda(ArrayList<Bambou> bambouSections){
-        return null;
+        ArrayList<Bambou> missingBambous = new ArrayList<>(bambouSections);
+        for(Bambou bambou : myBambous)removeAbBambou(missingBambous ,bambou);
+        if( missingBambous.isEmpty()==false ){
+            for(Bambou bambou : missingBambous){
+                MovePandaAction action = movePandaOnPlantation(bambou.getBambouType());
+                if( action!=null )return action;
+            }
+            for(Plot plot : map.getMap()){
+                if(plot.getType() == missingBambous.get(missingBambous.size()-1).getBambouType() && plot.getNumberOfBambou()>0){
+                    return movePandaToUnlock(game.getPandaPosition());
+                }
+            }
+            return fillObjectiveGardener(4,missingBambous.get(missingBambous.size()-1).getBambouType(), false, 1);
+        }
+        return putRandomlyAPLot(bambouSections.get(0).getBambouType());
     }
 
-
+    private MovePandaAction movePandaOnPlantation(PlotType bambouType) {
+        for(Plot plot : map.getMap()){
+            if(plot.getType()==bambouType && plot.getNumberOfBambou()>0 ){
+                if(plot.getPosition().isDeplacementALine(game.getPandaPosition())){
+                    return new MovePandaAction(this, plot.getPosition());
+                }
+            }
+        }
+        return null;
+    }
+    private void removeAbBambou(ArrayList<Bambou> bambous, Bambou bambouToRemove){
+        for(int i=0; i<bambous.size() ; ++i){
+            if(bambous.get(i).getBambouType() == bambouToRemove.getBambouType()){
+                bambous.remove(i);
+                break;
+            }
+        }
+    }
 
 
     PutPlotAction putRandomlyAPLot(PlotType plotType){
@@ -142,17 +183,24 @@ public class Bot {
         return null;
     }
 
-    private boolean positionToSet(Map map, Plot plot) {
-
-       // ArrayList<Plot> NewList = new ArrayList<>();
-        ArrayList<Position> potentialPositions;
-        for(Plot plotMap : map.getMap()){
-            potentialPositions = map.closestAvailableSpace(plotMap.getPosition());
-            if(potentialPositions.size() >0){
-                plot.setPosition(potentialPositions.get(0));
-                return true;
-            }
+    private MovePandaAction movePandaToUnlock(Position pandaPosition){
+        ArrayList<Plot> potentialPlot = map.getNeighbours(pandaPosition);
+        if( potentialPlot!=null ){
+            return new MovePandaAction(this, potentialPlot.get(0).getPosition());
         }
-        return false;
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bot bot = (Bot) o;
+        return Objects.equals(game, bot.game) && Objects.equals(map, bot.map) && Objects.equals(myBambous, bot.myBambous);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(game, map, myBambous);
     }
 }

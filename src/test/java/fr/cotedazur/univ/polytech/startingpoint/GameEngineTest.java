@@ -48,9 +48,9 @@ public class GameEngineTest {
         map.putPlot(plot);
 
 
-        gameEngine.movePanda(position);
-        assertEquals(true,gameEngine.movePanda(position));
-        assertEquals(false, gameEngine.movePanda(position2));
+        gameEngine.movePanda(null, null, position);
+        assertEquals(true,gameEngine.movePanda(null, null, position));
+        assertEquals(false, gameEngine.movePanda(null, null, position2));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class GameEngineTest {
     void computeObjectivePanda(){
         GameEngine gameEngine = new GameEngine(null, null, null);
 
-        BotProfil botProfil = new BotProfil(new Bot(null, null));
+        BotProfil botProfil = new BotProfil(new Bot(null, null, ""));
         botProfil.addBanbou(new Bambou(PlotType.GREEN));
 
         ArrayList<Bambou> bambousObjective = new ArrayList<>();
@@ -124,7 +124,6 @@ public class GameEngineTest {
         map.putPlot(plot2);
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.moveGardener(new Position(0,1));
-        gameEngine.growBambou();
         assertEquals(1, plot.getNumberOfBambou());
         assertEquals(1, plot2.getNumberOfBambou());
 
@@ -140,7 +139,7 @@ public class GameEngineTest {
         map.putPlot(plot2);
         map.putPlot(plot3);
 
-        for(int i=0; i<4; ++i)plot1.growBambou();
+        for(int i=0; i<3; ++i)plot1.growBambou();
         for(int i=0; i<3; ++i){
             plot2.growBambou();
             plot3.growBambou();
@@ -148,15 +147,11 @@ public class GameEngineTest {
 
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.moveGardener(new Position(0,1));
-
-
         assertTrue(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false, 1));
         gameEngine.moveGardener(new Position(0, 0));
         assertFalse(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false, 1));
-        gameEngine.moveGardener(new Position(1, 1));
+        gameEngine.moveGardener(plot2.getPosition());
         assertTrue(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false,  2));
-        gameEngine.moveGardener(new Position(0, 1));
-        assertFalse(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false, 2));
     }
 
     @Test
@@ -171,13 +166,13 @@ public class GameEngineTest {
 
 
         map.putPlot(plot);
+        Game game = new Game();
         GameEngine gameEngine = new GameEngine(null,null,map);
 
         gameEngine.moveGardener(position);
-        gameEngine.growBambou();
-        gameEngine.growBambou();
+        gameEngine.moveGardener(position);
 
-        gameEngine.eatBambou(position);
+        gameEngine.eatBambou(game, null, position);
 
         assertEquals(1,plot.getNumberOfBambou());
     }

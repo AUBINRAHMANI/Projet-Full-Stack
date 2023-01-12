@@ -1,7 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
-import fr.cotedazur.univ.polytech.startingpoint.Action.*;
+
 import java.util.ArrayList;
 
 public class GameEngine {
@@ -66,17 +66,19 @@ public class GameEngine {
         }
     }
 
-    public boolean movePanda(Position position){
+    public boolean movePanda(Game game, Bot bot, Position position){
         if(!map_.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
             panda.setPosition(position);
+            eatBambou(game, bot, position);
             return true;
         }
         return false;
     }
 
-    public boolean eatBambou(Position position){
+    public boolean eatBambou(Game game, Bot bot, Position position){
        Plot plot = map_.findPlot(position);
-       plot.eatBambou();
+       Bambou bambou = plot.eatBambou();
+       if( bambou!=null && game!=null )game.addBamboutToBot(bot, bambou);
        return true;
     }
 
@@ -113,19 +115,19 @@ public class GameEngine {
     public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbPlot){
         Plot plot = map_.findPlot(gardener_.getPosition());
         if(nbBambou> 3){
-            if(plot.getNumberOfBambou() == nbBambou && plot.getType() == bambouType){
+            if(plot.getNumberOfBambou() <= nbBambou && plot.getType() == bambouType){
                 return true;
             }
         }
         else {
-            if(plot.getNumberOfBambou() != nbBambou || plot.getType() != bambouType)return  false;
+            if(plot.getNumberOfBambou() <= nbBambou || plot.getType() != bambouType)return  false;
             int nbValidatedPlots = 0;
             for(Plot neighbour : map_.getNeighbours(plot.getPosition())){
-                if(neighbour.getNumberOfBambou() == nbBambou && neighbour.getType() == bambouType){
+                if(neighbour.getNumberOfBambou() >= nbBambou && neighbour.getType() == bambouType){
                     nbValidatedPlots++;
                 }
             }
-            if(nbValidatedPlots == nbPlot-1)return true;
+            if(nbValidatedPlots >= nbPlot-1)return true;
         }
         return false;
     }
@@ -133,7 +135,6 @@ public class GameEngine {
     public boolean computeObjectivePanda(BotProfil botProfil, ArrayList<Bambou> bambousToHave){
         ArrayList<Bambou> playerBambous = new ArrayList<>(botProfil.getBambous());
         ArrayList<Bambou> BambousToRemove = new ArrayList<>();
-
         for(Bambou bambou : bambousToHave){
             if(playerBambous.contains(bambou)){
                 playerBambous.remove(bambou);

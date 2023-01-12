@@ -11,14 +11,14 @@ class BotProfilTest {
 
     @Test
     void getBot_() {
-        Bot bot = new Bot(null, null);
+        Bot bot = new Bot(null, null, "");
         BotProfil botProfil = new BotProfil(bot);
         assertEquals(bot, botProfil.getBot_());
     }
 
     @Test
     void getObjectives_() {
-        Bot bot = new Bot(null, null);
+        Bot bot = new Bot(null, null, "");
         Objective objective = new ObjectivePlots( 1, (Pattern) null);
         BotProfil botProfil = new BotProfil(bot);
         botProfil.addObjective(objective);
@@ -27,7 +27,7 @@ class BotProfilTest {
 
     @Test
     void setObjectiveCompleted() {
-        Bot bot = new Bot(null, null);
+        Bot bot = new Bot(null, null, "");
         Objective objective = new ObjectivePlots( 1, (Pattern) null);
         BotProfil botProfil = new BotProfil(bot);
         botProfil.addObjective(objective);
@@ -39,7 +39,7 @@ class BotProfilTest {
 
     @Test
     void getNbCompletedObjective_(){
-        Bot bot = new Bot(null, null);
+        Bot bot = new Bot(null, null, "");
         Objective objective = new ObjectivePlots( 1, (Pattern) null);
         BotProfil botProfil = new BotProfil(bot);
         botProfil.addObjective(objective);
@@ -48,7 +48,7 @@ class BotProfilTest {
     }
     @Test
     public void addBanbou(){
-        BotProfil botProfil = new BotProfil(new Bot(null, null));
+        BotProfil botProfil = new BotProfil(new Bot(null, null, ""));
         Bambou bambou = new Bambou(PlotType.GREEN);
         botProfil.addBanbou(bambou);
         assertEquals(bambou , botProfil.getBambous().get(0));

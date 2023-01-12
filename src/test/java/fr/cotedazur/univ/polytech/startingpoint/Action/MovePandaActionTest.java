@@ -17,9 +17,9 @@ class MovePandaActionTest {
     @Test
     void play() {
         Position position = new Position(2,1);
-        when(mockedGameEngine.movePanda(position)).thenReturn(true);
+        when(mockedGameEngine.movePanda(null, null, position)).thenReturn(true);
 
-        MovePandaAction movePandaAction = new MovePandaAction(position);
+        MovePandaAction movePandaAction = new MovePandaAction(null, position);
         assertTrue(movePandaAction.play(null, mockedGameEngine));
     }
 
@@ -28,7 +28,7 @@ class MovePandaActionTest {
     @Test
     void verifyObjectiveAfterAction() {
         when(mockedGame.computeObjectivesPanda()).thenReturn(true);
-        MovePandaAction movePandaAction = new MovePandaAction(null);
+        MovePandaAction movePandaAction = new MovePandaAction(null, null);
         assertTrue(movePandaAction.verifyObjectiveAfterAction(mockedGame));
     }
 }
