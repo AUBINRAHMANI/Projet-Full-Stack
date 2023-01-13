@@ -25,7 +25,6 @@ public class Game {
         gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, new Map());
         botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(),"Ronaldo")));
         botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(), "Messi")));
-
         _mapInterface = new MapInterface();
         _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
     }
@@ -121,11 +120,11 @@ public class Game {
             for(Objective objective : botProfil.getObjectives_()){
                 if(objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
                     String botName = botProfil.getBot_().getBotName();
+                    botProfil.addPoints_(objective.getPoint());
+                    validatedObjective.add(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
                     System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
-                    botProfil.addPoints_(objective.getPoint());
-                    validatedObjective.add(objective);
                 }
             }
             botProfil.getObjectives_().removeAll(validatedObjective);
@@ -139,12 +138,12 @@ public class Game {
             for(Objective objective : botProfil.getObjectives_()){
                 if(objective.verifyGardenerObj(gameEngine_)){
                     String botName = botProfil.getBot_().getBotName();
-                    System.out.println( "L'objectif suivant a été validé : " + objective );
-                    System.out.println(botName + " gagne " + objective.getPoint() + " points");
-                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
                     botProfil.addPoints_(objective.getPoint());
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
+                    System.out.println( "L'objectif suivant a été validé : " + objective );
+                    System.out.println(botName + " gagne " + objective.getPoint() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
                 }
             }
             botProfil.getObjectives_().removeAll(validatedObjective);
@@ -165,12 +164,12 @@ public class Game {
             for(Objective objective : botProfil.getObjectives_()){
                 if(objective.verifyPandaObj(gameEngine_, botProfil)){
                     String botName = botProfil.getBot_().getBotName();
-                    System.out.println( "L'objectif suivant a été validé : " + objective );
-                    System.out.println(botName + " gagne " + objective.getPoint() + " points");
-                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
                     botProfil.addPoints_(objective.getPoint());
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
+                    System.out.println( "L'objectif suivant a été validé : " + objective );
+                    System.out.println(botName + " gagne " + objective.getPoint() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
                 }
             }
             botProfil.getObjectives_().removeAll(validatedObjective);
