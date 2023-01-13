@@ -1,7 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
-import fr.cotedazur.univ.polytech.startingpoint.Action.*;
+
 import java.util.ArrayList;
 
 public class GameEngine {
@@ -10,12 +10,18 @@ public class GameEngine {
     private Deck<Objective> objectiveDeck_;
     private Deck<Plot>      plotDeck_;
     private Map             map_;
+    private Gardener        gardener_;
+    private Panda           panda;
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
         objectiveDeck_              = objectiveDeck;
         plotDeck_                   = plotDeck;
         map_                        = map;
+
+        panda                       = new Panda();
+
+        gardener_                   = new Gardener();
     }
 
     public fr.cotedazur.univ.polytech.startingpoint.objective.Objective pickObjective() {
@@ -34,51 +40,110 @@ public class GameEngine {
         return map_;
     }
 
-    public boolean haveNeighbours( Position position){
-        return map_.haveNeighbours(position);
+    public Position getGardenerPosition(){
+        return gardener_.getPosition();
+    }
+    public Position getPandaPosition(){
+        return panda.getPosition();
     }
 
-    /*
-    public boolean computeObjectivePlot(ArrayList<Plot> configuration){
-        return false;
-    }
-
-    public boolean isObjectiveGardenerCompleted(ObjectiveGardener objectiveGardener, BotProfil botProfil){
-        Position gardenerPosition = getGardenerPosition();
-        Plot gardenerPlot = getMap().getPlot(gardenerPosition);
-        ArrayList<Bambou> bambouSections = gardenerPlot.getBambouSections();
-        if(bambouSections.size() == objectiveGardener.getNbBambouSections()){
+    public boolean moveGardener(Position position){
+        if(!map_.isSpaceFree(position) && position.isDeplacementALine(gardener_.getPosition())){
+            gardener_.setPosition(position);
+            growBambou();
             return true;
         }
         return false;
     }
 
+    public void growBambou(){
+        Plot gardenerPlot = map_.findPlot(gardener_.getPosition());
+        if( gardenerPlot.getPosition().isCenter()==false )gardenerPlot.growBambou();
+        for(Plot plot : map_.getNeighbours(gardener_.getPosition())){
+            if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && plot.getPosition().isCenter()==false ){
+                plot.growBambou();
+            }
+        }
+    }
 
-
-    public boolean isObjectivePandaCompleted(ObjectivePanda objectivePanda, BotProfil botProfil){
+    public boolean movePanda(Game game, Bot bot, Position position){
+        if(!map_.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
+            panda.setPosition(position);
+            eatBambou(game, bot, position);
+            return true;
+        }
         return false;
     }
 
-     */
-    public boolean moveGardener(Position position){
-        return false;
-    }
-
-    public boolean movePanda(Position position){
-        return false;
+    public boolean eatBambou(Game game, Bot bot, Position position){
+       Plot plot = map_.findPlot(position);
+       Bambou bambou = plot.eatBambou();
+       if( bambou!=null && game!=null )game.addBamboutToBot(bot, bambou);
+       return true;
     }
 
 
-    public boolean computeObjectivePlot(ArrayList<Plot> pattern){
-        return false;
-    }
-    public boolean computeObjectiveGardener(ArrayList<Plot> bambouPlots, boolean improvement){
-        return false;
-    }
-    /*
-    public boolean computeObjectivePanda(ArrayList<Bambou> bambous){
+    public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot){
+        pattern = new Pattern(pattern);
+        int area_size = pattern.size();
+        Position lastPlacedPosition = lastPLacedPlot.getPosition();
+        for (int i=0; i<area_size/2 ; ++i){
+            pattern.translateRight();
+        }
+        for (int i=0; i<area_size/4 ; ++i){
+            pattern.translateUp();
+        }
+
+        for (int i=0; i<area_size ; ++i){
+            for (int j=0; j<6 ; ++j){
+                for (int k=0 ; k<area_size ; ++k){
+                    ArrayList<Plot> incompletePlot = map_.computePatternVerification(new Pattern(pattern), lastPlacedPosition);
+                    if(incompletePlot != null  && incompletePlot.isEmpty())return true;
+                    pattern.translateDown();
+                }
+                for (int k=0 ; k<area_size ; ++k){
+                    pattern.translateUp();
+                }
+                pattern.rotate60Right();
+            }
+            pattern.translateLeft();
+        }
         return false;
     }
 
-     */
+
+    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbPlot){
+        Plot plot = map_.findPlot(gardener_.getPosition());
+        if(nbBambou> 3){
+            if(plot.getNumberOfBambou() <= nbBambou && plot.getType() == bambouType){
+                return true;
+            }
+        }
+        else {
+            if(plot.getNumberOfBambou() <= nbBambou || plot.getType() != bambouType)return  false;
+            int nbValidatedPlots = 0;
+            for(Plot neighbour : map_.getNeighbours(plot.getPosition())){
+                if(neighbour.getNumberOfBambou() >= nbBambou && neighbour.getType() == bambouType){
+                    nbValidatedPlots++;
+                }
+            }
+            if(nbValidatedPlots >= nbPlot-1)return true;
+        }
+        return false;
+    }
+
+    public boolean computeObjectivePanda(BotProfil botProfil, ArrayList<Bambou> bambousToHave){
+        ArrayList<Bambou> playerBambous = new ArrayList<>(botProfil.getBambous());
+        ArrayList<Bambou> BambousToRemove = new ArrayList<>();
+        for(Bambou bambou : bambousToHave){
+            if(playerBambous.contains(bambou)){
+                playerBambous.remove(bambou);
+            }
+            else {
+                return false;
+            }
+        }
+        botProfil.setBambous(playerBambous);
+        return true;
+    }
 }

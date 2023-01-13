@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,21 +10,17 @@ public class Map {
     public ArrayList<Plot> map_;
     private MapInterface _mapInterface;
 
-    public Map() {
-        this( null);
-    }
-    public Map(MapInterface mapInterface){
-        _mapInterface = mapInterface;
+    public Map(){
         map_ = new ArrayList<>();
-        putPlot(new Plot(PlotType.POND, new Position(0,0,0)));
+        Plot Pond = new Plot(PlotType.POND, new Position(0,0));
+        Pond.isIrrigatedIsTrue();
+        map_.add(Pond);
     }
 
     public boolean putPlot(Plot plot) {
-        if (isSpaceFree(plot.getPosition()) == true) {
+        if (isPossibleToPutPlot(plot.getPosition()) == true) {
             map_.add(plot);
-            if(_mapInterface != null){
-                _mapInterface.drawHexagon(plot.getPosition());
-            }
+            verifyIrrigation(plot);
             return true;
         }
         return false;
@@ -33,11 +30,24 @@ public class Map {
         return new ArrayList<>(map_);
     }
 
-    public boolean isIrrigated(Plot p) {
+    public boolean verifyIrrigation(Plot p) {
+        if(this.getNeighbours(p.getPosition()).contains(new Plot(PlotType.POND, new Position(0,0)))){
+            p.isIrrigatedIsTrue();
+            return true;
+        }
         return false;
     }
 
-    private boolean isSpaceFree(Position position) {
+    public Plot findPlot(Position position) {
+        Plot plot1 = null;
+        for(Plot plot : map_){
+            if(plot.getPosition().equals(position)){
+                plot1= plot;
+            }
+        }
+        return plot1;
+    }
+    boolean isSpaceFree(Position position) {
         for (Plot plot : map_) {
             if(plot.getPosition().equals(position))
             {
@@ -48,15 +58,15 @@ public class Map {
     }
 
     public boolean isPossibleToPutPlot(Position position) {
-        if(closestAvailableSpace(position).size() >4) return false;
-        return isSpaceFree(position);
+        if((getNeighbours( position).size() >1 ||  position.isCloseToCenter()) && (position.isCenter() ==false)) return isSpaceFree(position);
+        return false;
     }
 
 
     public ArrayList<Position> closestAvailableSpace(Position position) {
         ArrayList<Position> positionsAvailable = new ArrayList<>();
         for (Position potentialPosition : position.closestPositions()) {
-            if(isSpaceFree(potentialPosition))
+            if(isPossibleToPutPlot(potentialPosition))
             {
                 positionsAvailable.add(potentialPosition);
             }
@@ -64,23 +74,31 @@ public class Map {
         return positionsAvailable;
     }
 
-    public boolean haveNeighbours(Position position) {
-        for(Plot plot : map_){
-            for (Position positions : position.closestPositions()) {
-                if (plot.getPosition().equals(positions)){
-                    return true;
+    public ArrayList<Plot> getNeighbours(Position position) {
+        ArrayList<Plot> plots = new ArrayList<>();
+        for(Plot mapPlot : map_){
+            for (Position tempPosition : position.closestPositions()) {
+                if (mapPlot.getPosition().equals(tempPosition)){
+                    plots.add(mapPlot);
                 }
             }
         }
-        return false;
+        return plots;
     }
 
-    public void rotatePattern(ArrayList<Plot> pattern){
-        for(Plot plot : pattern){
-            Position plotPosition = plot.getPosition();
-            plotPosition.rotate60Right();
-            plot.setPosition(plotPosition);
+    public ArrayList<Plot> computePatternVerification(Pattern pattern, Position currentPosition){
+        Pattern tempPattern = new Pattern(pattern);
+        tempPattern.applyMask(currentPosition);
+        ArrayList<Plot> incompletePlot = new ArrayList<>();
+        for(Plot plot : tempPattern.getPlots()){
+            if (isSpaceFree(plot.getPosition())){
+                incompletePlot.add(plot);
+            }
+            else if (plot.getType() != findPlot(plot.getPosition()).getType()){
+                return null;
+            }
         }
+        return incompletePlot;
     }
 }
 

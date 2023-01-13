@@ -9,11 +9,19 @@ public class PutPlotAction implements Action{
         _plot = plot;
     }
 
-    public boolean play(GameEngine gameEngine){
+    @Override
+    public boolean play(Game game, GameEngine gameEngine) {
         return gameEngine.askToPutPlot(_plot);
     }
-
+    @Override
     public boolean verifyObjectiveAfterAction(Game game){
-        return game.computeObjectivesPlot();
+        return game.computeObjectivesPlot(_plot);
+    }
+
+    @Override
+    public String toString() {
+        return "PutPlotAction{" +
+                "_plot=" + _plot +
+                '}';
     }
 }
