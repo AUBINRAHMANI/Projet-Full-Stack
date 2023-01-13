@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Game {
 
-    final int NB_OBJECTIVE_TO_FINISH = 2;
+    final int NB_OBJECTIVE_TO_FINISH = 4;
     GameEngine gameEngine_;
     ArrayList<BotProfil> botProfils_;
     MapInterface _mapInterface;
@@ -122,6 +122,7 @@ public class Game {
                     String botName = botProfil.getBot_().getBotName();
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
+                    botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
                     System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
@@ -140,6 +141,7 @@ public class Game {
                     String botName = botProfil.getBot_().getBotName();
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
+                    botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
                     System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
@@ -165,6 +167,7 @@ public class Game {
                     String botName = botProfil.getBot_().getBotName();
                     botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
+                    botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
                     System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
