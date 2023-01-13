@@ -121,7 +121,6 @@ public class Game {
             for(Objective objective : botProfil.getObjectives_()){
                 if(objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
                     String botName = botProfil.getBot_().getBotName();
-                    botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
@@ -140,7 +139,6 @@ public class Game {
             for(Objective objective : botProfil.getObjectives_()){
                 if(objective.verifyGardenerObj(gameEngine_)){
                     String botName = botProfil.getBot_().getBotName();
-                    botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
@@ -166,7 +164,6 @@ public class Game {
             for(Objective objective : botProfil.getObjectives_()){
                 if(objective.verifyPandaObj(gameEngine_, botProfil)){
                     String botName = botProfil.getBot_().getBotName();
-                    botProfil.addPoints_(objective.getPoint());
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
