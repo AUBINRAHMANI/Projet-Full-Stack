@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Game {
 
-    final int NB_OBJECTIVE_TO_FINISH = 4;
+    final int NB_OBJECTIVE_TO_FINISH = 8;
     GameEngine gameEngine_;
     ArrayList<BotProfil> botProfils_;
     MapInterface _mapInterface;
