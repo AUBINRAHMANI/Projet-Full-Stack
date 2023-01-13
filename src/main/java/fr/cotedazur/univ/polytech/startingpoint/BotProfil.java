@@ -42,7 +42,6 @@ public class BotProfil {
     }
 
     public void setObjectiveCompleted(Objective objective){
-        objectives_.remove(objective);
         ++nbCompletedObjective_;
         points_ += objective.getPoint();
     }
