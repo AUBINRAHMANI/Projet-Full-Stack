@@ -37,6 +37,7 @@ public class Game {
             for(BotProfil botProfil : botProfils_){
                 if(_mapInterface != null) while (_mapInterface.next()==false);
                 Action action = botProfil.getBot_().play(this, gameEngine_.getMap());
+                System.out.println("Tour de " + botProfil.getBot_().getBotName() + " : " + "Il jou l'action " + action);
                 action.play(this, gameEngine_);
                 action.verifyObjectiveAfterAction(this);
                 _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
