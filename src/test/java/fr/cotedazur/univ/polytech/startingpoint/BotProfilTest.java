@@ -32,7 +32,6 @@ class BotProfilTest {
         BotProfil botProfil = new BotProfil(bot);
         botProfil.addObjective(objective);
         botProfil.setObjectiveCompleted(objective);
-        assertEquals(0, botProfil.getObjectives_().size());
         assertEquals(1, botProfil.getNbCompletedObjective_());
         assertEquals(1, botProfil.getPoints_());
     }

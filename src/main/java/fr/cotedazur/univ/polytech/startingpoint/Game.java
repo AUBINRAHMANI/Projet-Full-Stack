@@ -25,8 +25,13 @@ public class Game {
         gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, new Map());
         botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(),"Ronaldo")));
         botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(), "Messi")));
-        _mapInterface = new MapInterface();
-        _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
+        if(debug){
+            _mapInterface = new MapInterface();
+            _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
+        }
+        else {
+            _mapInterface = null;
+        }
     }
     public Game(){
         this(false);
@@ -40,7 +45,9 @@ public class Game {
                 System.out.println("Tour de " + botProfil.getBot_().getBotName() + " : " + "Il jou l'action " + action);
                 action.play(this, gameEngine_);
                 action.verifyObjectiveAfterAction(this);
-                _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
+                if(_mapInterface != null){
+                    _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
+                }
             }
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
