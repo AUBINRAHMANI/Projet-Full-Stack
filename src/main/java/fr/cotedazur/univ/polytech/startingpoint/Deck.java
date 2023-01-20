@@ -24,6 +24,12 @@ public class Deck<T> {
         T card = deck_.get(0);
         deck_.remove(0);
         return card;
+    }
 
+    @Override
+    public String toString() {
+        return "Deck{" +
+                "deck_=" + deck_ +
+                '}';
     }
 }

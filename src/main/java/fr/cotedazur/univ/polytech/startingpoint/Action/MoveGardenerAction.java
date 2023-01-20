@@ -4,16 +4,23 @@ import fr.cotedazur.univ.polytech.startingpoint.*;
 public class MoveGardenerAction implements Action{
 
     Position _position;
-    Gardener _gardener;
     public MoveGardenerAction(Position position){
         _position = position;
     }
 
-    public boolean play(GameEngine gameEngine){
+    @Override
+    public boolean play(Game game, GameEngine gameEngine) {
         return gameEngine.moveGardener(_position);
     }
-
+    @Override
     public boolean verifyObjectiveAfterAction(Game game){
         return game.computeObjectivesGardener();
+    }
+
+    @Override
+    public String toString() {
+        return "MoveGardenerAction{" +
+                "_position=" + _position +
+                '}';
     }
 }

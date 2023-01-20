@@ -17,7 +17,7 @@ class MoveGardenerActionTest {
         when(mockedGameEngine.moveGardener(position)).thenReturn(true);
 
         MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
-        assertTrue(moveGardenerAction.play(mockedGameEngine));
+        assertTrue(moveGardenerAction.play(null, mockedGameEngine));
     }
 
     @Mock Game mockedGame = mock(Game.class);

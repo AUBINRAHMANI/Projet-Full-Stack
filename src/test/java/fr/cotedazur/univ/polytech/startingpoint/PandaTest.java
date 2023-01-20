@@ -10,10 +10,13 @@ class PandaTest {
     @Test
     void getPosition() {
 
+            Map map = new Map();
+            Game game = new Game();
+            Bot bot = new Bot(game,map,null);
             Panda panda = new Panda();
             Position position = new Position(1,1);
             Position position2 = new Position(2,2);
-            Map map = new Map();
+
             GameEngine gameEngine = new GameEngine(null,null,map);
             Plot plot = new Plot(PlotType.GREEN, position);
 
@@ -24,7 +27,7 @@ class PandaTest {
             assertEquals(position, panda.getPosition());
 
 
-            gameEngine.movePanda(position2);
+            gameEngine.movePanda(game,bot,position2);
             assertFalse(panda.getPosition().equals(position2));
     }
 

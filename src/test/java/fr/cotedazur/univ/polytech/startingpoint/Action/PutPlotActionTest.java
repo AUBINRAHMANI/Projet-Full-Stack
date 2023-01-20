@@ -18,14 +18,14 @@ class PutPlotActionTest {
         when(mockedGameEngine.askToPutPlot(plot)).thenReturn(true);
 
         PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertTrue(putPlotAction.play(mockedGameEngine));
+        assertTrue(putPlotAction.play(null, mockedGameEngine));
     }
 
     @Mock
     Game mockedGame = mock(Game.class);
     @Test
     void verifyObjectiveAfterAction() {
-        when(mockedGame.computeObjectivesPlot()).thenReturn(true);
+        when(mockedGame.computeObjectivesPlot(null)).thenReturn(true);
         PutPlotAction putPlotAction = new PutPlotAction(null);
         assertTrue(putPlotAction.verifyObjectiveAfterAction(mockedGame));
     }

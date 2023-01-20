@@ -1,32 +1,55 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.Action.Action;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class ObjectiveGardener extends Objective{
 
-    ArrayList<Plot> _bambouPlots;
-    boolean _improvement;
+    int nbBambou;
+    int nbPlot;
+    PlotType bambouType;
+    boolean improvement;
 
-    public ObjectiveGardener(int point, ArrayList<Plot> bambouPlots, boolean improvement) {
+    public ObjectiveGardener(int point, int nbBambou, PlotType bambouType , boolean improvement, int nbSection) {
         super(point);
-        _bambouPlots    = bambouPlots;
-        _improvement    = improvement;
+        this.nbBambou       = nbBambou;
+        this.nbPlot      = nbSection;
+        this.bambouType     = bambouType;
+        this.improvement    = improvement;
     }
 
     @Override
-    public boolean verifyPlotObj(GameEngine gameEngine) {
+    public boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot) {
         return false;
     }
 
     @Override
     public boolean verifyGardenerObj(GameEngine gameEngine) {
-        return gameEngine.computeObjectiveGardener(_bambouPlots, _improvement);
+        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, improvement, nbPlot);
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
         return false;
     }
+
+    @Override
+    public Action tryToFillObjective(Bot bot) {
+        return bot.fillObjectiveGardener( nbBambou, bambouType , improvement, nbPlot);
+    }
+
+    @Override
+    public String toString() {
+        return "ObjectiveGardener{" +
+                "points=" + _points +
+                "nbBambou=" + nbBambou +
+                ", nbSection=" + nbPlot +
+                ", bambouType=" + bambouType +
+                ", improvement=" + improvement +
+                '}';
+    }
+
 }
