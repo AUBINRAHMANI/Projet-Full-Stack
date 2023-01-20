@@ -62,27 +62,7 @@ public class GameEngine {
     public void growBambou(){
         map_.growBambou(gardener_.getPosition());
     }
-    /*
-    public boolean computeObjectivePlot(ArrayList<Plot> configuration){
-        return false;
-    }
 
-    public boolean isObjectiveGardenerCompleted(ObjectiveGardener objectiveGardener, BotProfil botProfil){
-        Position gardenerPosition = getGardenerPosition();
-        Plot gardenerPlot = getMap().getPlot(gardenerPosition);
-        ArrayList<Bambou> bambouSections = gardenerPlot.getBambouSections();
-        if(bambouSections.size() == objectiveGardener.getNbBambouSections()){
-            return true;
-        }
-        return false;
-    }
-
-
-
-    public boolean isObjectivePandaCompleted(ObjectivePanda objectivePanda, BotProfil botProfil){
-        return false;
-    }
-    */
     public boolean movePanda(Position position){
         if(!map_.isSpaceFree(position)){
             panda.setPosition(position);
