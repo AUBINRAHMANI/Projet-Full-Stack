@@ -176,4 +176,8 @@ public class GameEngineTest {
 
         assertEquals(1,plot.getNumberOfBambou());
     }
+    @Test
+    public void checkIfWeatherChangesReallyApply(){
+
+    }
 }

@@ -3,6 +3,10 @@ package fr.cotedazur.univ.polytech.startingpoint;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.*;
+import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.QUESTIONMARK;
 
 public class GameEngine {
 
@@ -12,6 +16,8 @@ public class GameEngine {
     private Map             map_;
     private Gardener        gardener_;
     private Panda           panda;
+    ArrayList<BotProfil> botProfils_;
+    private Weather weather;
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
@@ -145,5 +151,44 @@ public class GameEngine {
         }
         botProfil.setBambous(playerBambous);
         return true;
+    }
+    public WeatherType drawWeather(){
+        Random rand = new Random();
+        int max = 6;
+        int choseNumber = rand.nextInt(max+1);
+        switch (choseNumber){
+            case 1 :
+                weather.setWeatherType(SUN);
+                break;
+            case 2 :
+                weather.setWeatherType(RAIN);
+                break;
+            case 3 :
+                weather.setWeatherType(WIND);
+                break;
+            case 4 :
+                weather.setWeatherType(THUNDER);
+                break;
+            case 5 :
+                weather.setWeatherType(CLOUD);
+                break;
+            case 6 :
+                weather.setWeatherType(QUESTIONMARK);
+                break;
+        }
+        return null;
+    }
+    public void applyChangesDueToWeather(){
+        switch (weather.getWeather()){
+            case SUN :
+
+                break;
+            case RAIN :
+            case THUNDER :
+            case WIND :
+            case CLOUD :
+            case QUESTIONMARK:
+
+        }
     }
 }

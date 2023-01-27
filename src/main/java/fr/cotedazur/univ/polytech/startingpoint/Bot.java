@@ -13,6 +13,8 @@ public class Bot {
     String botName;
     ArrayList<Bambou> myBambous;
 
+
+
     public Bot(Game game, Map map, String botName) {
         this.map = map;
         this.botName = botName;
@@ -21,9 +23,11 @@ public class Bot {
         myBambous = null;
     }
 
+
     public String getBotName() {
         return botName;
     }
+
 
     public Action play(Game game, Map map) {
         this.game = game;

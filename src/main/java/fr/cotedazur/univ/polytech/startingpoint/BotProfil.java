@@ -11,6 +11,7 @@ public class BotProfil {
     private ArrayList<Bambou> bambous;
     private int points_;
     private int nbCompletedObjective_;
+    private int numberOfHit;
 
     public BotProfil(Bot bot){
         bot_ = bot;
@@ -18,11 +19,13 @@ public class BotProfil {
         bambous = new ArrayList<>();
         points_ = 0;
         nbCompletedObjective_ = 0;
+        numberOfHit = 1;
     }
 
     public Bot getBot_() {
         return bot_;
     }
+    public int getNumberOfHit(){return numberOfHit;}
 
     public int getPoints_() {
         return points_;
