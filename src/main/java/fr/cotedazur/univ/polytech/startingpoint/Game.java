@@ -38,11 +38,8 @@ public class Game {
                 if(_mapInterface != null) while (_mapInterface.next()==false);
                 System.out.println();
                 gameEngine_.drawWeather();
-                gameEngine_.applyChangesDueToWeather();
-                Action action = botProfil.getBot_().play(this, gameEngine_.getMap());
-                System.out.println("Tour de " + botProfil.getBot_().getBotName() + " : " + "Il joue l'action " + action);
-                action.play(this, gameEngine_);
-                action.verifyObjectiveAfterAction(this);
+                System.out.println("Tour de " + botProfil.getBot_().getBotName() + " : ");
+                gameEngine_.applyChangesDueToWeather(this);
                 _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
             }
         }while (!checkFinishingCondition());
