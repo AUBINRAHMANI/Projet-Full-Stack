@@ -6,6 +6,7 @@ import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -122,7 +123,7 @@ public class Game implements DeckSignal, Referee {
         return false;
     }
 
-    public Plot pickPlot(){
+    public List<Plot> pickPlot(){
         return gameEngine_.pickPlot();
     }
 

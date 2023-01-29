@@ -7,6 +7,7 @@ import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface Referee {
     public ArrayList<Objective> getMyObjectives(Bot bot);
@@ -17,5 +18,6 @@ public interface Referee {
     public boolean computeObjectivesPlot(Plot lastPlacedPlot);
     public boolean computeObjectivesPanda();
     public boolean pickObjective(Bot bot);
+    public List<Plot> pickPlot();
     public void addBamboutToBot(Bot bot, Bambou bambou);
 }

@@ -6,6 +6,8 @@ import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class GameEngine {
 
@@ -36,8 +38,8 @@ public class GameEngine {
         return objectiveDeck_.getNextCard();
     }
 
-    public Plot pickPlot() {
-        return plotDeck_.getNextCard();
+    public List<Plot> pickPlot() {
+        return new ArrayList<Plot>(Arrays.asList(plotDeck_.getNextCard(),plotDeck_.getNextCard(),plotDeck_.getNextCard()));
     }
 
     public boolean askToPutPlot( Plot plot ){

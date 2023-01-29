@@ -5,6 +5,7 @@ import fr.cotedazur.univ.polytech.startingpoint.Game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Bot {
@@ -165,10 +166,23 @@ public class Bot {
         for(Plot plot : map.getMap()){
             ArrayList<Position> positions = map.closestAvailableSpace(plot.getPosition());
             if(positions != null && positions.isEmpty()==false ){
-                return new PutPlotAction(new Plot(plotType, positions.get(0)));
+                return placePLot(plotType, positions.get(0));
             }
         }
         return null;
+    }
+
+    PutPlotAction placePLot(PlotType plotType, Position position){
+        List<Plot> plots = referee.pickPlot();
+        for(Plot plot : plots){
+            if(plot.getType() == plotType){
+                plot.setPosition(position);
+                return new PutPlotAction(plot);
+            }
+        }
+        Plot plot  = plots.get(0);
+        plot.setPosition(position);
+        return new PutPlotAction(plot);
     }
 
     private MovePandaAction movePandaToUnlock(Position pandaPosition){

@@ -31,7 +31,7 @@ public class GameEngineTest {
         deck.addCard(new Plot(PlotType.GREEN,position));
         GameEngine gameEngine = new GameEngine(null, deck, null);
 
-        assertEquals(PlotType.GREEN , gameEngine.pickPlot().getType());
+        assertEquals(PlotType.GREEN , gameEngine.pickPlot().get(0).getType());
     }
 
     @Test
