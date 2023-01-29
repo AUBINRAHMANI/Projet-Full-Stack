@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
+import javax.swing.text.html.StyleSheet;
 import java.util.ArrayList;
 
 public class GameEngine {
@@ -84,31 +85,11 @@ public class GameEngine {
 
 
     public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot){
-        pattern = new Pattern(pattern);
-        int area_size = pattern.size();
-        Position lastPlacedPosition = lastPLacedPlot.getPosition();
-        for (int i=0; i<area_size/2 ; ++i){
-            pattern.translateRight();
+        ArrayList<Plot> missingPlots = map_.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
+        if( missingPlots != null && missingPlots.isEmpty()){
+            return true;
         }
-        for (int i=0; i<area_size/4 ; ++i){
-            pattern.translateUp();
-        }
-
-        for (int i=0; i<area_size ; ++i){
-            for (int j=0; j<6 ; ++j){
-                for (int k=0 ; k<area_size ; ++k){
-                    ArrayList<Plot> incompletePlot = map_.computePatternVerification(new Pattern(pattern), lastPlacedPosition);
-                    if(incompletePlot != null  && incompletePlot.isEmpty())return true;
-                    pattern.translateDown();
-                }
-                for (int k=0 ; k<area_size ; ++k){
-                    pattern.translateUp();
-                }
-                pattern.rotate60Right();
-            }
-            pattern.translateLeft();
-        }
-        return false;
+        else return false;
     }
 
 

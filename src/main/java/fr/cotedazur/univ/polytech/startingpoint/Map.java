@@ -86,6 +86,34 @@ public class Map {
         return plots;
     }
 
+    public ArrayList<Plot> checkIfPossibleToPlacePattern(Pattern pattern, Position position) {
+        ArrayList<ArrayList<Plot>> potentialPatternSpot = new ArrayList<>();
+        Pattern tempPattern = new Pattern(pattern);
+        for(Plot plot : pattern.getPlots()){
+            tempPattern.setAncerPoint(plot.getPosition());
+            for(int i=0 ; i<5 ; i++){
+                ArrayList<Plot> missingPLots = computePatternVerification(tempPattern, position);
+                if(missingPLots != null)
+                {
+                    potentialPatternSpot.add(missingPLots);
+                }
+                tempPattern.rotate60Right();
+            }
+            tempPattern.rotate60Right();
+        }
+        if(potentialPatternSpot.isEmpty())return null;
+
+        ArrayList<Plot> bestSpot = potentialPatternSpot.get(0);
+        for(ArrayList<Plot> patternSpot : potentialPatternSpot)
+        {
+            if(patternSpot.size() < bestSpot.size())
+            {
+                bestSpot = patternSpot;
+            }
+        }
+        return bestSpot;
+    }
+
     public ArrayList<Plot> computePatternVerification(Pattern pattern, Position currentPosition){
         Pattern tempPattern = new Pattern(pattern);
         tempPattern.applyMask(currentPosition);

@@ -6,5 +6,4 @@ public class Main {
         Game game = new Game(false);
         game.start();
     }
-
 }

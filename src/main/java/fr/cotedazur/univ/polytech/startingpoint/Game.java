@@ -8,6 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Random;
+import java.util.TreeMap;
 
 
 public class Game {
@@ -37,11 +38,11 @@ public class Game {
         this(false);
     }
 
-    public void start(){
+    public boolean start(){
         do {
             for(BotProfil botProfil : botProfils_){
                 if(_mapInterface != null) while (_mapInterface.next()==false);
-                Action action = botProfil.getBot_().play(this, gameEngine_.getMap());
+                Action action = botProfil.getBot_().play();
                 System.out.println("Tour de " + botProfil.getBot_().getBotName() + " : " + "Il jou l'action " + action);
                 action.play(this, gameEngine_);
                 action.verifyObjectiveAfterAction(this);
@@ -52,6 +53,7 @@ public class Game {
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
         printWinner(winner);
+        return true;
     }
 
     public boolean checkFinishingCondition(){
@@ -69,7 +71,7 @@ public class Game {
         for (int i=0 ; i<20 ; ++i){
             objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
         }
-
+        /*
         for (int i=0 ; i<20 ; ++i){
             //int nbBambous = rand.nextInt(2)+3;
             int nbBambous = 4;
@@ -89,6 +91,7 @@ public class Game {
             }
             objectiveDeck.addCard(new ObjectivePanda(rand.nextInt(4) + 1, bambous));
         }
+         */
         objectiveDeck.shuffle();
         return objectiveDeck;
     }

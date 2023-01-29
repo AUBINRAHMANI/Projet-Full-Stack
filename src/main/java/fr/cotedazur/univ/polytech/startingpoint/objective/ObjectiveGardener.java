@@ -38,7 +38,7 @@ public class ObjectiveGardener extends Objective{
 
     @Override
     public Action tryToFillObjective(Bot bot) {
-        return bot.fillObjectiveGardener( nbBambou, bambouType , improvement, nbPlot);
+        return bot.fillObjectiveGardener( bambouType , improvement);
     }
 
     @Override
