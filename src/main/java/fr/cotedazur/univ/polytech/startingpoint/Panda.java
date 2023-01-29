@@ -18,5 +18,4 @@ public class Panda {
         this.position = position;
 
         }
-
 }
