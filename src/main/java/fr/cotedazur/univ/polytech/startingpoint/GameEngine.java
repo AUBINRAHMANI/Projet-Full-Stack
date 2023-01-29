@@ -1,8 +1,10 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.Game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.Game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
-import javax.swing.text.html.StyleSheet;
+import java.sql.Ref;
 import java.util.ArrayList;
 
 public class GameEngine {
@@ -25,7 +27,12 @@ public class GameEngine {
         gardener_                   = new Gardener();
     }
 
-    public fr.cotedazur.univ.polytech.startingpoint.objective.Objective pickObjective() {
+    public void regenerateDecks(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck){
+        objectiveDeck_  = objectiveDeck;
+        plotDeck_       = plotDeck;
+    }
+
+    public Objective pickObjective() {
         return objectiveDeck_.getNextCard();
     }
 
@@ -67,19 +74,19 @@ public class GameEngine {
         }
     }
 
-    public boolean movePanda(Game game, Bot bot, Position position){
+    public boolean movePanda(Referee referee, Bot bot, Position position){
         if(!map_.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
             panda.setPosition(position);
-            eatBambou(game, bot, position);
+            eatBambou(referee, bot, position);
             return true;
         }
         return false;
     }
 
-    public boolean eatBambou(Game game, Bot bot, Position position){
+    public boolean eatBambou(Referee referee, Bot bot, Position position){
        Plot plot = map_.findPlot(position);
        Bambou bambou = plot.eatBambou();
-       if( bambou!=null && game!=null )game.addBamboutToBot(bot, bambou);
+       if( bambou!=null && referee!=null )referee.addBamboutToBot(bot, bambou);
        return true;
     }
 

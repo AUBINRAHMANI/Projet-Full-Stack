@@ -52,8 +52,6 @@ public class Plot {
         return this.listeBambou.size();
     }
     public boolean growBambou () {
-        System.out.println(this.isIrrigated());
-        System.out.println(this.listeBambou.size());
         if (this.isIrrigated() && this.listeBambou.size() < 4) {
             this.listeBambou.add(new Bambou(_plotType));
             return true;

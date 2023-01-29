@@ -1,7 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint.Action;
 
 import fr.cotedazur.univ.polytech.startingpoint.Bot;
-import fr.cotedazur.univ.polytech.startingpoint.Game;
+import fr.cotedazur.univ.polytech.startingpoint.Game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.Game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 
 public class PickObjectiveAction implements Action{
@@ -13,12 +14,12 @@ public class PickObjectiveAction implements Action{
     }
 
     @Override
-    public boolean play(Game game, GameEngine gameEngine) {
-        return game.pickObjective(bot);
+    public boolean play(Referee referee, GameEngine gameEngine) {
+        return referee.pickObjective(bot);
     }
 
     @Override
-    public boolean verifyObjectiveAfterAction(Game game) {
+    public boolean verifyObjectiveAfterAction(Referee referee) {
         return false;
     }
 

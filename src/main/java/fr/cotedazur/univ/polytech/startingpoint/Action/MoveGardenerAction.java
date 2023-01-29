@@ -1,5 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.Action;
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.Game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.Game.Referee;
 
 public class MoveGardenerAction implements Action{
 
@@ -9,12 +11,12 @@ public class MoveGardenerAction implements Action{
     }
 
     @Override
-    public boolean play(Game game, GameEngine gameEngine) {
+    public boolean play(Referee referee, GameEngine gameEngine) {
         return gameEngine.moveGardener(_position);
     }
     @Override
-    public boolean verifyObjectiveAfterAction(Game game){
-        return game.computeObjectivesGardener();
+    public boolean verifyObjectiveAfterAction(Referee referee){
+        return referee.computeObjectivesGardener();
     }
 
     @Override

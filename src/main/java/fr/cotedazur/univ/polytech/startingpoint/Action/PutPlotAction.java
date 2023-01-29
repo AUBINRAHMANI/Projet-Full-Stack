@@ -1,5 +1,9 @@
 package fr.cotedazur.univ.polytech.startingpoint.Action;
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.Game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.Game.Referee;
+
+import java.sql.Ref;
 
 
 public class PutPlotAction implements Action{
@@ -10,12 +14,12 @@ public class PutPlotAction implements Action{
     }
 
     @Override
-    public boolean play(Game game, GameEngine gameEngine) {
+    public boolean play(Referee referee, GameEngine gameEngine) {
         return gameEngine.askToPutPlot(_plot);
     }
     @Override
-    public boolean verifyObjectiveAfterAction(Game game){
-        return game.computeObjectivesPlot(_plot);
+    public boolean verifyObjectiveAfterAction(Referee referee){
+        return referee.computeObjectivesPlot(_plot);
     }
 
     @Override

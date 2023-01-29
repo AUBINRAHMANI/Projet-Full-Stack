@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.Action.*;
+import fr.cotedazur.univ.polytech.startingpoint.Game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
@@ -8,14 +9,14 @@ import java.util.Objects;
 
 public class Bot {
 
-    Game game;
+    Referee referee;
     Map map;
     String botName;
     ArrayList<Bambou> myBambous;
 
-    public Bot(Game game, Map map, String botName) {
+    public Bot(Referee referee, Map map, String botName) {
         this.botName = botName;
-        this.game    = game;
+        this.referee    = referee;
         this.map     = map;
         myBambous = null;
     }
@@ -25,8 +26,8 @@ public class Bot {
     }
 
     public Action play() {
-        this.myBambous = game.getMyBambous(this);
-        ArrayList<Objective> objectives = game.getMyObjectives(this);
+        this.myBambous = referee.getMyBambous(this);
+        ArrayList<Objective> objectives = referee.getMyObjectives(this);
         if (objectives == null) {
             assert false;
             return null;
@@ -53,7 +54,7 @@ public class Bot {
                     if (plot.getType() == bambouType) {
                         typeValid.add(plot);
                     }
-                    if ((plot.getType() == bambouType) && (plot.getPosition().isDeplacementALine(game.getGardenerPosition()))) {
+                    if ((plot.getType() == bambouType) && (plot.getPosition().isDeplacementALine(referee.getGardenerPosition()))) {
                         typeAndDeplacementValid.add(plot);
                     }
                 }
@@ -72,12 +73,12 @@ public class Bot {
                 for (Plot plot : typeValid) {
                     ArrayList<Plot> neighboursPlots = map.getNeighbours(plot.getPosition());
                     for (int i = 0; i <= neighboursPlots.size(); i++) {
-                        if (neighboursPlots.get(i).getPosition().isDeplacementALine(game.getGardenerPosition())) {
+                        if (neighboursPlots.get(i).getPosition().isDeplacementALine(referee.getGardenerPosition())) {
                             return new MoveGardenerAction(neighboursPlots.get(i).getPosition());
                         }
                         ArrayList<Plot> neighboursOfNeighboursPlots = map.getNeighbours(neighboursPlots.get(i).getPosition());
                         for (int j = 0; j <= neighboursOfNeighboursPlots.size(); j++) {
-                            if (neighboursOfNeighboursPlots.get(j).getPosition().isDeplacementALine(game.getGardenerPosition())) {
+                            if (neighboursOfNeighboursPlots.get(j).getPosition().isDeplacementALine(referee.getGardenerPosition())) {
                                 return new MoveGardenerAction(neighboursOfNeighboursPlots.get(j).getPosition());
                             }
                         }
@@ -132,7 +133,7 @@ public class Bot {
             }
             for(Plot plot : map.getMap()){
                 if(plot.getType() == missingBambous.get(missingBambous.size()-1).getBambouType() && plot.getNumberOfBambou()>0){
-                    return movePandaToUnlock(game.getPandaPosition());
+                    return movePandaToUnlock(referee.getPandaPosition());
                 }
             }
             return fillObjectiveGardener(missingBambous.get(missingBambous.size()-1).getBambouType(), false);
@@ -143,7 +144,7 @@ public class Bot {
     private MovePandaAction movePandaOnPlantation(PlotType bambouType) {
         for(Plot plot : map.getMap()){
             if(plot.getType()==bambouType && plot.getNumberOfBambou()>0 ){
-                if(plot.getPosition().isDeplacementALine(game.getPandaPosition())){
+                if(plot.getPosition().isDeplacementALine(referee.getPandaPosition())){
                     return new MovePandaAction(this, plot.getPosition());
                 }
             }
@@ -183,11 +184,11 @@ public class Bot {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bot bot = (Bot) o;
-        return Objects.equals(game, bot.game) && Objects.equals(map, bot.map) && Objects.equals(myBambous, bot.myBambous);
+        return Objects.equals(referee, bot.referee) && Objects.equals(map, bot.map) && Objects.equals(myBambous, bot.myBambous);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(game, map, myBambous);
+        return Objects.hash(referee, map, myBambous);
     }
 }

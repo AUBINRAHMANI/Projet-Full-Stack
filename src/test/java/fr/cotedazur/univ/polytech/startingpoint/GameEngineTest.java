@@ -1,18 +1,22 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.Game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class GameEngineTest {
 
-
+    @Mock
+    Game mockedGame = mock(Game.class);
     @Test
     void pickObjectiveTest() {
-        Deck<Objective> deck = new Deck<>();
+        Deck<Objective> deck = new Deck<>(mockedGame);
         Objective objective = new ObjectivePlots(5, (Pattern) null);
         deck.addCard(objective);
         GameEngine gameEngine = new GameEngine(deck, null, null);
@@ -23,7 +27,7 @@ public class GameEngineTest {
     @Test
     void pickPlotTest() {
         Position position = new Position(2,2);
-        Deck<Plot> deck = new Deck<>();
+        Deck<Plot> deck = new Deck<>(mockedGame);
         deck.addCard(new Plot(PlotType.GREEN,position));
         GameEngine gameEngine = new GameEngine(null, deck, null);
 
