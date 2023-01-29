@@ -1,10 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.Game.Game;
-import fr.cotedazur.univ.polytech.startingpoint.Game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,54 +10,54 @@ import java.util.List;
 public class GameEngine {
 
 
-    private Deck<Objective> objectiveDeck_;
-    private Deck<Plot>      plotDeck_;
-    private Map             map_;
-    private Gardener        gardener_;
+    private Deck<Objective> objectiveDeck;
+    private Deck<Plot>      plotDeck;
+    private Map             map;
+    private Gardener        gardener;
     private Panda           panda;
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
-        objectiveDeck_              = objectiveDeck;
-        plotDeck_                   = plotDeck;
-        map_                        = map;
+        this.objectiveDeck = objectiveDeck;
+        this.plotDeck = plotDeck;
+        this.map = map;
 
-        panda                       = new Panda();
+        this.panda = new Panda();
 
-        gardener_                   = new Gardener();
+        this.gardener = new Gardener();
     }
 
     public void regenerateDecks(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck){
-        objectiveDeck_  = objectiveDeck;
-        plotDeck_       = plotDeck;
+        this.objectiveDeck = objectiveDeck;
+        this.plotDeck = plotDeck;
     }
 
     public Objective pickObjective() {
-        return objectiveDeck_.getNextCard();
+        return objectiveDeck.getNextCard();
     }
 
     public List<Plot> pickPlot() {
-        return new ArrayList<Plot>(Arrays.asList(plotDeck_.getNextCard(),plotDeck_.getNextCard(),plotDeck_.getNextCard()));
+        return new ArrayList<>(Arrays.asList(plotDeck.getNextCard(), plotDeck.getNextCard(), plotDeck.getNextCard()));
     }
 
     public boolean askToPutPlot( Plot plot ){
-        return  map_.putPlot(plot);
+        return  map.putPlot(plot);
     }
 
     public Map getMap(){
-        return map_;
+        return map;
     }
 
     public Position getGardenerPosition(){
-        return gardener_.getPosition();
+        return gardener.getPosition();
     }
     public Position getPandaPosition(){
         return panda.getPosition();
     }
 
     public boolean moveGardener(Position position){
-        if(!map_.isSpaceFree(position) && position.isDeplacementALine(gardener_.getPosition())){
-            gardener_.setPosition(position);
+        if(!map.isSpaceFree(position) && position.isDeplacementALine(gardener.getPosition())){
+            gardener.setPosition(position);
             growBambou();
             return true;
         }
@@ -67,9 +65,9 @@ public class GameEngine {
     }
 
     public void growBambou(){
-        Plot gardenerPlot = map_.findPlot(gardener_.getPosition());
+        Plot gardenerPlot = map.findPlot(gardener.getPosition());
         if( gardenerPlot.getPosition().isCenter()==false )gardenerPlot.growBambou();
-        for(Plot plot : map_.getNeighbours(gardener_.getPosition())){
+        for(Plot plot : map.getNeighbours(gardener.getPosition())){
             if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && plot.getPosition().isCenter()==false ){
                 plot.growBambou();
             }
@@ -77,7 +75,7 @@ public class GameEngine {
     }
 
     public boolean movePanda(Referee referee, Bot bot, Position position){
-        if(!map_.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
+        if(!map.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
             panda.setPosition(position);
             eatBambou(referee, bot, position);
             return true;
@@ -86,7 +84,7 @@ public class GameEngine {
     }
 
     public boolean eatBambou(Referee referee, Bot bot, Position position){
-       Plot plot = map_.findPlot(position);
+       Plot plot = map.findPlot(position);
        Bambou bambou = plot.eatBambou();
        if( bambou!=null && referee!=null )referee.addBamboutToBot(bot, bambou);
        return true;
@@ -94,16 +92,13 @@ public class GameEngine {
 
 
     public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot){
-        ArrayList<Plot> missingPlots = map_.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
-        if( missingPlots != null && missingPlots.isEmpty()){
-            return true;
-        }
-        else return false;
+        List<Plot> missingPlots = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
+        return missingPlots != null && missingPlots.isEmpty();
     }
 
 
     public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbPlot){
-        Plot plot = map_.findPlot(gardener_.getPosition());
+        Plot plot = map.findPlot(gardener.getPosition());
         if(nbBambou> 3){
             if(plot.getNumberOfBambou() <= nbBambou && plot.getType() == bambouType){
                 return true;
@@ -112,7 +107,7 @@ public class GameEngine {
         else {
             if(plot.getNumberOfBambou() <= nbBambou || plot.getType() != bambouType)return  false;
             int nbValidatedPlots = 0;
-            for(Plot neighbour : map_.getNeighbours(plot.getPosition())){
+            for(Plot neighbour : map.getNeighbours(plot.getPosition())){
                 if(neighbour.getNumberOfBambou() >= nbBambou && neighbour.getType() == bambouType){
                     nbValidatedPlots++;
                 }
@@ -122,9 +117,8 @@ public class GameEngine {
         return false;
     }
 
-    public boolean computeObjectivePanda(BotProfil botProfil, ArrayList<Bambou> bambousToHave){
-        ArrayList<Bambou> playerBambous = new ArrayList<>(botProfil.getBambous());
-        ArrayList<Bambou> BambousToRemove = new ArrayList<>();
+    public boolean computeObjectivePanda(BotProfil botProfil, List<Bambou> bambousToHave){
+        List<Bambou> playerBambous = new ArrayList<>(botProfil.getBambous());
         for(Bambou bambou : bambousToHave){
             if(playerBambous.contains(bambou)){
                 playerBambous.remove(bambou);

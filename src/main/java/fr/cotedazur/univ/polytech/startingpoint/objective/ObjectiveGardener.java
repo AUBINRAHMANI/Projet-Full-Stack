@@ -1,10 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
-import fr.cotedazur.univ.polytech.startingpoint.Action.Action;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 
 public class ObjectiveGardener extends Objective{
 
@@ -44,7 +41,7 @@ public class ObjectiveGardener extends Objective{
     @Override
     public String toString() {
         return "ObjectiveGardener{" +
-                "points=" + _points +
+                "points=" + points +
                 "nbBambou=" + nbBambou +
                 ", nbSection=" + nbPlot +
                 ", bambouType=" + bambouType +

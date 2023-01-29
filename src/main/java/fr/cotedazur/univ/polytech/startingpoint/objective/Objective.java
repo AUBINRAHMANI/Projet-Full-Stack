@@ -1,19 +1,17 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
-import fr.cotedazur.univ.polytech.startingpoint.Action.Action;
-
-import java.util.ArrayList;
+import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 
 
 public abstract class Objective {
-    protected int _points;
+    protected int points;
 
     protected Objective(int points){
-        _points = points;
+        this.points = points;
     }
     public int getPoint(){
-        return _points;
+        return points;
     }
 
     public abstract boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot);

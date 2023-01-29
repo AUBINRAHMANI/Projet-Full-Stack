@@ -1,16 +1,16 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
-import fr.cotedazur.univ.polytech.startingpoint.Action.Action;
+import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class ObjectivePlots extends Objective{
 
     Pattern pattern;
 
-    public ObjectivePlots(int point, ArrayList<Plot> plots) {
+    public ObjectivePlots(int point, List<Plot> plots) {
         super(point);
         pattern = new Pattern(plots);
 
@@ -44,7 +44,7 @@ public class ObjectivePlots extends Objective{
     @Override
     public String toString() {
         return "ObjectivePlots{" +
-                "points=" + _points +
+                "points=" + points +
                 "pattern=" + pattern +
                 '}';
     }

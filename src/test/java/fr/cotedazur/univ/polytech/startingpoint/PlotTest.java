@@ -3,7 +3,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlotTest {
+class PlotTest {
     @Test
     void getTypeTest() {
         Position position = new Position(2,2);
@@ -11,7 +11,7 @@ public class PlotTest {
         assertEquals(PlotType.GREEN, plot.getType());
     }
     @Test
-    public void getPosition() {
+    void getPosition() {
         Position position = new Position(2, 3);
         Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
         assertEquals(position, plot.getPosition());

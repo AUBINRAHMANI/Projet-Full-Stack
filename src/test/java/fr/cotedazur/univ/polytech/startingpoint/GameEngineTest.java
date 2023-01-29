@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.Game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-public class GameEngineTest {
+class GameEngineTest {
 
     @Mock
     Game mockedGame = mock(Game.class);
@@ -26,9 +26,10 @@ public class GameEngineTest {
 
     @Test
     void pickPlotTest() {
-        Position position = new Position(2,2);
         Deck<Plot> deck = new Deck<>(mockedGame);
-        deck.addCard(new Plot(PlotType.GREEN,position));
+        deck.addCard(new Plot(PlotType.GREEN,null));
+        deck.addCard(new Plot(PlotType.YELLOW,null));
+        deck.addCard(new Plot(PlotType.RED,null));
         GameEngine gameEngine = new GameEngine(null, deck, null);
 
         assertEquals(PlotType.GREEN , gameEngine.pickPlot().get(0).getType());
@@ -120,7 +121,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void growBambouTest(){
+    void growBambouTest(){
         Map map = new Map();
         Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
         Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
@@ -134,7 +135,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void computeObjectiveGardener(){
+    void computeObjectiveGardener(){
         Map map = new Map();
         Plot plot1 = new Plot(PlotType.GREEN, new Position(0,1));
         Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
@@ -159,7 +160,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void eatBambou(){
+    void eatBambou(){
         Map map = new Map();
         Position position = new Position(1,0);
         Plot plot = new Plot(PlotType.GREEN,position);

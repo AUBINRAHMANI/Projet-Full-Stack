@@ -1,7 +1,7 @@
-package fr.cotedazur.univ.polytech.startingpoint.Game;
+package fr.cotedazur.univ.polytech.startingpoint.game;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
-import fr.cotedazur.univ.polytech.startingpoint.Action.*;
+import fr.cotedazur.univ.polytech.startingpoint.action.*;
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
@@ -40,9 +40,9 @@ public class Game implements DeckSignal, Referee {
     public boolean start(){
         do {
             for(BotProfil botProfil : botProfils_){
-                if(_mapInterface != null) while (_mapInterface.next()==false);
-                Action action = botProfil.getBot_().play();
-                System.out.println("Tour de " + botProfil.getBot_().getBotName() + " : " + "Il jou l'action " + action);
+                //if(_mapInterface != null) while (_mapInterface.next()==false);
+                Action action = botProfil.getBot().play();
+                System.out.println("Tour de " + botProfil.getBot().getBotName() + " : " + "Il jou l'action " + action);
                 action.play(this, gameEngine_);
                 action.verifyObjectiveAfterAction(this);
                 if(_mapInterface != null){
@@ -57,7 +57,7 @@ public class Game implements DeckSignal, Referee {
 
     public boolean checkFinishingCondition(){
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getNbCompletedObjective_() == NB_OBJECTIVE_TO_FINISH)return true;
+            if(botProfil.getNbCompletedObjective() == NB_OBJECTIVE_TO_FINISH)return true;
         }
         return false;
     }
@@ -114,7 +114,7 @@ public class Game implements DeckSignal, Referee {
         Objective objective=  gameEngine_.pickObjective();
 
         for(BotProfil botProfil : botProfils_){
-            if(bot == botProfil.getBot_()){
+            if(bot == botProfil.getBot()){
                 botProfil.addObjective(objective);
                 System.out.println(bot.getBotName() +" a prix un objectif :" + objective);
                 return true;
@@ -130,17 +130,17 @@ public class Game implements DeckSignal, Referee {
     public boolean computeObjectivesPlot(Plot lastPlacedPlot){
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
-            for(Objective objective : botProfil.getObjectives_()){
+            for(Objective objective : botProfil.getObjectives()){
                 if(objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
-                    String botName = botProfil.getBot_().getBotName();
+                    String botName = botProfil.getBot().getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
-                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints() + " points");
                 }
             }
-            botProfil.getObjectives_().removeAll(validatedObjective);
+            botProfil.getObjectives().removeAll(validatedObjective);
         }
         return true;
     }
@@ -148,17 +148,17 @@ public class Game implements DeckSignal, Referee {
     public boolean computeObjectivesGardener(){
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
-            for(Objective objective : botProfil.getObjectives_()){
+            for(Objective objective : botProfil.getObjectives()){
                 if(objective.verifyGardenerObj(gameEngine_)){
-                    String botName = botProfil.getBot_().getBotName();
+                    String botName = botProfil.getBot().getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
-                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints() + " points");
                 }
             }
-            botProfil.getObjectives_().removeAll(validatedObjective);
+            botProfil.getObjectives().removeAll(validatedObjective);
         }
         return true;
     }
@@ -173,17 +173,17 @@ public class Game implements DeckSignal, Referee {
     public boolean computeObjectivesPanda(){
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
-            for(Objective objective : botProfil.getObjectives_()){
+            for(Objective objective : botProfil.getObjectives()){
                 if(objective.verifyPandaObj(gameEngine_, botProfil)){
-                    String botName = botProfil.getBot_().getBotName();
+                    String botName = botProfil.getBot().getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
-                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints() + " points");
                 }
             }
-            botProfil.getObjectives_().removeAll(validatedObjective);
+            botProfil.getObjectives().removeAll(validatedObjective);
         }
         return true;
     }
@@ -191,36 +191,36 @@ public class Game implements DeckSignal, Referee {
     public BotProfil checkWinner(){
         BotProfil winner = botProfils_.get(0);
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getPoints_() > winner.getPoints_()){
+            if(botProfil.getPoints() > winner.getPoints()){
                 winner  = botProfil;
             }
         }
         return winner;
     }
 
-    public ArrayList<Objective> getMyObjectives(Bot bot){
+    public List<Objective> getMyObjectives(Bot bot){
         for(BotProfil botProfil : botProfils_){
-            if(bot == botProfil.getBot_()){
-                return botProfil.getObjectives_();
+            if(bot == botProfil.getBot()){
+                return botProfil.getObjectives();
             }
         }
         return null;
     }
 
     public void printWinner(BotProfil botProfil){
-        System.out.println(botProfil.getBot_().getBotName() + " gagne avec : "+botProfil.getPoints_() +" points");
+        System.out.println(botProfil.getBot().getBotName() + " gagne avec : "+botProfil.getPoints() +" points");
     }
 
-    public ArrayList<Bambou> getMyBambous(Bot bot) {
+    public List<Bambou> getMyBambous(Bot bot) {
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getBot_()==bot)return botProfil.getBambous();
+            if(botProfil.getBot()==bot)return botProfil.getBambous();
         }
         return null;
     }
 
     public void addBamboutToBot(Bot bot, Bambou bambou) {
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getBot_()==bot){
+            if(botProfil.getBot()==bot){
                 botProfil.addBanbou( bambou );
             }
         }

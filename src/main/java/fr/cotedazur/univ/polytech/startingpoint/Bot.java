@@ -1,7 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.Action.*;
-import fr.cotedazur.univ.polytech.startingpoint.Game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.action.*;
+import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class Bot {
     Referee referee;
     Map map;
     String botName;
-    ArrayList<Bambou> myBambous;
+    List<Bambou> myBambous;
 
     public Bot(Referee referee, Map map, String botName) {
         this.botName = botName;
@@ -28,7 +28,7 @@ public class Bot {
 
     public Action play() {
         this.myBambous = referee.getMyBambous(this);
-        ArrayList<Objective> objectives = referee.getMyObjectives(this);
+        List<Objective> objectives = referee.getMyObjectives(this);
         if (objectives == null) {
             assert false;
             return null;
@@ -48,9 +48,9 @@ public class Bot {
         ArrayList<Plot> typeValid = new ArrayList<>();
         ArrayList<Plot> typeAndDeplacementValid = new ArrayList<>();
         int maxNbBambou = 0;
-        int IndexMaxNbBambou = 0;
-        if (map.getMap().size() > 1) {
-            for (Plot plot : map.getMap()) {
+        int indexMaxNbBambou = 0;
+        if (map.getMapPlots().size() > 1) {
+            for (Plot plot : map.getMapPlots()) {
                 if(plot.isIrrigated() && plot.getNumberOfBambou()<4 ){
                     if (plot.getType() == bambouType) {
                         typeValid.add(plot);
@@ -65,19 +65,19 @@ public class Bot {
                     int numberOfBambou  = typeAndDeplacementValid.get(i).getNumberOfBambou();
                     if ( numberOfBambou > maxNbBambou) {
                         maxNbBambou = typeAndDeplacementValid.get(i).getNumberOfBambou();
-                        IndexMaxNbBambou = i;
+                        indexMaxNbBambou = i;
                     }
                 }
-                return new MoveGardenerAction(typeAndDeplacementValid.get(IndexMaxNbBambou).getPosition());
+                return new MoveGardenerAction(typeAndDeplacementValid.get(indexMaxNbBambou).getPosition());
 
             } else if (!typeValid.isEmpty()) {
                 for (Plot plot : typeValid) {
-                    ArrayList<Plot> neighboursPlots = map.getNeighbours(plot.getPosition());
+                    List<Plot> neighboursPlots = map.getNeighbours(plot.getPosition());
                     for (int i = 0; i <= neighboursPlots.size(); i++) {
                         if (neighboursPlots.get(i).getPosition().isDeplacementALine(referee.getGardenerPosition())) {
                             return new MoveGardenerAction(neighboursPlots.get(i).getPosition());
                         }
-                        ArrayList<Plot> neighboursOfNeighboursPlots = map.getNeighbours(neighboursPlots.get(i).getPosition());
+                        List<Plot> neighboursOfNeighboursPlots = map.getNeighbours(neighboursPlots.get(i).getPosition());
                         for (int j = 0; j <= neighboursOfNeighboursPlots.size(); j++) {
                             if (neighboursOfNeighboursPlots.get(j).getPosition().isDeplacementALine(referee.getGardenerPosition())) {
                                 return new MoveGardenerAction(neighboursOfNeighboursPlots.get(j).getPosition());
@@ -92,9 +92,9 @@ public class Bot {
 
 
     public Action fillObjectivePlots(Pattern pattern){
-        for(Plot plot : map.getMap()){
+        for(Plot plot : map.getMapPlots()){
             if(plot.getType() == pattern.getPlots().get(0).getType()){
-                ArrayList<Plot> missingPLots = map.checkIfPossibleToPlacePattern(pattern, plot.getPosition());
+                List<Plot> missingPLots = map.checkIfPossibleToPlacePattern(pattern, plot.getPosition());
                 if( missingPLots != null){
                     for(Plot tempPlot : missingPLots){
                         Position tempPlotPosition = tempPlot.getPosition();
@@ -103,7 +103,7 @@ public class Bot {
                         }
                         else {
                             if(map.getNeighbours(tempPlotPosition).isEmpty()==false ){
-                                ArrayList<Position> positions = map.closestAvailableSpace(tempPlotPosition);
+                                List<Position> positions = map.closestAvailableSpace(tempPlotPosition);
                                 for(Position position : positions){
                                     if(map.isPossibleToPutPlot(position)){
                                         return new PutPlotAction(new Plot(tempPlot.getType(), position));
@@ -116,7 +116,7 @@ public class Bot {
                 }
             }
         }
-        for(Plot plot : map.getMap()){
+        for(Plot plot : map.getMapPlots()){
             if(map.closestAvailableSpace(plot.getPosition()).isEmpty() == false) {
                 return new PutPlotAction(new Plot(pattern.getPlots().get(0).getType(), map.closestAvailableSpace(plot.getPosition()).get(0)));
             }
@@ -124,7 +124,7 @@ public class Bot {
         return null;
     }
 
-    public Action fillObjectivePanda(ArrayList<Bambou> bambouSections){
+    public Action fillObjectivePanda(List<Bambou> bambouSections){
         ArrayList<Bambou> missingBambous = new ArrayList<>(bambouSections);
         for(Bambou bambou : myBambous)removeBambou(missingBambous ,bambou);
         if( missingBambous.isEmpty()==false ){
@@ -132,7 +132,7 @@ public class Bot {
                 MovePandaAction action = movePandaOnPlantation(bambou.getBambouType());
                 if( action!=null )return action;
             }
-            for(Plot plot : map.getMap()){
+            for(Plot plot : map.getMapPlots()){
                 if(plot.getType() == missingBambous.get(missingBambous.size()-1).getBambouType() && plot.getNumberOfBambou()>0){
                     return movePandaToUnlock(referee.getPandaPosition());
                 }
@@ -143,11 +143,10 @@ public class Bot {
     }
 
     private MovePandaAction movePandaOnPlantation(PlotType bambouType) {
-        for(Plot plot : map.getMap()){
-            if(plot.getType()==bambouType && plot.getNumberOfBambou()>0 ){
-                if(plot.getPosition().isDeplacementALine(referee.getPandaPosition())){
+        for(Plot plot : map.getMapPlots()){
+            if(plot.getType()==bambouType && plot.getNumberOfBambou()>0 && plot.getPosition().isDeplacementALine(referee.getPandaPosition()))
+            {
                     return new MovePandaAction(this, plot.getPosition());
-                }
             }
         }
         return null;
@@ -163,8 +162,8 @@ public class Bot {
 
 
     PutPlotAction putRandomlyAPLot(PlotType plotType){
-        for(Plot plot : map.getMap()){
-            ArrayList<Position> positions = map.closestAvailableSpace(plot.getPosition());
+        for(Plot plot : map.getMapPlots()){
+            List<Position> positions = map.closestAvailableSpace(plot.getPosition());
             if(positions != null && positions.isEmpty()==false ){
                 return placePLot(plotType, positions.get(0));
             }
@@ -186,7 +185,7 @@ public class Bot {
     }
 
     private MovePandaAction movePandaToUnlock(Position pandaPosition){
-        ArrayList<Plot> potentialPlot = map.getNeighbours(pandaPosition);
+        List<Plot> potentialPlot = map.getNeighbours(pandaPosition);
         if( potentialPlot!=null ){
             return new MovePandaAction(this, potentialPlot.get(0).getPosition());
         }

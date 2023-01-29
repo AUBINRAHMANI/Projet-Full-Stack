@@ -43,7 +43,7 @@ class MapTest {
         for(Plot plot : plots){
             map.putPlot(plot);
         }
-        assertTrue(plots.containsAll(map.getMap()));
+        assertTrue(plots.containsAll(map.getMapPlots()));
     }
 
     @Test
@@ -96,7 +96,7 @@ class MapTest {
 
 
     @Test
-    public void closestAvailableSpace(){
+    void closestAvailableSpace(){
         Map map = new Map();
         Plot plot1 = new Plot(PlotType.GREEN, new Position(1,0));
         Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
@@ -115,12 +115,12 @@ class MapTest {
         assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(2,0)));
         assertFalse(map.closestAvailableSpace(new Position(1,0)).contains(new Position(0,1)));
         assertTrue(map.closestAvailableSpace(new Position(1,1)).containsAll(expected));
-        assertTrue(map.closestAvailableSpace(new Position(1,1)).size() == 2);
+        assertEquals(2, map.closestAvailableSpace(new Position(1,1)).size());
 
     }
 
     @Test
-    public void computePatternVerification(){
+    void computePatternVerification(){
             ArrayList<Plot> plots = new ArrayList<>();
             plots.add(new Plot(PlotType.GREEN, new Position(-1,1)));
             plots.add(new Plot(PlotType.GREEN, new Position(0,0)));
@@ -142,7 +142,7 @@ class MapTest {
             expected.add(plot1);
             expected.add(plot2);
 
-            assertTrue(map.computePatternVerification(pattern, new Position(0,0)) ==null);
+            assertNull(map.computePatternVerification(pattern, new Position(0,0)));
             assertEquals(expected, map.computePatternVerification(pattern, currentPlot.getPosition()));
 
             map.putPlot(plot1);

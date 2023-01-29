@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.Game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 
 public class Main {
 
