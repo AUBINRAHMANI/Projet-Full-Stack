@@ -14,11 +14,4 @@ public class Gardener {
     public Position getPosition() {
         return position;
     }
-
-    public boolean sameSidePlotExist(){
-        return false;
-    }
-
-    public void addBambouToSameSidePlot(){
-    }
 }

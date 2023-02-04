@@ -5,10 +5,9 @@ import java.util.Objects;
 
 public class Plot {
 
-    private PlotType _plotType;
-    private Position _position;
+    private PlotType plotType;
+    private Position position;
     private boolean isIrrigated = false;
-    //private int bambou;
     private ArrayList<Bambou> listeBambou;
 
 
@@ -17,27 +16,27 @@ public class Plot {
     }
 
     public Plot(PlotType plotType, Position position) {
-        _plotType = plotType;
-        _position = position;
+        this.plotType = plotType;
+        this.position = position;
         listeBambou = new ArrayList<>();
     }
     public Plot(Plot plot){
-        _plotType = plot.getType();
-        _position = new Position(plot.getPosition());
+        plotType = plot.getType();
+        position = new Position(plot.getPosition());
         listeBambou = plot.getBambou();
 
     }
 
-    public void setPosition(Position _position) {
-        this._position = _position;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public PlotType getType() {
-        return _plotType;
+        return plotType;
     }
 
     public Position getPosition() {
-        return _position;
+        return position;
     }
 
     public void isIrrigatedIsTrue() {
@@ -53,13 +52,13 @@ public class Plot {
     }
     public boolean growBambou () {
         if (this.isIrrigated() && this.listeBambou.size() < 4) {
-            this.listeBambou.add(new Bambou(_plotType));
+            this.listeBambou.add(new Bambou(plotType));
             return true;
         }
         return false;
     }
     public Bambou eatBambou () {
-        if (this.listeBambou.size() > 0) {
+        if (this.listeBambou.isEmpty() ==false) {
             Bambou bambou = listeBambou.get(0);
             this.listeBambou.remove(bambou);
             return bambou;
@@ -79,19 +78,19 @@ public class Plot {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plot plot = (Plot) o;
-        return _plotType == plot._plotType && _position.equals(plot._position) && listeBambou.equals(plot.listeBambou);
+        return plotType == plot.plotType && position.equals(plot.position) && listeBambou.equals(plot.listeBambou);
     }
 
     @Override
     public int hashCode () {
-        return Objects.hash(_plotType, _position, listeBambou);
+        return Objects.hash(plotType, position, listeBambou);
     }
 
     @Override
     public String toString() {
         return "{" +
-                _plotType +
-                " - " + _position +
+                plotType +
+                " - " + position +
                 "/"+ getNumberOfBambou() +
                 '}';
     }

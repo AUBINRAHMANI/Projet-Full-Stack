@@ -1,35 +1,42 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.game.DeckSignal;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class Deck<T> {
 
-    private ArrayList<T> deck_;
+    private List<T> cards;
+    DeckSignal deckSignal;
 
-    public Deck(){
-        deck_ = new ArrayList<T>();
+    public Deck(DeckSignal deckSignal){
+        this.deckSignal = deckSignal;
+        this.cards = new ArrayList<>();
     }
 
     public void shuffle(){
-        Collections.shuffle(deck_);
+        Collections.shuffle(cards);
     }
 
     public void addCard(T card){
-        deck_.add(card);
+        cards.add(card);
     }
 
     public T getNextCard(){
-        T card = deck_.get(0);
-        deck_.remove(0);
+        T card = cards.get(0);
+        cards.remove(0);
+        if(cards.size()<=3){
+            deckSignal.emptyDeck();
+        }
         return card;
     }
 
     @Override
     public String toString() {
         return "Deck{" +
-                "deck_=" + deck_ +
+                "_deck=" + cards +
                 '}';
     }
 }

@@ -1,15 +1,15 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
-import fr.cotedazur.univ.polytech.startingpoint.Action.Action;
+import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ObjectivePanda extends Objective {
 
-    ArrayList<Bambou> bambouSections;
+    List<Bambou> bambouSections;
 
-    public ObjectivePanda(int point, ArrayList<Bambou> bambouSections) {
+    public ObjectivePanda(int point, List<Bambou> bambouSections) {
         super(point);
         this.bambouSections = bambouSections;
     }
@@ -37,7 +37,7 @@ public class ObjectivePanda extends Objective {
     @Override
     public String toString() {
         return "ObjectivePanda{" +
-                "points=" + _points +
+                "points=" + points +
                 "bambouSections=" + bambouSections +
                 '}';
     }
