@@ -163,6 +163,15 @@ class PositionTest {
         assertTrue(position1.isDeplacementALine(position7));
         assertTrue(position1.isDeplacementALine(position8));
         assertFalse(position1.isDeplacementALine(position9));
+    }
 
+    @Test
+    void isCloseTo(){
+        Position position1 = new Position(0,0);
+        Position position2 = new Position(0,1);
+        Position position3 = new Position(34,18);
+
+        assertTrue(position1.isCloseTo(position2));
+        assertFalse(position1.isCloseTo(position3));
     }
 }

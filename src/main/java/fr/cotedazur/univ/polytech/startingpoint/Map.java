@@ -5,9 +5,11 @@ import java.util.List;
 
 public class Map {
     List<Plot> mapPlots;
+    List<Irrigation> irrigations;
 
     public Map(){
         mapPlots = new ArrayList<>();
+        irrigations = new ArrayList<>();
         Plot pond = new Plot(PlotType.POND, new Position(0,0));
         pond.isIrrigatedIsTrue();
         mapPlots.add(pond);
@@ -26,9 +28,15 @@ public class Map {
         return new ArrayList<>(mapPlots);
     }
 
-    public boolean verifyIrrigation(Plot p) {
-        if(this.getNeighbours(p.getPosition()).contains(new Plot(PlotType.POND, new Position(0,0)))){
-            p.isIrrigatedIsTrue();
+    public boolean verifyIrrigation(Plot plot) {
+        for(Irrigation irrigation : irrigations){
+            if(irrigation.getPositions().contains(plot.getPosition())){
+                plot.isIrrigatedIsTrue();
+                return true;
+            }
+        }
+        if(plot.getPosition().isCloseToCenter()){
+            plot.isIrrigatedIsTrue();
             return true;
         }
         return false;
@@ -123,6 +131,34 @@ public class Map {
             }
         }
         return incompletePlot;
+    }
+
+    public boolean putIrrigation(Irrigation irrigation) {
+        if(isIrrigationsLinked(irrigation)){
+            List<Position> positions = irrigation.getPositions();
+            for(Plot plot : mapPlots){
+                if(positions.contains(plot.getPosition())){
+                    irrigations.add(irrigation);
+                    for(Position position : irrigation.getPositions()){
+                        Plot plot2 = this.findPlot(position);
+                        if(plot2 != null){
+                            plot2.isIrrigatedIsTrue();
+                        }
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isIrrigationsLinked(Irrigation irrigation) {
+        for (Irrigation irrigation2 : irrigation.getNeighbours()) {
+            if (irrigations.contains(irrigation2)) {
+                return true;
+            }
+        }
+        return irrigation.getPositions().get(0).isCloseToCenter() && irrigation.getPositions().get(1).isCloseToCenter();
     }
 }
 

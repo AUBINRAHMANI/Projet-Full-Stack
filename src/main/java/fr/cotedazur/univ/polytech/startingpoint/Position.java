@@ -140,5 +140,12 @@ public class Position {
                 " , " + getY() +
                 ')';
     }
+
+    public boolean isCloseTo(Position position2) {
+        int deltaQ = q-position2.getQ();
+        int deltaR = r-position2.getR();
+        int deltaS = s-position2.getS();
+        return ( deltaQ+deltaR+deltaS ==0 ) && ( abs(deltaQ)+abs(deltaR)+abs(deltaS)==2 );
+    }
 }
 

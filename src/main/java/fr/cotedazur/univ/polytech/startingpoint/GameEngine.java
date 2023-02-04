@@ -44,6 +44,10 @@ public class GameEngine {
         return  map.putPlot(plot);
     }
 
+    public boolean askToPutIrrigation(Irrigation irrigation) {
+        return map.putIrrigation(irrigation);
+    }
+
     public Map getMap(){
         return map;
     }

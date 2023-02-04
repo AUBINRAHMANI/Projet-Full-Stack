@@ -120,35 +120,61 @@ class MapTest {
     }
 
     @Test
-    void computePatternVerification(){
-            ArrayList<Plot> plots = new ArrayList<>();
-            plots.add(new Plot(PlotType.GREEN, new Position(-1,1)));
-            plots.add(new Plot(PlotType.GREEN, new Position(0,0)));
-            plots.add(new Plot(PlotType.GREEN, new Position(1,0)));
-            plots.add(new Plot(PlotType.GREEN, new Position(1,1)));
+    void computePatternVerification() {
+        ArrayList<Plot> plots = new ArrayList<>();
+        plots.add(new Plot(PlotType.GREEN, new Position(-1, 1)));
+        plots.add(new Plot(PlotType.GREEN, new Position(0, 0)));
+        plots.add(new Plot(PlotType.GREEN, new Position(1, 0)));
+        plots.add(new Plot(PlotType.GREEN, new Position(1, 1)));
 
-            Pattern pattern = new Pattern(plots);
-            Plot currentPlot = new Plot(PlotType.GREEN, new Position(1,1));
+        Pattern pattern = new Pattern(plots);
+        Plot currentPlot = new Plot(PlotType.GREEN, new Position(1, 1));
 
-            ArrayList<Plot> plotsInMap =new ArrayList<>();
-            Map map = new Map();
-            map.putPlot(new Plot(PlotType.GREEN, new Position(0, 1)));
-            map.putPlot(new Plot(PlotType.GREEN, new Position(1, 0)));
-            map.putPlot(currentPlot);
+        ArrayList<Plot> plotsInMap = new ArrayList<>();
+        Map map = new Map();
+        map.putPlot(new Plot(PlotType.GREEN, new Position(0, 1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1, 0)));
+        map.putPlot(currentPlot);
 
-            Plot plot1 = new Plot(PlotType.GREEN, new Position(2,0));
-            Plot plot2 = new Plot(PlotType.GREEN, new Position(2,1));
-            ArrayList<Plot> expected = new ArrayList<>();
-            expected.add(plot1);
-            expected.add(plot2);
+        Plot plot1 = new Plot(PlotType.GREEN, new Position(2, 0));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(2, 1));
+        ArrayList<Plot> expected = new ArrayList<>();
+        expected.add(plot1);
+        expected.add(plot2);
 
-            assertNull(map.computePatternVerification(pattern, new Position(0,0)));
-            assertEquals(expected, map.computePatternVerification(pattern, currentPlot.getPosition()));
+        assertNull(map.computePatternVerification(pattern, new Position(0, 0)));
+        assertEquals(expected, map.computePatternVerification(pattern, currentPlot.getPosition()));
 
-            map.putPlot(plot1);
-            map.putPlot(plot2);
-            assertTrue(map.computePatternVerification(pattern, currentPlot.getPosition()).isEmpty());
+        map.putPlot(plot1);
+        map.putPlot(plot2);
+        assertTrue(map.computePatternVerification(pattern, currentPlot.getPosition()).isEmpty());
+    }
 
+    @Test
+    void putIrrigation(){
+        Map map = new Map();
+        Irrigation irrigation1 = new Irrigation(new Position(0,1), new Position(1,1));
+        Irrigation irrigation2 = new Irrigation(new Position(0,1), new Position(1,2));
+        Irrigation irrigation3 = new Irrigation(new Position(0,2), new Position(1,2));
+
+        assertFalse(map.putIrrigation(irrigation1));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(0,1)));
+        assertTrue(map.putIrrigation(irrigation1));
+        assertFalse(map.putIrrigation(irrigation3));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1,1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1,2)));
+        assertTrue(map.putIrrigation(irrigation2));
+        assertTrue(map.putIrrigation(irrigation3));
+    }
+
+    @Test
+    void isIrrigationsLinked(){
+        Map map = new Map();
+        Irrigation irrigation1 = new Irrigation(new Position(0,1), new Position(1,1));
+        Irrigation irrigation2 = new Irrigation(new Position(0,1), new Position(1,2));
+
+        assertTrue( map.isIrrigationsLinked(irrigation1) );
+        assertFalse( map.isIrrigationsLinked(irrigation2) );
     }
 
 }

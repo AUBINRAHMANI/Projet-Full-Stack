@@ -40,7 +40,7 @@ public class Game implements DeckSignal, Referee {
     public boolean start(){
         do {
             for(BotProfil botProfil : botProfils_){
-                //if(_mapInterface != null) while (_mapInterface.next()==false);
+                if(_mapInterface != null) while (_mapInterface.next()==false);
                 Action action = botProfil.getBot().play();
                 System.out.println("Tour de " + botProfil.getBot().getBotName() + " : " + "Il jou l'action " + action);
                 action.play(this, gameEngine_);
