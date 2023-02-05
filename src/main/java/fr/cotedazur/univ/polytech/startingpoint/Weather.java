@@ -9,6 +9,10 @@ public class Weather {
 
     private BotProfil botProfil;
 
+public Weather(){
+        this.weatherType = NOMETEO;
+    }
+
     public WeatherType getWeather(){
         return this.weatherType;
     }
