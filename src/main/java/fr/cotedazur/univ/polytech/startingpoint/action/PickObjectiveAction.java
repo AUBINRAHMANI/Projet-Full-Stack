@@ -58,4 +58,9 @@ public class PickObjectiveAction implements Action{
     public boolean isActionRain() {
         return false;
     }
+
+    @Override
+    public boolean isActionThunder() {
+        return false;
+    }
 }

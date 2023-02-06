@@ -24,9 +24,44 @@ public class ThunderAction implements Action{
     }
 
     @Override
+    public boolean equals(Action action) {
+        return isActionThunder();
+    }
+
+    @Override
     public String toString() {
         return "ThunderAction{" +
                 "_position=" + position +
                 '}';
+    }
+
+    @Override
+    public boolean isActionMoveGardener() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionMovePanda() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPutPlot() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPickObjective() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionRain() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionThunder() {
+        return true;
     }
 }

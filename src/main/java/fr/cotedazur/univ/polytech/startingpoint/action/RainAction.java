@@ -55,4 +55,9 @@ public class RainAction implements Action{
     public boolean isActionRain() {
         return true;
     }
+
+    @Override
+    public boolean isActionThunder() {
+        return false;
+    }
 }

@@ -49,6 +49,11 @@ public class MovePandaAction implements Action{
     }
 
     @Override
+    public boolean isActionThunder() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "MovePandaAction{" +
                 "_position=" + position +

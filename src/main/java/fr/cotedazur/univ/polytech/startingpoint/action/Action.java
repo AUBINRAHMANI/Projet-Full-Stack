@@ -15,4 +15,5 @@ public interface Action {
     boolean isActionPutPlot();
     boolean isActionPickObjective();
     boolean isActionRain();
+    boolean isActionThunder();
 }
