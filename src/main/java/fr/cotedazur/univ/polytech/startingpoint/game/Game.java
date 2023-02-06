@@ -55,34 +55,46 @@ public class Game implements DeckSignal, Referee {
         return true;
     }
 
-    public void doAction(BotProfil botProfil){
+    public boolean doAction(BotProfil botProfil, int nbActions){
+        ArrayList<Action> banActions = new ArrayList<>();
         Action action = botProfil.getBot().play();
-        System.out.println("Il joue l'action " + action);
-        action.play(this, gameEngine_);
-        action.verifyObjectiveAfterAction(this);
+        boolean canPlay = true;
+        for(int i = 0; i < nbActions; i++) {
+            for (Objective ignored : botProfil.getObjectives()) {
+                for (Action banAction : banActions) {
+                    if (action == banAction) {
+                        canPlay = false;
+                    }
+                }
+                if (canPlay) {
+                    System.out.println("Il joue l'action " + action);
+                    action.play(this, gameEngine_);
+                    action.verifyObjectiveAfterAction(this);
+                    banActions.add(action);
+                    return canPlay;
+                }
+            }
+            if(botProfil.getObjectives().size() < 5){
+                action = new PickObjectiveAction(botProfil.getBot());
+            }
+        }
+        System.out.println("Le bot ne peut pas jouer, il passe son tour");
+        return false;
     }
     public void applyChangesDueToWeather(BotProfil botProfil){
         switch (gameEngine_.getWeatherType()){
             case SUN :
                 int nbActionSun = this.nbActions + 1;
-                for(int i = 0; i < nbActionSun; i++){
-                    doAction(botProfil);
-                }
+                doAction(botProfil, nbActionSun);
                 break;
             case RAIN :
-                for(int i = 0; i < this.nbActions; i++){
-                    doAction(botProfil);
-                }
+                doAction(botProfil, nbActions);
                 break;
             case THUNDER :
-                for(int i = 0; i < nbActions; i++){
-                    doAction(botProfil);
-                }
+                doAction(botProfil, nbActions);
                 break;
             case WIND :
-                for(int i = 0; i < nbActions; i++){
-                    doAction(botProfil);
-                }
+                doAction(botProfil, nbActions);
                 break;
             case CLOUD :
                 break;
@@ -152,7 +164,7 @@ public class Game implements DeckSignal, Referee {
         for(BotProfil botProfil : botProfils_){
             if(bot == botProfil.getBot()){
                 botProfil.addObjective(objective);
-                System.out.println(bot.getBotName() +" a prix un objectif :" + objective);
+                System.out.println(bot.getBotName() +" a pris un objectif :" + objective);
                 return true;
             }
         }
