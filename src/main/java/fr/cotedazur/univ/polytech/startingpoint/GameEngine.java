@@ -141,7 +141,6 @@ public class GameEngine {
     }
     public void drawWeather(){
         Random rand = new Random();
-        int max = 6;
         int choseNumber = rand.nextInt(max+1);
         switch (choseNumber){
             case 1 :
