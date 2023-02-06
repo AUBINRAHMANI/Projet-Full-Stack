@@ -13,7 +13,7 @@ public Weather(){
         this.weatherType = NOMETEO;
     }
 
-    public WeatherType getWeather(){
+    public WeatherType getWeatherType(){
         return this.weatherType;
     }
 

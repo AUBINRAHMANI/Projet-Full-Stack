@@ -16,6 +16,7 @@ public class Game implements DeckSignal, Referee {
     GameEngine gameEngine_;
     ArrayList<BotProfil> botProfils_;
     MapInterface _mapInterface;
+    private int nbActions = 2;
 
 
     public Game(boolean debug){
@@ -43,7 +44,7 @@ public class Game implements DeckSignal, Referee {
                 System.out.println();
                 gameEngine_.drawWeather();
                 System.out.println("Tour de " + botProfil.getBot().getBotName() + " : ");
-                gameEngine_.applyChangesDueToWeather(this);
+                this.applyChangesDueToWeather(botProfil);
                 if(_mapInterface != null) {
                     _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
                 }
@@ -52,6 +53,42 @@ public class Game implements DeckSignal, Referee {
         BotProfil winner = checkWinner();
         printWinner(winner);
         return true;
+    }
+
+    public void doAction(BotProfil botProfil){
+        Action action = botProfil.getBot().play();
+        System.out.println("Il joue l'action " + action);
+        action.play(this, gameEngine_);
+        action.verifyObjectiveAfterAction(this);
+    }
+    public void applyChangesDueToWeather(BotProfil botProfil){
+        switch (gameEngine_.getWeatherType()){
+            case SUN :
+                int nbActionSun = this.nbActions + 1;
+                for(int i = 0; i < nbActionSun; i++){
+                    doAction(botProfil);
+                }
+                break;
+            case RAIN :
+                for(int i = 0; i < this.nbActions; i++){
+                    doAction(botProfil);
+                }
+                break;
+            case THUNDER :
+                for(int i = 0; i < nbActions; i++){
+                    doAction(botProfil);
+                }
+                break;
+            case WIND :
+                for(int i = 0; i < nbActions; i++){
+                    doAction(botProfil);
+                }
+                break;
+            case CLOUD :
+                break;
+            case QUESTIONMARK:
+                break;
+        }
     }
 
     public boolean checkFinishingCondition(){

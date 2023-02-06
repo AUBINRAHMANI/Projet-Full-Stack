@@ -29,7 +29,8 @@ public class Bot {
     }
 
 
-    public Action play() {
+    public Action play(ArrayList<Action> banActions) {
+        boolean canPlay = true;
         this.myBambous = referee.getMyBambous(this);
         List<Objective> objectives = referee.getMyObjectives(this);
         if (objectives == null) {
@@ -38,6 +39,16 @@ public class Bot {
         } else {
             if (objectives.isEmpty()) return pickObjective();
             else {
+                for(Objective objective : objectives){
+                    for(Action action : banActions) {
+                        if (objective.tryToFillObjective(this) == action) {
+                            canPlay = false;
+                        }
+                        else{
+                            return objective.tryToFillObjective(this);
+                        }
+                    }
+                }
                 return objectives.get(0).tryToFillObjective(this);
             }
         }

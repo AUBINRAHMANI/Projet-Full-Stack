@@ -31,10 +31,9 @@ public class GameEngine {
         this.objectiveDeck = objectiveDeck;
         this.plotDeck = plotDeck;
         this.map = map;
-
         this.panda = new Panda();
-
         this.gardener = new Gardener();
+        this.weather = new Weather();
     }
 
     public void regenerateDecks(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck){
@@ -140,7 +139,7 @@ public class GameEngine {
         botProfil.setBambous(playerBambous);
         return true;
     }
-    public WeatherType drawWeather(){
+    public void drawWeather(){
         Random rand = new Random();
         int max = 6;
         int choseNumber = rand.nextInt(max+1);
@@ -170,52 +169,9 @@ public class GameEngine {
                 System.out.println("Face : ?\nChoisissez la météo de votre choix");
                 break;
         }
-        return null;
     }
 
-    public void doAction(Game game){
-        Action action = botProfil_.getBot().play();
-        System.out.println("Il joue l'action " + action);
-        action.play(game, this);
-        action.verifyObjectiveAfterAction(game);
-    }
-    public void applyChangesDueToWeather(Game game){
-        int nbAction = 2;
-        switch (weather.getWeather()){
-            case SUN :
-                int nbActionSun = 3;
-                for(int i = 0; i < nbActionSun; i++){
-                    doAction(game);
-                }
-                break;
-            case RAIN :
-                map.getMapPlots().get(0).growBambou();
-                for(int i = 0; i < nbAction; i++){
-                    doAction(game);
-                }
-                break;
-            case THUNDER :
-                Position position = new Position(0,0);
-                movePanda(game, botProfil_.getBot(), position);
-                for(int i = 0; i < nbAction; i++){
-                    doAction(game);
-                }
-                break;
-            case WIND :
-                for(int i = 0; i < nbAction; i++){
-                    Action action = botProfil_.getBot().play();
-                    System.out.println("Il joue l'action " + action);
-                    action.play(game, this);
-                    action.verifyObjectiveAfterAction(game);
-                    System.out.println("Il rejoue l'action " + action);
-                    action.play(game, this);
-                    action.verifyObjectiveAfterAction(game);
-                }
-                break;
-            case CLOUD :
-                break;
-            case QUESTIONMARK:
-                break;
-        }
+public WeatherType getWeatherType() {
+        return weather.getWeatherType();
     }
 }
