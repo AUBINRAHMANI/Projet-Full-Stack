@@ -103,8 +103,10 @@ public class Game implements DeckSignal, Referee {
                 doAction(botProfil, nbActions);
                 break;
             case CLOUD :
+                doAction(botProfil, nbActions);
                 break;
             case QUESTIONMARK:
+                doAction(botProfil, nbActions);
                 break;
         }
     }

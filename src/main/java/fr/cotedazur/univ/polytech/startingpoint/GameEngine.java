@@ -141,30 +141,29 @@ public class GameEngine {
     }
     public void drawWeather(){
         Random rand = new Random();
-        int max = 6;
-        int choseNumber = rand.nextInt(max+1);
-        switch (choseNumber){
-            case 1 :
+        int choseNumber = 1+rand.nextInt(7-1);
+        switch (choseNumber) {
+            case 1:
                 weather.setWeatherType(SUN);
                 System.out.println("Face : SOLEIL\nAction supplémentaire");
                 break;
-            case 2 :
+            case 2:
                 weather.setWeatherType(RAIN);
                 System.out.println("Face : PLUIE\nAjoute une section à la parcelle choisie");
                 break;
-            case 3 :
+            case 3:
                 weather.setWeatherType(WIND);
                 System.out.println("Face : VENT\nDeux actions similaires peuvent être effectuées");
                 break;
-            case 4 :
+            case 4:
                 weather.setWeatherType(THUNDER);
                 System.out.println("Face : ORAGE\nDéplacez le panda");
                 break;
-            case 5 :
+            case 5:
                 weather.setWeatherType(CLOUD);
                 System.out.println("Face : NUAGE\nChoisissez un aménagement");
                 break;
-            case 6 :
+            case 6:
                 weather.setWeatherType(QUESTIONMARK);
                 System.out.println("Face : ?\nChoisissez la météo de votre choix");
                 break;
