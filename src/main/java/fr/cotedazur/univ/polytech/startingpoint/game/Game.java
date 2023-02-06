@@ -61,6 +61,12 @@ public class Game implements DeckSignal, Referee {
         action.play(this, gameEngine_);
         action.verifyObjectiveAfterAction(this);
     }
+        public boolean rainAction(Position position) {
+        if(gameEngine_.getMap().findPlot(position).isIrrigated()){
+            return gameEngine_.getMap().findPlot(position).growBambou();
+        }
+        return false;
+    }
     public void applyChangesDueToWeather(BotProfil botProfil){
         switch (gameEngine_.getWeatherType()){
             case SUN :
@@ -70,6 +76,12 @@ public class Game implements DeckSignal, Referee {
                 }
                 break;
             case RAIN :
+                ArrayList<>
+                botProfil.getBot().fillWeatherRain(for(int i=0;i<getMyObjectives(botProfil.getBot()).size();i++){
+                    if(computeObjectivesGardener()){
+
+                    }
+            });
                 for(int i = 0; i < this.nbActions; i++){
                     doAction(botProfil);
                 }

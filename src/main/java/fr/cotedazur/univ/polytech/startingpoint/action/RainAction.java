@@ -7,7 +7,7 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 public class RainAction implements Action{
     Position _position;
     public RainAction(Position position){
-        _position = position;
+        this._position = position;
     }
 
     @Override

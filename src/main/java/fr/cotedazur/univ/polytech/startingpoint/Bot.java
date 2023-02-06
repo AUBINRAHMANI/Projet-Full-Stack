@@ -58,6 +58,7 @@ public class Bot {
         return new PickObjectiveAction(this);
     }
 
+
     public Action fillObjectiveGardener( PlotType bambouType, boolean improvement) {
         ArrayList<Plot> typeValid = new ArrayList<>();
         ArrayList<Plot> typeAndDeplacementValid = new ArrayList<>();
@@ -102,6 +103,27 @@ public class Bot {
             }
         }
         return putRandomlyAPLot(bambouType);
+    }
+    public Action fillWeatherRain(PlotType bambouType) {
+        ArrayList<Plot> typeValid = new ArrayList<>();
+        ArrayList<Plot> typeNotValid = new ArrayList<>();
+        int maxNbBambou = 0;
+        int indexMaxNbBambou = 0;
+        if (map.getMapPlots().size() > 1) {
+            for (Plot plot : map.getMapPlots()) {
+                if (plot.isIrrigated() && plot.getNumberOfBambou() < 4) {
+                    if (plot.getType() == bambouType) {
+                        typeValid.add(plot);
+                    } else {
+                        typeNotValid.add(plot);
+                    }
+                }
+                if (!typeValid.isEmpty()) {
+                    return new RainAction(typeValid.get(indexMaxNbBambou).getPosition());
+                }
+            }
+        }
+        return null;
     }
 
 
