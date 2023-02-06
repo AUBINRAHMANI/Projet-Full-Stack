@@ -88,13 +88,25 @@ public class MapInterface extends JFrame {
         this.gardenerPosition   = gardenePosition;
         this.pandaPosition      = pandaPosition;
         List<Plot> plots = map.getMapPlots();
+        List<Plot> plotsToRemove = new ArrayList<>();
+        for(Plot plot1 : plots){
+            for(Plot plot2 : plotsDrawen){
+                if(plot1.getPosition().equals(plot2.getPosition()) && plot1.isIrrigated()!=plot2.isIrrigated()){
+                    plotsToRemove.add(plot2);
+                    colorsToAdd.remove(positionsToAdd.indexOf(plot2.getPosition()));
+                    positionsToAdd.remove(plot2.getPosition());
+                }
+            }
+        }
+        plotsDrawen.removeAll(plotsToRemove);
         plots.removeAll(plotsDrawen);
         for(Plot plot : plots){
-            plotsDrawen.add(new Plot(plot));
             drawHexagon(plot);
+            plotsDrawen.add(new Plot(plot));
         }
         try {
             paintComponents(getGraphics());
+            repaint();
         }catch (ConcurrentModificationException e){System.out.println("Arretez de modifier en meme temps");}
     }
     private void drawHexagon(Plot plot){
@@ -121,16 +133,13 @@ public class MapInterface extends JFrame {
         }
 
         positionsToAdd.add(position);
+        if(plot.isIrrigated()==false){
+            color = color.darker();
+            color = color.darker();
+        }
         colorsToAdd.add(color);
         correspondingNbBambous.add(nbBambous);
     }
-
-
-
-    public static void main(String[] args){
-        MapInterface mapInterface = new MapInterface();
-    }
-
 
     private class GPanel extends JPanel{
 
@@ -138,15 +147,15 @@ public class MapInterface extends JFrame {
             super.paintComponent(graphics);
             updateSize();
             // new Color(0, 115,255, 163)
-
-
-            for(Position position : positionsToAdd.toArray(new Position[0])){
+            List<Position> positions = new ArrayList<>(positionsToAdd);
+            for(Position position : positions){
                 Polygon hexagon = getHexagon(position);
                 try {
                     Thread.sleep(1);
                 }catch (Exception exception){assert false;}
                 graphics.setColor(Color.BLACK);
                 graphics.drawPolygon(hexagon);
+
                 graphics.setColor(colorsToAdd.get(positionsToAdd.indexOf(position)));
                 graphics.fillPolygon(hexagon);
 
@@ -163,7 +172,6 @@ public class MapInterface extends JFrame {
 
                 Position pandaPositionInGrid = getPlotPositionInGrid(pandaPosition);
                 graphics.drawString("P", pandaPositionInGrid.getX()-4, pandaPositionInGrid.getY()+15);
-
             }
         }
 

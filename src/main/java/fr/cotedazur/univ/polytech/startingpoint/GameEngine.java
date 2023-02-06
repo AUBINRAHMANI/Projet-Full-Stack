@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.action.Action;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
@@ -8,8 +9,6 @@ import java.util.Random;
 
 import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.*;
 import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.QUESTIONMARK;
-import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
-import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +50,10 @@ public class GameEngine {
 
     public boolean askToPutPlot( Plot plot ){
         return  map.putPlot(plot);
+    }
+
+    public boolean askToPutIrrigation(Irrigation irrigation) {
+        return map.putIrrigation(irrigation);
     }
 
     public Map getMap(){
@@ -101,8 +104,13 @@ public class GameEngine {
 
 
     public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot){
-        List<Plot> missingPlots = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
-        return missingPlots != null && missingPlots.isEmpty();
+        List<List<Plot>> result = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
+        if(result==null){
+            return false;
+        }
+        List<Plot> missingPlots = result.get(0);
+        List<Plot> nonIrrigatedPlot = result.get(1);
+        return missingPlots.isEmpty() && nonIrrigatedPlot.isEmpty();
     }
 
 
@@ -139,6 +147,7 @@ public class GameEngine {
         botProfil.setBambous(playerBambous);
         return true;
     }
+
     public void drawWeather(){
         Random rand = new Random();
 
@@ -190,4 +199,8 @@ public WeatherType getWeatherType() {
         return false;
     }
 
+
+    public boolean irrigationExist(Irrigation irrigation){
+        return map.irrigationExist(irrigation);
+    }
 }

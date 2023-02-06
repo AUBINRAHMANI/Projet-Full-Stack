@@ -102,16 +102,19 @@ public class Pattern {
         for(int i=0; i<rand.nextInt(2,4) ; i++){
             Plot plot = plots.get(rand.nextInt(plots.size()));
             List<Position> neighboursPosition = plot.getPosition().closestPositions();
-            out:
+
             for(int j=0; j<neighboursPosition.size() ; ++j){
                 Position position = neighboursPosition.get(rand.nextInt(neighboursPosition.size()));
                 for(Plot tempPlot : plots){
                     if(tempPlot.getPosition().equals(position)){
                         neighboursPosition.remove(position);
-                        break out;
+                        break;
                     }
                 }
-                plots.add(new Plot(PlotType.values()[rand.nextInt(3)+1], position));
+                Plot plotToAdd = new Plot(PlotType.values()[rand.nextInt(3)+1], position);
+                plotToAdd.isIrrigatedIsTrue();
+                plots.add(plotToAdd);
+                break;
             }
 
 

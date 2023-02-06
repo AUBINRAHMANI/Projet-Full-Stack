@@ -1,15 +1,13 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
-import fr.cotedazur.univ.polytech.startingpoint.Bot;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 public class ThunderAction implements Action{
-    Bot bot;
     Position position;
-    public ThunderAction(Bot bot, Position position){
-        this.bot = bot;
+
+    public ThunderAction(Position position){
         this.position = position;
     }
 

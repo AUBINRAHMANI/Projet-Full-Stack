@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import org.junit.jupiter.api.Test;
@@ -68,6 +69,9 @@ class GameEngineTest {
         plots.add( new Plot(PlotType.GREEN, new Position(0, 0)));
         plots.add( new Plot(PlotType.GREEN, new Position(0, -1)));
         plots.add( new Plot(PlotType.GREEN, new Position(1, 0)));
+        for(Plot plot : plots){
+            plot.isIrrigatedIsTrue();
+        }
         Pattern pattern = new Pattern(plots);
 
         Plot plot6 = new Plot(PlotType.GREEN, new Position(1, 0));
@@ -75,12 +79,15 @@ class GameEngineTest {
         Plot plot8 = new Plot(PlotType.GREEN, new Position(1, 1));
         Plot plot9 = new Plot(PlotType.GREEN, new Position(2, 0));
 
+
         gameEngine.askToPutPlot(plot6);
         gameEngine.askToPutPlot(plot7);
         gameEngine.askToPutPlot(plot8);
 
         assertFalse(gameEngine.computeObjectivePlot(new Pattern(pattern), plot7));
         gameEngine.askToPutPlot(plot9);
+        assertFalse(gameEngine.computeObjectivePlot(new Pattern(pattern), plot7));
+        plot9.isIrrigatedIsTrue();
         assertTrue(gameEngine.computeObjectivePlot(pattern, plot7));
     }
 
@@ -131,7 +138,6 @@ class GameEngineTest {
         gameEngine.moveGardener(new Position(0,1));
         assertEquals(1, plot.getNumberOfBambou());
         assertEquals(1, plot2.getNumberOfBambou());
-
     }
 
     @Test

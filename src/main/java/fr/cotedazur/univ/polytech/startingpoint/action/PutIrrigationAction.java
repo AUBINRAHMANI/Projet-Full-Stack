@@ -1,31 +1,36 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
-import fr.cotedazur.univ.polytech.startingpoint.*;
+
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Irrigation;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
+public class PutIrrigationAction implements Action {
 
-public class PutPlotAction implements Action{
+    Irrigation irrigation;
 
-    Plot plot;
-    public PutPlotAction(Plot plot){
-        this.plot = plot;
+    public PutIrrigationAction(Irrigation irrigation){
+        this.irrigation = irrigation;
     }
 
     @Override
-    public boolean play(Referee referee, GameEngine gameEngine) {return gameEngine.askToPutPlot(plot);}
+    public boolean play(Referee referee, GameEngine gameEngine) {
+        return gameEngine.askToPutIrrigation(irrigation);
+    }
+
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee){
-        return referee.computeObjectivesPlot(plot);
+    public boolean verifyObjectiveAfterAction(Referee referee) {
+        return false;
     }
 
     @Override
     public boolean equals(Action action) {
-        return isActionPutPlot();
+        return false;
     }
 
     @Override
     public String toString() {
-        return "PutPlotAction{" +
-                "_plot=" + plot +
+        return "PutIrrigationAction{" +
+                "irrigation=" + irrigation +
                 '}';
     }
 
@@ -41,7 +46,7 @@ public class PutPlotAction implements Action{
 
     @Override
     public boolean isActionPutPlot() {
-        return true;
+        return false;
     }
 
     @Override
