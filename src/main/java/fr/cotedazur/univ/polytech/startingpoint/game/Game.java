@@ -81,6 +81,12 @@ public class Game implements DeckSignal, Referee {
         System.out.println("Le bot ne peut pas jouer, il passe son tour");
         return false;
     }
+        public boolean rainAction(Position position) {
+        if(gameEngine_.getMap().findPlot(position).isIrrigated()){
+            return gameEngine_.getMap().findPlot(position).growBambou();
+        }
+        return false;
+    }
     public void applyChangesDueToWeather(BotProfil botProfil){
         switch (gameEngine_.getWeatherType()){
             case SUN :
