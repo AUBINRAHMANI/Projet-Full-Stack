@@ -5,12 +5,14 @@ import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
 import java.util.logging.Level;
 
-public class Main implements Loggeable {
+public class ThousandGameLoop implements Loggeable {
 
     public static void main(String[] args) {
-        Loggeable.initLogger(Level.INFO);
-        Game game = new Game(false);
-        game.start();
+        Loggeable.initLogger(Level.FINE);
+        for(int i=0; i<10000 ;++i){
+            LOGGER.config("Game "+i);
+            Game game = new Game(false);
+            game.start();
+        }
     }
-
 }
