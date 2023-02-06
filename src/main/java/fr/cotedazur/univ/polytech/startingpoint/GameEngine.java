@@ -232,4 +232,11 @@ public class GameEngine {
                 break;
         }
     }
+
+    public boolean rainAction(Position position) {
+      if(getMap().findPlot(position).isIrrigated()){
+          return getMap().findPlot(position).growBambou();
+      }
+        return false;
+    }
 }
