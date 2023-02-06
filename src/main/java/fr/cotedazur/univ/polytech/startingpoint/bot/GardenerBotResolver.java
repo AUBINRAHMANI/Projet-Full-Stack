@@ -51,12 +51,12 @@ public class GardenerBotResolver {
             } else if (!typeValid.isEmpty()) {
                 for (Plot plot : typeValid) {
                     List<Plot> neighboursPlots = map.getNeighbours(plot.getPosition());
-                    for (int i = 0; i <= neighboursPlots.size(); i++) {
+                    for (int i = 0; i < neighboursPlots.size(); i++) {
                         if (neighboursPlots.get(i).getPosition().isDeplacementALine(referee.getGardenerPosition())) {
                             return new MoveGardenerAction(neighboursPlots.get(i).getPosition());
                         }
                         List<Plot> neighboursOfNeighboursPlots = map.getNeighbours(neighboursPlots.get(i).getPosition());
-                        for (int j = 0; j <= neighboursOfNeighboursPlots.size(); j++) {
+                        for (int j = 0; j < neighboursOfNeighboursPlots.size(); j++) {
                             if (neighboursOfNeighboursPlots.get(j).getPosition().isDeplacementALine(referee.getGardenerPosition())) {
                                 return new MoveGardenerAction(neighboursOfNeighboursPlots.get(j).getPosition());
                             }

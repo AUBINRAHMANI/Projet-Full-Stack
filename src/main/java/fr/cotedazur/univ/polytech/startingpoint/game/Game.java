@@ -13,6 +13,7 @@ import java.util.Random;
 
 public class Game implements DeckSignal, Referee {
 
+    static int MAX_NB_ROUND = 40;
     final int NB_OBJECTIVE_TO_FINISH = 8;
     GameEngine gameEngine_;
     ArrayList<BotProfil> botProfils_;
@@ -55,7 +56,7 @@ public class Game implements DeckSignal, Referee {
                     _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
                 }
             }
-            //System.out.println("Nombre de tours :" + this.nombreObjectifNull);
+            System.out.println("Nombre de tours :" + this.nombreObjectifNull);
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
         printWinner(winner);
@@ -65,7 +66,7 @@ public class Game implements DeckSignal, Referee {
     public boolean checkFinishingCondition(){
         for(BotProfil botProfil : botProfils_){
             if(botProfil.getNbCompletedObjective() == NB_OBJECTIVE_TO_FINISH)return true;
-            else if(this.nombreObjectifNull>100) return true;
+            else if(this.nombreObjectifNull>MAX_NB_ROUND) return true;
         }
         return false;
     }
@@ -204,7 +205,7 @@ public class Game implements DeckSignal, Referee {
 
     public BotProfil checkWinner() {
         BotProfil winner = null;
-        if (this.nombreObjectifNull < 100) {
+        if (this.nombreObjectifNull < MAX_NB_ROUND) {
             winner = botProfils_.get(0);
             for (BotProfil botProfil : botProfils_) {
                 if (botProfil.getPoints() > winner.getPoints()) {
