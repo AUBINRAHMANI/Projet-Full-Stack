@@ -185,4 +185,22 @@ class GameEngineTest {
     public void checkIfWeatherChangesReallyApply(){
 
     }
+    @Test
+    public void testDrawWeather(){
+
+    }
+    @Test
+    public void testRainAction(){
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
+        map.putPlot(plot);
+        map.putPlot(plot2);
+        GameEngine gameEngine = new GameEngine(null, null, map);
+        gameEngine.rainAction(new Position(0,1));
+        assertEquals(1, plot.getNumberOfBambou());
+        assertNotEquals(1, plot2.getNumberOfBambou());
+
+    }
+
 }

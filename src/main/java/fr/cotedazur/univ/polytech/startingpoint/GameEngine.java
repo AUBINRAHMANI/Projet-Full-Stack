@@ -174,4 +174,11 @@ public class GameEngine {
 public WeatherType getWeatherType() {
         return weather.getWeatherType();
     }
+
+    public boolean rainAction(Position position) {
+      if(getMap().findPlot(position).isIrrigated()){
+          return getMap().findPlot(position).growBambou();
+      }
+        return false;
+    }
 }

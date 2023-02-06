@@ -7,7 +7,6 @@ import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.*;
 public class Weather {
     private WeatherType weatherType;
 
-    private BotProfil botProfil;
 
 public Weather(){
         this.weatherType = NOMETEO;
