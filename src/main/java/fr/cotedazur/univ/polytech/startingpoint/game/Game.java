@@ -55,7 +55,7 @@ public class Game implements DeckSignal, Referee {
                     _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
                 }
             }
-            System.out.println("Nombre de tours :" + this.nombreObjectifNull);
+            //System.out.println("Nombre de tours :" + this.nombreObjectifNull);
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
         printWinner(winner);
