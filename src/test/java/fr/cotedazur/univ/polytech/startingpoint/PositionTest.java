@@ -126,7 +126,7 @@ class PositionTest {
     }
 
     @Test
-    public void minus(){
+    void minus(){
         Position position1 = new Position(4,2);
         Position position2 = new Position(3,2);
         Position position3 = new Position(3, 1);

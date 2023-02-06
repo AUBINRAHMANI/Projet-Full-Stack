@@ -1,6 +1,7 @@
-package fr.cotedazur.univ.polytech.startingpoint.Action;
+package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 

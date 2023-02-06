@@ -103,7 +103,7 @@ class PatternTest {
     }
 
     @Test
-    public void applyMask(){
+    void applyMask(){
         ArrayList<Plot> plots = new ArrayList<>();
         plots.add(new Plot(PlotType.GREEN, new Position(-1,1)));
         plots.add(new Plot(PlotType.GREEN, new Position(0,0)));
@@ -121,7 +121,7 @@ class PatternTest {
     }
 
     @Test
-    public void setAncerPoint(){
+    void setAncerPoint(){
         ArrayList<Plot> plots = new ArrayList<>();
         plots.add(new Plot(PlotType.GREEN, new Position(-1,1)));
         plots.add(new Plot(PlotType.GREEN, new Position(0,0)));

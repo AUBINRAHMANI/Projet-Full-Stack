@@ -1,33 +1,29 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
-    public ArrayList<Plot> map_;
-    private MapInterface _mapInterface;
+    List<Plot> mapPlots;
 
     public Map(){
-        map_ = new ArrayList<>();
-        Plot Pond = new Plot(PlotType.POND, new Position(0,0));
-        Pond.isIrrigatedIsTrue();
-        map_.add(Pond);
+        mapPlots = new ArrayList<>();
+        Plot pond = new Plot(PlotType.POND, new Position(0,0));
+        pond.isIrrigatedIsTrue();
+        mapPlots.add(pond);
     }
 
     public boolean putPlot(Plot plot) {
-        if (isPossibleToPutPlot(plot.getPosition()) == true) {
-            map_.add(plot);
+        if (isPossibleToPutPlot(plot.getPosition())) {
+            mapPlots.add(plot);
             verifyIrrigation(plot);
             return true;
         }
         return false;
     }
 
-    public ArrayList<Plot> getMap() {
-        return new ArrayList<>(map_);
+    public List<Plot> getMapPlots() {
+        return new ArrayList<>(mapPlots);
     }
 
     public boolean verifyIrrigation(Plot p) {
@@ -40,7 +36,7 @@ public class Map {
 
     public Plot findPlot(Position position) {
         Plot plot1 = null;
-        for(Plot plot : map_){
+        for(Plot plot : mapPlots){
             if(plot.getPosition().equals(position)){
                 plot1= plot;
             }
@@ -48,7 +44,7 @@ public class Map {
         return plot1;
     }
     boolean isSpaceFree(Position position) {
-        for (Plot plot : map_) {
+        for (Plot plot : mapPlots) {
             if(plot.getPosition().equals(position))
             {
                 return false;
@@ -63,7 +59,7 @@ public class Map {
     }
 
 
-    public ArrayList<Position> closestAvailableSpace(Position position) {
+    public List<Position> closestAvailableSpace(Position position) {
         ArrayList<Position> positionsAvailable = new ArrayList<>();
         for (Position potentialPosition : position.closestPositions()) {
             if(isPossibleToPutPlot(potentialPosition))
@@ -74,9 +70,9 @@ public class Map {
         return positionsAvailable;
     }
 
-    public ArrayList<Plot> getNeighbours(Position position) {
+    public List<Plot> getNeighbours(Position position) {
         ArrayList<Plot> plots = new ArrayList<>();
-        for(Plot mapPlot : map_){
+        for(Plot mapPlot : this.mapPlots){
             for (Position tempPosition : position.closestPositions()) {
                 if (mapPlot.getPosition().equals(tempPosition)){
                     plots.add(mapPlot);
@@ -86,7 +82,35 @@ public class Map {
         return plots;
     }
 
-    public ArrayList<Plot> computePatternVerification(Pattern pattern, Position currentPosition){
+    public List<Plot> checkIfPossibleToPlacePattern(Pattern pattern, Position position) {
+        List<List<Plot>> potentialPatternSpot = new ArrayList<>();
+        Pattern tempPattern = new Pattern(pattern);
+        for(Plot plot : pattern.getPlots()){
+            tempPattern.setAncerPoint(plot.getPosition());
+            for(int i=0 ; i<5 ; i++){
+                List<Plot> missingPLots = computePatternVerification(tempPattern, position);
+                if(missingPLots != null)
+                {
+                    potentialPatternSpot.add(missingPLots);
+                }
+                tempPattern.rotate60Right();
+            }
+            tempPattern.rotate60Right();
+        }
+        if(potentialPatternSpot.isEmpty())return null;
+
+        List<Plot> bestSpot = potentialPatternSpot.get(0);
+        for(List<Plot> patternSpot : potentialPatternSpot)
+        {
+            if(patternSpot.size() < bestSpot.size())
+            {
+                bestSpot = patternSpot;
+            }
+        }
+        return bestSpot;
+    }
+
+    public List<Plot> computePatternVerification(Pattern pattern, Position currentPosition){
         Pattern tempPattern = new Pattern(pattern);
         tempPattern.applyMask(currentPosition);
         ArrayList<Plot> incompletePlot = new ArrayList<>();

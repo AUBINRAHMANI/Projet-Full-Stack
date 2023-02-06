@@ -1,16 +1,16 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game;
 
-import fr.cotedazur.univ.polytech.startingpoint.Action.*;
+import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.action.*;
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Currency;
+import java.util.List;
 import java.util.Random;
 
 
-public class Game {
+public class Game implements DeckSignal, Referee {
 
     final int NB_OBJECTIVE_TO_FINISH = 8;
     GameEngine gameEngine_;
@@ -22,47 +22,58 @@ public class Game {
         botProfils_                     = new ArrayList<>();
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
-        gameEngine_                 = new GameEngine( objectiveDeck, plotDeck, new Map());
+        gameEngine_                     = new GameEngine( objectiveDeck, plotDeck, new Map());
         botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(),"Ronaldo")));
         botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(), "Messi")));
-        _mapInterface = new MapInterface();
-        _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
+        if(debug){
+            _mapInterface = new MapInterface();
+            _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
+        }
+        else {
+            _mapInterface = null;
+        }
     }
     public Game(){
         this(false);
     }
 
-    public void start(){
+    public boolean start(){
         do {
             for(BotProfil botProfil : botProfils_){
-                if(_mapInterface != null) while (_mapInterface.next()==false);
                 System.out.println();
                 gameEngine_.drawWeather();
-                System.out.println("Tour de " + botProfil.getBot_().getBotName() + " : ");
+                System.out.println("Tour de " + botProfil.getBot().getBotName() + " : ");
                 gameEngine_.applyChangesDueToWeather(this);
-                _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
+                if(_mapInterface != null) {
+                    _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
+                }
             }
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
         printWinner(winner);
+        return true;
     }
 
     public boolean checkFinishingCondition(){
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getNbCompletedObjective_() == NB_OBJECTIVE_TO_FINISH)return true;
+            if(botProfil.getNbCompletedObjective() == NB_OBJECTIVE_TO_FINISH)return true;
         }
         return false;
     }
 
+    @Override
+    public void emptyDeck() {
+        gameEngine_.regenerateDecks(generateObjectiveDrawPile(), generatePlotDrawPile());
+    }
+
     private Deck<Objective> generateObjectiveDrawPile(){
-        Deck<Objective> objectiveDeck = new Deck<>();
+        Deck<Objective> objectiveDeck = new Deck<>(this);
         Random rand = new Random();
         int upperRandForPlotType = 3;
 
         for (int i=0 ; i<20 ; ++i){
             objectiveDeck.addCard(new ObjectivePlots(rand.nextInt(4)+1, new Pattern()));
         }
-
         for (int i=0 ; i<20 ; ++i){
             //int nbBambous = rand.nextInt(2)+3;
             int nbBambous = 4;
@@ -87,7 +98,7 @@ public class Game {
     }
 
     private Deck<Plot> generatePlotDrawPile(){
-        Deck<Plot> plotDeck = new Deck<>();
+        Deck<Plot> plotDeck = new Deck<>(this);
         Random rand = new Random();
         int upperRandForPlotType = 3;
 
@@ -102,7 +113,7 @@ public class Game {
         Objective objective=  gameEngine_.pickObjective();
 
         for(BotProfil botProfil : botProfils_){
-            if(bot == botProfil.getBot_()){
+            if(bot == botProfil.getBot()){
                 botProfil.addObjective(objective);
                 System.out.println(bot.getBotName() +" a prix un objectif :" + objective);
                 return true;
@@ -111,24 +122,24 @@ public class Game {
         return false;
     }
 
-    public Plot pickPlot(){
+    public List<Plot> pickPlot(){
         return gameEngine_.pickPlot();
     }
 
     public boolean computeObjectivesPlot(Plot lastPlacedPlot){
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
-            for(Objective objective : botProfil.getObjectives_()){
+            for(Objective objective : botProfil.getObjectives()){
                 if(objective.verifyPlotObj(gameEngine_, lastPlacedPlot)){
-                    String botName = botProfil.getBot_().getBotName();
+                    String botName = botProfil.getBot().getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
-                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints() + " points");
                 }
             }
-            botProfil.getObjectives_().removeAll(validatedObjective);
+            botProfil.getObjectives().removeAll(validatedObjective);
         }
         return true;
     }
@@ -136,17 +147,17 @@ public class Game {
     public boolean computeObjectivesGardener(){
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
-            for(Objective objective : botProfil.getObjectives_()){
+            for(Objective objective : botProfil.getObjectives()){
                 if(objective.verifyGardenerObj(gameEngine_)){
-                    String botName = botProfil.getBot_().getBotName();
+                    String botName = botProfil.getBot().getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
-                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints() + " points");
                 }
             }
-            botProfil.getObjectives_().removeAll(validatedObjective);
+            botProfil.getObjectives().removeAll(validatedObjective);
         }
         return true;
     }
@@ -161,17 +172,17 @@ public class Game {
     public boolean computeObjectivesPanda(){
         ArrayList<Objective> validatedObjective = new ArrayList<>();
         for(BotProfil botProfil : botProfils_ ){
-            for(Objective objective : botProfil.getObjectives_()){
+            for(Objective objective : botProfil.getObjectives()){
                 if(objective.verifyPandaObj(gameEngine_, botProfil)){
-                    String botName = botProfil.getBot_().getBotName();
+                    String botName = botProfil.getBot().getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     System.out.println( "L'objectif suivant a été validé : " + objective );
                     System.out.println(botName + " gagne " + objective.getPoint() + " points");
-                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints_() + " points");
+                    System.out.println("Le score de "+ botName +" = " + botProfil.getPoints() + " points");
                 }
             }
-            botProfil.getObjectives_().removeAll(validatedObjective);
+            botProfil.getObjectives().removeAll(validatedObjective);
         }
         return true;
     }
@@ -179,36 +190,36 @@ public class Game {
     public BotProfil checkWinner(){
         BotProfil winner = botProfils_.get(0);
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getPoints_() > winner.getPoints_()){
+            if(botProfil.getPoints() > winner.getPoints()){
                 winner  = botProfil;
             }
         }
         return winner;
     }
 
-    ArrayList<Objective> getMyObjectives(Bot bot){
+    public List<Objective> getMyObjectives(Bot bot){
         for(BotProfil botProfil : botProfils_){
-            if(bot == botProfil.getBot_()){
-                return botProfil.getObjectives_();
+            if(bot == botProfil.getBot()){
+                return botProfil.getObjectives();
             }
         }
         return null;
     }
 
     public void printWinner(BotProfil botProfil){
-        System.out.println(botProfil.getBot_().getBotName() + " gagne avec : "+botProfil.getPoints_() +" points");
+        System.out.println(botProfil.getBot().getBotName() + " gagne avec : "+botProfil.getPoints() +" points");
     }
 
-    public ArrayList<Bambou> getMyBambous(Bot bot) {
+    public List<Bambou> getMyBambous(Bot bot) {
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getBot_()==bot)return botProfil.getBambous();
+            if(botProfil.getBot()==bot)return botProfil.getBambous();
         }
         return null;
     }
 
     public void addBamboutToBot(Bot bot, Bambou bambou) {
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getBot_()==bot){
+            if(botProfil.getBot()==bot){
                 botProfil.addBanbou( bambou );
             }
         }

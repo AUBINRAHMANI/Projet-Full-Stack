@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import static java.lang.Math.abs;
 
@@ -30,7 +31,7 @@ public class Position {
     public int getQ() {
         return q;
     }
-    private int getQ(int x, int y){
+    private int getQ(int x){
         return x;
     }
 
@@ -45,17 +46,17 @@ public class Position {
         return s;
     }
     private int getS(int x, int y){
-        return -getQ(x, y)-getR(x, y);
+        return -getQ(x)-getR(x, y);
     }
 
     public int getX() {
-        return q;
+        return getQ();
     }
     public int getY() {
         return (r + (q + (q&1)) / 2);
     }
 
-    public ArrayList<Position> closestPositions(){
+    public List<Position> closestPositions(){
         ArrayList<Position> positions = new ArrayList<>();
         positions.add(new Position(q, r-1, s+1));
         positions.add(new Position(q+1, r-1, s));
@@ -116,10 +117,7 @@ public class Position {
     }
 
     public boolean isDeplacementALine(Position position){
-        if(this.getQ() == position.getQ() || this.getR() == position.getR() || this.getS() == position.getS()){
-            return true;
-        }
-        return false;
+        return this.getQ() == position.getQ() || this.getR() == position.getR() || this.getS() == position.getS();
     }
 
     @Override
