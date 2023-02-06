@@ -23,9 +23,39 @@ public class PickObjectiveAction implements Action{
     }
 
     @Override
+    public boolean equals(Action action) {
+        return isActionPickObjective();
+    }
+
+    @Override
     public String toString() {
         return "PickObjectiveAction{" +
                 "bot=" + bot +
                 '}';
+    }
+
+    @Override
+    public boolean isActionMoveGardener() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionMovePanda() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPutPlot() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPickObjective() {
+        return true;
+    }
+
+    @Override
+    public boolean isActionRain() {
+        return false;
     }
 }

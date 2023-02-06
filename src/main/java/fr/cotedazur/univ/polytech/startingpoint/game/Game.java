@@ -55,30 +55,42 @@ public class Game implements DeckSignal, Referee {
         return true;
     }
 
-    public boolean doAction(BotProfil botProfil, int nbActions){
+    private void doOneAction(Action action){
+        System.out.println("Il joue l'action " + action);
+        action.play(this, gameEngine_);
+        action.verifyObjectiveAfterAction(this);
+    }
+
+    public boolean doActions(BotProfil botProfil, int nbActions){
         ArrayList<Action> banActions = new ArrayList<>();
-        Action action = botProfil.getBot().play();
-        boolean canPlay = true;
-        for(int i = 0; i < nbActions; i++) {
-            for (Objective ignored : botProfil.getObjectives()) {
+        boolean canPlay;
+
+        Action action = botProfil.getBot().play(0);
+        doOneAction(action);
+        banActions.add(action);
+        for(int i = 1; i < nbActions; i++) {
+            for (int j = 0; j < botProfil.getObjectives().size(); j++) {
+                action = botProfil.getBot().play(j);
+                canPlay = true;
                 for (Action banAction : banActions) {
-                    if (action == banAction) {
+                    if (action.equals(banAction)) {
                         canPlay = false;
                     }
                 }
                 if (canPlay) {
-                    System.out.println("Il joue l'action " + action);
-                    action.play(this, gameEngine_);
-                    action.verifyObjectiveAfterAction(this);
+                    doOneAction(action);
                     banActions.add(action);
-                    return canPlay;
                 }
             }
-            if(botProfil.getObjectives().size() < 5){
+            if (botProfil.getObjectives().size() <= 5) {
                 action = new PickObjectiveAction(botProfil.getBot());
+                doOneAction(action);
+                banActions.add(action);
+            } else {
+                System.out.println("Le bot ne peut pas jouer, il passe son tour");
             }
         }
-        System.out.println("Le bot ne peut pas jouer, il passe son tour");
+
         return false;
     }
         public boolean rainAction(Position position) {
@@ -91,22 +103,22 @@ public class Game implements DeckSignal, Referee {
         switch (gameEngine_.getWeatherType()){
             case SUN :
                 int nbActionSun = this.nbActions + 1;
-                doAction(botProfil, nbActionSun);
+                doActions(botProfil, nbActionSun);
                 break;
             case RAIN :
-                doAction(botProfil, nbActions);
+                doActions(botProfil, nbActions);
                 break;
             case THUNDER :
-                doAction(botProfil, nbActions);
+                doActions(botProfil, nbActions);
                 break;
             case WIND :
-                doAction(botProfil, nbActions);
+                doActions(botProfil, nbActions);
                 break;
             case CLOUD :
-                doAction(botProfil, nbActions);
+                doActions(botProfil, nbActions);
                 break;
             case QUESTIONMARK:
-                doAction(botProfil, nbActions);
+                doActions(botProfil, nbActions);
                 break;
         }
     }

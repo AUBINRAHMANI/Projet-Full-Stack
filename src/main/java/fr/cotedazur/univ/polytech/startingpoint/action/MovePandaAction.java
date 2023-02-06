@@ -25,9 +25,38 @@ public class MovePandaAction implements Action{
     }
 
     @Override
+    public boolean equals(Action action) {
+        return isActionMovePanda();
+    }
+
+    public boolean isActionMovePanda() {
+        return true;
+    }
+
+    @Override
+    public boolean isActionPutPlot() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPickObjective() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionRain() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "MovePandaAction{" +
                 "_position=" + position +
                 '}';
+    }
+
+    @Override
+    public boolean isActionMoveGardener() {
+        return false;
     }
 }

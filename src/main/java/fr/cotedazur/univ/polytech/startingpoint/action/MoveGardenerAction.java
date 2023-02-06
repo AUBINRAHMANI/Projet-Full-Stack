@@ -19,9 +19,40 @@ public class MoveGardenerAction implements Action{
     }
 
     @Override
+    public boolean equals(Action action) {
+        return action.isActionMoveGardener();
+    }
+
+
+    @Override
     public String toString() {
         return "MoveGardenerAction{" +
                 "_position=" + position +
                 '}';
+    }
+
+    @Override
+    public boolean isActionMoveGardener() {
+        return true;
+    }
+
+    @Override
+    public boolean isActionMovePanda() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPutPlot() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPickObjective() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionRain() {
+        return false;
     }
 }

@@ -20,9 +20,39 @@ public class RainAction implements Action{
     }
 
     @Override
+    public boolean equals(Action action) {
+        return isActionRain();
+    }
+
+    @Override
     public String toString() {
         return "RainAction{" +
                 "_position=" + _position +
                 '}';
+    }
+
+    @Override
+    public boolean isActionMoveGardener() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionMovePanda() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPutPlot() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPickObjective() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionRain() {
+        return true;
     }
 }
