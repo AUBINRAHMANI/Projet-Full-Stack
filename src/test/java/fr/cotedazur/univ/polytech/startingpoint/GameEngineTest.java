@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import org.junit.jupiter.api.Test;
@@ -131,7 +132,6 @@ class GameEngineTest {
         gameEngine.moveGardener(new Position(0,1));
         assertEquals(1, plot.getNumberOfBambou());
         assertEquals(1, plot2.getNumberOfBambou());
-
     }
 
     @Test
