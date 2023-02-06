@@ -21,4 +21,11 @@ public class PutIrrigationAction implements Action {
     public boolean verifyObjectiveAfterAction(Referee referee) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "PutIrrigationAction{" +
+                "irrigation=" + irrigation +
+                '}';
+    }
 }

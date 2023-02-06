@@ -5,7 +5,7 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 public class Main {
 
     public static void main(String[] args) {
-        Game game = new Game(true);
+        Game game = new Game(false);
         game.start();
     }
 }

@@ -11,9 +11,7 @@ public class PutPlotAction implements Action{
     }
 
     @Override
-    public boolean play(Referee referee, GameEngine gameEngine) {
-        return gameEngine.askToPutPlot(plot);
-    }
+    public boolean play(Referee referee, GameEngine gameEngine) {return gameEngine.askToPutPlot(plot);}
     @Override
     public boolean verifyObjectiveAfterAction(Referee referee){
         return referee.computeObjectivesPlot(plot);

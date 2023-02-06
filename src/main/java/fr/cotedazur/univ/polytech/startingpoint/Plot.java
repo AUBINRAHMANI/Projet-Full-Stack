@@ -24,6 +24,7 @@ public class Plot {
         plotType = plot.getType();
         position = new Position(plot.getPosition());
         listeBambou = plot.getBambou();
+        isIrrigated = plot.isIrrigated;
 
     }
 
@@ -76,20 +77,20 @@ public class Plot {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plot plot = (Plot) o;
-        return Objects.equals(position, plot.position);
+        return isIrrigated == plot.isIrrigated && plotType == plot.plotType && Objects.equals(position, plot.position);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(position);
+        return Objects.hash(plotType, position, isIrrigated);
     }
 
     @Override
     public String toString() {
-        return "{" +
-                plotType +
-                " - " + position +
-                "/"+ getNumberOfBambou() +
+        return "Plot{" +
+                "plotType=" + plotType +
+                ", position=" + position +
+                ", isIrrigated=" + isIrrigated +
                 '}';
     }
 }

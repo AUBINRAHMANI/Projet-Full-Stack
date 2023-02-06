@@ -21,24 +21,30 @@ public class PatternBotResolver {
     public Action fillObjectivePlots(Pattern pattern){
         for(Plot plot : map.getMapPlots()){
             if(plot.getType() == pattern.getPlots().get(0).getType()){
-                List<Plot> missingPLots = map.checkIfPossibleToPlacePattern(pattern, plot.getPosition());
-                if( missingPLots != null){
-                    for(Plot tempPlot : missingPLots){
+                List<List<Plot>> result = map.checkIfPossibleToPlacePattern(pattern, plot.getPosition());
+                if( result!=null ) {
+                    List<Plot> missingPlots = result.get(0);
+                    List<Plot> nonIrrigatedPlots = result.get(1);
+
+                    for (Plot tempPlot : missingPlots) {
                         Position tempPlotPosition = tempPlot.getPosition();
-                        if(map.isPossibleToPutPlot(tempPlotPosition)){
+                        if (map.isPossibleToPutPlot(tempPlotPosition)) {
                             return new PutPlotAction(tempPlot);
-                        }
-                        else {
-                            if(map.getNeighbours(tempPlotPosition).isEmpty()==false ){
+                        } else {
+                            if (map.getNeighbours(tempPlotPosition).isEmpty() == false) {
                                 List<Position> positions = map.closestAvailableSpace(tempPlotPosition);
-                                for(Position position : positions){
-                                    if(map.isPossibleToPutPlot(position)){
+                                for (Position position : positions) {
+                                    if (map.isPossibleToPutPlot(position)) {
                                         return new PutPlotAction(new Plot(tempPlot.getType(), position));
                                     }
                                 }
 
                             }
                         }
+                    }
+                    if (nonIrrigatedPlots.isEmpty() == false) {
+                        IrrigationBotResolver irrigationBotResolver = new IrrigationBotResolver(map, referee);
+                        return irrigationBotResolver.tryPutIrrigation(nonIrrigatedPlots.get(0).getPosition());
                     }
                 }
             }

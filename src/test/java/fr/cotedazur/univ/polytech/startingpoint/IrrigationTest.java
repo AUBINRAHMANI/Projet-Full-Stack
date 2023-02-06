@@ -34,4 +34,13 @@ class IrrigationTest {
         neighbours.removeAll(Arrays.asList(irrigation2, irrigation3, irrigation4, irrigation5));
         assertEquals( 0, neighbours.size());
     }
+
+    @Test
+    void equals(){
+        Irrigation irrigation1 = new Irrigation(new Position(2,1), new Position(3,1));
+        Irrigation irrigation2 = new Irrigation(new Position(3,1), new Position(2,1));
+
+        assertTrue(irrigation1.equals(irrigation2));
+
+    }
 }

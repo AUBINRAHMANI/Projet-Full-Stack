@@ -6,6 +6,7 @@ import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class GameEngine {
@@ -97,8 +98,13 @@ public class GameEngine {
 
 
     public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot){
-        List<Plot> missingPlots = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
-        return missingPlots != null && missingPlots.isEmpty();
+        List<List<Plot>> result = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
+        if(result==null){
+            return false;
+        }
+        List<Plot> missingPlots = result.get(0);
+        List<Plot> nonIrrigatedPlot = result.get(1);
+        return missingPlots.isEmpty() && nonIrrigatedPlot.isEmpty();
     }
 
 
@@ -134,5 +140,9 @@ public class GameEngine {
         }
         botProfil.setBambous(playerBambous);
         return true;
+    }
+
+    public boolean irrigationExist(Irrigation irrigation){
+        return map.irrigationExist(irrigation);
     }
 }
