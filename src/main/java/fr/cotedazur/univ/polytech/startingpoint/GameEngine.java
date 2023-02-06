@@ -141,9 +141,11 @@ public class GameEngine {
     }
     public void drawWeather(){
         Random rand = new Random();
+
         int choseNumber = 1+rand.nextInt(7-1);
         switch (choseNumber) {
             case 1:
+
                 weather.setWeatherType(SUN);
                 System.out.println("Face : SOLEIL\nAction supplémentaire");
                 break;
@@ -180,4 +182,12 @@ public WeatherType getWeatherType() {
       }
         return false;
     }
+    public boolean thunderAction(Position position){
+        if(!getMap().isSpaceFree(position)){
+            panda.setPosition(position);
+            return true;
+        }
+        return false;
+    }
+
 }
