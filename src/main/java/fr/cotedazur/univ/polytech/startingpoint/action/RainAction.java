@@ -1,7 +1,8 @@
-package fr.cotedazur.univ.polytech.startingpoint.Action;
+package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
-
+import fr.cotedazur.univ.polytech.startingpoint.game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 public class RainAction implements Action{
     Position _position;
@@ -10,12 +11,12 @@ public class RainAction implements Action{
     }
 
     @Override
-    public boolean play(Game game, GameEngine gameEngine) {
+    public boolean play(Referee referee, GameEngine gameEngine) {
         return gameEngine.rainAction(_position);
     }
     @Override
-    public boolean verifyObjectiveAfterAction(Game game){
-        return game.computeObjectivesGardener();
+    public boolean verifyObjectiveAfterAction(Referee referee){
+        return referee.computeObjectivesGardener();
     }
 
     @Override

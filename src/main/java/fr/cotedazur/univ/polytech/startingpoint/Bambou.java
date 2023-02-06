@@ -3,14 +3,14 @@ package fr.cotedazur.univ.polytech.startingpoint;
 import java.util.Objects;
 
 public class Bambou {
-    PlotType bambouType_;
+    PlotType bambouType;
 
     public Bambou(PlotType bambouType){
-        bambouType_=bambouType;
+        this.bambouType=bambouType;
     }
 
     public PlotType getBambouType() {
-        return bambouType_;
+        return bambouType;
     }
 
     @Override
@@ -18,18 +18,18 @@ public class Bambou {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bambou bambou = (Bambou) o;
-        return bambouType_ == bambou.bambouType_;
+        return bambouType == bambou.bambouType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bambouType_);
+        return Objects.hash(bambouType);
     }
 
     @Override
     public String toString() {
         return "Bambou{" +
-                "bambouType_=" + bambouType_ +
+                "bambouType=" + bambouType +
                 '}';
     }
 }

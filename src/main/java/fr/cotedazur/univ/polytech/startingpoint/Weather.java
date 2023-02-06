@@ -8,6 +8,10 @@ public class Weather {
     private WeatherType weatherType;
 
 
+public Weather(){
+        this.weatherType = NOMETEO;
+    }
+
     public WeatherType getWeather(){
         return this.weatherType;
     }

@@ -5,37 +5,35 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ConcurrentModificationException;
-
-import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 
 public class MapInterface extends JFrame {
 
     final static int HEXAGONE_SIZE = 40;
 
-    ArrayList<Plot> map;
-    Position _center;
-    volatile boolean _next;
-    ArrayList<Position> _positionsToAdd;
-    ArrayList<Integer> correspondingNbBambous;
-    ArrayList<Plot> plotsDrawen;
-    ArrayList<Color> _colorsToAdd;
+    List<Plot> map;
+    Position center;
+    volatile boolean next;
+    List<Position> positionsToAdd;
+    List<Integer> correspondingNbBambous;
+    List<Plot> plotsDrawen;
+    List<Color> colorsToAdd;
     Position gardenerPosition;
     Position pandaPosition;
-    Toolkit _toolkit;
-    GPanel _panel;
+    Toolkit toolkit;
+    GPanel panel;
 
     public MapInterface(){
         setSize(960, 540);
-        _next = false;
-        _toolkit = getToolkit();
-        _positionsToAdd = new ArrayList<>();
+        next = false;
+        toolkit = getToolkit();
+        positionsToAdd = new ArrayList<>();
         correspondingNbBambous = new ArrayList<>();
         plotsDrawen         = new ArrayList<>();
-        _colorsToAdd        = new ArrayList<>();
+        colorsToAdd = new ArrayList<>();
         gardenerPosition    = new Position(0,0);
         pandaPosition       = new Position(0, 0);
         map = new ArrayList<>();
@@ -48,7 +46,7 @@ public class MapInterface extends JFrame {
 
             public void actionPerformed(ActionEvent e)
             {
-                _next = true;
+                next = true;
             }
         });
         add(nextButton);
@@ -62,18 +60,18 @@ public class MapInterface extends JFrame {
 
 
 
-        _panel = new GPanel();
-        getContentPane().add(_panel);
-        _panel.setLayout(null);
+        panel = new GPanel();
+        getContentPane().add(panel);
+        panel.setLayout(null);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
     public boolean next(){
-        if(_next)
+        if(next)
         {
-            _next = false;
+            next = false;
             return true;
         }
         else {
@@ -82,14 +80,14 @@ public class MapInterface extends JFrame {
     }
 
     public void updateSize(){
-        _center     = new Position(getWidth()/2, (int)(getHeight()/2.7));
+        center = new Position(getWidth()/2, (int)(getHeight()/2.7));
     }
 
     public void drawMap(Map map, Position gardenePosition, Position pandaPosition){
-        this.map = map.getMap();
+        this.map = map.getMapPlots();
         this.gardenerPosition   = gardenePosition;
         this.pandaPosition      = pandaPosition;
-        ArrayList<Plot> plots = map.getMap();
+        List<Plot> plots = map.getMapPlots();
         plots.removeAll(plotsDrawen);
         for(Plot plot : plots){
             plotsDrawen.add(new Plot(plot));
@@ -122,8 +120,8 @@ public class MapInterface extends JFrame {
                 color = Color.BLACK;
         }
 
-        _positionsToAdd.add(position);
-        _colorsToAdd.add(color);
+        positionsToAdd.add(position);
+        colorsToAdd.add(color);
         correspondingNbBambous.add(nbBambous);
     }
 
@@ -142,14 +140,14 @@ public class MapInterface extends JFrame {
             // new Color(0, 115,255, 163)
 
 
-            for(Position position : _positionsToAdd.toArray(new Position[0])){
+            for(Position position : positionsToAdd.toArray(new Position[0])){
                 Polygon hexagon = getHexagon(position);
                 try {
                     Thread.sleep(1);
                 }catch (Exception exception){assert false;}
                 graphics.setColor(Color.BLACK);
                 graphics.drawPolygon(hexagon);
-                graphics.setColor(_colorsToAdd.get(_positionsToAdd.indexOf(position)));
+                graphics.setColor(colorsToAdd.get(positionsToAdd.indexOf(position)));
                 graphics.fillPolygon(hexagon);
 
                 graphics.setColor(Color.WHITE);
@@ -170,16 +168,16 @@ public class MapInterface extends JFrame {
         }
 
         private Polygon getHexagon(Position position) {
-            int x = (int)((HEXAGONE_SIZE/2) * (3./2 * position.getQ())) + _center.getX();
-            int y = (int)((HEXAGONE_SIZE/2) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + _center.getY();
+            int x = (int)((HEXAGONE_SIZE/2) * (3./2 * position.getQ())) + center.getX();
+            int y = (int)((HEXAGONE_SIZE/2) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
             int xPoints[] = {x+HEXAGONE_SIZE/4, x+HEXAGONE_SIZE/2, x+HEXAGONE_SIZE/4,   x-HEXAGONE_SIZE/4,  x-HEXAGONE_SIZE/2, x-HEXAGONE_SIZE/4};
             int yPoints[] = {(int)(y+(HEXAGONE_SIZE*(0.42))),                 y, (int) (y-(HEXAGONE_SIZE*(0.42))), (int) (y-(HEXAGONE_SIZE*(0.42))),                  y, (int) (y+(HEXAGONE_SIZE*(0.42)))};
             return new Polygon(xPoints, yPoints, 6);
         }
 
         private Position getPlotPositionInGrid(Position position){
-            int x = (int)((HEXAGONE_SIZE/2) * (3./2 * position.getQ())) + _center.getX();
-            int y = (int)((HEXAGONE_SIZE/2) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + _center.getY();
+            int x = (int)((HEXAGONE_SIZE/2) * (3./2 * position.getQ())) + center.getX();
+            int y = (int)((HEXAGONE_SIZE/2) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
             return new Position(x, y);
         }
     }
