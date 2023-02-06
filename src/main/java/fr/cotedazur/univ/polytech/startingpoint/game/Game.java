@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint.game;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.*;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 

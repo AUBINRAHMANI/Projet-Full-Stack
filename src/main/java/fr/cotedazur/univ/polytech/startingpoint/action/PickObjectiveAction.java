@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
-import fr.cotedazur.univ.polytech.startingpoint.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 

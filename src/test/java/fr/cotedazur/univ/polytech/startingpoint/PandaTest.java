@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
+
+import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
