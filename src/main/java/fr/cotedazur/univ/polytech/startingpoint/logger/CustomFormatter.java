@@ -24,7 +24,6 @@ public class CustomFormatter extends Formatter {
             buffer.append(formatMessage(record));
             buffer.append("\n");
             buffer.append("\u001B[0m");
-
         } else if(DARK_MODE) {
             buffer.append("\u001B[37m");
             buffer.append(formatMessage(record));
