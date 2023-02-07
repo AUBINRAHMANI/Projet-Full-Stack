@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import org.junit.jupiter.api.Test;
@@ -95,7 +96,7 @@ class GameEngineTest {
     void computeObjectivePanda(){
         GameEngine gameEngine = new GameEngine(null, null, null);
 
-        BotProfil botProfil = new BotProfil(new Bot(null, null, ""));
+        BotProfil botProfil = new BotProfil(new BotMbappe(null, null, ""));
         botProfil.addBanbou(new Bambou(PlotType.GREEN));
 
         ArrayList<Bambou> bambousObjective = new ArrayList<>();

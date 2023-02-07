@@ -1,14 +1,15 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 
 public class PickObjectiveAction implements Action{
 
-    Bot bot;
+    Playable bot;
 
-    public PickObjectiveAction(Bot bot){
+    public PickObjectiveAction(Playable bot){
         this.bot = bot;
     }
 
@@ -62,6 +63,11 @@ public class PickObjectiveAction implements Action{
     @Override
     public boolean isActionThunder() {
         return false;
+    }
+
+    @Override
+    public Position getPosition() {
+        return null;
     }
 
     @Override
