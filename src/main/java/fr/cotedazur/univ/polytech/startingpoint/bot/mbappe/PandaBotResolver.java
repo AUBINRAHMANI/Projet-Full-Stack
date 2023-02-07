@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot;
+package fr.cotedazur.univ.polytech.startingpoint.bot.mbappe;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;

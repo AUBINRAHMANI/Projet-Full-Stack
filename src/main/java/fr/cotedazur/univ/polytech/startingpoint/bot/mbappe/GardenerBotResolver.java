@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot;
+package fr.cotedazur.univ.polytech.startingpoint.bot.mbappe;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
@@ -9,7 +9,6 @@ import fr.cotedazur.univ.polytech.startingpoint.action.RainAction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.PreferencesFactory;
 
 public class GardenerBotResolver {
 

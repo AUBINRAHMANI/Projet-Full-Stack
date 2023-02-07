@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot;
+package fr.cotedazur.univ.polytech.startingpoint.bot.mbappe;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
@@ -6,7 +6,6 @@ import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.PutPlotAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
-import java.sql.Ref;
 import java.util.List;
 
 public class PatternBotResolver {

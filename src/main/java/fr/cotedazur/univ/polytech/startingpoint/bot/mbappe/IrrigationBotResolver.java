@@ -1,13 +1,13 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot;
+package fr.cotedazur.univ.polytech.startingpoint.bot.mbappe;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.PickObjectiveAction;
+
 import fr.cotedazur.univ.polytech.startingpoint.action.PutIrrigationAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IrrigationBotResolver {

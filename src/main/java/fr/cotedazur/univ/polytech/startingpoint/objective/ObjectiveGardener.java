@@ -3,7 +3,7 @@ package fr.cotedazur.univ.polytech.startingpoint.objective;
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.mbappe.Bot;
 
 import java.util.List;
 
