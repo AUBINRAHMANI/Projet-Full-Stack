@@ -1,26 +1,97 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Plot {
 
-    private PlotType _plotType;
-    private Position _position;
-    public Plot(PlotType plotType){
-        _plotType = plotType;
-        _position = null;
-    }
-    public Plot(PlotType plotType, Position position){
-        _plotType = plotType;
-        _position = position;
+    private PlotType plotType;
+    private Position position;
+    private boolean isIrrigated = false;
+    private ArrayList<Bambou> listeBambou;
+
+
+    public Plot(PlotType plotType) {
+        this(plotType, new Position(0,0));
     }
 
-    public void setPosition(Position _position) {
-        this._position = _position;
+    public Plot(PlotType plotType, Position position) {
+        this.plotType = plotType;
+        this.position = position;
+        listeBambou = new ArrayList<>();
     }
+    public Plot(Plot plot){
+        plotType = plot.getType();
+        position = new Position(plot.getPosition());
+        listeBambou = plot.getBambou();
+        isIrrigated = plot.isIrrigated;
+
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     public PlotType getType() {
-        return _plotType;
+        return plotType;
     }
+
     public Position getPosition() {
-        return _position;
+        return position;
+    }
+
+    public void isIrrigatedIsTrue() {
+        isIrrigated = true;
+    }
+
+    public boolean isIrrigated() {
+        return isIrrigated;
+    }
+
+    public int getNumberOfBambou () {
+        return this.listeBambou.size();
+    }
+    public boolean growBambou () {
+        if (this.isIrrigated() && this.listeBambou.size() < 4) {
+            this.listeBambou.add(new Bambou(plotType));
+            return true;
+        }
+        return false;
+    }
+    public Bambou eatBambou () {
+        if (this.listeBambou.isEmpty() ==false) {
+            Bambou bambou = listeBambou.get(0);
+            this.listeBambou.remove(bambou);
+            return bambou;
+        }
+        return null;
+    }
+
+    private ArrayList<Bambou> getBambou(){
+        return listeBambou;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plot plot = (Plot) o;
+        return isIrrigated == plot.isIrrigated && plotType == plot.plotType && Objects.equals(position, plot.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(plotType, position, isIrrigated);
+    }
+
+    @Override
+    public String toString() {
+        return "Plot{" +
+                "plotType=" + plotType +
+                ", position=" + position +
+                ", isIrrigated=" + isIrrigated +
+                '}';
     }
 }
 
