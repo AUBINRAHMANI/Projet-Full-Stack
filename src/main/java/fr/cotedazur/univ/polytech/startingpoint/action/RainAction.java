@@ -60,4 +60,9 @@ public class RainAction implements Action{
     public boolean isActionThunder() {
         return false;
     }
+
+    @Override
+    public ActionType toType() {
+        return ActionType.RAIN;
+    }
 }

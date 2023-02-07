@@ -5,10 +5,7 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 public class Main {
 
     public static void main(String[] args) {
-        while (true){
             Game game = new Game(false);
             game.start();
-        }
-
     }
 }

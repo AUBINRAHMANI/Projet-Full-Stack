@@ -7,6 +7,7 @@ import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -61,50 +62,29 @@ public class Game implements DeckSignal, Referee {
         return true;
     }
 
-    private void doOneAction(Action action){
-        System.out.println("Il joue l'action " + action);
-        action.play(this, gameEngine_);
-        action.verifyObjectiveAfterAction(this);
-    }
 
-    public boolean doActions(BotProfil botProfil, int nbActions){
-        ArrayList<Action> banActions = new ArrayList<>();
-        boolean canPlay;
+    public void doActions(BotProfil botProfil, int nbActions){
+        List<ActionType> banActionTypes = new ArrayList<>();
 
-        Action action = botProfil.getBot().play(0);
-        doOneAction(action);
-        banActions.add(action);
-        for(int i = 1; i < nbActions; i++) {
-            for (int j = 0; j < botProfil.getObjectives().size(); j++) {
-                action = botProfil.getBot().play(j);
-                canPlay = true;
-                for (Action banAction : banActions) {
-                    if (action.equals(banAction)) {
-                        canPlay = false;
-                    }
-                }
-                if (canPlay) {
-                    doOneAction(action);
-                    banActions.add(action);
-                }
-            }
-            if (botProfil.getObjectives().size() <= 5) {
-                action = new PickObjectiveAction(botProfil.getBot());
-                doOneAction(action);
-                banActions.add(action);
-            } else {
-                System.out.println("Le bot ne peut pas jouer, il passe son tour");
+        for(int i = 0; i < nbActions; i++) {
+            Action action = botProfil.getBot().play(banActionTypes);
+            System.out.println("Action : " + action);
+            if (action!=null && ( banActionTypes.contains(action.toType())) ==false){
+                action.play(this, gameEngine_);
+                banActionTypes.add(action.toType());
+                action.verifyObjectiveAfterAction(this);
             }
         }
-
-        return false;
     }
-        public boolean rainAction(Position position) {
+
+    public boolean rainAction(Position position) {
         if(gameEngine_.getMap().findPlot(position).isIrrigated()){
             return gameEngine_.getMap().findPlot(position).growBambou();
         }
         return false;
     }
+
+
     public void applyChangesDueToWeather(BotProfil botProfil){
         switch (gameEngine_.getWeatherType()){
             case SUN :
@@ -130,10 +110,13 @@ public class Game implements DeckSignal, Referee {
     }
 
     public boolean checkFinishingCondition(){
+        System.out.println();
         for(BotProfil botProfil : botProfils_){
-            if(botProfil.getNbCompletedObjective() == NB_OBJECTIVE_TO_FINISH)return true;
-            else if(this.nombreObjectifNull>MAX_NB_ROUND) return true;
+            System.out.println(botProfil.getNbCompletedObjective());
+            if(botProfil.getNbCompletedObjective() >= NB_OBJECTIVE_TO_FINISH)return true;
+            else if(this.nombreObjectifNull >= MAX_NB_ROUND) return true;
         }
+        System.out.println();
         return false;
     }
 

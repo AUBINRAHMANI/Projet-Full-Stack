@@ -63,4 +63,9 @@ public class PickObjectiveAction implements Action{
     public boolean isActionThunder() {
         return false;
     }
+
+    @Override
+    public ActionType toType() {
+        return ActionType.PICK_OBJECTIVE;
+    }
 }

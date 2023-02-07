@@ -58,4 +58,9 @@ public class PutPlotAction implements Action{
     public boolean isActionThunder() {
         return false;
     }
+
+    @Override
+    public ActionType toType() {
+        return ActionType.PUT_PLOT;
+    }
 }

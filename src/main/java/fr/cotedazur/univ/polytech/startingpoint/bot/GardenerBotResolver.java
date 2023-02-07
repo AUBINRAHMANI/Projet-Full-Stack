@@ -4,6 +4,7 @@ import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.Plot;
 import fr.cotedazur.univ.polytech.startingpoint.PlotType;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
+import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.MoveGardenerAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
@@ -22,12 +23,12 @@ public class GardenerBotResolver {
         this.referee = referee;
     }
 
-    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement) {
+    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes) {
         ArrayList<Plot> typeValid = new ArrayList<>();
         ArrayList<Plot> typeAndDeplacementValid = new ArrayList<>();
         int maxNbBambou = 0;
         int indexMaxNbBambou = 0;
-        if (map.getMapPlots().size() > 1) {
+        if (map.getMapPlots().size() > 1 && banActionTypes.contains(ActionType.MOVE_GARDENER)==false) {
             for (Plot plot : map.getMapPlots()) {
                 if(plot.isIrrigated() && plot.getNumberOfBambou()<4 ){
                     if (plot.getType() == bambouType) {
@@ -66,6 +67,6 @@ public class GardenerBotResolver {
             }
         }
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
-        return patternBotResolver.putRandomlyAPLot(bambouType);
+        return patternBotResolver.putRandomlyAPLot(bambouType, banActionTypes);
     }
 }

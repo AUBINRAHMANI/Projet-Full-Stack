@@ -62,4 +62,9 @@ public class ThunderAction implements Action{
     public boolean isActionThunder() {
         return true;
     }
+
+    @Override
+    public ActionType toType() {
+        return ActionType.THUNDER;
+    }
 }

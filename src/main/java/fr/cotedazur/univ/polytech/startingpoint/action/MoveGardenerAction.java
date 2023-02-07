@@ -60,4 +60,9 @@ public class MoveGardenerAction implements Action{
     public boolean isActionThunder() {
         return false;
     }
+
+    @Override
+    public ActionType toType() {
+        return ActionType.MOVE_GARDENER;
+    }
 }

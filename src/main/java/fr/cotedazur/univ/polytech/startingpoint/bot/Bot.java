@@ -27,37 +27,36 @@ public class Bot {
         return botName;
     }
 
-    public Action play(int j) {
+    public Action play(List<ActionType> banActionTypes) {
         this.myBambous = referee.getMyBambous(this);
         List<Objective> objectives = referee.getMyObjectives(this);
-        if (objectives == null) {
-            assert false;
-            return null;
-        } else {
-            if (objectives.isEmpty()) return pickObjective();
-            else {
-                return objectives.get(0).tryToFillObjective(this);
+        if (objectives.isEmpty()) return pickObjective();
+        for(Objective objective : objectives) {
+            Action action = objectives.get(0).tryToFillObjective(this, banActionTypes);
+            if (action != null) {
+                return action;
             }
         }
+        return new PickObjectiveAction(this);
     }
 
     public Action pickObjective() {
         return new PickObjectiveAction(this);
     }
 
-    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement) {
+    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes) {
         GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-        return gardenerBotResolver.fillObjectiveGardener( bambouType, false);
+        return gardenerBotResolver.fillObjectiveGardener( bambouType, false, banActionTypes);
     }
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections) {
+    public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes) {
         PandaBotResolver pandaBotResolver = new PandaBotResolver(map, referee, this);
-        return pandaBotResolver.fillObjectivePanda(bambouSections, myBambous);
+        return pandaBotResolver.fillObjectivePanda(bambouSections, myBambous, banActionTypes);
     }
 
-    public Action fillObjectivePlots(Pattern pattern) {
+    public Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes) {
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
-        return patternBotResolver.fillObjectivePlots(pattern);
+        return patternBotResolver.fillObjectivePlots(pattern, banActionTypes);
     }
 
 

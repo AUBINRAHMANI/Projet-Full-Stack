@@ -2,7 +2,10 @@ package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
+import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+
+import java.util.List;
 
 public class ObjectiveGardener extends Objective{
 
@@ -35,8 +38,8 @@ public class ObjectiveGardener extends Objective{
     }
 
     @Override
-    public Action tryToFillObjective(Bot bot) {
-        return bot.fillObjectiveGardener( bambouType , improvement);
+    public Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes) {
+        return bot.fillObjectiveGardener( bambouType , improvement, banActionTypes);
     }
 
     @Override

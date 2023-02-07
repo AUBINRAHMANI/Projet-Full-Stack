@@ -54,6 +54,11 @@ public class MovePandaAction implements Action{
     }
 
     @Override
+    public ActionType toType() {
+        return ActionType.MOVE_PANDA;
+    }
+
+    @Override
     public String toString() {
         return "MovePandaAction{" +
                 "_position=" + position +

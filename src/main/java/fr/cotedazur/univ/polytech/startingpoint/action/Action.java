@@ -16,4 +16,6 @@ public interface Action {
     boolean isActionPickObjective();
     boolean isActionRain();
     boolean isActionThunder();
+
+    ActionType toType();
 }
