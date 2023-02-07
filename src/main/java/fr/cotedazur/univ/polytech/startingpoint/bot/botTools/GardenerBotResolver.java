@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot.mbappe;
+package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
@@ -20,7 +20,7 @@ public class GardenerBotResolver {
         this.referee = referee;
     }
 
-    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, Weather weather) {
+    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
         ArrayList<Plot> typeValid = new ArrayList<>();
         ArrayList<Plot> typeAndDeplacementValid = new ArrayList<>();
         int maxNbBambou = 0;
@@ -31,7 +31,7 @@ public class GardenerBotResolver {
                     if (plot.getType() == bambouType) {
                         typeValid.add(plot);
                     }
-                    if((!typeValid.isEmpty()) && (weather.getWeatherType() == WeatherType.RAIN)){
+                    if((!typeValid.isEmpty()) && (weather == WeatherType.RAIN)){
                         for(int i = 3; i>0; i--) {
                             for (Plot plot1 : typeValid) {
                                 if (plot1.getNumberOfBambou() == i) {

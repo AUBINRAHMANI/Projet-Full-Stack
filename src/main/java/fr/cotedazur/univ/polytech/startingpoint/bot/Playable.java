@@ -1,19 +1,22 @@
 package fr.cotedazur.univ.polytech.startingpoint.bot;
 
-import fr.cotedazur.univ.polytech.startingpoint.Map;
-import fr.cotedazur.univ.polytech.startingpoint.Weather;
+import fr.cotedazur.univ.polytech.startingpoint.Bambou;
+import fr.cotedazur.univ.polytech.startingpoint.Pattern;
+import fr.cotedazur.univ.polytech.startingpoint.PlotType;
+import fr.cotedazur.univ.polytech.startingpoint.WeatherType;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
-import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 import java.util.List;
 
 public interface Playable {
 
     public String getBotName();
+    public Action play(List<ActionType> banActionTypes, WeatherType weather);
 
-    public Action play(List<ActionType> banActionTypes, Weather weather);
+    Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather);
 
-    public Action pickObjective();
+    Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather);
 
+    Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes);
 }

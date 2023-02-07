@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Irrigation;
+import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 public class PutIrrigationAction implements Action {
@@ -62,6 +63,11 @@ public class PutIrrigationAction implements Action {
     @Override
     public boolean isActionThunder() {
         return false;
+    }
+
+    @Override
+    public Position getPosition() {
+        return null;
     }
 
     @Override

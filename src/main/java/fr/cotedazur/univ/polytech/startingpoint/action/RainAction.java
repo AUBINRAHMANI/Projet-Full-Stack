@@ -62,6 +62,11 @@ public class RainAction implements Action{
     }
 
     @Override
+    public Position getPosition() {
+        return _position;
+    }
+
+    @Override
     public ActionType toType() {
         return ActionType.RAIN;
     }

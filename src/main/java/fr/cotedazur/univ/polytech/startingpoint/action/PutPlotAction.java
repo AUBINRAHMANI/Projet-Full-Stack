@@ -60,6 +60,11 @@ public class PutPlotAction implements Action{
     }
 
     @Override
+    public Position getPosition() {
+        return plot.getPosition();
+    }
+
+    @Override
     public ActionType toType() {
         return ActionType.PUT_PLOT;
     }

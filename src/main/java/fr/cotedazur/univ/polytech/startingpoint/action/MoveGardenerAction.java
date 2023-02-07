@@ -62,6 +62,11 @@ public class MoveGardenerAction implements Action{
     }
 
     @Override
+    public Position getPosition() {
+        return position;
+    }
+
+    @Override
     public ActionType toType() {
         return ActionType.MOVE_GARDENER;
     }

@@ -64,6 +64,11 @@ public class ThunderAction implements Action{
     }
 
     @Override
+    public Position getPosition() {
+        return position;
+    }
+
+    @Override
     public ActionType toType() {
         return ActionType.THUNDER;
     }

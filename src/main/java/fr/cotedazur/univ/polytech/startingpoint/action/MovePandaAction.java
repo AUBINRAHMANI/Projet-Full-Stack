@@ -1,14 +1,16 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
-import fr.cotedazur.univ.polytech.startingpoint.bot.mbappe.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 
 public class MovePandaAction implements Action{
 
-    Bot bot;
+    Playable bot;
     Position position;
-    public MovePandaAction(Bot bot, Position position){
+    public MovePandaAction(Playable bot, Position position){
         this.bot = bot;
         this.position = position;
     }
@@ -51,6 +53,11 @@ public class MovePandaAction implements Action{
     @Override
     public boolean isActionThunder() {
         return false;
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 
     @Override

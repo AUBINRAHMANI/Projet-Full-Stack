@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.mbappe.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
@@ -24,7 +25,7 @@ public class GameEngine implements Loggeable {
     private Panda           panda;
 
     private BotProfil botProfil_;
-    private Weather weather;
+    private WeatherType weather;
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
@@ -33,7 +34,7 @@ public class GameEngine implements Loggeable {
         this.map = map;
         this.panda = new Panda();
         this.gardener = new Gardener();
-        this.weather = new Weather();
+        this.weather = NOMETEO;
     }
 
     public void regenerateDecks(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck){
@@ -87,7 +88,7 @@ public class GameEngine implements Loggeable {
         }
     }
 
-    public boolean movePanda(Referee referee, Bot bot, Position position){
+    public boolean movePanda(Referee referee, Playable bot, Position position){
         if(!map.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
             panda.setPosition(position);
             eatBambou(referee, bot, position);
@@ -96,7 +97,7 @@ public class GameEngine implements Loggeable {
         return false;
     }
 
-    public boolean eatBambou(Referee referee, Bot bot, Position position){
+    public boolean eatBambou(Referee referee, Playable bot, Position position){
        Plot plot = map.findPlot(position);
        Bambou bambou = plot.eatBambou();
        if( bambou!=null && referee!=null )referee.addBamboutToBot(bot, bambou);
@@ -149,44 +150,16 @@ public class GameEngine implements Loggeable {
         return true;
     }
 
-    public void drawWeather(){
+    public WeatherType drawWeather(){
         Random rand = new Random();
 
         int choseNumber = 1+rand.nextInt(7-1);
-        switch (choseNumber) {
-            case 1:
-
-                weather.setWeatherType(SUN);
-                LOGGER.finest("Face : SOLEIL\nAction supplémentaire");
-                break;
-            case 2:
-                weather.setWeatherType(RAIN);
-                LOGGER.finest("Face : PLUIE\nAjoute une section à la parcelle choisie");
-                break;
-            case 3:
-                weather.setWeatherType(WIND);
-                LOGGER.finest("Face : VENT\nDeux actions similaires peuvent être effectuées");
-                break;
-            case 4:
-                weather.setWeatherType(THUNDER);
-                LOGGER.finest("Face : ORAGE\nDéplacez le panda");
-                break;
-            case 5:
-                weather.setWeatherType(CLOUD);
-                LOGGER.finest("Face : NUAGE\nChoisissez un aménagement");
-                break;
-            case 6:
-                weather.setWeatherType(QUESTIONMARK);
-                LOGGER.finest("Face : ?\nChoisissez la météo de votre choix");
-                break;
-        }
+        WeatherType weather = WeatherType.values()[choseNumber];
+        LOGGER.finest("Face : "+weather);
+        return weather;
     }
 
     public WeatherType getWeatherType() {
-        return weather.getWeatherType();
-    }
-
-    public Weather getWeather(){
         return weather;
     }
 

@@ -1,9 +1,8 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot.mbappe;
+package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
-import fr.cotedazur.univ.polytech.startingpoint.action.PickObjectiveAction;
 
 import fr.cotedazur.univ.polytech.startingpoint.action.PutIrrigationAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
