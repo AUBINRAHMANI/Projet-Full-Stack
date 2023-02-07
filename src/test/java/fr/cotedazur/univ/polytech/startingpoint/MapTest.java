@@ -38,11 +38,16 @@ class MapTest {
         Map map = new Map();
         ArrayList<Plot> plots = new ArrayList<>();
         plots.add(new Plot(PlotType.GREEN, new Position(1,0)));
-        plots.add(new Plot(PlotType.POND, new Position(0, 0)));
-
+        plots.add(new Plot(PlotType.GREEN, new Position(1,1)));
+        plots.add(new Plot(PlotType.GREEN, new Position(0,1)));
         for(Plot plot : plots){
             map.putPlot(plot);
+            plot.isIrrigatedIsTrue();
         }
+        Plot pond = new Plot(PlotType.POND, new Position(0,0));
+        pond.isIrrigatedIsTrue();
+        plots.add(pond);
+
         assertTrue(plots.containsAll(map.getMapPlots()));
     }
 
@@ -126,28 +131,32 @@ class MapTest {
         plots.add(new Plot(PlotType.GREEN, new Position(0, 0)));
         plots.add(new Plot(PlotType.GREEN, new Position(1, 0)));
         plots.add(new Plot(PlotType.GREEN, new Position(1, 1)));
+        for(Plot plot : plots){
+            plot.isIrrigatedIsTrue();
+        }
 
         Pattern pattern = new Pattern(plots);
-        Plot currentPlot = new Plot(PlotType.GREEN, new Position(1, 1));
+        Plot currentPlot = new Plot(PlotType.GREEN, new Position(0, 0));
 
         ArrayList<Plot> plotsInMap = new ArrayList<>();
+        plotsInMap.add(new Plot(PlotType.GREEN, new Position(1, 1)));
+        plotsInMap.add(new Plot(PlotType.GREEN, new Position(1, 0)));
+        plotsInMap.add(currentPlot);
+
         Map map = new Map();
-        map.putPlot(new Plot(PlotType.GREEN, new Position(0, 1)));
-        map.putPlot(new Plot(PlotType.GREEN, new Position(1, 0)));
-        map.putPlot(currentPlot);
+        for(Plot plot : plotsInMap){
+            plot.isIrrigatedIsTrue();
+            map.putPlot(plot);
+        }
 
-        Plot plot1 = new Plot(PlotType.GREEN, new Position(2, 0));
-        Plot plot2 = new Plot(PlotType.GREEN, new Position(2, 1));
-        ArrayList<Plot> expected = new ArrayList<>();
-        expected.add(plot1);
-        expected.add(plot2);
+        Plot lastPlot = new Plot(PlotType.GREEN, new Position(-1, 1));
 
-        assertNull(map.computePatternVerification(pattern, new Position(0, 0)));
-        assertEquals(expected, map.computePatternVerification(pattern, currentPlot.getPosition()));
+        assertTrue(map.computePatternVerification(pattern, new Position(0, 0)).get(0).contains(lastPlot));
 
-        map.putPlot(plot1);
-        map.putPlot(plot2);
-        assertTrue(map.computePatternVerification(pattern, currentPlot.getPosition()).isEmpty());
+        lastPlot.isIrrigatedIsTrue();
+        map.putPlot(lastPlot);
+        assertTrue(map.computePatternVerification(pattern, currentPlot.getPosition()).get(0).isEmpty());
+        assertTrue(map.computePatternVerification(pattern, currentPlot.getPosition()).get(1).isEmpty());
     }
 
     @Test

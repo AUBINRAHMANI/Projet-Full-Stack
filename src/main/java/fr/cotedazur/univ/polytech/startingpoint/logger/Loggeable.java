@@ -12,7 +12,7 @@ public interface Loggeable {
     static void initLogger(Level level){
         Handler consoleHandler = new ConsoleHandler();
         consoleHandler.setLevel(level);
-        consoleHandler.setFormatter(new CustomFormatter());
+        consoleHandler.setFormatter(new CustomFormatter(true));
         LOGGER.addHandler(consoleHandler);
         LOGGER.setLevel(level);
         LOGGER.setUseParentHandlers(false);

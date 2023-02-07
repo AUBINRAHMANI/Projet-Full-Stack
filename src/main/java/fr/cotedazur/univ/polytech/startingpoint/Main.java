@@ -8,7 +8,8 @@ import java.util.logging.Level;
 public class Main implements Loggeable {
 
     public static void main(String[] args) {
-        Loggeable.initLogger(Level.FINER);
+        Loggeable.initLogger(Level.FINE);
+
         Game game = new Game(false);
         game.start();
     }
