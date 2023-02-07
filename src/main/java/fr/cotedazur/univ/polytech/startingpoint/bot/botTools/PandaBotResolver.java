@@ -1,9 +1,11 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot;
+package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.MovePandaAction;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 import java.util.ArrayList;
@@ -13,22 +15,22 @@ public class PandaBotResolver {
 
     Map map;
     Referee referee;
-    Bot bot;
+    Playable bot;
 
-    public PandaBotResolver(Map map, Referee referee, Bot bot){
+    public PandaBotResolver(Map map, Referee referee, Playable bot){
         this.map = map;
         this.referee = referee;
         this.bot = bot;
     }
 
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections, List<Bambou> myBambous, List<ActionType> banActionTypes, Weather weather){
+    public Action fillObjectivePanda(List<Bambou> bambouSections, List<Bambou> myBambous, List<ActionType> banActionTypes, WeatherType weather){
         ArrayList<Bambou> missingBambous = new ArrayList<>(bambouSections);
         for(Bambou bambou : myBambous)removeBambou(missingBambous ,bambou);
         if( missingBambous.isEmpty()==false ){
             if(banActionTypes.contains(ActionType.MOVE_PANDA) ==false ) {
                 for (Bambou bambou : missingBambous) {
-                    MovePandaAction action = movePandaOnPlantation(bambou.getBambouType());
+                    MovePandaAction action = tryEatBambouOfType(bambou.getBambouType());
                     if (action != null) return action;
                 }
                 for (Plot plot : map.getMapPlots()) {
@@ -44,11 +46,14 @@ public class PandaBotResolver {
         return patternBotResolver.putRandomlyAPLot(bambouSections.get(0).getBambouType(), banActionTypes);
     }
 
-    private MovePandaAction movePandaOnPlantation(PlotType bambouType) {
+    private MovePandaAction tryEatBambouOfType(PlotType bambouType) {
         for(Plot plot : map.getMapPlots()){
-            if(plot.getType()==bambouType && plot.getNumberOfBambou()>0 && plot.getPosition().isDeplacementALine(referee.getPandaPosition()))
+            if(plot.getType()==bambouType && plot.getNumberOfBambou()>0)
             {
-                return new MovePandaAction(bot, plot.getPosition());
+                MovePandaAction action = movePandaOnPlantation(plot.getPosition());
+                if(action != null){
+                    return action;
+                }
             }
         }
         return null;
@@ -71,4 +76,10 @@ public class PandaBotResolver {
         return null;
     }
 
+    public MovePandaAction movePandaOnPlantation(Position position) {
+        if(position.isDeplacementALine(referee.getPandaPosition())){
+            return new MovePandaAction(bot, position);
+        }
+        return null;
+    }
 }

@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot;
+package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
@@ -6,7 +6,6 @@ import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.PutPlotAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
-import java.sql.Ref;
 import java.util.List;
 
 public class PatternBotResolver {
@@ -63,17 +62,19 @@ public class PatternBotResolver {
     }
 
 
-    public PutPlotAction placePLot(PlotType plotType, Position position){
+    public PutPlotAction placePLot(PlotType plotType, Position position, List<ActionType> banActionTypes){
         List<Plot> plots = referee.pickPlot();
         for(Plot plot : plots){
+            if(plotType == null){
+                plot.setPosition(position);
+                return new PutPlotAction(plot);
+            }
             if(plot.getType() == plotType){
                 plot.setPosition(position);
                 return new PutPlotAction(plot);
             }
         }
-        Plot plot  = plots.get(0);
-        plot.setPosition(position);
-        return new PutPlotAction(plot);
+        return putRandomlyAPLot(plots.get(0).getType(), banActionTypes);
     }
 
     public PutPlotAction putRandomlyAPLot(PlotType plotType, List<ActionType> banActionTypes){
@@ -81,7 +82,7 @@ public class PatternBotResolver {
             for (Plot plot : map.getMapPlots()) {
                 List<Position> positions = map.closestAvailableSpace(plot.getPosition());
                 if (positions != null && positions.isEmpty() == false) {
-                    return placePLot(plotType, positions.get(0));
+                    return placePLot(plotType, positions.get(0), banActionTypes);
                 }
             }
         }
