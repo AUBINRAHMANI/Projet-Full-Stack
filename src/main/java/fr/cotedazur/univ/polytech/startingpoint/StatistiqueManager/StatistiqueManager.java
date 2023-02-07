@@ -43,4 +43,12 @@ public class StatistiqueManager implements Loggeable {
                 ", NombreMatchNul=" + NombreMatchNul +
                 '}';
     }
+
+    public List<BotStatistiqueProfil> getBotStatistiqueProfils() {
+        return this.botStatistiqueProfils;
+    }
+
+    public int getMatchNul() {
+        return 0;
+    }
 }

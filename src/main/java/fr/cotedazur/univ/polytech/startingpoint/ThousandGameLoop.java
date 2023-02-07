@@ -4,10 +4,12 @@ import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.StatistiqueMa
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,6 +17,7 @@ import java.util.logging.Level;
 public class ThousandGameLoop implements Loggeable {
     public static void main(String[] args) {
         StatistiqueManager statistiqueManager = new StatistiqueManager();
+        CSVManager csvManager = new CSVManager();
         Loggeable.initLogger(Level.CONFIG);
 
         List<BotProfil> players = new ArrayList<>();
@@ -28,6 +31,8 @@ public class ThousandGameLoop implements Loggeable {
             Game game = new Game(statistiqueManager, players , false);
             game.start();
         }
+        Path path = Paths.get(".", "stats", "statistique.csv");
+        csvManager.exportData(statistiqueManager.getBotStatistiqueProfils(), statistiqueManager.getMatchNul(), path.toString());
         LOGGER.config(statistiqueManager.toString());
     }
 }
