@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.game;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.StatistiqueManager;
 import fr.cotedazur.univ.polytech.startingpoint.action.*;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
 import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
@@ -10,7 +11,6 @@ import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
 
 
 public class Game implements DeckSignal, Referee, Loggeable {
@@ -21,10 +21,28 @@ public class Game implements DeckSignal, Referee, Loggeable {
     ArrayList<BotProfil> botProfils_;
     MapInterface _mapInterface;
 
-    private int nombreObjectifNull = 0;
+    private int timeOutCounter = 0;
+
+    StatistiqueManager statistiqueManager;
 
 
-    public Game( boolean debug){
+    public Game(StatistiqueManager statistiqueManager,  boolean debug){
+        botProfils_                     = new ArrayList<>();
+        Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
+        Deck<Plot> plotDeck             = generatePlotDrawPile();
+        gameEngine_                     = new GameEngine( objectiveDeck, plotDeck, new Map());
+        botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(),"Ronaldo")));
+        botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(), "Messi")));
+        this.statistiqueManager= statistiqueManager;
+        if(debug){
+            _mapInterface = new MapInterface();
+            _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
+        }
+        else {
+            _mapInterface = null;
+        }
+    }
+    public Game(boolean debug){
         botProfils_                     = new ArrayList<>();
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
@@ -38,37 +56,42 @@ public class Game implements DeckSignal, Referee, Loggeable {
         else {
             _mapInterface = null;
         }
+
     }
+
     public Game(){
         this(false);
     }
 
+
+
     public boolean start(){
         do {
-            this.nombreObjectifNull++;
+            this.timeOutCounter++;
             for(BotProfil botProfil : botProfils_){
                 if(_mapInterface != null) while (_mapInterface.next()==false);
                 Action action = botProfil.getBot().play();
                 LOGGER.finest( "Tour de " + botProfil.getBot().getBotName() + " : " + "Il jou l'action " + action);
                 action.play(this, gameEngine_);
                 if(action.verifyObjectiveAfterAction(this)){
-                    this.nombreObjectifNull=0;
+                    this.timeOutCounter =0;
                 }
                 if(_mapInterface != null){
                     _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
                 }
             }
-            LOGGER.finest( "Nombre de tours :" + this.nombreObjectifNull);
+            LOGGER.finest( "Nombre de tours :" + this.timeOutCounter);
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
         printWinner(winner);
+        LOGGER.fine(statistiqueManager.toString());
         return true;
     }
 
     public boolean checkFinishingCondition(){
         for(BotProfil botProfil : botProfils_){
             if(botProfil.getNbCompletedObjective() == NB_OBJECTIVE_TO_FINISH)return true;
-            else if(this.nombreObjectifNull>MAX_NB_ROUND) return true;
+            else if(this.timeOutCounter >MAX_NB_ROUND) return true;
         }
         return false;
     }
@@ -207,15 +230,22 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
     public BotProfil checkWinner() {
         BotProfil winner = null;
-        if (this.nombreObjectifNull < MAX_NB_ROUND) {
+        if (this.timeOutCounter < MAX_NB_ROUND) {
             winner = botProfils_.get(0);
             for (BotProfil botProfil : botProfils_) {
                 if (botProfil.getPoints() > winner.getPoints()) {
                     winner = botProfil;
                 }
             }
+            if(winner.getBot().getBotName()=="Ronaldo"){
+                statistiqueManager.addVictoireBot1();
+            }
+            else if(winner.getBot().getBotName()=="Messi"){
+                statistiqueManager.addVictoireBot2();
+            }
+            return winner;
         }
-        return winner;
+        return null;
     }
 
     public List<Objective> getMyObjectives(Bot bot){
@@ -229,7 +259,9 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
     public void printWinner(BotProfil botProfil) {
         if (botProfil==null) {
+            statistiqueManager.addNombreMatchNul();
             LOGGER.fine("Match nul ! Aucun bot n'a su completer un objectif pendant "+ MAX_NB_ROUND +" tours");
+
         } else {
             LOGGER.fine(botProfil.getBot().getBotName() + " gagne avec : " + botProfil.getPoints() + " points");
         }

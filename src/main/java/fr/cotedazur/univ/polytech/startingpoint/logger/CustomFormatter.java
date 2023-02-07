@@ -20,7 +20,7 @@ public class CustomFormatter extends Formatter {
             buffer.append("\u001B[0m");
 
         } else {
-            buffer.append("\u001B[30m");
+            buffer.append("\u001B[0m");
             buffer.append(formatMessage(record));
             buffer.append("\n");
             buffer.append("\u001B[0m");
