@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.game;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.BotStatistiqueProfil;
 import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.StatistiqueManager;
 import fr.cotedazur.univ.polytech.startingpoint.action.*;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
@@ -33,7 +34,9 @@ public class Game implements DeckSignal, Referee, Loggeable {
         gameEngine_                     = new GameEngine( objectiveDeck, plotDeck, new Map());
         botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(),"Ronaldo")));
         botProfils_.add(new BotProfil(new Bot(this, gameEngine_.getMap(), "Messi")));
+
         this.statistiqueManager= statistiqueManager;
+        statistiqueManager.initBotsStatistiquesProfiles(botProfils_);
         if(debug){
             _mapInterface = new MapInterface();
             _mapInterface.drawMap(gameEngine_.getMap(), gameEngine_.getGardenerPosition(), gameEngine_.getPandaPosition());
