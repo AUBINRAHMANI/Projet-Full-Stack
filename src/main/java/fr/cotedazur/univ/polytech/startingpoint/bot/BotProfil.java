@@ -1,38 +1,41 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.bot;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.Bambou;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BotProfil {
 
-    private Bot bot;
+    private Playable bot;
+    String botName;
     private List<Objective> objectives;
-
+    private int numberOfHit;
     private List<Bambou> bambous;
     private int points;
     private int nbCompletedObjective;
 
-    public BotProfil(Bot bot){
+    public BotProfil(Playable bot, String botName){
         this.bot = bot;
+        this.botName = botName;
         objectives = new ArrayList<>();
         bambous = new ArrayList<>();
+        numberOfHit = 1;
         points = 0;
         nbCompletedObjective = 0;
     }
 
-    public Bot getBot() {
+    public Playable getBot() {
         return bot;
+    }
+
+    public String getBotName() {
+        return botName;
     }
 
     public int getPoints() {
         return points;
     }
-    public void addPoints(int nbPoints){
-        points +=nbPoints;
-    }
-
     public int getNbCompletedObjective() {return nbCompletedObjective;}
 
     public List<Objective> getObjectives() {

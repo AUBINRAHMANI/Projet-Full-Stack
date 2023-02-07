@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager;
 
-import fr.cotedazur.univ.polytech.startingpoint.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
 import java.util.ArrayList;
@@ -12,38 +13,34 @@ public class StatistiqueManager implements Loggeable {
     private List<BotStatistiqueProfil> botStatistiqueProfils;
     private int NombreMatchNul=0;
 
+
     public StatistiqueManager(){
-        botStatistiqueProfils=null;
+        this.botStatistiqueProfils = new ArrayList<>();
         this.NombreMatchNul=0;
-        botStatistiqueProfils = new ArrayList<>();
     }
 
-    public void addNombreMatchNul(){
+    public void addMatchNul(){
         this.NombreMatchNul+=1;
     }
 
-    public int getNombreMatchNul(){
-        return this.NombreMatchNul;
-    }
-
-    public void addBotStatistiqueProfil(BotStatistiqueProfil botStatistiqueProfil){
-        this.botStatistiqueProfils.add(botStatistiqueProfil);
-    }
-
-
-   /* public void addActionPanda(Playeable bot) {
-        for (BotStatistiqueProfil botstatprofil : this.botStatistiqueProfils) {
-            if (botstatprofil.getBot() == bot) {
-                botstatprofil.add ActionPanda;
-            }
-        }
-    }
-*/
     public void initBotsStatistiquesProfiles(List<BotProfil> botProfils) {
         for(BotProfil botProfil : botProfils){
-            botStatistiqueProfils.add(new BotStatistiqueProfil(botProfil.getBot(),botProfil.getBot().getBotName()));
+            botStatistiqueProfils.add(new BotStatistiqueProfil(botProfil.getBot(),botProfil.getBotName()));
         }
     }
 
+    void addWinner(Playable bot){
 
+    }
+    void addLoser(Playable bot){
+
+    }
+
+    @Override
+    public String toString() {
+        return "StatistiqueManager{" +
+                "botStatistiqueProfils=" + botStatistiqueProfils +
+                ", NombreMatchNul=" + NombreMatchNul +
+                '}';
+    }
 }

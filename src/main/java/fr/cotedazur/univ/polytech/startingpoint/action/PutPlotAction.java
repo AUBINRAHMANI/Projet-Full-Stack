@@ -18,9 +18,54 @@ public class PutPlotAction implements Action{
     }
 
     @Override
+    public boolean equals(Action action) {
+        return isActionPutPlot();
+    }
+
+    @Override
     public String toString() {
         return "PutPlotAction{" +
                 "_plot=" + plot +
                 '}';
+    }
+
+    @Override
+    public boolean isActionMoveGardener() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionMovePanda() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPutPlot() {
+        return true;
+    }
+
+    @Override
+    public boolean isActionPickObjective() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionRain() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionThunder() {
+        return false;
+    }
+
+    @Override
+    public Position getPosition() {
+        return plot.getPosition();
+    }
+
+    @Override
+    public ActionType toType() {
+        return ActionType.PUT_PLOT;
     }
 }

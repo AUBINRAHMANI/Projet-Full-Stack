@@ -1,8 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
-import org.junit.jupiter.api.BeforeEach;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +12,7 @@ class PandaTest {
 
             Map map = new Map();
             Game game = new Game();
-            Bot bot = new Bot(game,map,null);
+            BotMbappe bot = new BotMbappe(game,map);
             Panda panda = new Panda();
             Position position = new Position(1,1);
             Position position2 = new Position(2,2);

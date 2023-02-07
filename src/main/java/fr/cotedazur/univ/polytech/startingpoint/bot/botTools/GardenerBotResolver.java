@@ -1,39 +1,46 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot;
+package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
 
-import fr.cotedazur.univ.polytech.startingpoint.Map;
-import fr.cotedazur.univ.polytech.startingpoint.Plot;
-import fr.cotedazur.univ.polytech.startingpoint.PlotType;
+import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
+import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.MoveGardenerAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.action.RainAction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.PreferencesFactory;
 
 public class GardenerBotResolver {
 
     Map map;
     Referee referee;
-    Bot bot;
 
     public  GardenerBotResolver(Map map, Referee referee){
         this.map = map;
         this.referee = referee;
     }
 
-    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement) {
+    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
         ArrayList<Plot> typeValid = new ArrayList<>();
         ArrayList<Plot> typeAndDeplacementValid = new ArrayList<>();
         int maxNbBambou = 0;
         int indexMaxNbBambou = 0;
-        if (map.getMapPlots().size() > 1) {
+        if (map.getMapPlots().size() > 1 && banActionTypes.contains(ActionType.MOVE_GARDENER)==false) {
             for (Plot plot : map.getMapPlots()) {
                 if(plot.isIrrigated() && plot.getNumberOfBambou()<4 ){
                     if (plot.getType() == bambouType) {
                         typeValid.add(plot);
                     }
-                    if ((plot.getType() == bambouType) && (plot.getPosition().isDeplacementALine(referee.getGardenerPosition()))) {
+                    if((!typeValid.isEmpty()) && (weather == WeatherType.RAIN)){
+                        for(int i = 3; i>0; i--) {
+                            for (Plot plot1 : typeValid) {
+                                if (plot1.getNumberOfBambou() == i) {
+                                    return new RainAction(plot1.getPosition());
+                                }
+                            }
+                        }
+                    }
+                    else if ((plot.getType() == bambouType) && (plot.getPosition().isDeplacementALine(referee.getGardenerPosition()))) {
                         typeAndDeplacementValid.add(plot);
                     }
                 }
@@ -66,6 +73,6 @@ public class GardenerBotResolver {
             }
         }
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
-        return patternBotResolver.putRandomlyAPLot(bambouType);
+        return patternBotResolver.putRandomlyAPLot(bambouType, banActionTypes);
     }
 }

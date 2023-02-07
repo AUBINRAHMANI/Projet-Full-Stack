@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 import org.junit.jupiter.api.Test;
@@ -95,7 +96,7 @@ class GameEngineTest {
     void computeObjectivePanda(){
         GameEngine gameEngine = new GameEngine(null, null, null);
 
-        BotProfil botProfil = new BotProfil(new Bot(null, null, ""));
+        BotProfil botProfil = new BotProfil(new BotMbappe(null, null), "");
         botProfil.addBanbou(new Bambou(PlotType.GREEN));
 
         ArrayList<Bambou> bambousObjective = new ArrayList<>();
@@ -187,4 +188,42 @@ class GameEngineTest {
 
         assertEquals(1,plot.getNumberOfBambou());
     }
+    @Test
+    public void checkIfWeatherChangesReallyApply(){
+
+    }
+    @Test
+    public void testDrawWeather(){
+
+    }
+    @Test
+    public void testRainAction(){
+        Map map = new Map();
+        Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
+        map.putPlot(plot);
+        map.putPlot(plot2);
+        GameEngine gameEngine = new GameEngine(null, null, map);
+        gameEngine.rainAction(new Position(0,1));
+        assertEquals(1, plot.getNumberOfBambou());
+        assertNotEquals(1, plot2.getNumberOfBambou());
+
+    }
+    @Test
+    void testThunderAction(){
+        Map map = new Map();
+        GameEngine gameEngine = new GameEngine(null, null,map);
+        Position position = new Position(1,0);
+        Position position2 = new Position(372,1);
+
+        Plot plot = new Plot(PlotType.GREEN, position);
+        map.putPlot(plot);
+
+
+        gameEngine.thunderAction(position);
+        assertEquals(true,gameEngine.thunderAction(position));
+        assertEquals(false, gameEngine.thunderAction(position2));
+    }
+
+
 }

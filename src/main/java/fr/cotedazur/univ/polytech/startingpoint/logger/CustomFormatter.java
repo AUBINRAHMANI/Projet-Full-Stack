@@ -8,6 +8,12 @@ import java.util.logging.LogRecord;
 
 public class CustomFormatter extends Formatter {
 
+    boolean DARK_MODE;
+
+    public CustomFormatter(boolean DARK_MODE){
+        this.DARK_MODE = DARK_MODE;
+    }
+
     @Override
     public String format(LogRecord record) {
         StringBuffer buffer = new StringBuffer(1000);
@@ -18,13 +24,17 @@ public class CustomFormatter extends Formatter {
             buffer.append(formatMessage(record));
             buffer.append("\n");
             buffer.append("\u001B[0m");
-
-        } else {
-            buffer.append("\u001B[0m");
+        } else if(DARK_MODE) {
+            buffer.append("\u001B[37m");
             buffer.append(formatMessage(record));
             buffer.append("\n");
             buffer.append("\u001B[0m");
-
+        }
+        else {
+            buffer.append("\u001B[30m");
+            buffer.append(formatMessage(record));
+            buffer.append("\n");
+            buffer.append("\u001B[0m");
         }
         return buffer.toString();
     }
