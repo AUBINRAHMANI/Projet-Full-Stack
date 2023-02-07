@@ -9,9 +9,9 @@ public class ThousandGameLoop implements Loggeable {
 
     public static void main(String[] args) {
 
-        Loggeable.initLogger(Level.CONFIG);
+        Loggeable.initLogger(Level.FINE);
         for(int i=0; i<1000 ;++i){
-            LOGGER.config("Game "+i);
+            LOGGER.fine("Game "+i);
             Game game = new Game(false);
             game.start();
         }

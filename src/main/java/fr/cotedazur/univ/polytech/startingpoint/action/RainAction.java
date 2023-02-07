@@ -1,5 +1,4 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
-
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
