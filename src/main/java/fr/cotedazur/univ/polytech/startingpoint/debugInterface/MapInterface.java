@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.debugInterface;
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
 import javax.swing.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.ConcurrentModificationException;
 import static java.lang.Math.sqrt;
 
-public class MapInterface extends JFrame {
+public class MapInterface extends JFrame implements Loggeable {
 
     final static int HEXAGONE_SIZE = 40;
 
@@ -107,7 +108,9 @@ public class MapInterface extends JFrame {
         try {
             paintComponents(getGraphics());
             repaint();
-        }catch (ConcurrentModificationException e){System.out.println("Arretez de modifier en meme temps");}
+        }catch (ConcurrentModificationException e){
+            LOGGER.warning("Arretez de modifier en meme temps");
+        }
     }
     private void drawHexagon(Plot plot){
         Position position   = plot.getPosition();

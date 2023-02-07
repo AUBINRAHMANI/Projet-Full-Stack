@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.QUESTIONMARK;
 import java.util.Arrays;
 import java.util.List;
 
-public class GameEngine {
+public class GameEngine implements Loggeable {
 
 
     private Deck<Objective> objectiveDeck;
@@ -156,27 +157,27 @@ public class GameEngine {
             case 1:
 
                 weather.setWeatherType(SUN);
-                System.out.println("Face : SOLEIL\nAction supplémentaire");
+                LOGGER.finest("Face : SOLEIL\nAction supplémentaire");
                 break;
             case 2:
                 weather.setWeatherType(RAIN);
-                System.out.println("Face : PLUIE\nAjoute une section à la parcelle choisie");
+                LOGGER.finest("Face : PLUIE\nAjoute une section à la parcelle choisie");
                 break;
             case 3:
                 weather.setWeatherType(WIND);
-                System.out.println("Face : VENT\nDeux actions similaires peuvent être effectuées");
+                LOGGER.finest("Face : VENT\nDeux actions similaires peuvent être effectuées");
                 break;
             case 4:
                 weather.setWeatherType(THUNDER);
-                System.out.println("Face : ORAGE\nDéplacez le panda");
+                LOGGER.finest("Face : ORAGE\nDéplacez le panda");
                 break;
             case 5:
                 weather.setWeatherType(CLOUD);
-                System.out.println("Face : NUAGE\nChoisissez un aménagement");
+                LOGGER.finest("Face : NUAGE\nChoisissez un aménagement");
                 break;
             case 6:
                 weather.setWeatherType(QUESTIONMARK);
-                System.out.println("Face : ?\nChoisissez la météo de votre choix");
+                LOGGER.finest("Face : ?\nChoisissez la météo de votre choix");
                 break;
         }
     }
