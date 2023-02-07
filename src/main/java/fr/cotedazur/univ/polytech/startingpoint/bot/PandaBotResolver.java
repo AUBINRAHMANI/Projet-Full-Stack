@@ -22,7 +22,7 @@ public class PandaBotResolver {
     }
 
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections, List<Bambou> myBambous, List<ActionType> banActionTypes){
+    public Action fillObjectivePanda(List<Bambou> bambouSections, List<Bambou> myBambous, List<ActionType> banActionTypes, Weather weather){
         ArrayList<Bambou> missingBambous = new ArrayList<>(bambouSections);
         for(Bambou bambou : myBambous)removeBambou(missingBambous ,bambou);
         if( missingBambous.isEmpty()==false ){
@@ -38,7 +38,7 @@ public class PandaBotResolver {
                 }
             }
             GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-            return gardenerBotResolver.fillObjectiveGardener(missingBambous.get(missingBambous.size()-1).getBambouType(), false, banActionTypes);
+            return gardenerBotResolver.fillObjectiveGardener(missingBambous.get(missingBambous.size()-1).getBambouType(), false, banActionTypes, weather);
         }
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
         return patternBotResolver.putRandomlyAPLot(bambouSections.get(0).getBambouType(), banActionTypes);

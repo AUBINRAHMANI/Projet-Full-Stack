@@ -27,12 +27,12 @@ public class Bot {
         return botName;
     }
 
-    public Action play(List<ActionType> banActionTypes) {
+    public Action play(List<ActionType> banActionTypes, Weather weather) {
         this.myBambous = referee.getMyBambous(this);
         List<Objective> objectives = referee.getMyObjectives(this);
         if (objectives.isEmpty()) return pickObjective();
         for(Objective objective : objectives) {
-            Action action = objectives.get(0).tryToFillObjective(this, banActionTypes);
+            Action action = objective.tryToFillObjective(this, banActionTypes, weather);
             if (action != null) {
                 return action;
             }
@@ -44,14 +44,14 @@ public class Bot {
         return new PickObjectiveAction(this);
     }
 
-    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes) {
+    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, Weather weather) {
         GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-        return gardenerBotResolver.fillObjectiveGardener( bambouType, false, banActionTypes);
+        return gardenerBotResolver.fillObjectiveGardener( bambouType, false, banActionTypes, weather);
     }
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes) {
+    public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, Weather weather){
         PandaBotResolver pandaBotResolver = new PandaBotResolver(map, referee, this);
-        return pandaBotResolver.fillObjectivePanda(bambouSections, myBambous, banActionTypes);
+        return pandaBotResolver.fillObjectivePanda(bambouSections, myBambous, banActionTypes, weather);
     }
 
     public Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes) {

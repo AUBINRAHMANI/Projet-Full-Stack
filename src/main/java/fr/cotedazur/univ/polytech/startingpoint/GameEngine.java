@@ -181,8 +181,12 @@ public class GameEngine {
         }
     }
 
-public WeatherType getWeatherType() {
+    public WeatherType getWeatherType() {
         return weather.getWeatherType();
+    }
+
+    public Weather getWeather(){
+        return weather;
     }
 
     public boolean rainAction(Position position) {

@@ -32,8 +32,8 @@ public class ObjectivePanda extends Objective {
     }
 
     @Override
-    public Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes) {
-        return bot.fillObjectivePanda(bambouSections, banActionTypes);
+    public Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes, Weather weather) {
+        return bot.fillObjectivePanda(bambouSections, banActionTypes, weather);
     }
 
     @Override

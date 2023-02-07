@@ -38,8 +38,8 @@ public class ObjectiveGardener extends Objective{
     }
 
     @Override
-    public Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes) {
-        return bot.fillObjectiveGardener( bambouType , improvement, banActionTypes);
+    public Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes, Weather weather){
+        return bot.fillObjectiveGardener( bambouType , improvement, banActionTypes, weather);
     }
 
     @Override

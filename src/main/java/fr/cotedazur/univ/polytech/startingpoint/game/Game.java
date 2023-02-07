@@ -67,7 +67,7 @@ public class Game implements DeckSignal, Referee {
         List<ActionType> banActionTypes = new ArrayList<>();
 
         for(int i = 0; i < nbActions; i++) {
-            Action action = botProfil.getBot().play(banActionTypes);
+            Action action = botProfil.getBot().play(banActionTypes, gameEngine_.getWeather());
             System.out.println("Action : " + action);
             if (action!=null && ( banActionTypes.contains(action.toType())) ==false){
                 action.play(this, gameEngine_);
@@ -77,14 +77,6 @@ public class Game implements DeckSignal, Referee {
         }
     }
 
-    public boolean rainAction(Position position) {
-        if(gameEngine_.getMap().findPlot(position).isIrrigated()){
-            return gameEngine_.getMap().findPlot(position).growBambou();
-        }
-        return false;
-    }
-
-
     public void applyChangesDueToWeather(BotProfil botProfil){
         switch (gameEngine_.getWeatherType()){
             case SUN :
@@ -92,17 +84,9 @@ public class Game implements DeckSignal, Referee {
                 doActions(botProfil, nbActionSun);
                 break;
             case RAIN :
-                doActions(botProfil, nbActions);
-                break;
             case THUNDER :
-                doActions(botProfil, nbActions);
-                break;
             case WIND :
-                doActions(botProfil, nbActions);
-                break;
             case CLOUD :
-                doActions(botProfil, nbActions);
-                break;
             case QUESTIONMARK:
                 doActions(botProfil, nbActions);
                 break;

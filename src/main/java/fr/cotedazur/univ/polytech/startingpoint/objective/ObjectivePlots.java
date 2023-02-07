@@ -39,7 +39,7 @@ public class ObjectivePlots extends Objective{
     }
 
     @Override
-    public Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes) {
+    public Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes, Weather weather) {
         return bot.fillObjectivePlots(pattern, banActionTypes);
     }
 

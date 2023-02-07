@@ -21,7 +21,7 @@ public abstract class Objective {
     public abstract boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot);
     public abstract boolean verifyGardenerObj(GameEngine gameEngine);
     public abstract boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil);
-    public abstract Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes);
+    public abstract Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes, Weather weather);
     public abstract String toString();
 
 }

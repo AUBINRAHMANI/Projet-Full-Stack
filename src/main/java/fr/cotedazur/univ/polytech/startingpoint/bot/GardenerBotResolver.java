@@ -1,12 +1,11 @@
 package fr.cotedazur.univ.polytech.startingpoint.bot;
 
-import fr.cotedazur.univ.polytech.startingpoint.Map;
-import fr.cotedazur.univ.polytech.startingpoint.Plot;
-import fr.cotedazur.univ.polytech.startingpoint.PlotType;
+import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.MoveGardenerAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.action.RainAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +15,13 @@ public class GardenerBotResolver {
 
     Map map;
     Referee referee;
-    Bot bot;
 
     public  GardenerBotResolver(Map map, Referee referee){
         this.map = map;
         this.referee = referee;
     }
 
-    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes) {
+    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, Weather weather) {
         ArrayList<Plot> typeValid = new ArrayList<>();
         ArrayList<Plot> typeAndDeplacementValid = new ArrayList<>();
         int maxNbBambou = 0;
@@ -34,7 +32,16 @@ public class GardenerBotResolver {
                     if (plot.getType() == bambouType) {
                         typeValid.add(plot);
                     }
-                    if ((plot.getType() == bambouType) && (plot.getPosition().isDeplacementALine(referee.getGardenerPosition()))) {
+                    if((!typeValid.isEmpty()) && (weather.getWeatherType() == WeatherType.RAIN)){
+                        for(int i = 3; i>0; i--) {
+                            for (Plot plot1 : typeValid) {
+                                if (plot1.getNumberOfBambou() == i) {
+                                    return new RainAction(plot1.getPosition());
+                                }
+                            }
+                        }
+                    }
+                    else if ((plot.getType() == bambouType) && (plot.getPosition().isDeplacementALine(referee.getGardenerPosition()))) {
                         typeAndDeplacementValid.add(plot);
                     }
                 }
