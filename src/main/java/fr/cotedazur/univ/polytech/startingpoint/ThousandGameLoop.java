@@ -15,14 +15,13 @@ import java.util.logging.Level;
 public class ThousandGameLoop implements Loggeable {
     public static void main(String[] args) {
         StatistiqueManager statistiqueManager = new StatistiqueManager();
-        Loggeable.initLogger(Level.FINE);
+        Loggeable.initLogger(Level.FINEST);
 
         List<BotProfil> players = new ArrayList<>();
         BotProfil bob1 = new BotProfil(new BotSprint(),"Sprint");
         BotProfil bob2 = new BotProfil(new BotMbappe(), "Mbappe");
         players.add(bob1);
         players.add(bob2);
-
 
 
         statistiqueManager.initBotsStatistiquesProfiles(players);

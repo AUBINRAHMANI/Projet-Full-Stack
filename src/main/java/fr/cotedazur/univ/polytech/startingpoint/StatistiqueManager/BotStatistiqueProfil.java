@@ -9,6 +9,10 @@ public class BotStatistiqueProfil {
     String botName;
     private int nbVictories;
     private int nbDefeats;
+
+    private int nombredeTours;
+
+    private int nombredeParties;
     Playable bot;
 
 
@@ -17,6 +21,8 @@ public class BotStatistiqueProfil {
         this.botName=botName;
         this.nbVictories = 0;
         this.nbDefeats = 0;
+        this.nombredeTours =0;
+        this.nombredeParties = 0;
     }
 
     public void addVictory(){
@@ -24,6 +30,14 @@ public class BotStatistiqueProfil {
     }
     public void addDefeat() {
         nbDefeats+=1;
+    }
+
+    public void addNombredeTours(){
+        ++nombredeTours;
+    }
+
+    public void addNumberOfGames(){
+        ++nombredeParties;
     }
 
     public Playable getBot() {
@@ -41,8 +55,13 @@ public class BotStatistiqueProfil {
         return nbDefeats;
     }
 
+    public int getNbdeTours(){ return nombredeTours;}
+
+    public int getNumberOfGames() {return nombredeParties;}
+
     public String toString(){
-        return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + "\n";
+        return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + "\n"
+                + "Nombre de tours effectué : " + this.getNbdeTours() + " pour " + this.getNumberOfGames() +" de parties";
     }
 
 }

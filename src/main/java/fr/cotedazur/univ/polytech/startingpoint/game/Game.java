@@ -27,7 +27,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
     public StatistiqueManager statistiqueManager;
 
-    private int timeOutCounter = 0;
+    private int timeOutCounter;
 
 
 
@@ -36,6 +36,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         this(null, null, false);
     }
     public Game(StatistiqueManager statistiqueManager, List<BotProfil> botProfiles , boolean debug){
+        timeOutCounter=0;
         previousActions                 = new ArrayList<>();
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
@@ -61,6 +62,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
     public boolean start(){
         do {
             this.timeOutCounter++;
+            statistiqueManager.addTours();
             for(BotProfil botProfil : botProfiles){
                 nbActions = NB_ACTIONS_PER_ROUND;
                 WeatherType weather = gameEngine_.drawWeather();
@@ -74,6 +76,10 @@ public class Game implements DeckSignal, Referee, Loggeable {
             LOGGER.finest( "Nombre de tours :" + this.timeOutCounter);
         }while (!checkFinishingCondition());
         BotProfil winner = checkWinner();
+
+        statistiqueManager.addNumberOfGame();
+
+
         printWinner(winner);
         return true;
     }
@@ -199,6 +205,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     String botName = botProfil.getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
+                    timeOutCounter=0;
                     LOGGER.finer( "L'objectif suivant a été validé : " + objective );
                     LOGGER.finer( botName + " gagne " + objective.getPoint() + " points");
                     LOGGER.finer( "Le score de "+ botName +" = " + botProfil.getPoints() + " points");

@@ -35,6 +35,12 @@ public class StatistiqueManager implements Loggeable {
                 botStatistiqueProfil.addVictory();
             }
         }
+    }
+
+    public void addTours(){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+            botStatistiqueProfil.addNombredeTours();
+        }
 
     }
 
@@ -44,6 +50,12 @@ public class StatistiqueManager implements Loggeable {
                 botStatistiqueProfil.addDefeat();
             }
 
+    }
+
+    public void addNumberOfGame(){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+            botStatistiqueProfil.addNumberOfGames();
+        }
     }
 
     @Override
