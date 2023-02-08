@@ -4,6 +4,10 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
+import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.StatistiqueManager;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +35,6 @@ public class Main implements Loggeable {
     private Boolean twoThousandFiner = false;
     @Parameter(names = "--2thousand --finest", description = "affiche tous les logs")
     private Boolean twoThousandFinest = false;
-
 
     public Boolean getDemo() {
         return demo;
@@ -83,53 +86,61 @@ public class Main implements Loggeable {
 
     public static void main(String... argv) {
         Main main = new Main();
-        JCommander.newBuilder().addObject(main).build().parse(argv);
+        JCommander.newBuilder().addObject(main).build().parse(argv);StatistiqueManager statistiqueManager = new StatistiqueManager();
+        Loggeable.initLogger(Level.FINEST);
+
+        List<BotProfil> players = new ArrayList<>();
+        players.add(new BotProfil(new BotMbappe(), "bot 1"));
+        players.add(new BotProfil(new BotSprint(), "bot 2"));
+
+        statistiqueManager.initBotsStatistiquesProfiles(players);
+
         if (main.getCsv()) {
 
             for (int i = 0; i < 10; ++i) {
                 LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+                Game game = new Game(statistiqueManager, players,false);
                 game.start();
             }
         }
         if (main.getDemo()) {
             Loggeable.initLogger(Level.FINEST);
-            Game game = new Game(false);
+            Game game = new Game(statistiqueManager, players, false);
             game.start();
         }
         if (main.getTwoThousand()) {
             Loggeable.initLogger(Level.WARNING);
             for (int i = 0; i < 1000; ++i) {
                 LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
         }
         if (main.getDemoWarning()) {
             Loggeable.initLogger(Level.WARNING);
-            Game game = new Game(false);
+            Game game = new Game(statistiqueManager, players, false);
             game.start();
         }
         if (main.getDemoFine()) {
             Loggeable.initLogger(Level.FINE);
-            Game game = new Game(false);
+            Game game = new Game(statistiqueManager, players, false);
             game.start();
         }
         if (main.getDemoFiner()) {
             Loggeable.initLogger(Level.FINER);
-            Game game = new Game(false);
+            Game game = new Game(statistiqueManager, players, false);
             game.start();
         }
         if (main.getDemoFinest()) {
             Loggeable.initLogger(Level.FINEST);
-            Game game = new Game(false);
+            Game game = new Game(statistiqueManager, players, false);
             game.start();
         }
         if (main.getTwoThousandWarning()) {
             Loggeable.initLogger(Level.WARNING);
             for (int i = 0; i < 1000; ++i) {
                 LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
         }
@@ -137,7 +148,7 @@ public class Main implements Loggeable {
             Loggeable.initLogger(Level.FINE);
             for (int i = 0; i < 1000; ++i) {
                 LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
         }
@@ -145,7 +156,7 @@ public class Main implements Loggeable {
             Loggeable.initLogger(Level.FINER);
             for (int i = 0; i < 1000; ++i) {
                 LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
         }
@@ -153,7 +164,7 @@ public class Main implements Loggeable {
             Loggeable.initLogger(Level.FINEST);
             for (int i = 0; i < 1000; ++i) {
                 LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
         }

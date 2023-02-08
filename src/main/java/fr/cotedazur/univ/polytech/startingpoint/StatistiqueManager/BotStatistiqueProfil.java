@@ -6,10 +6,10 @@ import java.util.List;
 
 public class BotStatistiqueProfil {
 
-    Playable bot;
     String botName;
     private int nbVictories;
     private int nbDefeats;
+    Playable bot;
 
 
     public BotStatistiqueProfil(Playable bot, String botName){
@@ -42,7 +42,7 @@ public class BotStatistiqueProfil {
     }
 
     public String toString(){
-        return "Nombre de victoire de " + this.getBotName() + ": " + this.getNbVictories();
+        return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + "\n";
     }
 
 }
