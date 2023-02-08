@@ -11,7 +11,7 @@ public class PutIrrigationAction implements Action {
 
     Irrigation irrigation;
 
-    public PutIrrigationAction(Irrigation irrigation){
+    public PutIrrigationAction(Irrigation irrigation) {
         this.irrigation = irrigation;
     }
 
@@ -30,6 +30,7 @@ public class PutIrrigationAction implements Action {
         return this == o;
 
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(false);

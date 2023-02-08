@@ -6,10 +6,10 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 import java.util.Objects;
 
-public class ThunderAction implements Action{
+public class ThunderAction implements Action {
     Position position;
 
-    public ThunderAction(Position position){
+    public ThunderAction(Position position) {
         this.position = position;
     }
 
@@ -19,7 +19,7 @@ public class ThunderAction implements Action{
     }
 
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee){
+    public boolean verifyObjectiveAfterAction(Referee referee) {
         return referee.computeObjectivesPanda();
     }
 
@@ -29,6 +29,7 @@ public class ThunderAction implements Action{
         if (o == null || getClass() != o.getClass()) return false;
         return isActionThunder();
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(isActionThunder());

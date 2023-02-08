@@ -16,7 +16,7 @@ public class CustomFormatter extends Formatter {
     static final String DEFAULT = "\u001B[0m";
     boolean darkMode;
 
-    public CustomFormatter(boolean darkMode){
+    public CustomFormatter(boolean darkMode) {
         this.darkMode = darkMode;
     }
 
@@ -31,13 +31,12 @@ public class CustomFormatter extends Formatter {
             buffer.append("\n");
             buffer.append(DEFAULT);
 
-        } else if(darkMode) {
+        } else if (darkMode) {
             buffer.append(WHITE);
             buffer.append(formatMessage(rec));
             buffer.append("\n");
             buffer.append(DEFAULT);
-        }
-        else {
+        } else {
             buffer.append(BLACK);
             buffer.append(formatMessage(rec));
             buffer.append("\n");
@@ -46,7 +45,7 @@ public class CustomFormatter extends Formatter {
         return buffer.toString();
     }
 
-    private void head(StringBuilder buffer, LogRecord rec){
+    private void head(StringBuilder buffer, LogRecord rec) {
         buffer.append(BLUE);
         buffer.append(rec.getLevel());
         buffer.append(" -- ");

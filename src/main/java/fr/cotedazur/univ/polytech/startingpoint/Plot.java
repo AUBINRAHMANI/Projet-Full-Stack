@@ -5,14 +5,14 @@ import java.util.Objects;
 
 public class Plot {
 
-    private PlotType plotType;
+    private final PlotType plotType;
     private Position position;
     private boolean isIrrigated = false;
-    private ArrayList<Bambou> listeBambou;
+    private final ArrayList<Bambou> listeBambou;
 
 
     public Plot(PlotType plotType) {
-        this(plotType, new Position(0,0));
+        this(plotType, new Position(0, 0));
     }
 
     public Plot(PlotType plotType, Position position) {
@@ -20,16 +20,13 @@ public class Plot {
         this.position = position;
         listeBambou = new ArrayList<>();
     }
-    public Plot(Plot plot){
+
+    public Plot(Plot plot) {
         plotType = plot.getType();
         position = new Position(plot.getPosition());
         listeBambou = plot.getBambou();
         isIrrigated = plot.isIrrigated;
 
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
     }
 
     public PlotType getType() {
@@ -40,6 +37,10 @@ public class Plot {
         return position;
     }
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     public void isIrrigatedIsTrue() {
         isIrrigated = true;
     }
@@ -48,18 +49,20 @@ public class Plot {
         return isIrrigated;
     }
 
-    public int getNumberOfBambou () {
+    public int getNumberOfBambou() {
         return this.listeBambou.size();
     }
-    public boolean growBambou () {
+
+    public boolean growBambou() {
         if (this.isIrrigated() && this.listeBambou.size() < 4) {
             this.listeBambou.add(new Bambou(plotType));
             return true;
         }
         return false;
     }
-    public Bambou eatBambou () {
-        if ( !this.listeBambou.isEmpty()) {
+
+    public Bambou eatBambou() {
+        if (!this.listeBambou.isEmpty()) {
             Bambou bambou = listeBambou.get(0);
             this.listeBambou.remove(bambou);
             return bambou;
@@ -67,7 +70,7 @@ public class Plot {
         return null;
     }
 
-    private ArrayList<Bambou> getBambou(){
+    private ArrayList<Bambou> getBambou() {
         return listeBambou;
     }
 

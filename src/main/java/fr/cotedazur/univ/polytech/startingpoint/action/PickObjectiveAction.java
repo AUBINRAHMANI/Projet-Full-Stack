@@ -1,17 +1,17 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
-import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 
 import java.util.Objects;
 
-public class PickObjectiveAction implements Action{
+public class PickObjectiveAction implements Action {
 
     Playable bot;
 
-    public PickObjectiveAction(Playable bot){
+    public PickObjectiveAction(Playable bot) {
         this.bot = bot;
     }
 
@@ -31,6 +31,7 @@ public class PickObjectiveAction implements Action{
         if (o == null || getClass() != o.getClass()) return false;
         return isActionPickObjective();
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(isActionPickObjective());

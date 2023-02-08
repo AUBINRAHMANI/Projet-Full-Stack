@@ -1,35 +1,35 @@
-package fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager;
+package fr.cotedazur.univ.polytech.startingpoint.statistique_manager;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.*;
-
-import java.util.List;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 
 public class BotStatistiqueProfil {
 
     String botName;
+    Playable bot;
     private int nbVictories;
     private int nbDefeats;
-    Playable bot;
 
 
-    public BotStatistiqueProfil(Playable bot, String botName){
-        this.bot=bot;
-        this.botName=botName;
+    public BotStatistiqueProfil(Playable bot, String botName) {
+        this.bot = bot;
+        this.botName = botName;
         this.nbVictories = 0;
         this.nbDefeats = 0;
     }
 
-    public void addVictory(){
-        nbVictories+=1;
+    public void addVictory() {
+        nbVictories += 1;
     }
+
     public void addDefeat() {
-        nbDefeats+=1;
+        nbDefeats += 1;
     }
 
     public Playable getBot() {
         return bot;
     }
-    public String getBotName(){
+
+    public String getBotName() {
         return this.botName;
     }
 
@@ -41,7 +41,7 @@ public class BotStatistiqueProfil {
         return nbDefeats;
     }
 
-    public String toString(){
+    public String toString() {
         return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + "\n";
     }
 

@@ -1,24 +1,24 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
-import fr.cotedazur.univ.polytech.startingpoint.Plot;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class ObjectiveGardenerTest {
 
+    @Mock
+    GameEngine mockedGameEngine = mock(GameEngine.class);
+
     @Test
     void verifyPlotObj() {
-        assertFalse(new ObjectiveGardener(0, 0 ,null, false, 0).verifyPlotObj(null, null));
+        assertFalse(new ObjectiveGardener(0, 0, null, false, 0).verifyPlotObj(null, null));
     }
 
-    @Mock GameEngine mockedGameEngine = mock(GameEngine.class);
     @Test
     void verifyGardenerObj() {
         when(mockedGameEngine.computeObjectiveGardener(0, null, 0)).thenReturn(true);
@@ -28,6 +28,6 @@ class ObjectiveGardenerTest {
 
     @Test
     void verifyPandaObj() {
-        assertFalse(new ObjectiveGardener(0, 0, null ,false, 0).verifyPandaObj(null, null));
+        assertFalse(new ObjectiveGardener(0, 0, null, false, 0).verifyPandaObj(null, null));
     }
 }

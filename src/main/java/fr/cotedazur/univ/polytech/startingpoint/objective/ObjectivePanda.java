@@ -1,6 +1,9 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.Bambou;
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.WeatherType;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;

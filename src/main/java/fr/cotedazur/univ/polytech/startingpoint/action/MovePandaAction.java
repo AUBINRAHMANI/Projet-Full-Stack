@@ -1,16 +1,18 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
-import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 import java.util.Objects;
 
-public class MovePandaAction implements Action{
+public class MovePandaAction implements Action {
 
     Playable bot;
     Position position;
-    public MovePandaAction(Playable bot, Position position){
+
+    public MovePandaAction(Playable bot, Position position) {
         this.bot = bot;
         this.position = position;
     }
@@ -21,7 +23,7 @@ public class MovePandaAction implements Action{
     }
 
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee){
+    public boolean verifyObjectiveAfterAction(Referee referee) {
 
         return referee.computeObjectivesPanda();
     }

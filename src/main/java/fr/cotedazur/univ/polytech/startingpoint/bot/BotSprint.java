@@ -23,29 +23,28 @@ public class BotSprint implements Playable {
     public BotSprint() {
         this(null, null);
     }
-    public BotSprint(Referee referee, Map map){
+
+    public BotSprint(Referee referee, Map map) {
         this.referee = referee;
         this.map = map;
-        this.botName = botName;
         this.myBambous = new ArrayList<>();
     }
 
-    public void setEnvirronement(Referee referee, Map map){
+    public void setEnvirronement(Referee referee, Map map) {
         this.referee = referee;
         this.map = map;
-        this.botName = botName;
     }
 
     @Override
     public Action play(List<ActionType> banActionTypes, WeatherType weather) {
         List<ActionType> defaultBanActionTypes = new ArrayList<>(banActionTypes);
         //Try to have 5 Objectives
-        if(referee.getMyObjectives(this).size() < 5 && !banActionTypes.contains(ActionType.PICK_OBJECTIVE)){
+        if (referee.getMyObjectives(this).size() < 5 && !banActionTypes.contains(ActionType.PICK_OBJECTIVE)) {
             return new PickObjectiveAction(this);
         }
 
         //Try to place Irrigation for QUESTIONMARK
-        if(weather== WeatherType.QUESTIONMARK) {
+        if (weather == WeatherType.QUESTIONMARK) {
             banActionTypes = new ArrayList<>();
             for (ActionType actionType : ActionType.values()) {
                 if (actionType != ActionType.PUT_IRRIGATION) {
@@ -54,7 +53,7 @@ public class BotSprint implements Playable {
             }
         }
         Action action = tryToFillObjective(banActionTypes, weather);
-        if(action!=null){
+        if (action != null) {
             return action;
         }
 
@@ -66,38 +65,36 @@ public class BotSprint implements Playable {
             }
         }
         action = tryToFillObjective(banActionTypes, weather);
-        if(action!=null){
+        if (action != null) {
             return action;
         }
 
         //Try block opponents
         List<Action> previousActions = referee.getPreviousActions();
         action = tryToCounterOpponents(banActionTypes, previousActions);
-        if(action!=null){
+        if (action != null) {
             return action;
         }
 
 
         //Default
         action = tryToFillObjective(defaultBanActionTypes, weather);
-        if(action!=null){
+        if (action != null) {
             return action;
         }
         return new PickObjectiveAction(this);
     }
 
     private Action tryToCounterOpponents(List<ActionType> banActionTypes, List<Action> previousActions) {
-        int numberOpponents = referee.getNumberOfPlayers()-1;
-        for(int i=0 ; i<numberOpponents ; ++i){
+        int numberOpponents = referee.getNumberOfPlayers() - 1;
+        for (int i = 0; i < numberOpponents; ++i) {
             Action previousAction = previousActions.get(i);
-            if(previousAction.toType()==ActionType.MOVE_GARDENER){
+            if (previousAction.toType() == ActionType.MOVE_GARDENER) {
                 PandaBotResolver pandaBotResolver = new PandaBotResolver(map, referee, this);
                 pandaBotResolver.movePandaOnPlantation(previousAction.getPosition());
-            }
-            else if (previousActions.get(i).toType()==ActionType.PUT_PLOT)
-            {
+            } else if (previousActions.get(i).toType() == ActionType.PUT_PLOT) {
                 PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
-                for( Position position : map.closestAvailableSpace(previousAction.getPosition())){
+                for (Position position : map.closestAvailableSpace(previousAction.getPosition())) {
                     patternBotResolver.placePLot(null, position, banActionTypes);
                 }
             }
@@ -106,8 +103,8 @@ public class BotSprint implements Playable {
     }
 
 
-    public Action tryToFillObjective(List<ActionType> banActionTypes, WeatherType weather){
-        for(Objective objective : referee.getMyObjectives(this)){
+    public Action tryToFillObjective(List<ActionType> banActionTypes, WeatherType weather) {
+        for (Objective objective : referee.getMyObjectives(this)) {
             Action action = objective.tryToFillObjective(this, banActionTypes, weather);
             if (action != null) {
                 return action;
@@ -118,10 +115,10 @@ public class BotSprint implements Playable {
 
     public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
         GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-        return gardenerBotResolver.fillObjectiveGardener( bambouType, banActionTypes, weather);
+        return gardenerBotResolver.fillObjectiveGardener(bambouType, banActionTypes, weather);
     }
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather){
+    public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather) {
         PandaBotResolver pandaBotResolver = new PandaBotResolver(map, referee, this);
         return pandaBotResolver.fillObjectivePanda(bambouSections, myBambous, banActionTypes, weather);
     }
