@@ -14,7 +14,7 @@ import java.util.logging.Level;
 public class ThousandGameLoop implements Loggeable {
     public static void main(String[] args) {
         StatistiqueManager statistiqueManager = new StatistiqueManager();
-        Loggeable.initLogger(Level.FINEST);
+        Loggeable.initLogger(Level.FINE);
 
         List<BotProfil> players = new ArrayList<>();
         BotProfil bob1 = new BotProfil(new BotSprint(), "Sprint");
