@@ -1,20 +1,21 @@
 package fr.cotedazur.univ.polytech.startingpoint.bot;
 
 import fr.cotedazur.univ.polytech.startingpoint.Bambou;
-import fr.cotedazur.univ.polytech.startingpoint.objective.*;
+import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BotProfil {
 
-    private Playable bot;
     String botName;
+    private final Playable bot;
     private List<Objective> objectives;
     private List<Bambou> bambous;
     private int points;
     private int nbCompletedObjective;
 
-    public BotProfil(Playable bot, String botName){
+    public BotProfil(Playable bot, String botName) {
         this.bot = bot;
         this.botName = botName;
         objectives = new ArrayList<>();
@@ -35,36 +36,39 @@ public class BotProfil {
         return points;
     }
 
-    public void resetPoints(){
-        points =0;
-        nbCompletedObjective=0;
+    public void resetPoints() {
+        points = 0;
+        nbCompletedObjective = 0;
         bambous = new ArrayList<>();
         objectives = new ArrayList<>();
     }
-    public int getNbCompletedObjective() {return nbCompletedObjective;}
+
+    public int getNbCompletedObjective() {
+        return nbCompletedObjective;
+    }
 
     public List<Objective> getObjectives() {
         return objectives;
     }
 
-    public void addObjective(Objective objective){
+    public void addObjective(Objective objective) {
         objectives.add(objective);
     }
 
-    public void setObjectiveCompleted(Objective objective){
+    public void setObjectiveCompleted(Objective objective) {
         ++nbCompletedObjective;
         points += objective.getPoint();
     }
 
-    public void addBanbou(Bambou bambou){
+    public void addBanbou(Bambou bambou) {
         bambous.add(bambou);
     }
 
-    public void setBambous(List<Bambou> bambous){
-        this.bambous = bambous;
+    public List<Bambou> getBambous() {
+        return bambous;
     }
 
-    public List<Bambou> getBambous(){
-        return bambous;
+    public void setBambous(List<Bambou> bambous) {
+        this.bambous = bambous;
     }
 }

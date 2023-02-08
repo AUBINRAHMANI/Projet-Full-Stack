@@ -4,26 +4,27 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 class DeckTest {
 
     @Mock
     Game mockedGame = mock(Game.class);
+
     @Test
-    void addCardTest(){
-        Deck  deck = new Deck(mockedGame);
-        for(int i=0 ; i<10 ; ++i){
+    void addCardTest() {
+        Deck deck = new Deck(mockedGame);
+        for (int i = 0; i < 10; ++i) {
             deck.addCard(i);
         }
-        for(int i=0 ; i<10 ; ++i){
+        for (int i = 0; i < 10; ++i) {
             assertEquals(i, deck.getNextCard());
         }
     }
 
     @Test
-    void getNextCardTest(){
+    void getNextCardTest() {
         Deck deck = new Deck(mockedGame);
         deck.addCard(5);
         deck.addCard(3);

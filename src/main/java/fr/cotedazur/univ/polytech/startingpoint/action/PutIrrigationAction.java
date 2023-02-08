@@ -5,11 +5,13 @@ import fr.cotedazur.univ.polytech.startingpoint.Irrigation;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
+import java.util.Objects;
+
 public class PutIrrigationAction implements Action {
 
     Irrigation irrigation;
 
-    public PutIrrigationAction(Irrigation irrigation){
+    public PutIrrigationAction(Irrigation irrigation) {
         this.irrigation = irrigation;
     }
 
@@ -24,8 +26,14 @@ public class PutIrrigationAction implements Action {
     }
 
     @Override
-    public boolean equals(Action action) {
-        return false;
+    public boolean equals(Object o) {
+        return this == o;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(false);
     }
 
     @Override
@@ -63,6 +71,11 @@ public class PutIrrigationAction implements Action {
     @Override
     public boolean isActionThunder() {
         return false;
+    }
+
+    @Override
+    public boolean isActionPutIrrigation() {
+        return true;
     }
 
     @Override

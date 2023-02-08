@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Bambou {
     PlotType bambouType;
 
-    public Bambou(PlotType bambouType){
-        this.bambouType=bambouType;
+    public Bambou(PlotType bambouType) {
+        this.bambouType = bambouType;
     }
 
     public PlotType getBambouType() {

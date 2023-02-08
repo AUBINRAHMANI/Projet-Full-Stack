@@ -9,12 +9,13 @@ import java.util.List;
 
 public interface Playable {
 
-    public Action play(List<ActionType> banActionTypes, WeatherType weather);
+    Action play(List<ActionType> banActionTypes, WeatherType weather);
 
     Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather);
 
     Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather);
 
     Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes);
+
     void setEnvirronement(Referee referee, Map map);
 }

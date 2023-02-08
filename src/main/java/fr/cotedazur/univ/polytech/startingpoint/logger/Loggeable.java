@@ -7,9 +7,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public interface Loggeable {
-    public final static Logger LOGGER = Logger.getLogger( Loggeable.class.getName() );
+    Logger LOGGER = Logger.getLogger(Loggeable.class.getName());
 
-    static void initLogger(Level level){
+    static void initLogger(Level level) {
         Handler consoleHandler = new ConsoleHandler();
         consoleHandler.setLevel(level);
         consoleHandler.setFormatter(new CustomFormatter(true));

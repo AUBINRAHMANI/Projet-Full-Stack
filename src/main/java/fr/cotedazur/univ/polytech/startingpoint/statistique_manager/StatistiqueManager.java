@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager;
+package fr.cotedazur.univ.polytech.startingpoint.statistique_manager;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
@@ -6,32 +6,31 @@ import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class StatistiqueManager implements Loggeable {
 
-    private List<BotStatistiqueProfil> botStatistiqueProfils;
-    private int NombreMatchNul=0;
+    private final List<BotStatistiqueProfil> botStatistiqueProfils;
+    private int NombreMatchNul = 0;
 
 
-    public StatistiqueManager(){
+    public StatistiqueManager() {
         this.botStatistiqueProfils = new ArrayList<>();
-        this.NombreMatchNul=0;
+        this.NombreMatchNul = 0;
     }
 
-    public void addMatchNul(){
-        this.NombreMatchNul+=1;
+    public void addMatchNul() {
+        this.NombreMatchNul += 1;
     }
 
     public void initBotsStatistiquesProfiles(List<BotProfil> botProfils) {
-        for(BotProfil botProfil : botProfils){
-            botStatistiqueProfils.add(new BotStatistiqueProfil(botProfil.getBot(),botProfil.getBotName()));
+        for (BotProfil botProfil : botProfils) {
+            botStatistiqueProfils.add(new BotStatistiqueProfil(botProfil.getBot(), botProfil.getBotName()));
         }
     }
 
-    public void addWinner(Playable bot){
-        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
-            if(botStatistiqueProfil.getBot()==bot){
+    public void addWinner(Playable bot) {
+        for (BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils) {
+            if (botStatistiqueProfil.getBot() == bot) {
                 botStatistiqueProfil.addVictory();
             }
         }
@@ -44,9 +43,9 @@ public class StatistiqueManager implements Loggeable {
 
     }
 
-    public void addLoser(Playable bot){
-        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils)
-            if(botStatistiqueProfil.getBot()==bot){
+    public void addLoser(Playable bot) {
+        for (BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils)
+            if (botStatistiqueProfil.getBot() == bot) {
                 botStatistiqueProfil.addDefeat();
             }
 
@@ -62,7 +61,7 @@ public class StatistiqueManager implements Loggeable {
     public String toString() {
         return "StatistiqueManager{" +
                 "botStatistiqueProfils=" + botStatistiqueProfils + "\n"
-               + ", NombreMatchNul=" + NombreMatchNul +
+                + ", NombreMatchNul=" + NombreMatchNul +
                 '}';
     }
 }
