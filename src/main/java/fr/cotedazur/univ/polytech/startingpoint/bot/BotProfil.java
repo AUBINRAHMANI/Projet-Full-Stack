@@ -36,6 +36,8 @@ public class BotProfil {
     public int getPoints() {
         return points;
     }
+
+    public void resetPoints(){points =0;}
     public int getNbCompletedObjective() {return nbCompletedObjective;}
 
     public List<Objective> getObjectives() {

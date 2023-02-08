@@ -29,18 +29,28 @@ public class StatistiqueManager implements Loggeable {
         }
     }
 
-    void addWinner(Playable bot){
+    public void addWinner(Playable bot){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+            if(botStatistiqueProfil.getBot()==bot){
+                botStatistiqueProfil.addVictory();
+            }
+        }
 
     }
-    void addLoser(Playable bot){
+
+    public void addLoser(Playable bot){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils)
+            if(botStatistiqueProfil.getBot()==bot){
+                botStatistiqueProfil.addDefeat();
+            }
 
     }
 
     @Override
     public String toString() {
         return "StatistiqueManager{" +
-                "botStatistiqueProfils=" + botStatistiqueProfils +
-                ", NombreMatchNul=" + NombreMatchNul +
+                "botStatistiqueProfils=" + botStatistiqueProfils + "\n"
+               + ", NombreMatchNul=" + NombreMatchNul +
                 '}';
     }
 }

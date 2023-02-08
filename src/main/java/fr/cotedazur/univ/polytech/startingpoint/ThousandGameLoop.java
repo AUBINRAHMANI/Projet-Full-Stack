@@ -15,18 +15,27 @@ import java.util.logging.Level;
 public class ThousandGameLoop implements Loggeable {
     public static void main(String[] args) {
         StatistiqueManager statistiqueManager = new StatistiqueManager();
-        Loggeable.initLogger(Level.CONFIG);
+        Loggeable.initLogger(Level.FINE);
 
         List<BotProfil> players = new ArrayList<>();
-        players.add(new BotProfil( new  BotMbappe(), "bot 1"));
-        players.add(new BotProfil( new  BotSprint(), "bot 2"));
+        BotProfil bob1 = new BotProfil(new BotSprint(),"bot 1");
+        BotProfil bob2 = new BotProfil(new BotMbappe(), "bot2");
+        players.add(bob1);
+        players.add(bob2);
+
 
         statistiqueManager.initBotsStatistiquesProfiles(players);
 
-        for(int i=0; i<1000 ;++i){
+        for(int i=0; i<5 ;++i){
+
             LOGGER.config("Game "+i);
             Game game = new Game(statistiqueManager, players , false);
             game.start();
+            bob1.resetPoints();
+            bob2.resetPoints();
+            for(BotProfil botProfil : players){
+                botProfil.resetPoints();
+            }
         }
         LOGGER.config(statistiqueManager.toString());
     }

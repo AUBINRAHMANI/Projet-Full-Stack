@@ -17,7 +17,7 @@ public class Main implements Loggeable {
 
     public static void main(String[] args) {
         StatistiqueManager statistiqueManager = new StatistiqueManager();
-        Loggeable.initLogger(Level.FINE);
+        Loggeable.initLogger(Level.FINEST);
 
         List<BotProfil> players = new ArrayList<>();
         players.add(new BotProfil( new  BotMbappe(), "bot 1"));
