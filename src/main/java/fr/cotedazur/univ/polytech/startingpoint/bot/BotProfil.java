@@ -8,8 +8,8 @@ import java.util.List;
 
 public class BotProfil {
 
-    String botName;
     private final Playable bot;
+    String botName;
     private List<Objective> objectives;
     private List<Bambou> bambous;
     private int points;

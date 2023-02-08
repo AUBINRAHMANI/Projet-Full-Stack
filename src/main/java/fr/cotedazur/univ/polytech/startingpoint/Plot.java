@@ -6,9 +6,9 @@ import java.util.Objects;
 public class Plot {
 
     private final PlotType plotType;
+    private final ArrayList<Bambou> listeBambou;
     private Position position;
     private boolean isIrrigated = false;
-    private final ArrayList<Bambou> listeBambou;
 
 
     public Plot(PlotType plotType) {

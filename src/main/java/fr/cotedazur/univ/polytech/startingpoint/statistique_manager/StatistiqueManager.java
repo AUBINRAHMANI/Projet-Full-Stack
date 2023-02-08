@@ -10,16 +10,16 @@ import java.util.List;
 public class StatistiqueManager implements Loggeable {
 
     private final List<BotStatistiqueProfil> botStatistiqueProfils;
-    private int NombreMatchNul = 0;
+    private int nombreMatchNul = 0;
 
 
     public StatistiqueManager() {
         this.botStatistiqueProfils = new ArrayList<>();
-        this.NombreMatchNul = 0;
+        this.nombreMatchNul = 0;
     }
 
     public void addMatchNul() {
-        this.NombreMatchNul += 1;
+        this.nombreMatchNul += 1;
     }
 
     public void initBotsStatistiquesProfiles(List<BotProfil> botProfils) {
@@ -36,8 +36,8 @@ public class StatistiqueManager implements Loggeable {
         }
     }
 
-    public void addTours(){
-        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+    public void addTours() {
+        for (BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils) {
             botStatistiqueProfil.addNombredeTours();
         }
 
@@ -51,14 +51,14 @@ public class StatistiqueManager implements Loggeable {
 
     }
 
-    public void addNumberOfGame(){
-        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+    public void addNumberOfGame() {
+        for (BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils) {
             botStatistiqueProfil.addNumberOfGames();
         }
     }
 
     public int getMatchNul() {
-        return this.NombreMatchNul;
+        return this.nombreMatchNul;
     }
     public List<BotStatistiqueProfil> getBotStatistiqueProfils() {
         return this.botStatistiqueProfils;
@@ -68,7 +68,7 @@ public class StatistiqueManager implements Loggeable {
     public String toString() {
         return "StatistiqueManager{" +
                 "botStatistiqueProfils=" + botStatistiqueProfils + "\n"
-                + ", NombreMatchNul=" + NombreMatchNul +
+                + ", NombreMatchNul=" + nombreMatchNul +
                 '}';
     }
 }

@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Deck<T> {
 
-    DeckSignal deckSignal;
     private final List<T> cards;
+    DeckSignal deckSignal;
 
     public Deck(DeckSignal deckSignal) {
         this.deckSignal = deckSignal;

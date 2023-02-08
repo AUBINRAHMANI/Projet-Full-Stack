@@ -16,12 +16,12 @@ import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.values;
 
 public class GameEngine implements Loggeable {
 
-    Random random;
-    private Deck<Objective> objectiveDeck;
-    private Deck<Plot> plotDeck;
     private final Map map;
     private final Gardener gardener;
     private final Panda panda;
+    Random random;
+    private Deck<Objective> objectiveDeck;
+    private Deck<Plot> plotDeck;
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
