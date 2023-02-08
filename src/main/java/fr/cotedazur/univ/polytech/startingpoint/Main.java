@@ -104,6 +104,9 @@ public class Main implements Loggeable {
                     LOGGER.fine("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
+                    for(BotProfil botProfil : players){
+                        botProfil.resetPoints();
+                    }
                 }
             }
             if (main.getDemoWarning()) {
@@ -132,6 +135,9 @@ public class Main implements Loggeable {
                     LOGGER.warning("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
+                    for(BotProfil botProfil : players){
+                        botProfil.resetPoints();
+                    }
                 }
             }
             if (main.getTwoThousandFine()) {
@@ -140,6 +146,9 @@ public class Main implements Loggeable {
                     LOGGER.fine("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
+                    for(BotProfil botProfil : players){
+                        botProfil.resetPoints();
+                    }
                 }
             }
             if (main.getTwoThousandFiner()) {
@@ -148,6 +157,9 @@ public class Main implements Loggeable {
                     LOGGER.finer("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
+                    for(BotProfil botProfil : players){
+                        botProfil.resetPoints();
+                    }
 
                 }
             }
@@ -157,7 +169,9 @@ public class Main implements Loggeable {
                     LOGGER.finest("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
-
+                    for(BotProfil botProfil : players){
+                        botProfil.resetPoints();
+                    }
                 }
             }
 

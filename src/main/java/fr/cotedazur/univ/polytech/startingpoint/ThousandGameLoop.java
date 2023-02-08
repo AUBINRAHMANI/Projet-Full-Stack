@@ -4,7 +4,6 @@ import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.StatistiqueMa
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
@@ -22,12 +21,15 @@ public class ThousandGameLoop implements Loggeable {
         BotProfil bob2 = new BotProfil(new BotMbappe(), "Mbappe");
         players.add(bob1);
         players.add(bob2);
+
         statistiqueManager.initBotsStatistiquesProfiles(players);
 
         for(int i=0; i<1000 ;++i){
+
             LOGGER.config("Game "+i);
             Game game = new Game(statistiqueManager, players , false);
             game.start();
+
             for(BotProfil botProfil : players){
                 botProfil.resetPoints();
             }
