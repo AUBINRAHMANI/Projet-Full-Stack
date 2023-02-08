@@ -1,72 +1,78 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public class Pattern {
 
-    private Random rand;
     List<Plot> plots;
+    private Random rand;
 
-    public Pattern(){
-        plots = new ArrayList<>(Arrays.asList(new Plot(PlotType.GREEN, new Position(0,0))));
-        this.rand = new Random();
+    public Pattern() {
+        plots = new ArrayList<>();
+        this.rand = new SecureRandom();
         generateRandomPattern();
     }
-    public Pattern(Pattern plots){
+
+    public Pattern(Pattern plots) {
         this.plots = new ArrayList<>();
-        this.rand = new Random();
-        for(Plot plot : plots.getPlots()){
+        this.rand = new SecureRandom();
+        for (Plot plot : plots.getPlots()) {
             this.plots.add(new Plot(plot));
         }
     }
-    public Pattern(List<Plot> plots){
-            this.plots = plots;
+
+    public Pattern(List<Plot> plots) {
+        this.plots = plots;
     }
 
-    public void applyMask(Position position){
-        for (Plot plot : plots){
+    public void applyMask(Position position) {
+        for (Plot plot : plots) {
             plot.setPosition(plot.getPosition().plus(position));
         }
     }
 
-    public void add(Plot plot){
-        plots.add( plot);
+    public void add(Plot plot) {
+        plots.add(plot);
     }
 
-    public void rotate60Right(){
-        for (Plot plot : plots){
+    public void rotate60Right() {
+        for (Plot plot : plots) {
             plot.getPosition().rotate60Right();
         }
     }
 
-    public void translateLeft(){
-        for (Plot plot : plots){
+    public void translateLeft() {
+        for (Plot plot : plots) {
             plot.getPosition().translateLeft();
         }
     }
-    public void translateRight(){
-        for (Plot plot : plots){
+
+    public void translateRight() {
+        for (Plot plot : plots) {
             plot.getPosition().translateRight();
         }
     }
-    public void translateUp(){
-        for (Plot plot : plots){
+
+    public void translateUp() {
+        for (Plot plot : plots) {
             plot.getPosition().translateUP();
         }
     }
-    public void translateDown(){
-        for (Plot plot : plots){
+
+    public void translateDown() {
+        for (Plot plot : plots) {
             plot.getPosition().translateDown();
         }
     }
 
-    public List<Plot> getPlots(){
+    public List<Plot> getPlots() {
         return plots;
     }
 
-    public  int size(){
-        if(plots !=null)return plots.size();
+    public int size() {
+        if (plots != null) return plots.size();
         return 0;
     }
 
@@ -91,33 +97,25 @@ public class Pattern {
     }
 
     public void setAncerPoint(Position position) {
-        Position gap = new Position(0,0).minus(position);
-        for(Plot patternPlot : plots){
+        Position gap = new Position(0, 0).minus(position);
+        for (Plot patternPlot : plots) {
             Position newPosition = patternPlot.getPosition().plus(gap);
             patternPlot.setPosition(newPosition);
         }
     }
 
-    private void generateRandomPattern(){
-        for(int i=0; i<rand.nextInt(2,4) ; i++){
-            Plot plot = plots.get(rand.nextInt(plots.size()));
-            List<Position> neighboursPosition = plot.getPosition().closestPositions();
-
-            for(int j=0; j<neighboursPosition.size() ; ++j){
-                Position position = neighboursPosition.get(rand.nextInt(neighboursPosition.size()));
-                for(Plot tempPlot : plots){
-                    if(tempPlot.getPosition().equals(position)){
-                        neighboursPosition.remove(position);
-                        break;
-                    }
-                }
-                Plot plotToAdd = new Plot(PlotType.values()[rand.nextInt(3)+1], position);
-                plotToAdd.isIrrigatedIsTrue();
-                plots.add(plotToAdd);
-                break;
-            }
-
-
+    private void generateRandomPattern() {
+        List<Position> patternPositions = new ArrayList<>(List.of(new Position(0, 0)));
+        for (int i = 0; i < rand.nextInt(2, 4); i++) {
+            Position position = patternPositions.get(rand.nextInt(patternPositions.size()));
+            List<Position> neighboursPosition = position.closestPositions();
+            do {
+                position = neighboursPosition.get(rand.nextInt(neighboursPosition.size()));
+            } while (patternPositions.contains(position));
+            patternPositions.add(position);
+        }
+        for (Position position : patternPositions) {
+            plots.add(new Plot(PlotType.values()[rand.nextInt(3) + 1], position));
         }
     }
 }

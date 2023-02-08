@@ -1,14 +1,14 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.StatistiqueManager;
+
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatistiqueManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +35,17 @@ public class Main implements Loggeable {
     private Boolean twoThousandFiner = false;
     @Parameter(names = "--2thousand --finest", description = "affiche tous les logs")
     private Boolean twoThousandFinest = false;
+    @Parameter(names = "--2thousand --config", description = "affiche le nombre de parties")
+    private Boolean twoThousandConfig = false;
 
-    public Boolean getDemo() {
+    public Boolean getTwoThousandConfig(){
+        return twoThousandConfig;
+    }
+
+    public Boolean getDemo(){
         return demo;
     }
+
     public Boolean getTwoThousand() {
             return twoThousands;
         }
@@ -93,6 +100,17 @@ public class Main implements Loggeable {
                     game.start();
                 }
             }
+            if (main.getTwoThousandConfig()) {
+                Loggeable.initLogger(Level.CONFIG);
+                for (int i = 0; i < 2000; ++i) {
+                    LOGGER.config("Game " + i);
+                    Game game = new Game(statistiqueManager, players, false);
+                    game.start();
+                    for(BotProfil botProfil : players){
+                        botProfil.resetPoints();
+                    }
+                }
+            }
             if (main.getDemo()) {
                 Loggeable.initLogger(Level.FINEST);
                 Game game = new Game(statistiqueManager, players, false);
@@ -100,7 +118,7 @@ public class Main implements Loggeable {
             }
             if (main.getTwoThousand()) {
                 Loggeable.initLogger(Level.WARNING);
-                for (int i = 0; i < 1000; ++i) {
+                for (int i = 0; i < 2000; ++i) {
                     LOGGER.fine("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
@@ -131,7 +149,7 @@ public class Main implements Loggeable {
             }
             if (main.getTwoThousandWarning()) {
                 Loggeable.initLogger(Level.WARNING);
-                for (int i = 0; i < 1000; ++i) {
+                for (int i = 0; i < 2000; ++i) {
                     LOGGER.warning("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
@@ -142,7 +160,7 @@ public class Main implements Loggeable {
             }
             if (main.getTwoThousandFine()) {
                 Loggeable.initLogger(Level.FINE);
-                for (int i = 0; i < 1000; ++i) {
+                for (int i = 0; i < 2000; ++i) {
                     LOGGER.fine("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
@@ -153,7 +171,7 @@ public class Main implements Loggeable {
             }
             if (main.getTwoThousandFiner()) {
                 Loggeable.initLogger(Level.FINER);
-                for (int i = 0; i < 1000; ++i) {
+                for (int i = 0; i < 2000; ++i) {
                     LOGGER.finer("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
@@ -165,7 +183,7 @@ public class Main implements Loggeable {
             }
             if (main.getTwoThousandFinest()) {
                 Loggeable.initLogger(Level.FINEST);
-                for (int i = 0; i < 1000; ++i) {
+                for (int i = 0; i < 2000; ++i) {
                     LOGGER.finest("Game " + i);
                     Game game = new Game(statistiqueManager, players, false);
                     game.start();
@@ -174,6 +192,5 @@ public class Main implements Loggeable {
                     }
                 }
             }
-
         }
     }

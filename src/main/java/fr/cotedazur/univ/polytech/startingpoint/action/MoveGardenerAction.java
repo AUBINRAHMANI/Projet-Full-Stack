@@ -1,11 +1,16 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
-import fr.cotedazur.univ.polytech.startingpoint.*;
+
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
-public class MoveGardenerAction implements Action{
+import java.util.Objects;
+
+public class MoveGardenerAction implements Action {
 
     Position position;
-    public MoveGardenerAction(Position position){
+
+    public MoveGardenerAction(Position position) {
         this.position = position;
     }
 
@@ -13,16 +18,23 @@ public class MoveGardenerAction implements Action{
     public boolean play(Referee referee, GameEngine gameEngine) {
         return gameEngine.moveGardener(position);
     }
+
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee){
+    public boolean verifyObjectiveAfterAction(Referee referee) {
         return referee.computeObjectivesGardener();
     }
 
     @Override
-    public boolean equals(Action action) {
-        return action.isActionMoveGardener();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return isActionMoveGardener();
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(isActionMoveGardener());
+    }
 
     @Override
     public String toString() {
@@ -58,6 +70,11 @@ public class MoveGardenerAction implements Action{
 
     @Override
     public boolean isActionThunder() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPutIrrigation() {
         return false;
     }
 

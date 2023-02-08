@@ -1,10 +1,9 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
+package fr.cotedazur.univ.polytech.startingpoint.bot.tools;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.MovePandaAction;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
@@ -17,18 +16,18 @@ public class PandaBotResolver {
     Referee referee;
     Playable bot;
 
-    public PandaBotResolver(Map map, Referee referee, Playable bot){
+    public PandaBotResolver(Map map, Referee referee, Playable bot) {
         this.map = map;
         this.referee = referee;
         this.bot = bot;
     }
 
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections, List<Bambou> myBambous, List<ActionType> banActionTypes, WeatherType weather){
+    public Action fillObjectivePanda(List<Bambou> bambouSections, List<Bambou> myBambous, List<ActionType> banActionTypes, WeatherType weather) {
         ArrayList<Bambou> missingBambous = new ArrayList<>(bambouSections);
-        for(Bambou bambou : myBambous)removeBambou(missingBambous ,bambou);
-        if( missingBambous.isEmpty()==false ){
-            if(banActionTypes.contains(ActionType.MOVE_PANDA) ==false ) {
+        for (Bambou bambou : myBambous) removeBambou(missingBambous, bambou);
+        if (!missingBambous.isEmpty()) {
+            if (!banActionTypes.contains(ActionType.MOVE_PANDA)) {
                 for (Bambou bambou : missingBambous) {
                     MovePandaAction action = tryEatBambouOfType(bambou.getBambouType());
                     if (action != null) return action;
@@ -40,18 +39,17 @@ public class PandaBotResolver {
                 }
             }
             GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-            return gardenerBotResolver.fillObjectiveGardener(missingBambous.get(missingBambous.size()-1).getBambouType(), false, banActionTypes, weather);
+            return gardenerBotResolver.fillObjectiveGardener(missingBambous.get(missingBambous.size() - 1).getBambouType(), banActionTypes, weather);
         }
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
         return patternBotResolver.putRandomlyAPLot(bambouSections.get(0).getBambouType(), banActionTypes);
     }
 
     private MovePandaAction tryEatBambouOfType(PlotType bambouType) {
-        for(Plot plot : map.getMapPlots()){
-            if(plot.getType()==bambouType && plot.getNumberOfBambou()>0)
-            {
+        for (Plot plot : map.getMapPlots()) {
+            if (plot.getType() == bambouType && plot.getNumberOfBambou() > 0) {
                 MovePandaAction action = movePandaOnPlantation(plot.getPosition());
-                if(action != null){
+                if (action != null) {
                     return action;
                 }
             }
@@ -59,25 +57,25 @@ public class PandaBotResolver {
         return null;
     }
 
-    private void removeBambou(ArrayList<Bambou> bambous, Bambou bambouToRemove){
-        for(int i=0; i<bambous.size() ; ++i){
-            if(bambous.get(i).getBambouType() == bambouToRemove.getBambouType()){
+    private void removeBambou(ArrayList<Bambou> bambous, Bambou bambouToRemove) {
+        for (int i = 0; i < bambous.size(); ++i) {
+            if (bambous.get(i).getBambouType() == bambouToRemove.getBambouType()) {
                 bambous.remove(i);
                 break;
             }
         }
     }
 
-    private MovePandaAction movePandaToUnlock(Position pandaPosition){
+    private MovePandaAction movePandaToUnlock(Position pandaPosition) {
         List<Plot> potentialPlot = map.getNeighbours(pandaPosition);
-        if( potentialPlot!=null ){
+        if (potentialPlot != null) {
             return new MovePandaAction(bot, potentialPlot.get(0).getPosition());
         }
         return null;
     }
 
     public MovePandaAction movePandaOnPlantation(Position position) {
-        if(position.isDeplacementALine(referee.getPandaPosition())){
+        if (position.isDeplacementALine(referee.getPandaPosition())) {
             return new MovePandaAction(bot, position);
         }
         return null;
