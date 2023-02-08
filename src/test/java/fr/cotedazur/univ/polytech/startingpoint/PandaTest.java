@@ -12,7 +12,7 @@ class PandaTest {
 
             Map map = new Map();
             Game game = new Game();
-            BotMbappe bot = new BotMbappe(game,map,null);
+            BotMbappe bot = new BotMbappe(game,map);
             Panda panda = new Panda();
             Position position = new Position(1,1);
             Position position2 = new Position(2,2);

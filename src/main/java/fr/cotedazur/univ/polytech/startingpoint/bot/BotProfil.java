@@ -8,17 +8,17 @@ import java.util.List;
 public class BotProfil {
 
     private Playable bot;
+    String botName;
     private List<Objective> objectives;
-    private int numberOfHit;
     private List<Bambou> bambous;
     private int points;
     private int nbCompletedObjective;
 
-    public BotProfil(Playable bot){
+    public BotProfil(Playable bot, String botName){
         this.bot = bot;
+        this.botName = botName;
         objectives = new ArrayList<>();
         bambous = new ArrayList<>();
-        numberOfHit = 1;
         points = 0;
         nbCompletedObjective = 0;
     }
@@ -26,15 +26,21 @@ public class BotProfil {
     public Playable getBot() {
         return bot;
     }
-    public int getNumberOfHit(){return numberOfHit;}
+
+    public String getBotName() {
+        return botName;
+    }
 
     public int getPoints() {
         return points;
     }
-    public void addPoints(int nbPoints){
-        points +=nbPoints;
-    }
 
+    public void resetPoints(){
+        points =0;
+        nbCompletedObjective=0;
+        bambous = new ArrayList<>();
+        objectives = new ArrayList<>();
+    }
     public int getNbCompletedObjective() {return nbCompletedObjective;}
 
     public List<Objective> getObjectives() {

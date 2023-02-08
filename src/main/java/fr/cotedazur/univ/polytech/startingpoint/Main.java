@@ -1,10 +1,17 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.StatistiqueManager;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class Main implements Loggeable {
@@ -32,127 +39,127 @@ public class Main implements Loggeable {
     public Boolean getDemo() {
         return demo;
     }
-
     public Boolean getTwoThousand() {
-        return twoThousands;
-    }
+            return twoThousands;
+        }
+        public Boolean getDemoWarning() {
+            return demoWarning;
+        }
+        public Boolean getDemoFine() {
+            return demoFine;
+        }
+        public Boolean getDemoFiner() {
+            return demoFiner;
+        }
+        public Boolean getDemoFinest() {
+            return demoFinest;
+        }
 
-    public Boolean getDemoWarning() {
-        return demoWarning;
-    }
+        public Boolean getTwoThousandWarning() {
+            return twoThousandWarning;
+        }
 
-    public Boolean getDemoFine() {
-        return demoFine;
-    }
+        public Boolean getTwoThousandFine() {
+            return twoThousandFine;
+        }
 
-    public Boolean getDemoFiner() {
-        return demoFiner;
-    }
+        public Boolean getTwoThousandFiner() {
+            return twoThousandFiner;
+        }
 
-    public Boolean getDemoFinest() {
-        return demoFinest;
-    }
+        public Boolean getTwoThousandFinest() {
+            return twoThousandFinest;
+        }
 
-    public Boolean getTwoThousandWarning() {
-        return twoThousandWarning;
-    }
+        @Parameter(names = "--csv", description = "Lancement d’une simulation à plusieurs parties")
+        private Boolean csv = false;
 
-    public Boolean getTwoThousandFine() {
-        return twoThousandFine;
-    }
+        public Boolean getCsv () {
+            return csv;
+        }
+        public static void main(String... argv){
+            Main main = new Main();
+            StatistiqueManager statistiqueManager = new StatistiqueManager();
+            List<BotProfil> players = new ArrayList<>();
+            players.add(new BotProfil(new BotMbappe(), "bot 1"));
+            players.add(new BotProfil(new BotSprint(), "bot 2"));
+            statistiqueManager.initBotsStatistiquesProfiles(players);
+            JCommander.newBuilder().addObject(main).build().parse(argv);
 
-    public Boolean getTwoThousandFiner() {
-        return twoThousandFiner;
-    }
-
-    public Boolean getTwoThousandFinest() {
-        return twoThousandFinest;
-    }
-
-    @Parameter(names = "--csv", description = "Lancement d’une simulation à plusieurs parties (pas forcément 1000) avec\n" +
-            "relecture de \"stats/gamestats.csv” s’il existe et ajout des nouvelles statistiques")
-    private Boolean csv = false;
-
-    public Boolean getCsv() {
-        return csv;
-    }
-
-    public static void main(String... argv) {
-        Main main = new Main();
-        JCommander.newBuilder().addObject(main).build().parse(argv);
-        if (main.getCsv()) {
-
-            for (int i = 0; i < 10; ++i) {
-                LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+            if (main.getCsv()) {
+                for (int i = 0; i < 10; ++i) {
+                    LOGGER.fine("Game " + i);
+                    Game game = new Game(statistiqueManager, players, false);
+                    game.start();
+                }
+            }
+            if (main.getDemo()) {
+                Loggeable.initLogger(Level.FINEST);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
-        }
-        if (main.getDemo()) {
-            Loggeable.initLogger(Level.FINEST);
-            Game game = new Game(false);
-            game.start();
-        }
-        if (main.getTwoThousand()) {
-            Loggeable.initLogger(Level.WARNING);
-            for (int i = 0; i < 1000; ++i) {
-                LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+            if (main.getTwoThousand()) {
+                Loggeable.initLogger(Level.WARNING);
+                for (int i = 0; i < 1000; ++i) {
+                    LOGGER.fine("Game " + i);
+                    Game game = new Game(statistiqueManager, players, false);
+                    game.start();
+                }
+            }
+            if (main.getDemoWarning()) {
+                Loggeable.initLogger(Level.WARNING);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
-        }
-        if (main.getDemoWarning()) {
-            Loggeable.initLogger(Level.WARNING);
-            Game game = new Game(false);
-            game.start();
-        }
-        if (main.getDemoFine()) {
-            Loggeable.initLogger(Level.FINE);
-            Game game = new Game(false);
-            game.start();
-        }
-        if (main.getDemoFiner()) {
-            Loggeable.initLogger(Level.FINER);
-            Game game = new Game(false);
-            game.start();
-        }
-        if (main.getDemoFinest()) {
-            Loggeable.initLogger(Level.FINEST);
-            Game game = new Game(false);
-            game.start();
-        }
-        if (main.getTwoThousandWarning()) {
-            Loggeable.initLogger(Level.WARNING);
-            for (int i = 0; i < 1000; ++i) {
-                LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+            if (main.getDemoFine()) {
+                Loggeable.initLogger(Level.FINE);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
-        }
-        if (main.getTwoThousandFine()) {
-            Loggeable.initLogger(Level.FINE);
-            for (int i = 0; i < 1000; ++i) {
-                LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+            if (main.getDemoFiner()) {
+                Loggeable.initLogger(Level.FINER);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
-        }
-        if (main.getTwoThousandFiner()) {
-            Loggeable.initLogger(Level.FINER);
-            for (int i = 0; i < 1000; ++i) {
-                LOGGER.fine("Game " + i);
-                Game game = new Game(false);
+            if (main.getDemoFinest()) {
+                Loggeable.initLogger(Level.FINEST);
+                Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
-        }
-        if (main.getTwoThousandFinest()) {
-            Loggeable.initLogger(Level.FINEST);
-            for (int i = 0; i < 1000; ++i) {
-                LOGGER.fine("Game " + i);
-                Game game = new Game(false);
-                game.start();
+            if (main.getTwoThousandWarning()) {
+                Loggeable.initLogger(Level.WARNING);
+                for (int i = 0; i < 1000; ++i) {
+                    LOGGER.warning("Game " + i);
+                    Game game = new Game(statistiqueManager, players, false);
+                    game.start();
+                }
             }
-        }
+            if (main.getTwoThousandFine()) {
+                Loggeable.initLogger(Level.FINE);
+                for (int i = 0; i < 1000; ++i) {
+                    LOGGER.fine("Game " + i);
+                    Game game = new Game(statistiqueManager, players, false);
+                    game.start();
+                }
+            }
+            if (main.getTwoThousandFiner()) {
+                Loggeable.initLogger(Level.FINER);
+                for (int i = 0; i < 1000; ++i) {
+                    LOGGER.finer("Game " + i);
+                    Game game = new Game(statistiqueManager, players, false);
+                    game.start();
 
+                }
+            }
+            if (main.getTwoThousandFinest()) {
+                Loggeable.initLogger(Level.FINEST);
+                for (int i = 0; i < 1000; ++i) {
+                    LOGGER.finest("Game " + i);
+                    Game game = new Game(statistiqueManager, players, false);
+                    game.start();
+
+                }
+            }
+
+        }
     }
-}
