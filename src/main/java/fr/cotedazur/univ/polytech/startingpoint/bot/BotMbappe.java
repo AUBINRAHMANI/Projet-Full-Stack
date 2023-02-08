@@ -20,11 +20,20 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
     String botName;
     List<Bambou> myBambous;
 
-    public BotMbappe(Referee referee, Map map, String botName) {
+    public BotMbappe() {
+        this(null, null);
+    }
+    public BotMbappe(Referee referee, Map map) {
         this.botName = botName;
         this.referee    = referee;
         this.map     = map;
         myBambous = null;
+    }
+
+    public void setEnvirronement(Referee referee, Map map){
+        this.referee = referee;
+        this.map = map;
+        this.botName = botName;
     }
 
     public String getBotName() {

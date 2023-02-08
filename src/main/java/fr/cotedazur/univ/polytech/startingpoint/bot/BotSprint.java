@@ -20,16 +20,20 @@ public class BotSprint implements Playable {
     String botName;
     List<Bambou> myBambous;
 
-    public BotSprint(Referee referee, Map map, String botName){
+    public BotSprint() {
+        this(null, null);
+    }
+    public BotSprint(Referee referee, Map map){
         this.referee = referee;
         this.map = map;
         this.botName = botName;
         this.myBambous = new ArrayList<>();
     }
 
-    @Override
-    public String getBotName() {
-        return botName;
+    public void setEnvirronement(Referee referee, Map map){
+        this.referee = referee;
+        this.map = map;
+        this.botName = botName;
     }
 
     @Override
@@ -125,10 +129,5 @@ public class BotSprint implements Playable {
     public Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes) {
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
         return patternBotResolver.fillObjectivePlots(pattern, banActionTypes);
-    }
-
-    @Override
-    public String toString() {
-        return getBotName();
     }
 }

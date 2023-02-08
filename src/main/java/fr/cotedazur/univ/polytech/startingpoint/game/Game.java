@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.game;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.*;
 import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.action.*;
 import fr.cotedazur.univ.polytech.startingpoint.bot.*;
@@ -10,34 +11,42 @@ import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 
 public class Game implements DeckSignal, Referee, Loggeable {
 
-    static final int MAX_NB_ROUND = 100;
-    static final int NB_OBJECTIVE_TO_FINISH = 9;
-    static final int NB_ACTIONS_PER_ROUND = 2;
+    final static int MAX_NB_ROUND = 100;
+    final static int NB_OBJECTIVE_TO_FINISH = 9;
+    final static int NB_ACTIONS_PER_ROUND = 2;
     Random random;
     GameEngine gameEngine;
-    ArrayList<BotProfil> botProfils;
+    List<BotProfil> botProfiles;
     MapInterface mapInterface;
     int nbActions;
     List<Action> previousActions;
+    public StatistiqueManager statistiqueManager;
+    private int timeOutCounter;
+    private int nombreObjectifNull;
 
-
-    private int nombreObjectifNull = 0;
-
-
-    public Game( boolean debug){
-        this.random = new SecureRandom();
-        botProfils = new ArrayList<>();
+    public Game(){
+        this(null, null, false);
+    }
+    public Game(StatistiqueManager statistiqueManager, List<BotProfil> botProfiles , boolean debug){
+        previousActions                 = new ArrayList<>();
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
-        gameEngine = new GameEngine( objectiveDeck, plotDeck, new Map());
-        botProfils.add(new BotProfil(new BotMbappe(this, gameEngine.getMap(),"Mbappe")));
-        botProfils.add(new BotProfil(new BotSprint(this, gameEngine.getMap(), "BotSprint")));
-        this.nbActions = NB_ACTIONS_PER_ROUND;
-        this.previousActions = new ArrayList<>();
+        gameEngine                     = new GameEngine( objectiveDeck, plotDeck, new Map());
+        this.botProfiles = botProfiles;
+        this.statistiqueManager= statistiqueManager;
+        this.timeOutCounter=0;
+
+        for(BotProfil botProfil : this.botProfiles){
+            botProfil.getBot().setEnvirronement(this, gameEngine.getMap());
+        }
 
         if(debug){
             mapInterface = new MapInterface();
@@ -47,17 +56,16 @@ public class Game implements DeckSignal, Referee, Loggeable {
             mapInterface = null;
         }
     }
-    public Game(){
-        this(false);
-    }
+
+
 
     public boolean start(){
         do {
-            this.nombreObjectifNull++;
-            for(BotProfil botProfil : botProfils){
+            ++timeOutCounter;
+            for(BotProfil botProfil : botProfiles){
                 nbActions = NB_ACTIONS_PER_ROUND;
                 WeatherType weather = gameEngine.drawWeather();
-                LOGGER .finest("Tour de " + botProfil.getBot().getBotName() + " : ");
+                LOGGER .finest("Tour de " + botProfil.getBotName() + " : ");
                 this.applyChangesDueToWeather( weather);
                 doActions(botProfil, nbActions, weather);
                 if(mapInterface != null) {
@@ -105,10 +113,9 @@ public class Game implements DeckSignal, Referee, Loggeable {
     }
 
     public boolean checkFinishingCondition(){
-        for(BotProfil botProfil : botProfils){
-            if(botProfil.getNbCompletedObjective() >= NB_OBJECTIVE_TO_FINISH && this.nombreObjectifNull >= MAX_NB_ROUND){
-                return true;
-            }
+        for(BotProfil botProfil : botProfiles){
+            if(botProfil.getNbCompletedObjective() >= NB_OBJECTIVE_TO_FINISH)return true;
+            else if(this.timeOutCounter >= MAX_NB_ROUND) return true;
         }
         return false;
     }
@@ -160,11 +167,10 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
     public boolean pickObjective(fr.cotedazur.univ.polytech.startingpoint.bot.Playable bot){
         Objective objective=  gameEngine.pickObjective();
-
-        for(BotProfil botProfil : botProfils){
+        for(BotProfil botProfil : botProfiles){
             if(bot == botProfil.getBot()){
                 botProfil.addObjective(objective);
-                LOGGER.finer( ()-> bot.getBotName() +" a prix un objectif :" + objective);
+                LOGGER.finer( botProfil.getBotName() +" a prix un objectif :" + objective);
                 return true;
             }
         }
@@ -178,10 +184,10 @@ public class Game implements DeckSignal, Referee, Loggeable {
     public boolean computeObjectivesPlot(Plot lastPlacedPlot){
         boolean result = false;
         ArrayList<Objective> validatedObjective = new ArrayList<>();
-        for(BotProfil botProfil : botProfils){
+        for(BotProfil botProfil : botProfiles){
             for(Objective objective : botProfil.getObjectives()){
                 if(objective.verifyPlotObj(gameEngine, lastPlacedPlot)){
-                    String botName = botProfil.getBot().getBotName();
+                    String botName = botProfil.getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfil);
@@ -196,10 +202,10 @@ public class Game implements DeckSignal, Referee, Loggeable {
     public boolean computeObjectivesGardener(){
         boolean result =false;
         ArrayList<Objective> validatedObjective = new ArrayList<>();
-        for(BotProfil botProfil : botProfils){
+        for(BotProfil botProfil : botProfiles){
             for(Objective objective : botProfil.getObjectives()){
                 if(objective.verifyGardenerObj(gameEngine)){
-                    String botName = botProfil.getBot().getBotName();
+                    String botName = botProfil.getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfil);
@@ -221,10 +227,11 @@ public class Game implements DeckSignal, Referee, Loggeable {
     public boolean computeObjectivesPanda(){
         boolean result = false;
         ArrayList<Objective> validatedObjective = new ArrayList<>();
-        for(BotProfil botProfil : botProfils){
+
+        for(BotProfil botProfil : botProfiles){
             for(Objective objective : botProfil.getObjectives()){
                 if(objective.verifyPandaObj(gameEngine, botProfil)){
-                    String botName = botProfil.getBot().getBotName();
+                    String botName = botProfil.getBotName();
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfil);
@@ -238,19 +245,27 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
     public BotProfil checkWinner() {
         BotProfil winner = null;
-        if (this.nombreObjectifNull < MAX_NB_ROUND) {
-            winner = botProfils.get(0);
-            for (BotProfil botProfil : botProfils) {
+        if (this.timeOutCounter < MAX_NB_ROUND) {
+            winner = botProfiles.get(0);
+            for (BotProfil botProfil : botProfiles) {
                 if (botProfil.getPoints() > winner.getPoints()) {
                     winner = botProfil;
                 }
             }
+            for(BotProfil botProfil : botProfiles) {
+                if (winner != botProfil) {
+                    statistiqueManager.addLoser(botProfil.getBot());
+                }
+            }
+            statistiqueManager.addWinner(winner.getBot());
         }
+
         return winner;
     }
 
     public List<Objective> getMyObjectives(Playable bot){
-        for(BotProfil botProfil : botProfils){
+
+        for(BotProfil botProfil : botProfiles){
             if(bot == botProfil.getBot()){
                 return botProfil.getObjectives();
             }
@@ -259,22 +274,24 @@ public class Game implements DeckSignal, Referee, Loggeable {
     }
 
     public void printWinner(BotProfil botProfil) {
-        if (botProfil==null) {
+        if(botProfil==null){
             LOGGER.fine("Match nul ! Aucun bot n'a su completer un objectif pendant "+ MAX_NB_ROUND +" tours");
+            statistiqueManager.addMatchNul();
+
         } else {
-            LOGGER.fine(botProfil.getBot().getBotName() + " gagne avec : " + botProfil.getPoints() + " points");
+            LOGGER.fine(botProfil.getBotName() + " gagne avec : " + botProfil.getPoints() + " points");
         }
     }
 
     public List<Bambou> getMyBambous(Playable bot) {
-        for(BotProfil botProfil : botProfils){
+        for(BotProfil botProfil : botProfiles){
             if(botProfil.getBot()==bot)return botProfil.getBambous();
         }
         return Arrays.asList();
     }
 
     public void addBamboutToBot(Playable bot, Bambou bambou) {
-        for(BotProfil botProfil : botProfils){
+        for(BotProfil botProfil : botProfiles){
             if(botProfil.getBot()==bot){
                 botProfil.addBanbou( bambou );
             }
@@ -283,7 +300,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
     @Override
     public int getNumberOfPlayers() {
-        return botProfils.size();
+        return botProfiles.size();
     }
 
     private void logValidatedObjective(Objective objective, String botName, BotProfil botProfil){
