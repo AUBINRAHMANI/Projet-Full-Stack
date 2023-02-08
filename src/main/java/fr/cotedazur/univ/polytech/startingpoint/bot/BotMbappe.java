@@ -2,9 +2,9 @@ package fr.cotedazur.univ.polytech.startingpoint.bot;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.*;
-import fr.cotedazur.univ.polytech.startingpoint.bot.botTools.GardenerBotResolver;
-import fr.cotedazur.univ.polytech.startingpoint.bot.botTools.PandaBotResolver;
-import fr.cotedazur.univ.polytech.startingpoint.bot.botTools.PatternBotResolver;
+import fr.cotedazur.univ.polytech.startingpoint.bot.tools.GardenerBotResolver;
+import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PandaBotResolver;
+import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PatternBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
@@ -51,7 +51,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
 
     public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
         GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-        return gardenerBotResolver.fillObjectiveGardener( bambouType, false, banActionTypes, weather);
+        return gardenerBotResolver.fillObjectiveGardener( bambouType, banActionTypes, weather);
     }
 
     public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather){

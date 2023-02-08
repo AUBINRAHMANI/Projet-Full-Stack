@@ -40,7 +40,7 @@ class IrrigationTest {
         Irrigation irrigation1 = new Irrigation(new Position(2,1), new Position(3,1));
         Irrigation irrigation2 = new Irrigation(new Position(3,1), new Position(2,1));
 
-        assertTrue(irrigation1.equals(irrigation2));
+        assertEquals(irrigation1, irrigation2);
 
     }
 }

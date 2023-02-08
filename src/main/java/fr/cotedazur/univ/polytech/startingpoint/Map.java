@@ -1,7 +1,5 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import org.mockito.internal.creation.SuspendMethod;
-
 import java.util.*;
 
 import static java.lang.Math.*;
@@ -68,7 +66,7 @@ public class Map {
     }
 
     public boolean isPossibleToPutPlot(Position position) {
-        if((getNeighbours( position).size() >1 ||  position.isCloseToCenter()) && (position.isCenter() ==false)) return isSpaceFree(position);
+        if((getNeighbours( position).size() >1 ||  position.isCloseToCenter()) && (!position.isCenter())) return isSpaceFree(position);
         return false;
     }
 
@@ -140,7 +138,7 @@ public class Map {
             }
             tempPattern.rotate60Right();
         }
-        if(potentialPatternSpots.isEmpty())return null;
+        if(potentialPatternSpots.isEmpty())return Arrays.asList();
 
         List<Plot> bestPatternSpot = potentialPatternSpots.get(0);
         List<Plot> bestNonIrrigatedSpots = potentialNonIrrigatedPlots.get(0);
@@ -166,7 +164,7 @@ public class Map {
         for(Plot plot : tempPattern.getPlots()) {
             if (isSpaceFree(plot.getPosition())) {
                 missingPlots.add(new Plot(plot.getType(), plot.getPosition()));
-            } else if (plot.getType() == findPlot(plot.getPosition()).getType() && findPlot(plot.getPosition()).isIrrigated() == false) {
+            } else if (plot.getType() == findPlot(plot.getPosition()).getType() && !findPlot(plot.getPosition()).isIrrigated()) {
                 nonIrrigatedPlot.add(new Plot(plot.getType(), plot.getPosition()));
             }
         }

@@ -5,6 +5,8 @@ import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 
+import java.util.Objects;
+
 public class PickObjectiveAction implements Action{
 
     Playable bot;
@@ -23,8 +25,15 @@ public class PickObjectiveAction implements Action{
         return false;
     }
 
-    public boolean equals(Action action) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         return isActionPickObjective();
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(isActionPickObjective());
     }
 
     @Override
@@ -61,6 +70,11 @@ public class PickObjectiveAction implements Action{
 
     @Override
     public boolean isActionThunder() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPutIrrigation() {
         return false;
     }
 

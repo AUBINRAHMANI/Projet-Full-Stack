@@ -2,6 +2,8 @@ package fr.cotedazur.univ.polytech.startingpoint.action;
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
+import java.util.Objects;
+
 
 public class PutPlotAction implements Action{
 
@@ -17,8 +19,15 @@ public class PutPlotAction implements Action{
         return referee.computeObjectivesPlot(plot);
     }
 
-    public boolean equals(Action action) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         return isActionPutPlot();
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(isActionPutPlot());
     }
 
     @Override
@@ -55,6 +64,11 @@ public class PutPlotAction implements Action{
 
     @Override
     public boolean isActionThunder() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPutIrrigation() {
         return false;
     }
 

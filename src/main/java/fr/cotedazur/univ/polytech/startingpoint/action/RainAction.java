@@ -1,32 +1,40 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
-import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
+import java.util.Objects;
+
 public class RainAction implements Action{
-    Position _position;
+    Position position;
     public RainAction(Position position){
-        this._position = position;
+        this.position = position;
     }
 
     @Override
     public boolean play(Referee referee, GameEngine gameEngine) {
-        return gameEngine.rainAction(_position);
+        return gameEngine.rainAction(position);
     }
     @Override
     public boolean verifyObjectiveAfterAction(Referee referee){
         return referee.computeObjectivesGardener();
     }
 
-    public boolean equals(Action action) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         return isActionRain();
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(isActionRain());
     }
 
     @Override
     public String toString() {
         return "RainAction{" +
-                "_position=" + _position +
+                "_position=" + position +
                 '}';
     }
 
@@ -61,8 +69,13 @@ public class RainAction implements Action{
     }
 
     @Override
+    public boolean isActionPutIrrigation() {
+        return false;
+    }
+
+    @Override
     public Position getPosition() {
-        return _position;
+        return position;
     }
 
     @Override

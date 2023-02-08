@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
+package fr.cotedazur.univ.polytech.startingpoint.bot.tools;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
@@ -19,13 +19,13 @@ public class IrrigationBotResolver {
         this.referee = referee;
     }
     public Action tryPutIrrigation(Position target, List<ActionType> banActionTypes) {
-        if(banActionTypes.contains(ActionType.PUT_IRRIGATION)==false){
+        if(!banActionTypes.contains(ActionType.PUT_IRRIGATION)){
             return null;
         }
         List<Position> path = map.getPathBetweenPositions(new Position(0,0), target);
         for(int i= path.size()-1 ; i>0 ; --i){
             Plot plot = map.findPlot(path.get(i));
-            if( plot.isIrrigated()==false ){
+            if( !plot.isIrrigated()){
                 Action action = tryPutIrrigationOnPosition(path.get(i));
                 if( action!=null ){
                     return action;
@@ -38,7 +38,7 @@ public class IrrigationBotResolver {
 
     private Action placeRandomIrrigation(List<ActionType> banActionTypes) {
         for(Plot plot : map.getMapPlots()){
-            if(plot.isIrrigated()==false){
+            if(!plot.isIrrigated()){
                 Action action = tryPutIrrigationOnPosition(plot.getPosition());
                 if(action != null)return action;
             }
@@ -57,7 +57,7 @@ public class IrrigationBotResolver {
         for(Plot plot : map.getNeighbours(position)){
             Irrigation irrigation = new Irrigation(position, plot.getPosition());
 
-            if(map.isIrrigationsLinked(irrigation) && map.irrigationExist(irrigation)==false ){
+            if(map.isIrrigationsLinked(irrigation) && !map.irrigationExist(irrigation)){
                 return new PutIrrigationAction(irrigation);
             }
         }

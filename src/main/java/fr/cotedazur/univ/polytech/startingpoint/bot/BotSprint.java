@@ -4,9 +4,9 @@ import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.PickObjectiveAction;
-import fr.cotedazur.univ.polytech.startingpoint.bot.botTools.GardenerBotResolver;
-import fr.cotedazur.univ.polytech.startingpoint.bot.botTools.PandaBotResolver;
-import fr.cotedazur.univ.polytech.startingpoint.bot.botTools.PatternBotResolver;
+import fr.cotedazur.univ.polytech.startingpoint.bot.tools.GardenerBotResolver;
+import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PandaBotResolver;
+import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PatternBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 
@@ -36,7 +36,7 @@ public class BotSprint implements Playable {
     public Action play(List<ActionType> banActionTypes, WeatherType weather) {
         List<ActionType> defaultBanActionTypes = new ArrayList<>(banActionTypes);
         //Try to have 5 Objectives
-        if(referee.getMyObjectives(this).size() < 5 && banActionTypes.contains(ActionType.PICK_OBJECTIVE)==false){
+        if(referee.getMyObjectives(this).size() < 5 && !banActionTypes.contains(ActionType.PICK_OBJECTIVE)){
             return new PickObjectiveAction(this);
         }
 
@@ -114,7 +114,7 @@ public class BotSprint implements Playable {
 
     public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
         GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-        return gardenerBotResolver.fillObjectiveGardener( bambouType, false, banActionTypes, weather);
+        return gardenerBotResolver.fillObjectiveGardener( bambouType, banActionTypes, weather);
     }
 
     public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather){

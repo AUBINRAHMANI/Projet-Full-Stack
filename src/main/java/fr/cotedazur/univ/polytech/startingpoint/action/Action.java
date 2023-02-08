@@ -16,7 +16,7 @@ public interface Action {
     boolean isActionPickObjective();
     boolean isActionRain();
     boolean isActionThunder();
+    boolean isActionPutIrrigation();
     Position getPosition();
-
     ActionType toType();
 }

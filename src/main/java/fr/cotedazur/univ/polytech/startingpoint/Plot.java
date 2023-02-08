@@ -59,7 +59,7 @@ public class Plot {
         return false;
     }
     public Bambou eatBambou () {
-        if (this.listeBambou.isEmpty() ==false) {
+        if ( !this.listeBambou.isEmpty()) {
             Bambou bambou = listeBambou.get(0);
             this.listeBambou.remove(bambou);
             return bambou;

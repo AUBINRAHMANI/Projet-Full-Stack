@@ -15,17 +15,17 @@ public class MapInterface extends JFrame implements Loggeable {
 
     final static int HEXAGONE_SIZE = 40;
 
-    List<Plot> map;
-    Position center;
+    private  List<Plot> map;
+    private Position center;
     volatile boolean next;
-    List<Position> positionsToAdd;
-    List<Integer> correspondingNbBambous;
-    List<Plot> plotsDrawen;
-    List<Color> colorsToAdd;
-    Position gardenerPosition;
-    Position pandaPosition;
-    Toolkit toolkit;
-    GPanel panel;
+    private List<Position> positionsToAdd;
+    private List<Integer> correspondingNbBambous;
+    private List<Plot> plotsDrawen;
+    private List<Color> colorsToAdd;
+    private Position gardenerPosition;
+    private Position pandaPosition;
+    private Toolkit toolkit;
+    private GPanel panel;
 
     public MapInterface(){
         setSize(960, 540);
@@ -136,7 +136,7 @@ public class MapInterface extends JFrame implements Loggeable {
         }
 
         positionsToAdd.add(position);
-        if(plot.isIrrigated()==false){
+        if( !plot.isIrrigated() ){
             color = color.darker();
             color = color.darker();
         }
@@ -145,7 +145,7 @@ public class MapInterface extends JFrame implements Loggeable {
     }
 
     private class GPanel extends JPanel{
-
+        @Override
         public void paintComponent(Graphics graphics){
             super.paintComponent(graphics);
             updateSize();
@@ -153,9 +153,6 @@ public class MapInterface extends JFrame implements Loggeable {
             List<Position> positions = new ArrayList<>(positionsToAdd);
             for(Position position : positions){
                 Polygon hexagon = getHexagon(position);
-                try {
-                    Thread.sleep(1);
-                }catch (Exception exception){assert false;}
                 graphics.setColor(Color.BLACK);
                 graphics.drawPolygon(hexagon);
 

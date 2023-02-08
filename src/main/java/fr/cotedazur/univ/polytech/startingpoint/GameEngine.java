@@ -76,9 +76,9 @@ public class GameEngine implements Loggeable {
 
     public void growBambou(){
         Plot gardenerPlot = map.findPlot(gardener.getPosition());
-        if( gardenerPlot.getPosition().isCenter()==false )gardenerPlot.growBambou();
+        if( !gardenerPlot.getPosition().isCenter())gardenerPlot.growBambou();
         for(Plot plot : map.getNeighbours(gardener.getPosition())){
-            if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && plot.getPosition().isCenter()==false ){
+            if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && !plot.getPosition().isCenter()){
                 plot.growBambou();
             }
         }

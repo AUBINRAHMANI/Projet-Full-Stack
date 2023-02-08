@@ -1,10 +1,9 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
+package fr.cotedazur.univ.polytech.startingpoint.bot.tools;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.MovePandaAction;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
@@ -27,8 +26,8 @@ public class PandaBotResolver {
     public Action fillObjectivePanda(List<Bambou> bambouSections, List<Bambou> myBambous, List<ActionType> banActionTypes, WeatherType weather){
         ArrayList<Bambou> missingBambous = new ArrayList<>(bambouSections);
         for(Bambou bambou : myBambous)removeBambou(missingBambous ,bambou);
-        if( missingBambous.isEmpty()==false ){
-            if(banActionTypes.contains(ActionType.MOVE_PANDA) ==false ) {
+        if( !missingBambous.isEmpty() ){
+            if( !banActionTypes.contains(ActionType.MOVE_PANDA) ) {
                 for (Bambou bambou : missingBambous) {
                     MovePandaAction action = tryEatBambouOfType(bambou.getBambouType());
                     if (action != null) return action;
@@ -40,7 +39,7 @@ public class PandaBotResolver {
                 }
             }
             GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-            return gardenerBotResolver.fillObjectiveGardener(missingBambous.get(missingBambous.size()-1).getBambouType(), false, banActionTypes, weather);
+            return gardenerBotResolver.fillObjectiveGardener(missingBambous.get(missingBambous.size()-1).getBambouType(), banActionTypes, weather);
         }
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
         return patternBotResolver.putRandomlyAPLot(bambouSections.get(0).getBambouType(), banActionTypes);

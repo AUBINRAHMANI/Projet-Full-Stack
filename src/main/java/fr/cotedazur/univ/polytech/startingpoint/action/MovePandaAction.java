@@ -1,10 +1,10 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
-import fr.cotedazur.univ.polytech.startingpoint.Plot;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
+
+import java.util.Objects;
 
 public class MovePandaAction implements Action{
 
@@ -26,8 +26,16 @@ public class MovePandaAction implements Action{
         return referee.computeObjectivesPanda();
     }
 
-    public boolean equals(Action action) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         return isActionMovePanda();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isActionMovePanda());
     }
 
     public boolean isActionMovePanda() {
@@ -51,6 +59,11 @@ public class MovePandaAction implements Action{
 
     @Override
     public boolean isActionThunder() {
+        return false;
+    }
+
+    @Override
+    public boolean isActionPutIrrigation() {
         return false;
     }
 

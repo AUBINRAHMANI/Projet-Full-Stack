@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
+package fr.cotedazur.univ.polytech.startingpoint.bot.tools;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
@@ -20,12 +20,12 @@ public class GardenerBotResolver {
         this.referee = referee;
     }
 
-    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
+    public Action fillObjectiveGardener(PlotType bambouType, List<ActionType> banActionTypes, WeatherType weather) {
         ArrayList<Plot> typeValid = new ArrayList<>();
         ArrayList<Plot> typeAndDeplacementValid = new ArrayList<>();
         int maxNbBambou = 0;
         int indexMaxNbBambou = 0;
-        if (map.getMapPlots().size() > 1 && banActionTypes.contains(ActionType.MOVE_GARDENER)==false) {
+        if (map.getMapPlots().size() > 1 && !banActionTypes.contains(ActionType.MOVE_GARDENER)) {
             for (Plot plot : map.getMapPlots()) {
                 if(plot.isIrrigated() && plot.getNumberOfBambou()<4 ){
                     if (plot.getType() == bambouType) {
@@ -45,7 +45,7 @@ public class GardenerBotResolver {
                     }
                 }
             }
-            if ( typeAndDeplacementValid.isEmpty()==false ) {
+            if ( !typeAndDeplacementValid.isEmpty()) {
                 for (int i = 0; i < typeAndDeplacementValid.size(); i++) {
                     int numberOfBambou  = typeAndDeplacementValid.get(i).getNumberOfBambou();
                     if ( numberOfBambou > maxNbBambou) {

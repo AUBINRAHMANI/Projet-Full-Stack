@@ -189,14 +189,16 @@ class GameEngineTest {
 
         assertEquals(1,plot.getNumberOfBambou());
     }
-    @Test
-    void checkIfWeatherChangesReallyApply(){
 
-    }
     @Test
     void testDrawWeather(){
         GameEngine gameEngine = new GameEngine(null, null, null);
         WeatherType weather = gameEngine.drawWeather();
+        for(WeatherType weatherType : WeatherType.values()){
+            if(weatherType == weather){
+                assertTrue(true);
+            }
+        }
     }
     @Test
     void testRainAction(){

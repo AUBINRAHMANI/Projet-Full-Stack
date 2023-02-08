@@ -4,6 +4,8 @@ import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
+import java.util.Objects;
+
 public class ThunderAction implements Action{
     Position position;
 
@@ -21,8 +23,15 @@ public class ThunderAction implements Action{
         return referee.computeObjectivesPanda();
     }
 
-    public boolean equals(Action action) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         return isActionThunder();
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(isActionThunder());
     }
 
     @Override
@@ -60,6 +69,11 @@ public class ThunderAction implements Action{
     @Override
     public boolean isActionThunder() {
         return true;
+    }
+
+    @Override
+    public boolean isActionPutIrrigation() {
+        return false;
     }
 
     @Override

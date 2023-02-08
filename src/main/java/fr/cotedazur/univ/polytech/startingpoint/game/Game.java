@@ -88,7 +88,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         for(int i = 0; i < nbActions; i++) {
             Action action = botProfil.getBot().play(banActionTypes, weather);
             LOGGER.finer(()-> "Action : " + action);
-            if (action!=null && ( banActionTypes.contains(action.toType())) ==false){
+            if (action!=null && !(banActionTypes.contains(action.toType()))){
                 action.play(this, gameEngine);
                 banActionTypes.add(action.toType());
                 action.verifyObjectiveAfterAction(this);
@@ -187,7 +187,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                 }
             }
             botProfil.getObjectives().removeAll(validatedObjective);
-            if(validatedObjective.isEmpty()==false)result = true;
+            if(!validatedObjective.isEmpty())result = true;
         }
         return result;
     }
@@ -205,7 +205,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                 }
             }
             botProfil.getObjectives().removeAll(validatedObjective);
-            if(validatedObjective.isEmpty()==false) result= true;
+            if(!validatedObjective.isEmpty()) result= true;
         }
         return result;
     }

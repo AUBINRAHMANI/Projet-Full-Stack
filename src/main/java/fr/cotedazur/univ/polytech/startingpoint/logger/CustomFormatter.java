@@ -9,11 +9,11 @@ import java.util.logging.LogRecord;
 public class CustomFormatter extends Formatter {
 
 
-    public static String BLUE = "\u001B[34m";
-    public static String RED = "\u001B[31m";
-    public static String WHITE = "\u001B[37m";
-    public static String BLACK = "\u001B[30m";
-    public static String DEFAULT = "\u001B[0m";
+    static final String BLUE = "\u001B[34m";
+    static final String RED = "\u001B[31m";
+    static final String WHITE = "\u001B[37m";
+    static final String BLACK = "\u001B[30m";
+    static final String DEFAULT = "\u001B[0m";
     boolean darkMode;
 
     public CustomFormatter(boolean darkMode){
@@ -22,7 +22,7 @@ public class CustomFormatter extends Formatter {
 
     @Override
     public String format(LogRecord rec) {
-        StringBuffer buffer = new StringBuffer(1000);
+        StringBuilder buffer = new StringBuilder(1000);
         if (rec.getLevel().intValue() == Level.CONFIG.intValue()) {
             head(buffer, rec);
             buffer.append(BLUE);
@@ -46,7 +46,7 @@ public class CustomFormatter extends Formatter {
         return buffer.toString();
     }
 
-    private void head(StringBuffer buffer, LogRecord rec){
+    private void head(StringBuilder buffer, LogRecord rec){
         buffer.append(BLUE);
         buffer.append(rec.getLevel());
         buffer.append(" -- ");

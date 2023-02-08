@@ -9,7 +9,7 @@ public class Pattern {
     List<Plot> plots;
 
     public Pattern(){
-        plots = new ArrayList<>(Arrays.asList(new Plot(PlotType.GREEN, new Position(0,0))));
+        plots = new ArrayList<>();
         this.rand = new Random();
         generateRandomPattern();
     }
@@ -99,25 +99,17 @@ public class Pattern {
     }
 
     private void generateRandomPattern(){
+        List<Position> patternPositions = new ArrayList<>(Arrays.asList(new Position(0,0)));
         for(int i=0; i<rand.nextInt(2,4) ; i++){
-            Plot plot = plots.get(rand.nextInt(plots.size()));
-            List<Position> neighboursPosition = plot.getPosition().closestPositions();
-
-            for(int j=0; j<neighboursPosition.size() ; ++j){
-                Position position = neighboursPosition.get(rand.nextInt(neighboursPosition.size()));
-                for(Plot tempPlot : plots){
-                    if(tempPlot.getPosition().equals(position)){
-                        neighboursPosition.remove(position);
-                        break;
-                    }
-                }
-                Plot plotToAdd = new Plot(PlotType.values()[rand.nextInt(3)+1], position);
-                plotToAdd.isIrrigatedIsTrue();
-                plots.add(plotToAdd);
-                break;
-            }
-
-
+            Position position = patternPositions.get(rand.nextInt(patternPositions.size()));
+            List<Position> neighboursPosition = position.closestPositions();
+            do{
+                position = neighboursPosition.get(rand.nextInt(neighboursPosition.size()));
+            }while (patternPositions.contains(position));
+            patternPositions.add(position);
+        }
+        for (Position position : patternPositions){
+            plots.add(new Plot( PlotType.values()[rand.nextInt(3)+1] , position));
         }
     }
 }

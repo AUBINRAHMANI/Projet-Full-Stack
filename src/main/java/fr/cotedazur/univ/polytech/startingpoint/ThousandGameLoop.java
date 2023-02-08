@@ -11,7 +11,7 @@ public class ThousandGameLoop implements Loggeable {
 
         Loggeable.initLogger(Level.CONFIG);
         for(int i=0; i<1000 ;++i){
-            LOGGER.config("Game "+i);
+            LOGGER.config("Game "+ i);
             Game game = new Game(false);
             game.start();
         }
