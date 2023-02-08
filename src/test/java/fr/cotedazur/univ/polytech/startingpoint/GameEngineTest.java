@@ -1,9 +1,10 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
-import fr.cotedazur.univ.polytech.startingpoint.objective.*;
+import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
+import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
@@ -16,6 +17,7 @@ class GameEngineTest {
 
     @Mock
     Game mockedGame = mock(Game.class);
+
     @Test
     void pickObjectiveTest() {
         Deck<Objective> deck = new Deck<>(mockedGame);
@@ -23,18 +25,18 @@ class GameEngineTest {
         deck.addCard(objective);
         GameEngine gameEngine = new GameEngine(deck, null, null);
 
-        assertEquals(objective , gameEngine.pickObjective());
+        assertEquals(objective, gameEngine.pickObjective());
     }
 
     @Test
     void pickPlotTest() {
         Deck<Plot> deck = new Deck<>(mockedGame);
-        deck.addCard(new Plot(PlotType.GREEN,null));
-        deck.addCard(new Plot(PlotType.YELLOW,null));
-        deck.addCard(new Plot(PlotType.RED,null));
+        deck.addCard(new Plot(PlotType.GREEN, null));
+        deck.addCard(new Plot(PlotType.YELLOW, null));
+        deck.addCard(new Plot(PlotType.RED, null));
         GameEngine gameEngine = new GameEngine(null, deck, null);
 
-        assertEquals(PlotType.GREEN , gameEngine.pickPlot().get(0).getType());
+        assertEquals(PlotType.GREEN, gameEngine.pickPlot().get(0).getType());
     }
 
     @Test
@@ -45,32 +47,32 @@ class GameEngineTest {
     }
 
     @Test
-    void movePandaTest(){
+    void movePandaTest() {
         Map map = new Map();
-        GameEngine gameEngine = new GameEngine(null, null,map);
-        Position position = new Position(1,0);
-        Position position2 = new Position(372,1);
+        GameEngine gameEngine = new GameEngine(null, null, map);
+        Position position = new Position(1, 0);
+        Position position2 = new Position(372, 1);
 
         Plot plot = new Plot(PlotType.GREEN, position);
         map.putPlot(plot);
 
 
         gameEngine.movePanda(null, null, position);
-        assertEquals(true,gameEngine.movePanda(null, null, position));
-        assertEquals(false, gameEngine.movePanda(null, null, position2));
+        assertTrue(gameEngine.movePanda(null, null, position));
+        assertFalse(gameEngine.movePanda(null, null, position2));
     }
 
     @Test
-    void computeObjectivePlotTest(){
+    void computeObjectivePlotTest() {
         Map map = new Map();
         GameEngine gameEngine = new GameEngine(null, null, map);
 
         ArrayList<Plot> plots = new ArrayList<>();
-        plots.add( new Plot(PlotType.GREEN, new Position(-1, 1)));
-        plots.add( new Plot(PlotType.GREEN, new Position(0, 0)));
-        plots.add( new Plot(PlotType.GREEN, new Position(0, -1)));
-        plots.add( new Plot(PlotType.GREEN, new Position(1, 0)));
-        for(Plot plot : plots){
+        plots.add(new Plot(PlotType.GREEN, new Position(-1, 1)));
+        plots.add(new Plot(PlotType.GREEN, new Position(0, 0)));
+        plots.add(new Plot(PlotType.GREEN, new Position(0, -1)));
+        plots.add(new Plot(PlotType.GREEN, new Position(1, 0)));
+        for (Plot plot : plots) {
             plot.isIrrigatedIsTrue();
         }
         Pattern pattern = new Pattern(plots);
@@ -93,7 +95,7 @@ class GameEngineTest {
     }
 
     @Test
-    void computeObjectivePanda(){
+    void computeObjectivePanda() {
         GameEngine gameEngine = new GameEngine(null, null, null);
 
         BotProfil botProfil = new BotProfil(new BotMbappe(null, null), "");
@@ -111,66 +113,66 @@ class GameEngineTest {
     }
 
     @Test
-    void moveGardenerTest(){
+    void moveGardenerTest() {
         Map map = new Map();
-        Plot plot2 = new Plot(PlotType.GREEN, new Position(0,1));
-        Plot plot3 = new Plot(PlotType.GREEN, new Position(1,2));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(0, 1));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(1, 2));
         map.putPlot(plot2);
         map.putPlot(plot3);
         GameEngine gameEngine = new GameEngine(null, null, map);
-        gameEngine.moveGardener(new Position(0,1));
+        gameEngine.moveGardener(new Position(0, 1));
         assertEquals(new Position(0, 1), gameEngine.getGardenerPosition());
 
-        gameEngine.moveGardener(new Position(3,1));
+        gameEngine.moveGardener(new Position(3, 1));
         assertEquals(new Position(0, 1), gameEngine.getGardenerPosition());
 
-        gameEngine.moveGardener(new Position(1,2));
+        gameEngine.moveGardener(new Position(1, 2));
         assertEquals(new Position(0, 1), gameEngine.getGardenerPosition());
     }
 
     @Test
-    void growBambouTest(){
+    void growBambouTest() {
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
-        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
+        Plot plot = new Plot(PlotType.GREEN, new Position(0, 1));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1, 1));
         map.putPlot(plot);
         map.putPlot(plot2);
         GameEngine gameEngine = new GameEngine(null, null, map);
-        gameEngine.moveGardener(new Position(0,1));
+        gameEngine.moveGardener(new Position(0, 1));
         assertEquals(1, plot.getNumberOfBambou());
         assertEquals(1, plot2.getNumberOfBambou());
     }
 
     @Test
-    void computeObjectiveGardener(){
+    void computeObjectiveGardener() {
         Map map = new Map();
-        Plot plot1 = new Plot(PlotType.GREEN, new Position(0,1));
-        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
-        Plot plot3 = new Plot(PlotType.GREEN, new Position(1,0));
+        Plot plot1 = new Plot(PlotType.GREEN, new Position(0, 1));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1, 1));
+        Plot plot3 = new Plot(PlotType.GREEN, new Position(1, 0));
         map.putPlot(plot1);
         map.putPlot(plot2);
         map.putPlot(plot3);
 
-        for(int i=0; i<3; ++i)plot1.growBambou();
-        for(int i=0; i<3; ++i){
+        for (int i = 0; i < 3; ++i) plot1.growBambou();
+        for (int i = 0; i < 3; ++i) {
             plot2.growBambou();
             plot3.growBambou();
         }
 
         GameEngine gameEngine = new GameEngine(null, null, map);
-        gameEngine.moveGardener(new Position(0,1));
-        assertTrue(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false, 1));
+        gameEngine.moveGardener(new Position(0, 1));
+        assertTrue(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, 1));
         gameEngine.moveGardener(new Position(0, 0));
-        assertFalse(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false, 1));
+        assertFalse(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, 1));
         gameEngine.moveGardener(plot2.getPosition());
-        assertTrue(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false,  2));
+        assertTrue(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, 2));
     }
 
     @Test
-    void eatBambou(){
+    void eatBambou() {
         Map map = new Map();
-        Position position = new Position(1,0);
-        Plot plot = new Plot(PlotType.GREEN,position);
+        Position position = new Position(1, 0);
+        Plot plot = new Plot(PlotType.GREEN, position);
         Bambou bambou = new Bambou(PlotType.GREEN);
         Bambou bambou1 = new Bambou(PlotType.GREEN);
 
@@ -178,45 +180,54 @@ class GameEngineTest {
 
         map.putPlot(plot);
         Game game = new Game();
-        GameEngine gameEngine = new GameEngine(null,null,map);
+        GameEngine gameEngine = new GameEngine(null, null, map);
 
         gameEngine.moveGardener(position);
         gameEngine.moveGardener(position);
 
         gameEngine.eatBambou(game, null, position);
 
-        assertEquals(1,plot.getNumberOfBambou());
+        assertEquals(1, plot.getNumberOfBambou());
     }
+
     @Test
-    public void testRainAction(){
+    void testDrawWeather() {
+        GameEngine gameEngine = new GameEngine(null, null, null);
+        WeatherType weather = gameEngine.drawWeather();
+        for (WeatherType weatherType : WeatherType.values()) {
+            if (weatherType == weather) {
+                assertTrue(true);
+            }
+        }
+    }
+
+    @Test
+    void testRainAction() {
         Map map = new Map();
-        Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
-        Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));
+        Plot plot = new Plot(PlotType.GREEN, new Position(0, 1));
+        Plot plot2 = new Plot(PlotType.GREEN, new Position(1, 1));
         map.putPlot(plot);
         map.putPlot(plot2);
         GameEngine gameEngine = new GameEngine(null, null, map);
-        gameEngine.rainAction(new Position(0,1));
+        gameEngine.rainAction(new Position(0, 1));
         assertEquals(1, plot.getNumberOfBambou());
         assertNotEquals(1, plot2.getNumberOfBambou());
 
     }
+
     @Test
-    void testThunderAction(){
+    void testThunderAction() {
         Map map = new Map();
-        GameEngine gameEngine = new GameEngine(null, null,map);
-        Position position = new Position(1,0);
-        Position position2 = new Position(372,1);
+        GameEngine gameEngine = new GameEngine(null, null, map);
+        Position position = new Position(1, 0);
+        Position position2 = new Position(372, 1);
 
         Plot plot = new Plot(PlotType.GREEN, position);
         map.putPlot(plot);
 
 
         gameEngine.thunderAction(position);
-        assertEquals(true,gameEngine.thunderAction(position));
-        assertEquals(false, gameEngine.thunderAction(position2));
+        assertTrue(gameEngine.thunderAction(position));
+        assertFalse(gameEngine.thunderAction(position2));
     }
-
-    @Test
-    void rainAction(){
-
 }

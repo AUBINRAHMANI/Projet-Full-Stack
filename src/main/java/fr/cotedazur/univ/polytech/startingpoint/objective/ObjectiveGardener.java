@@ -1,27 +1,29 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.PlotType;
+import fr.cotedazur.univ.polytech.startingpoint.WeatherType;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 
 import java.util.List;
 
-public class ObjectiveGardener extends Objective{
+public class ObjectiveGardener extends Objective {
 
     int nbBambou;
     int nbPlot;
     PlotType bambouType;
     boolean improvement;
 
-    public ObjectiveGardener(int point, int nbBambou, PlotType bambouType , boolean improvement, int nbSection) {
+    public ObjectiveGardener(int point, int nbBambou, PlotType bambouType, boolean improvement, int nbSection) {
         super(point);
-        this.nbBambou       = nbBambou;
-        this.nbPlot      = nbSection;
-        this.bambouType     = bambouType;
-        this.improvement    = improvement;
+        this.nbBambou = nbBambou;
+        this.nbPlot = nbSection;
+        this.bambouType = bambouType;
+        this.improvement = improvement;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class ObjectiveGardener extends Objective{
 
     @Override
     public boolean verifyGardenerObj(GameEngine gameEngine) {
-        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, improvement, nbPlot);
+        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, nbPlot);
     }
 
     @Override
@@ -40,8 +42,8 @@ public class ObjectiveGardener extends Objective{
     }
 
     @Override
-    public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather){
-        return bot.fillObjectiveGardener( bambouType , improvement, banActionTypes, weather);
+    public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather) {
+        return bot.fillObjectiveGardener(bambouType, improvement, banActionTypes, weather);
     }
 
     @Override

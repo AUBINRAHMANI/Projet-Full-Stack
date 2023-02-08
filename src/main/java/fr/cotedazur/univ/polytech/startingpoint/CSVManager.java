@@ -1,7 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-import fr.cotedazur.univ.polytech.startingpoint.StatistiqueManager.BotStatistiqueProfil;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.BotStatistiqueProfil;
 
 import java.io.File;
 import java.io.FileWriter;

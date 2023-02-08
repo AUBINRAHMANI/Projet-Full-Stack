@@ -1,32 +1,43 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
-import fr.cotedazur.univ.polytech.startingpoint.*;
-import fr.cotedazur.univ.polytech.startingpoint.game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
-public class RainAction implements Action{
-    Position _position;
-    public RainAction(Position position){
-        this._position = position;
+import java.util.Objects;
+
+public class RainAction implements Action {
+    Position position;
+
+    public RainAction(Position position) {
+        this.position = position;
     }
 
     @Override
     public boolean play(Referee referee, GameEngine gameEngine) {
-        return gameEngine.rainAction(_position);
+        return gameEngine.rainAction(position);
     }
+
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee){
+    public boolean verifyObjectiveAfterAction(Referee referee) {
         return referee.computeObjectivesGardener();
     }
 
     @Override
-    public boolean equals(Action action) {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         return isActionRain();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isActionRain());
     }
 
     @Override
     public String toString() {
         return "RainAction{" +
-                "_position=" + _position +
+                "_position=" + position +
                 '}';
     }
 
@@ -61,8 +72,13 @@ public class RainAction implements Action{
     }
 
     @Override
+    public boolean isActionPutIrrigation() {
+        return false;
+    }
+
+    @Override
     public Position getPosition() {
-        return _position;
+        return position;
     }
 
     @Override
