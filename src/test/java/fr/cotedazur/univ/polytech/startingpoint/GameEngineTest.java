@@ -176,7 +176,6 @@ class GameEngineTest {
 
         plot.isIrrigatedIsTrue();
 
-
         map.putPlot(plot);
         Game game = new Game();
         GameEngine gameEngine = new GameEngine(null,null,map);
@@ -187,14 +186,6 @@ class GameEngineTest {
         gameEngine.eatBambou(game, null, position);
 
         assertEquals(1,plot.getNumberOfBambou());
-    }
-    @Test
-    public void checkIfWeatherChangesReallyApply(){
-
-    }
-    @Test
-    public void testDrawWeather(){
-
     }
     @Test
     public void testRainAction(){
@@ -225,5 +216,7 @@ class GameEngineTest {
         assertEquals(false, gameEngine.thunderAction(position2));
     }
 
+    @Test
+    void rainAction(){
 
 }

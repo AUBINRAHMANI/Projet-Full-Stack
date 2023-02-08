@@ -154,9 +154,9 @@ public class GameEngine implements Loggeable {
         Random rand = new Random();
 
         int choseNumber = 1+rand.nextInt(7-1);
-        WeatherType weather = WeatherType.values()[choseNumber];
-        LOGGER.finest("Face : "+weather);
-        return weather;
+        WeatherType weatherType = WeatherType.values()[choseNumber];
+        LOGGER.finest("Face : "+weatherType);
+        return weatherType;
     }
 
     public WeatherType getWeatherType() {
@@ -175,10 +175,5 @@ public class GameEngine implements Loggeable {
             return true;
         }
         return false;
-    }
-
-
-    public boolean irrigationExist(Irrigation irrigation){
-        return map.irrigationExist(irrigation);
     }
 }
