@@ -61,26 +61,20 @@ public class Main implements Loggeable {
         public Boolean getDemoFinest() {
             return demoFinest;
         }
-
         public Boolean getTwoThousandWarning() {
             return twoThousandWarning;
         }
-
         public Boolean getTwoThousandFine() {
             return twoThousandFine;
         }
-
         public Boolean getTwoThousandFiner() {
             return twoThousandFiner;
         }
-
         public Boolean getTwoThousandFinest() {
             return twoThousandFinest;
         }
-
         @Parameter(names = "--csv", description = "Lancement d’une simulation à plusieurs parties")
         private Boolean csv = false;
-
         public Boolean getCsv () {
             return csv;
         }
