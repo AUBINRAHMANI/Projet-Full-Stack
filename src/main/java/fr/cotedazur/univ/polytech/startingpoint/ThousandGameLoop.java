@@ -18,21 +18,21 @@ public class ThousandGameLoop implements Loggeable {
         Loggeable.initLogger(Level.FINE);
 
         List<BotProfil> players = new ArrayList<>();
-        BotProfil bob1 = new BotProfil(new BotSprint(),"bot 1");
-        BotProfil bob2 = new BotProfil(new BotMbappe(), "bot2");
+        BotProfil bob1 = new BotProfil(new BotSprint(),"Sprint");
+        BotProfil bob2 = new BotProfil(new BotMbappe(), "Mbappe");
         players.add(bob1);
         players.add(bob2);
 
 
+
         statistiqueManager.initBotsStatistiquesProfiles(players);
 
-        for(int i=0; i<5 ;++i){
+        for(int i=0; i<1000 ;++i){
 
             LOGGER.config("Game "+i);
             Game game = new Game(statistiqueManager, players , false);
             game.start();
-            bob1.resetPoints();
-            bob2.resetPoints();
+
             for(BotProfil botProfil : players){
                 botProfil.resetPoints();
             }

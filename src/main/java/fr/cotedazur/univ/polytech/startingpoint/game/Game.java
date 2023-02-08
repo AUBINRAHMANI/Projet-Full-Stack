@@ -259,9 +259,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
     public BotProfil checkWinner() {
         BotProfil winner = null;
-        for(BotProfil botProfil : botProfiles){
-            LOGGER.config("bot points " + botProfil.getPoints());
-        }
         if (this.timeOutCounter < MAX_NB_ROUND) {
             winner = botProfiles.get(0);
             for (BotProfil botProfil : botProfiles) {
@@ -269,7 +266,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     winner = botProfil;
                 }
             }
-            LOGGER.fine(winner.getBotName());
             for(BotProfil botProfil : botProfiles) {
                 if (winner != botProfil) {
                     statistiqueManager.addLoser(botProfil.getBot());
