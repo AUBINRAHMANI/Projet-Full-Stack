@@ -56,6 +56,8 @@ public class Game implements DeckSignal, Referee, Loggeable {
         }
     }
 
+    public Game(boolean b) {
+    }
 
 
     public boolean start(){

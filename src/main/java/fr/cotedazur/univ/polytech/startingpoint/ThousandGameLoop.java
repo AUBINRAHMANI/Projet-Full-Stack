@@ -16,6 +16,7 @@ import java.util.logging.Level;
 
 public class ThousandGameLoop implements Loggeable {
     public static void main(String[] args) {
+
         StatistiqueManager statistiqueManager = new StatistiqueManager();
         CSVManager csvManager = new CSVManager();
         Loggeable.initLogger(Level.CONFIG);
