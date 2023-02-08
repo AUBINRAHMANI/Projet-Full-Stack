@@ -2,7 +2,12 @@ package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+
+import java.util.List;
 
 
 public abstract class Objective {
@@ -18,7 +23,7 @@ public abstract class Objective {
     public abstract boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot);
     public abstract boolean verifyGardenerObj(GameEngine gameEngine);
     public abstract boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil);
-    public abstract Action tryToFillObjective(Bot bot);
+    public abstract Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather);
     public abstract String toString();
 
 }

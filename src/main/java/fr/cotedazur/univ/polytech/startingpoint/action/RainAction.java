@@ -1,17 +1,18 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
+
 import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
-public class MoveGardenerAction implements Action{
-
-    Position position;
-    public MoveGardenerAction(Position position){
-        this.position = position;
+public class RainAction implements Action{
+    Position _position;
+    public RainAction(Position position){
+        this._position = position;
     }
 
     @Override
     public boolean play(Referee referee, GameEngine gameEngine) {
-        return gameEngine.moveGardener(position);
+        return gameEngine.rainAction(_position);
     }
     @Override
     public boolean verifyObjectiveAfterAction(Referee referee){
@@ -20,20 +21,19 @@ public class MoveGardenerAction implements Action{
 
     @Override
     public boolean equals(Action action) {
-        return action.isActionMoveGardener();
+        return isActionRain();
     }
-
 
     @Override
     public String toString() {
-        return "MoveGardenerAction{" +
-                "_position=" + position +
+        return "RainAction{" +
+                "_position=" + _position +
                 '}';
     }
 
     @Override
     public boolean isActionMoveGardener() {
-        return true;
+        return false;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MoveGardenerAction implements Action{
 
     @Override
     public boolean isActionRain() {
-        return false;
+        return true;
     }
 
     @Override
@@ -63,11 +63,11 @@ public class MoveGardenerAction implements Action{
 
     @Override
     public Position getPosition() {
-        return position;
+        return _position;
     }
 
     @Override
     public ActionType toType() {
-        return ActionType.MOVE_GARDENER;
+        return ActionType.RAIN;
     }
 }

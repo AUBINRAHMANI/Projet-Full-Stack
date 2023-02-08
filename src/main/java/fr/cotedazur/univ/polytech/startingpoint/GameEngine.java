@@ -1,15 +1,21 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.*;
+import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.QUESTIONMARK;
+
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
-public class GameEngine {
+public class GameEngine implements Loggeable {
 
 
     private Deck<Objective> objectiveDeck;
@@ -18,15 +24,17 @@ public class GameEngine {
     private Gardener        gardener;
     private Panda           panda;
 
+    private BotProfil botProfil_;
+    private WeatherType weather;
+
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
         this.objectiveDeck = objectiveDeck;
         this.plotDeck = plotDeck;
         this.map = map;
-
         this.panda = new Panda();
-
         this.gardener = new Gardener();
+        this.weather = NOMETEO;
     }
 
     public void regenerateDecks(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck){
@@ -80,7 +88,7 @@ public class GameEngine {
         }
     }
 
-    public boolean movePanda(Referee referee, Bot bot, Position position){
+    public boolean movePanda(Referee referee, Playable bot, Position position){
         if(!map.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
             panda.setPosition(position);
             eatBambou(referee, bot, position);
@@ -89,7 +97,7 @@ public class GameEngine {
         return false;
     }
 
-    public boolean eatBambou(Referee referee, Bot bot, Position position){
+    public boolean eatBambou(Referee referee, Playable bot, Position position){
        Plot plot = map.findPlot(position);
        Bambou bambou = plot.eatBambou();
        if( bambou!=null && referee!=null )referee.addBamboutToBot(bot, bambou);
@@ -141,6 +149,34 @@ public class GameEngine {
         botProfil.setBambous(playerBambous);
         return true;
     }
+
+    public WeatherType drawWeather(){
+        Random rand = new Random();
+
+        int choseNumber = 1+rand.nextInt(7-1);
+        WeatherType weather = WeatherType.values()[choseNumber];
+        LOGGER.finest("Face : "+weather);
+        return weather;
+    }
+
+    public WeatherType getWeatherType() {
+        return weather;
+    }
+
+    public boolean rainAction(Position position) {
+      if(getMap().findPlot(position).isIrrigated()){
+          return getMap().findPlot(position).growBambou();
+      }
+        return false;
+    }
+    public boolean thunderAction(Position position){
+        if(!getMap().isSpaceFree(position)){
+            panda.setPosition(position);
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean irrigationExist(Irrigation irrigation){
         return map.irrigationExist(irrigation);

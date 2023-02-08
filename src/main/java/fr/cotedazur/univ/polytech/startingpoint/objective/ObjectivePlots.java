@@ -2,7 +2,10 @@ package fr.cotedazur.univ.polytech.startingpoint.objective;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 
 import java.util.List;
 
@@ -38,8 +41,8 @@ public class ObjectivePlots extends Objective{
     }
 
     @Override
-    public Action tryToFillObjective(Bot bot) {
-        return bot.fillObjectivePlots(pattern);
+    public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather) {
+        return bot.fillObjectivePlots(pattern, banActionTypes);
     }
 
     @Override

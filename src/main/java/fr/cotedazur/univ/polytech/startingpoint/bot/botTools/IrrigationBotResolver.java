@@ -1,12 +1,12 @@
-package fr.cotedazur.univ.polytech.startingpoint.bot;
+package fr.cotedazur.univ.polytech.startingpoint.bot.botTools;
 
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
-import fr.cotedazur.univ.polytech.startingpoint.action.PickObjectiveAction;
+import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
+
 import fr.cotedazur.univ.polytech.startingpoint.action.PutIrrigationAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IrrigationBotResolver {
@@ -18,7 +18,10 @@ public class IrrigationBotResolver {
         this.map = map;
         this.referee = referee;
     }
-    public Action tryPutIrrigation(Position target) {
+    public Action tryPutIrrigation(Position target, List<ActionType> banActionTypes) {
+        if(banActionTypes.contains(ActionType.PUT_IRRIGATION)==false){
+            return null;
+        }
         List<Position> path = map.getPathBetweenPositions(new Position(0,0), target);
         for(int i= path.size()-1 ; i>0 ; --i){
             Plot plot = map.findPlot(path.get(i));
@@ -30,10 +33,10 @@ public class IrrigationBotResolver {
                 return tryPutIrrigationOnPosition(path.get(i+1));
             }
         }
-        return placeRandomIrrigation();
+        return placeRandomIrrigation(banActionTypes);
     }
 
-    private Action placeRandomIrrigation() {
+    private Action placeRandomIrrigation(List<ActionType> banActionTypes) {
         for(Plot plot : map.getMapPlots()){
             if(plot.isIrrigated()==false){
                 Action action = tryPutIrrigationOnPosition(plot.getPosition());
@@ -47,7 +50,7 @@ public class IrrigationBotResolver {
             }
         }
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
-        return patternBotResolver.putRandomlyAPLot(PlotType.GREEN);
+        return patternBotResolver.putRandomlyAPLot(PlotType.GREEN, banActionTypes);
     }
 
     private Action tryPutIrrigationOnPosition(Position position){
