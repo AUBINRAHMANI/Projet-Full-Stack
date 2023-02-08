@@ -28,21 +28,54 @@ public class Main implements Loggeable {
     private Boolean twoThousandFiner = false;
     @Parameter(names = "--2thousand --finest", description = "affiche tous les logs")
     private Boolean twoThousandFinest = false;
-    public Boolean getDemo() {return demo;}
-    public Boolean getTwoThousand() {return twoThousands;}
-    public Boolean getDemoWarning() {return demoWarning;}
-    public Boolean getDemoFine() {return demoFine;}
-    public Boolean getDemoFiner() {return demoFiner;}
-    public Boolean getDemoFinest() {return demoFinest;}
-    public Boolean getTwoThousandWarning() {return twoThousandWarning;}
-    public Boolean getTwoThousandFine() {return twoThousandFine;}
-    public Boolean getTwoThousandFiner() {return twoThousandFiner;}
-    public Boolean getTwoThousandFinest() {return twoThousandFinest;}
 
-    @Parameter( names= "--csv", description = "Lancement d’une simulation à plusieurs parties (pas forcément 1000) avec\n" +
+    public Boolean getDemo() {
+        return demo;
+    }
+
+    public Boolean getTwoThousand() {
+        return twoThousands;
+    }
+
+    public Boolean getDemoWarning() {
+        return demoWarning;
+    }
+
+    public Boolean getDemoFine() {
+        return demoFine;
+    }
+
+    public Boolean getDemoFiner() {
+        return demoFiner;
+    }
+
+    public Boolean getDemoFinest() {
+        return demoFinest;
+    }
+
+    public Boolean getTwoThousandWarning() {
+        return twoThousandWarning;
+    }
+
+    public Boolean getTwoThousandFine() {
+        return twoThousandFine;
+    }
+
+    public Boolean getTwoThousandFiner() {
+        return twoThousandFiner;
+    }
+
+    public Boolean getTwoThousandFinest() {
+        return twoThousandFinest;
+    }
+
+    @Parameter(names = "--csv", description = "Lancement d’une simulation à plusieurs parties (pas forcément 1000) avec\n" +
             "relecture de \"stats/gamestats.csv” s’il existe et ajout des nouvelles statistiques")
     private Boolean csv = false;
-    public Boolean getCsv(){return csv;}
+
+    public Boolean getCsv() {
+        return csv;
+    }
 
     public static void main(String... argv) {
         Main main = new Main();
@@ -120,5 +153,6 @@ public class Main implements Loggeable {
                 game.start();
             }
         }
+
     }
 }

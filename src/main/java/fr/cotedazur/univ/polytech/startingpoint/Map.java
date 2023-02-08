@@ -202,16 +202,6 @@ public class Map {
     }
 
     public boolean irrigationExist(Irrigation irrigation) {
-        /*
-        if(irrigations.contains(irrigation)==false){
-            System.out.println(irrigations);
-            System.out.println(irrigation);
-            System.out.println();
-        }
-
-         */
-
-
         return irrigations.contains(irrigation);
     }
 }
