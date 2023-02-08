@@ -108,6 +108,8 @@ public class Game implements DeckSignal, Referee, Loggeable {
                 banActionTypes.add(action.toType());
                 action.verifyObjectiveAfterAction(this);
                 saveAction(action);
+                action.incrementAction(statistiqueManager, botProfil.getBot());
+
             }
         }
     }
