@@ -1,8 +1,11 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import net.bytebuddy.dynamic.DynamicType;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
@@ -120,7 +123,7 @@ public class Map {
         return path;
     }
 
-    public List<List<Plot>> checkIfPossibleToPlacePattern(Pattern pattern, Position position) {
+    public Optional<List<List<Plot>>> checkIfPossibleToPlacePattern(Pattern pattern, Position position) {
         List<List<Plot>> potentialPatternSpots = new ArrayList<>();
         List<List<Plot>> potentialNonIrrigatedPlots = new ArrayList<>();
         Pattern tempPattern = new Pattern(pattern);
@@ -131,7 +134,7 @@ public class Map {
                 List<Plot> missingPlots = result.get(0);
                 List<Plot> nonIrrigatedPlots = result.get(1);
                 if (missingPlots.isEmpty() && nonIrrigatedPlots.isEmpty()) {
-                    return Arrays.asList(missingPlots, nonIrrigatedPlots);
+                    return Optional.ofNullable(Arrays.asList(missingPlots, nonIrrigatedPlots));
                 } else {
                     potentialPatternSpots.add(missingPlots);
                     potentialNonIrrigatedPlots.add(nonIrrigatedPlots);
@@ -140,7 +143,7 @@ public class Map {
             }
             tempPattern.rotate60Right();
         }
-        if (potentialPatternSpots.isEmpty()) return List.of();
+        if (potentialPatternSpots.isEmpty()) return Optional.empty();
 
         List<Plot> bestPatternSpot = potentialPatternSpots.get(0);
         List<Plot> bestNonIrrigatedSpots = potentialNonIrrigatedPlots.get(0);
@@ -153,7 +156,7 @@ public class Map {
 
             }
         }
-        return Arrays.asList(bestPatternSpot, bestNonIrrigatedSpots);
+        return Optional.ofNullable(Arrays.asList(bestPatternSpot, bestNonIrrigatedSpots));
     }
 
     public List<List<Plot>> computePatternVerification(Pattern pattern, Position currentPosition) {
@@ -164,6 +167,7 @@ public class Map {
         for (Plot plot : tempPattern.getPlots()) {
             if (isSpaceFree(plot.getPosition())) {
                 missingPlots.add(new Plot(plot.getType(), plot.getPosition()));
+                nonIrrigatedPlot.add(new Plot(plot.getType(), plot.getPosition()));
             } else if (plot.getType() == findPlot(plot.getPosition()).getType() && !findPlot(plot.getPosition()).isIrrigated()) {
                 nonIrrigatedPlot.add(new Plot(plot.getType(), plot.getPosition()));
             }

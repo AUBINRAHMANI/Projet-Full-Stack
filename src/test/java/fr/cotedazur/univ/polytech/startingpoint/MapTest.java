@@ -1,12 +1,15 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MapTest {
+class MapTest implements Loggeable {
 
     @Test
     void putPlot() {
@@ -184,6 +187,39 @@ class MapTest {
 
         assertTrue(map.isIrrigationsLinked(irrigation1));
         assertFalse(map.isIrrigationsLinked(irrigation2));
+    }
+
+    @Test
+    void checkIfPossibleToPlacePattern(){
+        Map map = new Map();
+        ArrayList<Plot> plots = new ArrayList<>();
+        plots.add(new Plot( PlotType.POND, new Position(0,0)));
+        plots.add(new Plot( PlotType.RED, new Position(1,0)));
+        plots.add(new Plot( PlotType.YELLOW, new Position(0,1)));
+        plots.add(new Plot( PlotType.YELLOW, new Position(2,0)));
+
+        Pattern pattern = new Pattern(plots);
+
+        List<List<Plot>> plots2 = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition()).get();
+        assertEquals(3 ,plots2.get(0).size());
+        assertEquals(3 ,plots2.get(1).size());
+
+        map.putPlot(plots.get(1));
+
+        plots2 = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition()).get();
+        assertEquals(2 ,plots2.get(0).size());
+        assertEquals(2 ,plots2.get(1).size());
+
+        map.putPlot(plots.get(2));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1,1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1,2)));
+        map.putPlot(plots.get(3));
+
+        LOGGER.warning(""+plots.get(3).isIrrigated());
+
+        plots2 = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition()).get();
+        assertEquals(0 ,plots2.get(0).size());
+        assertEquals(1 ,plots2.get(1).size());
     }
 
 }

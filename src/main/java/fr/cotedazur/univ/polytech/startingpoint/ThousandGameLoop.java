@@ -32,7 +32,7 @@ public class ThousandGameLoop implements Loggeable {
         statistiqueManager.initBotsStatistiquesProfiles(players);
 
         for (int i = 0; i < 1000; ++i) {
-            LOGGER.log(Level.CONFIG , "Game {}", i);
+            LOGGER.log(Level.CONFIG , "Game {0}", i);
             Game game = new Game(statistiqueManager, players, false);
             game.start();
 

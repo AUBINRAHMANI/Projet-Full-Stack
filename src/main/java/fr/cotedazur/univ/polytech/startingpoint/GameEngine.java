@@ -7,10 +7,7 @@ import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.values;
 
@@ -103,20 +100,21 @@ public class GameEngine implements Loggeable {
 
 
     public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot) {
-        List<List<Plot>> result = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
-        if (result == null) {
-            return false;
+        Optional<List<List<Plot>>> result = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
+        LOGGER.config(result.toString());
+        if (result.isPresent()) {
+            List<Plot> missingPlots = result.get().get(0);
+            List<Plot> nonIrrigatedPlot = result.get().get(1);
+            return missingPlots.isEmpty() && nonIrrigatedPlot.isEmpty();
         }
-        List<Plot> missingPlots = result.get(0);
-        List<Plot> nonIrrigatedPlot = result.get(1);
-        return missingPlots.isEmpty() && nonIrrigatedPlot.isEmpty();
+        return false;
     }
 
 
     public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, int nbPlot) {
         Plot plot = map.findPlot(gardener.getPosition());
         if (nbBambou > 3) {
-            return plot.getNumberOfBambou() <= nbBambou && plot.getType() == bambouType;
+            return plot.getNumberOfBambou() >= nbBambou && plot.getType() == bambouType;
         } else {
             if (plot.getNumberOfBambou() <= nbBambou || plot.getType() != bambouType) return false;
             int nbValidatedPlots = 0;

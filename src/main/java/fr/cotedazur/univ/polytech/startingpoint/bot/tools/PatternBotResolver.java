@@ -7,6 +7,7 @@ import fr.cotedazur.univ.polytech.startingpoint.action.PutPlotAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PatternBotResolver {
 
@@ -21,10 +22,10 @@ public class PatternBotResolver {
     public Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes) {
         for (Plot plot : map.getMapPlots()) {
             if (plot.getType() == pattern.getPlots().get(0).getType()) {
-                List<List<Plot>> result = map.checkIfPossibleToPlacePattern(pattern, plot.getPosition());
-                if (result != null) {
-                    List<Plot> missingPlots = result.get(0);
-                    List<Plot> nonIrrigatedPlots = result.get(1);
+                Optional<List<List<Plot>>> result = map.checkIfPossibleToPlacePattern(pattern, plot.getPosition());
+                if (result.isPresent()) {
+                    List<Plot> missingPlots = result.get().get(0);
+                    List<Plot> nonIrrigatedPlots = result.get().get(1);
                     if (!banActionTypes.contains(ActionType.PUT_PLOT)) {
                         for (Plot tempPlot : missingPlots) {
                             Position tempPlotPosition = tempPlot.getPosition();
