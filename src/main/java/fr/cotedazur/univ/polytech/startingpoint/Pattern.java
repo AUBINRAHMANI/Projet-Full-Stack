@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public class Pattern {
@@ -10,12 +11,12 @@ public class Pattern {
 
     public Pattern(){
         plots = new ArrayList<>();
-        this.rand = new Random();
+        this.rand = new SecureRandom();
         generateRandomPattern();
     }
     public Pattern(Pattern plots){
         this.plots = new ArrayList<>();
-        this.rand = new Random();
+        this.rand = new SecureRandom();
         for(Plot plot : plots.getPlots()){
             this.plots.add(new Plot(plot));
         }

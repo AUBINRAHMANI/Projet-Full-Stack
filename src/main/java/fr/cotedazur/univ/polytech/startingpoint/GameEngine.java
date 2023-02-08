@@ -6,6 +6,7 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -25,7 +26,7 @@ public class GameEngine implements Loggeable {
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
-        this.random = new Random();
+        this.random = new SecureRandom();
         this.objectiveDeck = objectiveDeck;
         this.plotDeck = plotDeck;
         this.map = map;
@@ -114,7 +115,7 @@ public class GameEngine implements Loggeable {
 
     public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, int nbPlot){
         Plot plot = map.findPlot(gardener.getPosition());
-        if(nbBambou> 3){
+        if(nbBambou > 3){
             if(plot.getNumberOfBambou() <= nbBambou && plot.getType() == bambouType){
                 return true;
             }

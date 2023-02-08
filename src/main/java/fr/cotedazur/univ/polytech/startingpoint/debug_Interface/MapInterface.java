@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.debugInterface;
+package fr.cotedazur.univ.polytech.startingpoint.debug_Interface;
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
@@ -11,45 +11,27 @@ import java.util.List;
 import java.util.ConcurrentModificationException;
 import static java.lang.Math.sqrt;
 
-public class MapInterface extends JFrame implements Loggeable {
+public class MapInterface extends JFrame {
 
     final static int HEXAGONE_SIZE = 40;
-
-    private  List<Plot> map;
-    private Position center;
+    private static Position center;
     volatile boolean next;
-    private List<Position> positionsToAdd;
-    private List<Integer> correspondingNbBambous;
-    private List<Plot> plotsDrawen;
-    private List<Color> colorsToAdd;
-    private Position gardenerPosition;
-    private Position pandaPosition;
-    private Toolkit toolkit;
+    private static List<Position> positionsToAdd = new ArrayList<>();
+    private static List<Integer> correspondingNbBambous = new ArrayList<>();
+    private static List<Plot> plotsDrawen = new ArrayList<>();
+    private static List<Color> colorsToAdd = new ArrayList<>();
     private GPanel panel;
 
     public MapInterface(){
         setSize(960, 540);
         next = false;
-        toolkit = getToolkit();
-        positionsToAdd = new ArrayList<>();
-        correspondingNbBambous = new ArrayList<>();
-        plotsDrawen         = new ArrayList<>();
-        colorsToAdd = new ArrayList<>();
-        gardenerPosition    = new Position(0,0);
-        pandaPosition       = new Position(0, 0);
-        map = new ArrayList<>();
         updateSize();
 
         JButton nextButton=new JButton("Next");
         nextButton.setBounds((getWidth()/2)-(140/2),getHeight()-100,140,30);
 
-        nextButton.addActionListener(new ActionListener() {
+        nextButton.addActionListener(listener->next=true);
 
-            public void actionPerformed(ActionEvent e)
-            {
-                next = true;
-            }
-        });
         add(nextButton);
 
         addComponentListener(new ComponentAdapter() {
@@ -65,7 +47,7 @@ public class MapInterface extends JFrame implements Loggeable {
         getContentPane().add(panel);
         panel.setLayout(null);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -84,10 +66,9 @@ public class MapInterface extends JFrame implements Loggeable {
         center = new Position(getWidth()/2, (int)(getHeight()/2.7));
     }
 
-    public void drawMap(Map map, Position gardenePosition, Position pandaPosition){
-        this.map = map.getMapPlots();
-        this.gardenerPosition   = gardenePosition;
-        this.pandaPosition      = pandaPosition;
+    public void drawMap(Map map, Position newGardenerPosition, Position newPandaPosition){
+        Position gardenerPosition   = newGardenerPosition;
+        Position pandaPosition      = newPandaPosition;
         List<Plot> plots = map.getMapPlots();
         List<Plot> plotsToRemove = new ArrayList<>();
         for(Plot plot1 : plots){
@@ -105,12 +86,8 @@ public class MapInterface extends JFrame implements Loggeable {
             drawHexagon(plot);
             plotsDrawen.add(new Plot(plot));
         }
-        try {
-            paintComponents(getGraphics());
+             panel.paintComponent(getGraphics(), gardenerPosition, pandaPosition);
             repaint();
-        }catch (ConcurrentModificationException e){
-            LOGGER.warning("Arretez de modifier en meme temps");
-        }
     }
     private void drawHexagon(Plot plot){
         Position position   = plot.getPosition();
@@ -145,8 +122,9 @@ public class MapInterface extends JFrame implements Loggeable {
     }
 
     private class GPanel extends JPanel{
-        @Override
-        public void paintComponent(Graphics graphics){
+
+
+        public void paintComponent(Graphics graphics, Position gardenerPosition, Position pandaPosition){
             super.paintComponent(graphics);
             updateSize();
             // new Color(0, 115,255, 163)
@@ -176,16 +154,16 @@ public class MapInterface extends JFrame implements Loggeable {
         }
 
         private Polygon getHexagon(Position position) {
-            int x = (int)((HEXAGONE_SIZE/2) * (3./2 * position.getQ())) + center.getX();
-            int y = (int)((HEXAGONE_SIZE/2) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
-            int xPoints[] = {x+HEXAGONE_SIZE/4, x+HEXAGONE_SIZE/2, x+HEXAGONE_SIZE/4,   x-HEXAGONE_SIZE/4,  x-HEXAGONE_SIZE/2, x-HEXAGONE_SIZE/4};
-            int yPoints[] = {(int)(y+(HEXAGONE_SIZE*(0.42))),                 y, (int) (y-(HEXAGONE_SIZE*(0.42))), (int) (y-(HEXAGONE_SIZE*(0.42))),                  y, (int) (y+(HEXAGONE_SIZE*(0.42)))};
+            int x = (int)((HEXAGONE_SIZE/2.) * (3./2 * position.getQ())) + center.getX();
+            int y = (int)((HEXAGONE_SIZE/2.) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
+            int[] xPoints = {x+HEXAGONE_SIZE/4, x+HEXAGONE_SIZE/2, x+HEXAGONE_SIZE/4,   x-HEXAGONE_SIZE/4,  x-HEXAGONE_SIZE/2, x-HEXAGONE_SIZE/4};
+            int[] yPoints = {(int)(y+(HEXAGONE_SIZE*(0.42))),                 y, (int) (y-(HEXAGONE_SIZE*(0.42))), (int) (y-(HEXAGONE_SIZE*(0.42))),                  y, (int) (y+(HEXAGONE_SIZE*(0.42)))};
             return new Polygon(xPoints, yPoints, 6);
         }
 
         private Position getPlotPositionInGrid(Position position){
-            int x = (int)((HEXAGONE_SIZE/2) * (3./2 * position.getQ())) + center.getX();
-            int y = (int)((HEXAGONE_SIZE/2) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
+            int x = (int)((HEXAGONE_SIZE/2.) * (3./2 * position.getQ())) + center.getX();
+            int y = (int)((HEXAGONE_SIZE/2.) * (sqrt(3)/2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
             return new Position(x, y);
         }
     }

@@ -4,10 +4,11 @@ import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.action.*;
 import fr.cotedazur.univ.polytech.startingpoint.bot.*;
-import fr.cotedazur.univ.polytech.startingpoint.debugInterface.MapInterface;
+import fr.cotedazur.univ.polytech.startingpoint.debug_Interface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.*;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 
@@ -28,7 +29,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
 
     public Game( boolean debug){
-        this.random = new Random();
+        this.random = new SecureRandom();
         botProfils = new ArrayList<>();
         Deck<Objective> objectiveDeck   = generateObjectiveDrawPile();
         Deck<Plot> plotDeck             = generatePlotDrawPile();
