@@ -15,29 +15,29 @@ import java.util.logging.Level;
 
 public class Main implements Loggeable {
     @Parameter(names = "--demo", description = "Demo 1 fois avec les logs précis")
-    private final Boolean demo = false;
+    private static final Boolean DEMO = false;
     @Parameter(names = "--2thousand", description = "2* 1000 simulations")
-    private final Boolean twoThousands = false;
+    private static final Boolean TWO_THOUSANDS = false;
     @Parameter(names = "--demo --warning", description = "seul les logs liés a des problemes sont affichés")
-    private final Boolean demoWarning = false;
+    private static final Boolean DEMOWARNING = false;
     @Parameter(names = "--demo --fine", description = "affiche les logs du resultat de la game ")
-    private final Boolean demoFine = false;
+    private static final Boolean DEMOFINE = false;
     @Parameter(names = "--demo --finer", description = "affiche les logs du resultat et objectif complété")
-    private final Boolean demoFiner = false;
+    private static final Boolean DEMOFINER = false;
     @Parameter(names = "--demo --finest", description = "affiche tous les logs")
-    private final Boolean demoFinest = false;
+    private static final Boolean DEMOFINEST = false;
     @Parameter(names = "--2thousand --warning", description = "seul les logs liés a des problemes sont affichés")
-    private final Boolean twoThousandWarning = false;
+    private static final Boolean TWO_THOUSANDS_WARNING = false;
     @Parameter(names = "--2thousand --fine", description = "affiche les logs du resultat de la game ")
-    private final Boolean twoThousandFine = false;
+    private static final Boolean TWO_THOUSANDS_FINE = false;
     @Parameter(names = "--2thousand --finer", description = "affiche les logs du resultat et objectif complété")
-    private final Boolean twoThousandFiner = false;
+    private static final Boolean TWO_THOUSANDS_FINER = false;
     @Parameter(names = "--2thousand --finest", description = "affiche tous les logs")
-    private final Boolean twoThousandFinest = false;
+    private static final Boolean TWO_THOUSANDS_FINEST = false;
     @Parameter(names = "--2thousand --config", description = "affiche le nombre de parties")
-    private final Boolean twoThousandConfig = false;
+    private static final Boolean TWO_THOUSANDS_CONFIG = false;
     @Parameter(names = "--csv", description = "Lancement d’une simulation à plusieurs parties")
-    private final Boolean csv = false;
+    private static final Boolean CSV = false;
 
     public static void main(String... argv) {
         Main main = new Main();
@@ -50,7 +50,7 @@ public class Main implements Loggeable {
 
         if (main.getCsv()) {
             for (int i = 0; i < 10; ++i) {
-                LOGGER.fine("Game " + i);
+                LOGGER.log(Level.CONFIG,"Game {}", i);
                 Game game = new Game(statistiqueManager, players, false);
                 game.start();
             }
@@ -58,7 +58,7 @@ public class Main implements Loggeable {
         if (main.getTwoThousandConfig()) {
             Loggeable.initLogger(Level.CONFIG);
             for (int i = 0; i < 2000; ++i) {
-                LOGGER.config("Game " + i);
+                LOGGER.log(Level.CONFIG,"Game {}", i);
                 Game game = new Game(statistiqueManager, players, false);
                 game.start();
                 for (BotProfil botProfil : players) {
@@ -74,7 +74,7 @@ public class Main implements Loggeable {
         if (main.getTwoThousand()) {
             Loggeable.initLogger(Level.WARNING);
             for (int i = 0; i < 2000; ++i) {
-                LOGGER.fine("Game " + i);
+                LOGGER.log(Level.CONFIG,"Game {}" , i);
                 Game game = new Game(statistiqueManager, players, false);
                 game.start();
                 for (BotProfil botProfil : players) {
@@ -105,7 +105,7 @@ public class Main implements Loggeable {
         if (main.getTwoThousandWarning()) {
             Loggeable.initLogger(Level.WARNING);
             for (int i = 0; i < 2000; ++i) {
-                LOGGER.warning("Game " + i);
+                LOGGER.log(Level.CONFIG,"Game {}", i);
                 Game game = new Game(statistiqueManager, players, false);
                 game.start();
                 for (BotProfil botProfil : players) {
@@ -116,7 +116,7 @@ public class Main implements Loggeable {
         if (main.getTwoThousandFine()) {
             Loggeable.initLogger(Level.FINE);
             for (int i = 0; i < 2000; ++i) {
-                LOGGER.fine("Game " + i);
+                LOGGER.log(Level.CONFIG,"Game {}", i);
                 Game game = new Game(statistiqueManager, players, false);
                 game.start();
                 for (BotProfil botProfil : players) {
@@ -127,7 +127,7 @@ public class Main implements Loggeable {
         if (main.getTwoThousandFiner()) {
             Loggeable.initLogger(Level.FINER);
             for (int i = 0; i < 2000; ++i) {
-                LOGGER.finer("Game " + i);
+                LOGGER.log(Level.CONFIG,"Game {}", i);
                 Game game = new Game(statistiqueManager, players, false);
                 game.start();
                 for (BotProfil botProfil : players) {
@@ -139,7 +139,7 @@ public class Main implements Loggeable {
         if (main.getTwoThousandFinest()) {
             Loggeable.initLogger(Level.FINEST);
             for (int i = 0; i < 2000; ++i) {
-                LOGGER.finest("Game " + i);
+                LOGGER.log(Level.CONFIG,"Game {}", i);
                 Game game = new Game(statistiqueManager, players, false);
                 game.start();
                 for (BotProfil botProfil : players) {
@@ -150,50 +150,50 @@ public class Main implements Loggeable {
     }
 
     public Boolean getTwoThousandConfig() {
-        return twoThousandConfig;
+        return TWO_THOUSANDS_CONFIG;
     }
 
     public Boolean getDemo() {
-        return demo;
+        return DEMO;
     }
 
     public Boolean getTwoThousand() {
-        return twoThousands;
+        return TWO_THOUSANDS;
     }
 
     public Boolean getDemoWarning() {
-        return demoWarning;
+        return DEMOWARNING;
     }
 
     public Boolean getDemoFine() {
-        return demoFine;
+        return DEMOFINE;
     }
 
     public Boolean getDemoFiner() {
-        return demoFiner;
+        return DEMOFINER;
     }
 
     public Boolean getDemoFinest() {
-        return demoFinest;
+        return DEMOFINEST;
     }
 
     public Boolean getTwoThousandWarning() {
-        return twoThousandWarning;
+        return TWO_THOUSANDS_WARNING;
     }
 
     public Boolean getTwoThousandFine() {
-        return twoThousandFine;
+        return TWO_THOUSANDS_FINE;
     }
 
     public Boolean getTwoThousandFiner() {
-        return twoThousandFiner;
+        return TWO_THOUSANDS_FINER;
     }
 
     public Boolean getTwoThousandFinest() {
-        return twoThousandFinest;
+        return TWO_THOUSANDS_FINEST;
     }
 
     public Boolean getCsv() {
-        return csv;
+        return CSV;
     }
 }
