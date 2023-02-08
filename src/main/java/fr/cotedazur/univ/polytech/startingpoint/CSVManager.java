@@ -23,7 +23,6 @@ public class CSVManager {
         this.setData(botStatistiqueProfils);
         if(file.exists()){
             this.saveData(this.parseDataIfFileExist(getCSVFile(), nbDrawMatch));
-            System.out.println("caca");
         }
         else{
             this.createFileIfNotExist();
@@ -56,25 +55,26 @@ public class CSVManager {
 
     public List<String[]> parseDataIfFileNotExist(int nbDrawMatch){
         List<String[]> data = new ArrayList<>();
-        String[] header = new String[4];
+        String[] header = new String[7];
         header[0] = "Bot";
         header[1] = "Victoires";
         header[2] = "Défaites";
         header[3] = "Match nul";
+        header[4] = "Nombre de tours";
+        header[5] = "Nombre de parties";
+        header[6] = "Nombre de tours moyen";
         data.add(header);
         for (BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils) {
-            String[] statBot = new String[3];
+            String[] statBot = new String[7];
             statBot[0] = botStatistiqueProfil.getBotName();
             statBot[1] = Integer.toString(botStatistiqueProfil.getNbVictories());
             statBot[2] = Integer.toString(botStatistiqueProfil.getNbDefeats());
+            statBot[4] = Integer.toString(botStatistiqueProfil.getNbdeTours());
+            statBot[5] = Integer.toString(botStatistiqueProfil.getNumberOfGames());
+            statBot[6] = Integer.toString(botStatistiqueProfil.getNbdeTours()/botStatistiqueProfil.getNumberOfGames());
             data.add(statBot);
         }
-        String[] statMatchNul = new String[4];
-        statMatchNul[0] = "";
-        statMatchNul[1] = "";
-        statMatchNul[2] = "";
-        statMatchNul[3] = Integer.toString(nbDrawMatch);
-        data.add(statMatchNul);
+        data.get(1)[3] = Integer.toString(nbDrawMatch);
         return data;
     }
 
@@ -87,10 +87,13 @@ public class CSVManager {
                 if(data.get(i)[0].equals(botStatistiqueProfil.getBotName())){
                     data.get(i)[1] = Integer.toString(Integer.parseInt(data.get(i)[1]) + botStatistiqueProfil.getNbVictories());
                     data.get(i)[2] = Integer.toString(Integer.parseInt(data.get(i)[2]) + botStatistiqueProfil.getNbDefeats());
+                    data.get(i)[4] = Integer.toString(Integer.parseInt(data.get(i)[4]) + botStatistiqueProfil.getNbdeTours());
+                    data.get(i)[5] = Integer.toString(Integer.parseInt(data.get(i)[5]) + botStatistiqueProfil.getNumberOfGames());
+                    data.get(i)[6] = Integer.toString((Integer.parseInt(data.get(i)[6]) + botStatistiqueProfil.getNbdeTours())/botStatistiqueProfil.getNumberOfGames());
                 }
             }
         }
-        data.get(data.size()-1)[3] = Integer.toString(Integer.parseInt(data.get(data.size()-1)[3]) + nbDrawMatch);
+        data.get(1)[3] = Integer.toString(Integer.parseInt(data.get(1)[3]) + nbDrawMatch);
         for (int i = 0; i < data.size(); i++) {
             refreshedData.add(data.get(i));
         }

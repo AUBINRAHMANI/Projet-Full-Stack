@@ -25,7 +25,7 @@ public class ThousandGameLoop implements Loggeable {
 
         List<BotProfil> players = new ArrayList<>();
         BotProfil bob1 = new BotProfil(new BotSprint(), "Sprint");
-        BotProfil bob2 = new BotProfil(new BotMbappe(), "Mbappe");
+        BotProfil bob2 = new BotProfil(new BotSprint(), "Mbappe");
         players.add(bob1);
         players.add(bob2);
 
