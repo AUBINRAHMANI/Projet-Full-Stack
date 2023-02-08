@@ -23,7 +23,6 @@ public class PutIrrigationAction implements Action {
         return false;
     }
 
-    @Override
     public boolean equals(Action action) {
         return false;
     }

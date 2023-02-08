@@ -31,7 +31,7 @@ public class ObjectiveGardener extends Objective{
 
     @Override
     public boolean verifyGardenerObj(GameEngine gameEngine) {
-        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, improvement, nbPlot);
+        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, nbPlot);
     }
 
     @Override

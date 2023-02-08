@@ -19,7 +19,6 @@ public class RainAction implements Action{
         return referee.computeObjectivesGardener();
     }
 
-    @Override
     public boolean equals(Action action) {
         return isActionRain();
     }

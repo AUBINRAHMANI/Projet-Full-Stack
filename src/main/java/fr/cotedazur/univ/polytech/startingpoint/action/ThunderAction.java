@@ -21,7 +21,6 @@ public class ThunderAction implements Action{
         return referee.computeObjectivesPanda();
     }
 
-    @Override
     public boolean equals(Action action) {
         return isActionThunder();
     }

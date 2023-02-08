@@ -17,7 +17,6 @@ public class PutPlotAction implements Action{
         return referee.computeObjectivesPlot(plot);
     }
 
-    @Override
     public boolean equals(Action action) {
         return isActionPutPlot();
     }

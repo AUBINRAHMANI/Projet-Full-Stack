@@ -4,13 +4,11 @@ import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.PickObjectiveAction;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.bot.botTools.GardenerBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.bot.botTools.PandaBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.bot.botTools.PatternBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
-import net.bytebuddy.asm.Advice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +68,7 @@ public class BotSprint implements Playable {
 
         //Try block opponents
         List<Action> previousActions = referee.getPreviousActions();
-        action = tryToCounterOpponents(banActionTypes, weather, previousActions);
+        action = tryToCounterOpponents(banActionTypes, previousActions);
         if(action!=null){
             return action;
         }
@@ -84,7 +82,7 @@ public class BotSprint implements Playable {
         return new PickObjectiveAction(this);
     }
 
-    private Action tryToCounterOpponents(List<ActionType> banActionTypes, WeatherType weather, List<Action> previousActions) {
+    private Action tryToCounterOpponents(List<ActionType> banActionTypes, List<Action> previousActions) {
         int numberOpponents = referee.getNumberOfPlayers()-1;
         for(int i=0 ; i<numberOpponents ; ++i){
             Action previousAction = previousActions.get(i);

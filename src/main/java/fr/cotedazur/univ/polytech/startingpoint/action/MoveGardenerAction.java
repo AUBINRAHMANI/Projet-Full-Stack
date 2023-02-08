@@ -18,7 +18,6 @@ public class MoveGardenerAction implements Action{
         return referee.computeObjectivesGardener();
     }
 
-    @Override
     public boolean equals(Action action) {
         return action.isActionMoveGardener();
     }

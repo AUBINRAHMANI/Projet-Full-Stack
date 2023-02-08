@@ -8,50 +8,55 @@ import java.util.logging.LogRecord;
 
 public class CustomFormatter extends Formatter {
 
-    boolean DARK_MODE;
 
-    public CustomFormatter(boolean DARK_MODE){
-        this.DARK_MODE = DARK_MODE;
+    public static String BLUE = "\u001B[34m";
+    public static String RED = "\u001B[31m";
+    public static String WHITE = "\u001B[37m";
+    public static String BLACK = "\u001B[30m";
+    public static String DEFAULT = "\u001B[0m";
+    boolean darkMode;
+
+    public CustomFormatter(boolean darkMode){
+        this.darkMode = darkMode;
     }
 
     @Override
-    public String format(LogRecord record) {
+    public String format(LogRecord rec) {
         StringBuffer buffer = new StringBuffer(1000);
-        if (record.getLevel().intValue() == Level.CONFIG.intValue()) {
-            buffer = head(buffer, record);
-            buffer.append("\u001B[34m");
+        if (rec.getLevel().intValue() == Level.CONFIG.intValue()) {
+            head(buffer, rec);
+            buffer.append(BLUE);
             buffer.append(" ----> ");
-            buffer.append(formatMessage(record));
+            buffer.append(formatMessage(rec));
             buffer.append("\n");
-            buffer.append("\u001B[0m");
+            buffer.append(DEFAULT);
 
-        } else if(DARK_MODE) {
-            buffer.append("\u001B[37m");
-            buffer.append(formatMessage(record));
+        } else if(darkMode) {
+            buffer.append(WHITE);
+            buffer.append(formatMessage(rec));
             buffer.append("\n");
-            buffer.append("\u001B[0m");
+            buffer.append(DEFAULT);
         }
         else {
-            buffer.append("\u001B[30m");
-            buffer.append(formatMessage(record));
+            buffer.append(BLACK);
+            buffer.append(formatMessage(rec));
             buffer.append("\n");
-            buffer.append("\u001B[0m");
+            buffer.append(DEFAULT);
         }
         return buffer.toString();
     }
 
-    private StringBuffer head(StringBuffer buffer, LogRecord record){
-        buffer.append("\u001B[34m");
-        buffer.append(record.getLevel());
+    private void head(StringBuffer buffer, LogRecord rec){
+        buffer.append(BLUE);
+        buffer.append(rec.getLevel());
         buffer.append(" -- ");
-        buffer.append(calcDate(record.getMillis()));
-        buffer.append("\u001B[0m");
-        return buffer;
+        buffer.append(calcDate(rec.getMillis()));
+        buffer.append(DEFAULT);
     }
 
     private String calcDate(long millisecs) {
-        SimpleDateFormat date_format = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd,yyyy HH:mm");
         Date resultdate = new Date(millisecs);
-        return date_format.format(resultdate);
+        return dateFormat.format(resultdate);
     }
 }

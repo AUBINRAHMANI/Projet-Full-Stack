@@ -21,7 +21,7 @@ class ObjectiveGardenerTest {
     @Mock GameEngine mockedGameEngine = mock(GameEngine.class);
     @Test
     void verifyGardenerObj() {
-        when(mockedGameEngine.computeObjectiveGardener(0, null, true, 0)).thenReturn(true);
+        when(mockedGameEngine.computeObjectiveGardener(0, null, 0)).thenReturn(true);
         ObjectiveGardener objectiveGardener = new ObjectiveGardener(0, 0, null, true, 0);
         assertTrue(objectiveGardener.verifyGardenerObj(mockedGameEngine));
     }

@@ -10,31 +10,27 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.*;
-import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.QUESTIONMARK;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class GameEngine implements Loggeable {
 
-
+    Random random;
     private Deck<Objective> objectiveDeck;
     private Deck<Plot>      plotDeck;
     private Map             map;
     private Gardener        gardener;
     private Panda           panda;
 
-    private BotProfil botProfil_;
-    private WeatherType weather;
-
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
+        this.random = new Random();
         this.objectiveDeck = objectiveDeck;
         this.plotDeck = plotDeck;
         this.map = map;
         this.panda = new Panda();
         this.gardener = new Gardener();
-        this.weather = NOMETEO;
     }
 
     public void regenerateDecks(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck){
@@ -116,7 +112,7 @@ public class GameEngine implements Loggeable {
     }
 
 
-    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbPlot){
+    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, int nbPlot){
         Plot plot = map.findPlot(gardener.getPosition());
         if(nbBambou> 3){
             if(plot.getNumberOfBambou() <= nbBambou && plot.getType() == bambouType){
@@ -151,15 +147,9 @@ public class GameEngine implements Loggeable {
     }
 
     public WeatherType drawWeather(){
-        Random rand = new Random();
-
-        int choseNumber = 1+rand.nextInt(7-1);
-        WeatherType weather = WeatherType.values()[choseNumber];
-        LOGGER.finest("Face : "+weather);
-        return weather;
-    }
-
-    public WeatherType getWeatherType() {
+        int choseNumber = 1+random.nextInt(7-1);
+        WeatherType weather = values()[choseNumber];
+        LOGGER.finest(()->"Face : "+weather);
         return weather;
     }
 

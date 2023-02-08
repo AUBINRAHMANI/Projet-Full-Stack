@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
@@ -159,11 +160,11 @@ class GameEngineTest {
 
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.moveGardener(new Position(0,1));
-        assertTrue(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false, 1));
+        assertTrue(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, 1));
         gameEngine.moveGardener(new Position(0, 0));
-        assertFalse(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, false, 1));
+        assertFalse(gameEngine.computeObjectiveGardener(4, PlotType.GREEN, 1));
         gameEngine.moveGardener(plot2.getPosition());
-        assertTrue(gameEngine.computeObjectiveGardener(3, PlotType.GREEN, false,  2));
+        assertTrue(gameEngine.computeObjectiveGardener(3, PlotType.GREEN,  2));
     }
 
     @Test
@@ -189,15 +190,16 @@ class GameEngineTest {
         assertEquals(1,plot.getNumberOfBambou());
     }
     @Test
-    public void checkIfWeatherChangesReallyApply(){
+    void checkIfWeatherChangesReallyApply(){
 
     }
     @Test
-    public void testDrawWeather(){
-
+    void testDrawWeather(){
+        GameEngine gameEngine = new GameEngine(null, null, null);
+        WeatherType weather = gameEngine.drawWeather();
     }
     @Test
-    public void testRainAction(){
+    void testRainAction(){
         Map map = new Map();
         Plot plot = new Plot(PlotType.GREEN, new Position(0,1));
         Plot plot2 = new Plot(PlotType.GREEN, new Position(1,1));

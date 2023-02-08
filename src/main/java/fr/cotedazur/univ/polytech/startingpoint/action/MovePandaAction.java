@@ -26,7 +26,6 @@ public class MovePandaAction implements Action{
         return referee.computeObjectivesPanda();
     }
 
-    @Override
     public boolean equals(Action action) {
         return isActionMovePanda();
     }

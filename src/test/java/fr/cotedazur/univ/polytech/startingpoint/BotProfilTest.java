@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BotSprintMbappeProfilTest {
+class BotProfilTest {
 
     @Test
     void getBot_() {
