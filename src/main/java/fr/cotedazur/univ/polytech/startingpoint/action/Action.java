@@ -24,8 +24,6 @@ public interface Action {
 
     boolean isActionThunder();
 
-    boolean isActionPutIrrigation();
-
     Position getPosition();
 
     ActionType toType();

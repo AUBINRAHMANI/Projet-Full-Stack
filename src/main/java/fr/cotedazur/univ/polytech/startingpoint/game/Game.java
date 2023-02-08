@@ -59,7 +59,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         }
     }
 
-    public boolean start() {
+    public void start() {
         do {
             ++timeOutCounter;
             statistiqueManager.addTours();
@@ -81,7 +81,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
 
         printWinner(winner);
-        return true;
     }
 
     private void saveAction(Action action) {
@@ -139,11 +138,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         }
         for (int i = 0; i < 20; ++i) {
             int nbBambous = 4;
-            if (nbBambous == 3) {
-                objectiveDeck.addCard(new ObjectiveGardener(random.nextInt(4) + 1, nbBambous, PlotType.values()[random.nextInt(upperRandForPlotType) + 1], false, random.nextInt(3) + 2));
-            } else {
-                objectiveDeck.addCard(new ObjectiveGardener(random.nextInt(4) + 1, nbBambous, PlotType.values()[random.nextInt(upperRandForPlotType) + 1], false, 1));
-            }
+            objectiveDeck.addCard(new ObjectiveGardener(random.nextInt(4) + 1, nbBambous, PlotType.values()[random.nextInt(upperRandForPlotType) + 1], false, 1));
 
         }
 

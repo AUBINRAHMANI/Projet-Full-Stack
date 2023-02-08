@@ -69,7 +69,7 @@ public class Map {
     }
 
     public boolean isPossibleToPutPlot(Position position) {
-        if ((getNeighbours(position).size() > 1 || position.isCloseToCenter()) && (!position.isCenter()))
+        if ((getNeighbours(position).size() > 1 || position.isCloseToCenter()) && (position.isCenter()))
             return isSpaceFree(position);
         return false;
     }

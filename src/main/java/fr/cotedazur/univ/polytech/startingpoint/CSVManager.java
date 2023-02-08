@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.BotStatistiqueProfil;
 
 import java.io.File;
@@ -13,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVManager {
+public class CSVManager implements Loggeable {
 
     private List<BotStatistiqueProfil> botStatistiqueProfils;
     private File file;
@@ -22,11 +23,12 @@ public class CSVManager {
         this.file = new File(fileName);
         this.setData(botStatistiqueProfils);
         if(file.exists()){
+            LOGGER.info("Le fichier existe déjà");
             this.saveData(this.parseDataIfFileExist(getCSVFile(), nbDrawMatch));
         }
         else{
-            this.createFileIfNotExist();
-            System.out.println(file.getAbsoluteFile());
+            this.createFileAndDirectoryIfNotExist();
+            LOGGER.info("Le fichier n'existe pas");
             this.saveData(this.parseDataIfFileNotExist(nbDrawMatch));
         }
     }
@@ -45,6 +47,7 @@ public class CSVManager {
                 }
             }
             catch (IOException e) {
+                LOGGER.warning("Erreur lors de la lecture du fichier");
             }
         }
         catch (IOException e) {
@@ -79,8 +82,6 @@ public class CSVManager {
     }
 
     public List<String[]> parseDataIfFileExist(List<String[]> data, int nbDrawMatch){
-        data = getCSVFile();
-        List<String[]> refreshedData = new ArrayList<>();
 
         for(int i = 1; i < data.size(); i++) {
             for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
@@ -94,16 +95,17 @@ public class CSVManager {
             }
         }
         data.get(1)[3] = Integer.toString(Integer.parseInt(data.get(1)[3]) + nbDrawMatch);
-        for (int i = 0; i < data.size(); i++) {
-            refreshedData.add(data.get(i));
-        }
-        return refreshedData;
+        return new ArrayList<>(data);
     }
 
-    public void createFileIfNotExist(){
-        if(!this.file.exists()){
+    public void createFileAndDirectoryIfNotExist(){
+        Path path = Paths.get(this.file.toPath().getName(1).toUri());
+        if(!this.file.exists() && !this.file.isDirectory()){
             try {
-                this.file.createNewFile();
+                Files.createDirectories(path);
+                if(!this.file.createNewFile()){
+                    LOGGER.warning("Le fichier n'a pas pu être créé");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

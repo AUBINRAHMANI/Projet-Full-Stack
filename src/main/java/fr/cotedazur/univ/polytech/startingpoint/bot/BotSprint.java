@@ -17,8 +17,7 @@ public class BotSprint implements Playable {
 
     Referee referee;
     Map map;
-    String botName;
-    List<Bambou> myBambous;
+    List<Bambou> myBamboos;
 
     public BotSprint() {
         this(null, null);
@@ -27,7 +26,7 @@ public class BotSprint implements Playable {
     public BotSprint(Referee referee, Map map) {
         this.referee = referee;
         this.map = map;
-        this.myBambous = new ArrayList<>();
+        this.myBamboos = new ArrayList<>();
     }
 
     public void setEnvirronement(Referee referee, Map map) {
@@ -120,7 +119,7 @@ public class BotSprint implements Playable {
 
     public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather) {
         PandaBotResolver pandaBotResolver = new PandaBotResolver(map, referee, this);
-        return pandaBotResolver.fillObjectivePanda(bambouSections, myBambous, banActionTypes, weather);
+        return pandaBotResolver.fillObjectivePanda(bambouSections, myBamboos, banActionTypes, weather);
     }
 
     public Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes) {

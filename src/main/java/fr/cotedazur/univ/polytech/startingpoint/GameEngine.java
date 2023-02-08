@@ -77,9 +77,9 @@ public class GameEngine implements Loggeable {
 
     public void growBambou() {
         Plot gardenerPlot = map.findPlot(gardener.getPosition());
-        if (!gardenerPlot.getPosition().isCenter()) gardenerPlot.growBambou();
+        if (gardenerPlot.getPosition().isCenter()) gardenerPlot.growBambou();
         for (Plot plot : map.getNeighbours(gardener.getPosition())) {
-            if ((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && !plot.getPosition().isCenter()) {
+            if ((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && plot.getPosition().isCenter()) {
                 plot.growBambou();
             }
         }
@@ -94,11 +94,10 @@ public class GameEngine implements Loggeable {
         return false;
     }
 
-    public boolean eatBambou(Referee referee, Playable bot, Position position) {
+    public void eatBambou(Referee referee, Playable bot, Position position) {
         Plot plot = map.findPlot(position);
         Bambou bambou = plot.eatBambou();
         if (bambou != null && referee != null) referee.addBamboutToBot(bot, bambou);
-        return true;
     }
 
 

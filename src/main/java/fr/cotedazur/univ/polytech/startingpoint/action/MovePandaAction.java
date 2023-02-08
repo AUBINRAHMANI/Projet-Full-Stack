@@ -65,11 +65,6 @@ public class MovePandaAction implements Action {
     }
 
     @Override
-    public boolean isActionPutIrrigation() {
-        return false;
-    }
-
-    @Override
     public Position getPosition() {
         return position;
     }

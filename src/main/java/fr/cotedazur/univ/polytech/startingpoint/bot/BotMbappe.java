@@ -9,8 +9,6 @@ import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PandaBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PatternBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
-
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -40,7 +38,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
     public Action play(List<ActionType> banActionTypes, WeatherType weather) {
         this.myBambous = referee.getMyBambous(this);
         List<Objective> objectives = referee.getMyObjectives(this);
-        Collections.sort(objectives, Comparator.comparing(Objective::getPoint));
+        objectives.sort(Comparator.comparing(Objective::getPoint));
         if (objectives.isEmpty()) return pickObjective();
         for (Objective objective : objectives) {
             Action action = objective.tryToFillObjective(this, banActionTypes, weather);

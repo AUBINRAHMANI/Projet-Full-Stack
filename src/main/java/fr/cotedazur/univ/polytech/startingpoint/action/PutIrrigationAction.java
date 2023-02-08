@@ -74,11 +74,6 @@ public class PutIrrigationAction implements Action {
     }
 
     @Override
-    public boolean isActionPutIrrigation() {
-        return true;
-    }
-
-    @Override
     public Position getPosition() {
         return null;
     }

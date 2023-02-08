@@ -121,7 +121,7 @@ public class Position {
     }
 
     public boolean isCenter() {
-        return (q == 0 && r == 0 && s == 0);
+        return (q != 0 || r != 0 || s != 0);
     }
 
     public boolean isCloseToCenter() {
