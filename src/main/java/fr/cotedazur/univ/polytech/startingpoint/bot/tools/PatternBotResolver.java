@@ -5,9 +5,11 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.PutPlotAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import static fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable.LOGGER;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class PatternBotResolver {
 

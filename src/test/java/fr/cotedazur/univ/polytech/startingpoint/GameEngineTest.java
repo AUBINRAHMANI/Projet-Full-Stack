@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -177,7 +178,7 @@ class GameEngineTest {
         plot.isIrrigatedIsTrue();
 
         map.putPlot(plot);
-        Game game = new Game();
+        Game game = new Game(null, List.of(), false);
         GameEngine gameEngine = new GameEngine(null, null, map);
 
         gameEngine.moveGardener(position);

@@ -8,6 +8,8 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 import java.util.List;
 
+import static fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable.LOGGER;
+
 public class IrrigationBotResolver {
 
     Map map;
@@ -30,12 +32,13 @@ public class IrrigationBotResolver {
                     Action action = tryPutIrrigationOnPosition(path.get(i));
                     if (action != null) {
                         return action;
+                    }else {
+                        return tryPutIrrigationOnPosition(path.get(i-1));
                     }
-                    return tryPutIrrigationOnPosition(path.get(i + 1));
                 }
             }
         }
-        return placeRandomIrrigation(banActionTypes);
+        return null;
     }
 
     private Action placeRandomIrrigation(List<ActionType> banActionTypes) {
@@ -51,6 +54,7 @@ public class IrrigationBotResolver {
                 if (action != null) return action;
             }
         }
+
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
         return patternBotResolver.putRandomlyAPLot(PlotType.GREEN, banActionTypes);
     }
@@ -58,7 +62,6 @@ public class IrrigationBotResolver {
     private Action tryPutIrrigationOnPosition(Position position) {
         for (Plot plot : map.getNeighbours(position)) {
             Irrigation irrigation = new Irrigation(position, plot.getPosition());
-
             if (map.isIrrigationLinked(irrigation) && !map.irrigationExist(irrigation)) {
                 return new PutIrrigationAction(irrigation);
             }

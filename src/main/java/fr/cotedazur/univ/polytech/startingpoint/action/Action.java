@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
@@ -10,7 +11,7 @@ public interface Action {
 
     boolean play(Referee referee, GameEngine gameEngine);
 
-    boolean verifyObjectiveAfterAction(Referee referee);
+    boolean verifyObjectiveAfterAction(Referee referee, Map map);
 
     String toString();
 

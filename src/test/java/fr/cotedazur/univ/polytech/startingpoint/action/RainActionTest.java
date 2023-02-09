@@ -29,7 +29,7 @@ class RainActionTest {
     void verifyObjectiveAfterAction() {
         when(mockedGame.computeObjectivesGardener()).thenReturn(true);
         RainAction rainAction = new RainAction(null);
-        assertTrue(rainAction.verifyObjectiveAfterAction(mockedGame));
+        assertTrue(rainAction.verifyObjectiveAfterAction(mockedGame, null));
     }
 
     @Test

@@ -20,7 +20,7 @@ import java.util.*;
 
 public class Game implements DeckSignal, Referee, Loggeable {
 
-    static final int MAX_NB_ROUND = 70;
+    static final int MAX_NB_ROUND = 50;
     static final int NB_OBJECTIVE_TO_FINISH = 9;
     static final int NB_ACTIONS_PER_ROUND = 2;
     private final StatisticManager statisticManager;
@@ -31,10 +31,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
     int nbActions;
     List<Action> previousActions;
     private int timeOutCounter;
-
-    public Game() {
-        this(null, List.of(), false);
-    }
 
     public Game(StatisticManager statisticManager, List<BotProfile> botProfiles, boolean debug) {
         this.random = new SecureRandom();
@@ -60,16 +56,16 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
     public void start() {
         do {
+            Long startTime = System.currentTimeMillis();
             ++timeOutCounter;
             statisticManager.addRound();
             for (BotProfile botProfile : botProfiles) {
                 nbActions = NB_ACTIONS_PER_ROUND;
                 WeatherType weather = gameEngine.drawWeather();
-                LOGGER.finest("Tour de " + botProfile.getBotName() + " : ");
                 this.applyChangesDueToWeather(weather);
                 doActions(botProfile, nbActions, weather);
             }
-            LOGGER.finest(() -> "Number of rounds" + this.timeOutCounter);
+            Long delta = System.currentTimeMillis()-startTime;
         } while (!checkFinishingCondition());
         BotProfile winner = checkWinner();
         statisticManager.addGame();
@@ -96,12 +92,12 @@ public class Game implements DeckSignal, Referee, Loggeable {
             Action action = botProfile.getBot().play(banActionTypes, weather);
             LOGGER.finer(() -> "Action : " + action);
             if (action != null && !(banActionTypes.contains(action.toType()))) {
-                if(mapInterface!=null) {
+                if (mapInterface != null) {
                     while (!mapInterface.next()) ;
                 }
                 action.play(this, gameEngine);
                 banActionTypes.add(action.toType());
-                action.verifyObjectiveAfterAction(this);
+                action.verifyObjectiveAfterAction(this, gameEngine.getMap());
                 saveAction(action);
                 action.incrementAction(statisticManager, botProfile.getBot());
                 statisticManager.addCoups(botProfile.getBot());

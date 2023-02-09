@@ -31,6 +31,6 @@ class MoveGardenerActionTest {
     void verifyObjectiveAfterAction() {
         when(mockedGame.computeObjectivesGardener()).thenReturn(true);
         MoveGardenerAction moveGardenerAction = new MoveGardenerAction(null);
-        assertTrue(moveGardenerAction.verifyObjectiveAfterAction(mockedGame));
+        assertTrue(moveGardenerAction.verifyObjectiveAfterAction(mockedGame, null));
     }
 }

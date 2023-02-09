@@ -29,7 +29,7 @@ class ThunderActionTest {
     void verifyObjectiveAfterAction() {
         when(mockedGame.computeObjectivesPanda()).thenReturn(true);
         ThunderAction thunderAction  = new ThunderAction(null);
-        assertTrue(thunderAction.verifyObjectiveAfterAction(mockedGame));
+        assertTrue(thunderAction.verifyObjectiveAfterAction(mockedGame, null));
     }
 
     @Test

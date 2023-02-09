@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 class PatternBotResolverTest {
 
     @Mock
-    Referee mockedReferee = spy(new Game());
+    Referee mockedReferee = spy(new Game(null, List.of(), false));
     Map mockedMap = spy(new Map());
 
     @Test
@@ -67,7 +67,6 @@ class PatternBotResolverTest {
         assertEquals(new Position(0,1), result.getPosition());
 
         result = patternBotResolver.placePLot(PlotType.GREEN, new Position(5,4), List.of());
-        System.out.println(result.getPosition());
         assertNotEquals(new Position(5, 4) ,result.getPosition());
 
         result = patternBotResolver.placePLot(null, new Position(0,1), List.of());

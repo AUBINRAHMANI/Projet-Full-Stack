@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
@@ -20,7 +21,7 @@ public class RainAction implements Action {
     }
 
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee) {
+    public boolean verifyObjectiveAfterAction(Referee referee, Map map) {
         return referee.computeObjectivesGardener();
     }
 
