@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 class PandaBotResolverTest {
 
     @Mock
-    Referee mockedReferee = spy(new Game(null, List.of(), false));
+    Referee mockedReferee = spy(new Game(null, List.of()));
     Map mockedMap = spy(new Map());
     Playable bot = spy(new BotMbappe());
 

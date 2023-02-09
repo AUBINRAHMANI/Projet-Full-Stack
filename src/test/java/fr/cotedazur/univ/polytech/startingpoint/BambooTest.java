@@ -9,12 +9,12 @@ class BambooTest {
     @Test
     void getBambooType() {
         Bamboo bamboo = new Bamboo(PlotType.RED);
-        assertEquals(bamboo.getBambooType(), PlotType.RED);
+        assertEquals(PlotType.RED, bamboo.getBambooType());
     }
 
     @Test
     void bambooEqualsTest(){
         Bamboo bamboo = new Bamboo(PlotType.RED);
-        assertTrue(PlotType.RED.equals(bamboo.getBambooType()));
+        assertEquals(PlotType.RED, bamboo.getBambooType());
     }
 }

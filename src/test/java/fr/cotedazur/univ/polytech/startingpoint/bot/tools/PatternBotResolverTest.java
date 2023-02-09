@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 class PatternBotResolverTest {
 
     @Mock
-    Referee mockedReferee = spy(new Game(null, List.of(), false));
+    Referee mockedReferee = spy(new Game(null, List.of()));
     Map mockedMap = spy(new Map());
 
     @Test

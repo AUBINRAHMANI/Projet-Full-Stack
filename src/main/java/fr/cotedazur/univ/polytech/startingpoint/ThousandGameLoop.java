@@ -28,7 +28,7 @@ public class ThousandGameLoop implements Loggeable {
 
         for (int i = 0; i<1 ; ++i) {
             LOGGER.log(Level.CONFIG , "Game {0}", i);
-            Game game = new Game(statisticManager, players, false);
+            Game game = new Game(statisticManager, players);
             game.start();
             for (BotProfile botProfile : players) {
                 botProfile.resetPoints();

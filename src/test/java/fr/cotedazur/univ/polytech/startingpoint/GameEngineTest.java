@@ -178,7 +178,7 @@ class GameEngineTest {
         plot.isIrrigatedIsTrue();
 
         map.putPlot(plot);
-        Game game = new Game(null, List.of(), false);
+        Game game = new Game(null, List.of());
         GameEngine gameEngine = new GameEngine(null, null, map);
 
         gameEngine.moveGardener(position);
