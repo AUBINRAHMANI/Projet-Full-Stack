@@ -9,7 +9,7 @@ public class BotStatistiqueProfil {
     private int nbVictories;
     private int nbDefeats;
 
-    private int numberdeTours;
+    private int numberOfRounds;
     private int numberdeParties;
 
     private int numberDealParPartie;
@@ -28,6 +28,12 @@ public class BotStatistiqueProfil {
 
     private int numberDealThunder;
 
+    private int numberObjectiveGardener;
+
+    private int numberObjectivePanda;
+
+    private int numberObjectivePlots;
+
 
 
 
@@ -36,7 +42,7 @@ public class BotStatistiqueProfil {
         this.botName = botName;
         this.nbVictories = 0;
         this.nbDefeats = 0;
-        this.numberdeTours = 0;
+        this.numberOfRounds = 0;
         this.numberdeParties = 0;
         this.numberDealParPartie=0;
         this.numberDealMoveGardener=0;
@@ -46,6 +52,9 @@ public class BotStatistiqueProfil {
         this.numberDealPutPlot=0;
         this.numberDealRain=0;
         this.numberDealThunder=0;
+        this.numberObjectiveGardener=0;
+        this.numberObjectivePanda=0;
+        this.numberObjectivePlots=0;
     }
 
     public void addVictory() {
@@ -57,13 +66,13 @@ public class BotStatistiqueProfil {
     }
 
     public void addnumberOfRounds() {
-        ++numberdeTours;
+        ++numberOfRounds;
     }
 
     public void addNumberOfGames() {
         ++numberdeParties;
     }
-    public void addNumbereDealPerGames(){
+    public void addNumberDealPerGames(){
         ++numberDealParPartie;
     }
 
@@ -94,6 +103,18 @@ public class BotStatistiqueProfil {
         ++this.numberDealThunder;
     }
 
+    public void addObjectiveGardener(){
+        ++this.numberObjectiveGardener;
+    }
+
+    public void addObjectivePanda(){
+        ++this.numberObjectivePanda;
+    }
+
+    public void addObjectivePlots(){
+        ++this.numberObjectivePlots;
+    }
+
     public Playable getBot() {
         return bot;
     }
@@ -111,7 +132,7 @@ public class BotStatistiqueProfil {
     }
 
     public int getNbdeTours() {
-        return numberdeTours;
+        return numberOfRounds;
     }
 
     public int getNumberOfGames() {
@@ -149,15 +170,29 @@ public class BotStatistiqueProfil {
         return this.numberDealThunder;
     }
 
+    public int getNumberObjectiveGardener(){
+        return this.numberObjectiveGardener;
+    }
+
+    public int getNumberObjectivePanda(){
+        return this.numberObjectivePanda;
+    }
+
+    public int getNumberObjectifPlots(){
+        return this.numberObjectivePlots;
+    }
+
     public String toString() {
-        return "number de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + "\n"
-                + "number de tours effectué : " + this.getNbdeTours() + " pour " + this.getNumberOfGames() + " parties \n"
-                + "ce qui fait une moyenne de : " + this.getNbdeTours()/this.getNumberOfGames() + " \n" +
-                this.getBotName() + " a effectué " + this.getNumberDealParPartie() + " Deals (actions)" + "Dont "
-                + this.getDealMoveGardener() + " de Move Gardener" + ", " + this.getDealMovePanda() +" de Move Panda, "
-                + this.getDealPickObjective() + " de Pick Objective, " + this.getDealPutIrrigation() + " de Put Irrigation"
-                + this.getDealPutIrrigation() + " de Put Irrigation, " + this.getDealPutPlot() + " de Put Plot" +
-                this.getDealRain() + " de GET Rain, " + this.getDealThunder() + " de Thudnder action !";
+        return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + "\n"
+                + "Nombre de tours effectué : " + this.getNbdeTours() + " pour " + this.getNumberOfGames() + " parties \n"
+                + "ce qui fait une moyenne de : " + this.getNbdeTours()/this.getNumberOfGames() + " tours" + " \n" +
+                this.getBotName() + " a effectué " + this.getNumberDealParPartie() + " actions. Parmis ces actions il a choisi l'action de deplacer le jardinier  "
+                + this.getDealMoveGardener() + " fois" + ", l'action de deplacer le panda " + this.getDealMovePanda() +" fois, "
+                + "l'action de prendre un objectif " + this.getDealPickObjective() + " fois, l'action de poser une irrigation " + this.getDealPutIrrigation()
+                + " fois, l'action de poser une parcelle " + this.getDealPutPlot() + " fois, l'action de chosisir la pluie " +
+                this.getDealRain() + " fois , et enfin l'action de choisir le tonnerre " + this.getDealThunder() + " fois \n"
+                + this.getBotName() + " a completé " + this.getNumberObjectiveGardener() + " objectifs gardiens, "
+                + this.getNumberObjectivePanda() + " objectifs Panda, et " + this.getNumberObjectifPlots() + " objectifs Plot";
 
     }
 }

@@ -8,6 +8,7 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatistiqueManager;
 
 import java.util.List;
 
@@ -46,6 +47,12 @@ public class ObjectivePlots extends Objective {
     @Override
     public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather) {
         return bot.fillObjectivePlots(pattern, banActionTypes);
+    }
+
+    @Override
+    public void incrementationObjective(StatistiqueManager statistiqueManager, Playable bot) {
+        statistiqueManager.incrementNumberObjectivePlots(bot);
+
     }
 
     @Override

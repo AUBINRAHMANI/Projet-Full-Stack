@@ -63,7 +63,7 @@ public class StatistiqueManager implements Loggeable {
     public void addCoups(Playable bot){
         for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
             if(botStatistiqueProfil.getBot()==bot){
-                botStatistiqueProfil.addNumbereDealPerGames();
+                botStatistiqueProfil.addNumberDealPerGames();
             }
         }
     }
@@ -169,6 +169,30 @@ public class StatistiqueManager implements Loggeable {
         for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
             if(botStatistiqueProfil.getBot()==bot){
                 botStatistiqueProfil.addDealThunder();
+            }
+        }
+    }
+
+    public void incrementNumberObjectiveGardener(Playable bot){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+            if(botStatistiqueProfil.getBot()==bot){
+                botStatistiqueProfil.addObjectiveGardener();
+            }
+        }
+    }
+
+    public void incrementNumberObjectivePanda(Playable bot){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+            if(botStatistiqueProfil.getBot()==bot){
+                botStatistiqueProfil.addObjectivePanda();
+            }
+        }
+    }
+
+    public void incrementNumberObjectivePlots(Playable bot){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+            if(botStatistiqueProfil.getBot() == bot){
+                botStatistiqueProfil.addObjectivePlots();
             }
         }
     }

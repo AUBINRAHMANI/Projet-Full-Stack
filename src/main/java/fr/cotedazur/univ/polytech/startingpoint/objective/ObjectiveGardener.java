@@ -8,6 +8,7 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatistiqueManager;
 
 import java.util.List;
 
@@ -44,6 +45,11 @@ public class ObjectiveGardener extends Objective {
     @Override
     public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather) {
         return bot.fillObjectiveGardener(bambouType, improvement, banActionTypes, weather);
+    }
+
+    @Override
+    public void incrementationObjective(StatistiqueManager statistiqueManager, Playable bot){
+        statistiqueManager.incrementNumberObjectiveGardener(bot);
     }
 
     @Override

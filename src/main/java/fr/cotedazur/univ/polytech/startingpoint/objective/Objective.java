@@ -7,6 +7,7 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatistiqueManager;
 
 import java.util.List;
 
@@ -29,6 +30,8 @@ public abstract class Objective {
     public abstract boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil);
 
     public abstract Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather);
+
+    public abstract void incrementationObjective(StatistiqueManager statistiqueManager, Playable bot);
 
     public abstract String toString();
 

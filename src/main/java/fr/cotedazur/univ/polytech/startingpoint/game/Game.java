@@ -109,6 +109,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                 action.verifyObjectiveAfterAction(this);
                 saveAction(action);
                 action.incrementAction(statistiqueManager, botProfil.getBot());
+                statistiqueManager.addCoups(botProfil.getBot());
 
             }
         }
@@ -202,6 +203,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     LOGGER.finer( botName + " gagne " + objective.getPoint() + " points");
                     LOGGER.finer( "Le score de "+ botName +" = " + botProfil.getPoints() + " points");
                     logValidatedObjective(objective, botName, botProfil);
+                    objective.incrementationObjective(statistiqueManager, botProfil.getBot());
                 }
             }
             botProfil.getObjectives().removeAll(validatedObjective);
@@ -220,6 +222,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfil);
+                    objective.incrementationObjective(statistiqueManager, botProfil.getBot());
                 }
             }
             botProfil.getObjectives().removeAll(validatedObjective);
@@ -247,6 +250,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     validatedObjective.add(objective);
                     botProfil.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfil);
+                    objective.incrementationObjective(statistiqueManager,botProfil.getBot());
                 }
             }
             botProfil.getObjectives().removeAll(validatedObjective);
