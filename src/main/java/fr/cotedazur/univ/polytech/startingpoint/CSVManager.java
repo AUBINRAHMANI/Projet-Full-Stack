@@ -1,7 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.BotStatistiqueProfil;
+import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.BotStatisticProfile;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,38 +14,33 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVManager {
+public class CSVManager implements Loggeable {
 
-    private List<BotStatistiqueProfil> botStatistiqueProfils;
+    private List<BotStatisticProfile> botsStatisticsProfiles;
     private File file;
 
-    public void exportData(List<BotStatistiqueProfil> botStatistiqueProfils, int nbDrawMatch, String fileName) {
+    public void exportData(List<BotStatisticProfile> botsStatisticsProfiles, int nbDrawMatch, String fileName) {
         this.file = new File(fileName);
-        this.setData(botStatistiqueProfils);
+        this.setData(botsStatisticsProfiles);
         if(file.exists()){
+            LOGGER.info("File already exist");
             this.saveData(this.parseDataIfFileExist(getCSVFile(), nbDrawMatch));
         }
         else{
-            this.createFileIfNotExist();
+            this.createFileAndDirectoryIfNotExist();
+            LOGGER.info("File doesn't exist");
             this.saveData(this.parseDataIfFileNotExist(nbDrawMatch));
         }
     }
-    public void setData(List<BotStatistiqueProfil> botStatistiqueProfils) {
-        this.botStatistiqueProfils = botStatistiqueProfils;
+    public void setData(List<BotStatisticProfile> botsStatisticsProfiles) {
+        this.botsStatisticsProfiles = botsStatisticsProfiles;
     }
 
     public List<String[]> getCSVFile() {
         Path path = Paths.get(this.file.toURI());
         List<String[]> list = new ArrayList<>();
         try (Reader reader = Files.newBufferedReader(path)) {
-            try (CSVReader csvReader = new CSVReader(reader)) {
-                String[] line;
-                while ((line = csvReader.readNext()) != null) {
-                    list.add(line);
-                }
-            }
-            catch (IOException e) {
-            }
+            csvReader(reader, list);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -52,53 +48,68 @@ public class CSVManager {
         return list;
     }
 
+    private void csvReader(Reader reader, List<String[]> list){
+        try (CSVReader csvReader = new CSVReader(reader)) {
+            String[] line;
+            while ((line = csvReader.readNext()) != null) {
+                list.add(line);
+            }
+        }
+        catch (IOException e) {
+            LOGGER.warning("Error while reading the file");
+        }
+    }
+
     public List<String[]> parseDataIfFileNotExist(int nbDrawMatch){
         List<String[]> data = new ArrayList<>();
-        String[] header = new String[4];
+        String[] header = new String[7];
         header[0] = "Bot";
-        header[1] = "Victoires";
-        header[2] = "Défaites";
-        header[3] = "Match nul";
+        header[1] = "Victories";
+        header[2] = "Defeats";
+        header[3] = "Draws";
+        header[4] = "Number of rounds";
+        header[5] = "Number of games";
+        header[6] = "Number of rounds per game";
         data.add(header);
-        for (BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils) {
-            String[] statBot = new String[3];
-            statBot[0] = botStatistiqueProfil.getBotName();
-            statBot[1] = Integer.toString(botStatistiqueProfil.getNbVictories());
-            statBot[2] = Integer.toString(botStatistiqueProfil.getNbDefeats());
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            String[] statBot = new String[7];
+            statBot[0] = botStatisticProfile.getBotName();
+            statBot[1] = Integer.toString(botStatisticProfile.getNbVictories());
+            statBot[2] = Integer.toString(botStatisticProfile.getNbDefeats());
+            statBot[4] = Integer.toString(botStatisticProfile.getNbOfRounds());
+            statBot[5] = Integer.toString(botStatisticProfile.getNbOfGames());
+            statBot[6] = Integer.toString(botStatisticProfile.getNbOfRounds()/botStatisticProfile.getNbOfGames());
             data.add(statBot);
         }
-        String[] statMatchNul = new String[4];
-        statMatchNul[0] = "";
-        statMatchNul[1] = "";
-        statMatchNul[2] = "";
-        statMatchNul[3] = Integer.toString(nbDrawMatch);
-        data.add(statMatchNul);
+        data.get(1)[3] = Integer.toString(nbDrawMatch);
         return data;
     }
 
     public List<String[]> parseDataIfFileExist(List<String[]> data, int nbDrawMatch){
-        data = getCSVFile();
-        List<String[]> refreshedData = new ArrayList<>();
 
         for(int i = 1; i < data.size(); i++) {
-            for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
-                if(data.get(i)[0].equals(botStatistiqueProfil.getBotName())){
-                    data.get(i)[1] = Integer.toString(Integer.parseInt(data.get(i)[1]) + botStatistiqueProfil.getNbVictories());
-                    data.get(i)[2] = Integer.toString(Integer.parseInt(data.get(i)[2]) + botStatistiqueProfil.getNbDefeats());
+            for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
+                if(data.get(i)[0].equals(botStatisticProfile.getBotName())){
+                    data.get(i)[1] = Integer.toString(Integer.parseInt(data.get(i)[1]) + botStatisticProfile.getNbVictories());
+                    data.get(i)[2] = Integer.toString(Integer.parseInt(data.get(i)[2]) + botStatisticProfile.getNbDefeats());
+                    data.get(i)[4] = Integer.toString(Integer.parseInt(data.get(i)[4]) + botStatisticProfile.getNbOfRounds());
+                    data.get(i)[5] = Integer.toString(Integer.parseInt(data.get(i)[5]) + botStatisticProfile.getNbOfGames());
+                    data.get(i)[6] = Integer.toString((Integer.parseInt(data.get(i)[6]) + botStatisticProfile.getNbOfRounds())/botStatisticProfile.getNbOfGames());
                 }
             }
         }
-        data.get(data.size()-1)[3] = Integer.toString(Integer.parseInt(data.get(data.size()-1)[3]) + nbDrawMatch);
-        for (int i = 0; i < data.size(); i++) {
-            refreshedData.add(data.get(i));
-        }
-        return refreshedData;
+        data.get(1)[3] = Integer.toString(Integer.parseInt(data.get(1)[3]) + nbDrawMatch);
+        return new ArrayList<>(data);
     }
 
-    public void createFileIfNotExist(){
-        if(!this.file.exists()){
+    public void createFileAndDirectoryIfNotExist(){
+        Path path = Paths.get(this.file.toPath().getName(1).toUri());
+        if(!this.file.exists() && !this.file.isDirectory()){
             try {
-                this.file.createNewFile();
+                Files.createDirectories(path);
+                if(!this.file.createNewFile()){
+                    LOGGER.warning("Error while creating the file");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

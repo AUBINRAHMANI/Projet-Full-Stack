@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
@@ -64,38 +64,37 @@ public class GameEngine implements Loggeable {
     }
 
     public boolean moveGardener(Position position) {
-        if (!map.isSpaceFree(position) && position.isDeplacementALine(gardener.getPosition())) {
+        if (!map.isSpaceFree(position) && position.isMovementALine(gardener.getPosition())) {
             gardener.setPosition(position);
-            growBambou();
+            growBamboo();
             return true;
         }
         return false;
     }
 
-    public void growBambou() {
+    public void growBamboo() {
         Plot gardenerPlot = map.findPlot(gardener.getPosition());
-        if (!gardenerPlot.getPosition().isCenter()) gardenerPlot.growBambou();
+        if (gardenerPlot.getPosition().isCenter()) gardenerPlot.growBamboo();
         for (Plot plot : map.getNeighbours(gardener.getPosition())) {
-            if ((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && !plot.getPosition().isCenter()) {
-                plot.growBambou();
+            if ((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && plot.getPosition().isCenter()) {
+                plot.growBamboo();
             }
         }
     }
 
     public boolean movePanda(Referee referee, Playable bot, Position position) {
-        if (!map.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())) {
+        if (!map.isSpaceFree(position) && position.isMovementALine(panda.getPosition())) {
             panda.setPosition(position);
-            eatBambou(referee, bot, position);
+            eatBamboo(referee, bot, position);
             return true;
         }
         return false;
     }
 
-    public boolean eatBambou(Referee referee, Playable bot, Position position) {
+    public void eatBamboo(Referee referee, Playable bot, Position position) {
         Plot plot = map.findPlot(position);
-        Bambou bambou = plot.eatBambou();
-        if (bambou != null && referee != null) referee.addBamboutToBot(bot, bambou);
-        return true;
+        Bamboo bamboo = plot.eatBamboo();
+        if (bamboo != null && referee != null) referee.addBamboutToBot(bot, bamboo);
     }
 
 
@@ -111,15 +110,15 @@ public class GameEngine implements Loggeable {
     }
 
 
-    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, int nbPlot) {
+    public boolean computeObjectiveGardener(int nbBamboo, PlotType bambooType, int nbPlot) {
         Plot plot = map.findPlot(gardener.getPosition());
-        if (nbBambou > 3) {
-            return plot.getNumberOfBambou() >= nbBambou && plot.getType() == bambouType;
+        if (nbBamboo > 3) {
+            return plot.getNumberOfBamboo() <= nbBamboo && plot.getType() == bambooType;
         } else {
-            if (plot.getNumberOfBambou() <= nbBambou || plot.getType() != bambouType) return false;
+            if (plot.getNumberOfBamboo() <= nbBamboo || plot.getType() != bambooType) return false;
             int nbValidatedPlots = 0;
             for (Plot neighbour : map.getNeighbours(plot.getPosition())) {
-                if (neighbour.getNumberOfBambou() >= nbBambou && neighbour.getType() == bambouType) {
+                if (neighbour.getNumberOfBamboo() >= nbBamboo && neighbour.getType() == bambooType) {
                     nbValidatedPlots++;
                 }
             }
@@ -127,16 +126,16 @@ public class GameEngine implements Loggeable {
         }
     }
 
-    public boolean computeObjectivePanda(BotProfil botProfil, List<Bambou> bambousToHave) {
-        List<Bambou> playerBambous = new ArrayList<>(botProfil.getBambous());
-        for (Bambou bambou : bambousToHave) {
-            if (playerBambous.contains(bambou)) {
-                playerBambous.remove(bambou);
+    public boolean computeObjectivePanda(BotProfile botProfil, List<Bamboo> bamboosToHave) {
+        List<Bamboo> playerBamboos = new ArrayList<>(botProfil.getBamboos());
+        for (Bamboo bamboo : bamboosToHave) {
+            if (playerBamboos.contains(bamboo)) {
+                playerBamboos.remove(bamboo);
             } else {
                 return false;
             }
         }
-        botProfil.setBambous(playerBambous);
+        botProfil.setBamboos(playerBamboos);
         return true;
     }
 
@@ -150,7 +149,7 @@ public class GameEngine implements Loggeable {
 
     public boolean rainAction(Position position) {
         if (getMap().findPlot(position).isIrrigated()) {
-            return getMap().findPlot(position).growBambou();
+            return getMap().findPlot(position).growBamboo();
         }
         return false;
     }

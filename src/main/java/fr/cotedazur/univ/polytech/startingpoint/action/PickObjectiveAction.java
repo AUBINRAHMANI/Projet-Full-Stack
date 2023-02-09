@@ -75,11 +75,6 @@ public class PickObjectiveAction implements Action {
     }
 
     @Override
-    public boolean isActionPutIrrigation() {
-        return false;
-    }
-
-    @Override
     public Position getPosition() {
         return null;
     }

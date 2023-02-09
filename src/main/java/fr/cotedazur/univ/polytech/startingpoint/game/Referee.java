@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.game;
 
-import fr.cotedazur.univ.polytech.startingpoint.Bambou;
+import fr.cotedazur.univ.polytech.startingpoint.Bamboo;
 import fr.cotedazur.univ.polytech.startingpoint.Plot;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface Referee {
     List<Objective> getMyObjectives(Playable bot);
 
-    List<Bambou> getMyBambous(Playable bot);
+    List<Bamboo> getMyBambous(Playable bot);
 
     Position getPandaPosition();
 
@@ -28,7 +28,7 @@ public interface Referee {
 
     List<Plot> pickPlot();
 
-    void addBamboutToBot(Playable bot, Bambou bambou);
+    void addBamboutToBot(Playable bot, Bamboo bambou);
 
     int getNumberOfPlayers();
 

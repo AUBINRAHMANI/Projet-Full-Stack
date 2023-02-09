@@ -1,28 +1,28 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
-import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePanda;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BotProfilTest {
+class BotProfileTest {
 
     @Test
     void getBot_() {
         BotMbappe bot = new BotMbappe(null, null);
-        BotProfil botProfil = new BotProfil(bot, "");
+        BotProfile botProfil = new BotProfile(bot, "");
         assertEquals(bot, botProfil.getBot());
     }
 
     @Test
     void getObjectives_() {
         BotMbappe bot = new BotMbappe(null, null);
-        Objective objective = new ObjectivePlots(1, (Pattern) null);
-        BotProfil botProfil = new BotProfil(bot, "");
+        Objective objective = new ObjectivePlots(1, null);
+        BotProfile botProfil = new BotProfile(bot, "");
         botProfil.addObjective(objective);
         assertEquals(objective, botProfil.getObjectives().get(0));
     }
@@ -30,8 +30,8 @@ class BotProfilTest {
     @Test
     void setObjectiveCompleted() {
         BotMbappe bot = new BotMbappe(null, null);
-        Objective objective = new ObjectivePlots(1, (Pattern) null);
-        BotProfil botProfil = new BotProfil(bot, "");
+        Objective objective = new ObjectivePlots(1, null);
+        BotProfile botProfil = new BotProfile(bot, "");
         botProfil.addObjective(objective);
         botProfil.setObjectiveCompleted(objective);
         assertEquals(1, botProfil.getNbCompletedObjective());
@@ -41,24 +41,24 @@ class BotProfilTest {
     @Test
     void getNbCompletedObjective_() {
         BotMbappe bot = new BotMbappe(null, null);
-        Objective objective = new ObjectivePlots(1, (Pattern) null);
-        BotProfil botProfil = new BotProfil(bot, "");
+        Objective objective = new ObjectivePlots(1, null);
+        BotProfile botProfil = new BotProfile(bot, "");
         botProfil.addObjective(objective);
         botProfil.setObjectiveCompleted(objective);
         assertEquals(1, botProfil.getNbCompletedObjective());
     }
 
     @Test
-    void addBanbou() {
-        BotProfil botProfil = new BotProfil(new BotMbappe(null, null), "");
-        Bambou bambou = new Bambou(PlotType.GREEN);
-        botProfil.addBanbou(bambou);
-        assertEquals(bambou, botProfil.getBambous().get(0));
+    void addBamboo() {
+        BotProfile botProfil = new BotProfile(new BotMbappe(null, null), "");
+        Bamboo bamboo = new Bamboo(PlotType.GREEN);
+        botProfil.addBamboo(bamboo);
+        assertEquals(bamboo, botProfil.getBamboos().get(0));
     }
 
     @Test
     void resetPoints(){
-        BotProfil botProfil = new BotProfil(null, "");
+        BotProfile botProfil = new BotProfile(null, "");
         botProfil.setObjectiveCompleted(new ObjectivePlots(3, new Pattern()));
         assertEquals(3, botProfil.getPoints());
         assertEquals(1, botProfil.getNbCompletedObjective());

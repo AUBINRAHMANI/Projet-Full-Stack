@@ -26,8 +26,8 @@ class BotSprintTest {
     Map mockedMap = mock(Map.class);
     @Test
     void play() {
-        BotSprint botSprint = new BotSprint();
-        botSprint.setEnvirronement(mockedReferee, mockedMap);
+        Playable botSprint = new BotSprint();
+        botSprint.setEnvironment(mockedReferee, mockedMap);
         when(mockedReferee.getMyObjectives(botSprint)).thenReturn(List.of());
         Action resutl = botSprint.play(List.of(), WeatherType.QUESTIONMARK);
         assertEquals(ActionType.PICK_OBJECTIVE, resutl.toType());

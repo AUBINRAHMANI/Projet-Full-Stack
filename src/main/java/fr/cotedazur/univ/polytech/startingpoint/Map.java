@@ -69,7 +69,7 @@ public class Map implements Loggeable {
     }
 
     public boolean isPossibleToPutPlot(Position position) {
-        if ((getNeighbours(position).size() > 1 || position.isCloseToCenter()) && (!position.isCenter()))
+        if ((getNeighbours(position).size() > 1 || position.isCloseToCenter()) && (position.isCenter()))
             return isSpaceFree(position);
         return false;
     }
@@ -173,11 +173,11 @@ public class Map implements Loggeable {
     }
 
     public boolean putIrrigation(Irrigation irrigation) {
-        if (isIrrigationsLinked(irrigation)) {
+        if (isIrrigationLinked(irrigation)) {
             List<Position> positions = irrigation.getPositions();
             for (Plot plot : mapPlots) {
                 if (positions.contains(plot.getPosition())) {
-                    irrigations.add(irrigation);
+                    this.irrigations.add(irrigation);
                     for (Position position : irrigation.getPositions()) {
                         Plot plot2 = this.findPlot(position);
                         if (plot2 != null) {
@@ -191,9 +191,9 @@ public class Map implements Loggeable {
         return false;
     }
 
-    public boolean isIrrigationsLinked(Irrigation irrigation) {
+    public boolean isIrrigationLinked(Irrigation irrigation) {
         for (Irrigation irrigation2 : irrigation.getNeighbours()) {
-            if (irrigations.contains(irrigation2)) {
+            if (this.irrigations.contains(irrigation2)) {
                 return true;
             }
         }
@@ -201,7 +201,7 @@ public class Map implements Loggeable {
     }
 
     public boolean irrigationExist(Irrigation irrigation) {
-        return irrigations.contains(irrigation);
+        return this.irrigations.contains(irrigation);
     }
 }
 

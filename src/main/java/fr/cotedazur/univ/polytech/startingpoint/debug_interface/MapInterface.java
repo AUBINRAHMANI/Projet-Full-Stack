@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.debug_Interface;
+package fr.cotedazur.univ.polytech.startingpoint.debug_interface;
 
 import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.Plot;
@@ -16,10 +16,10 @@ import static java.lang.Math.sqrt;
 
 public class MapInterface extends JFrame {
 
-    final static int HEXAGONE_SIZE = 40;
+    static final int HEXAGON_SIZE = 40;
     private static final List<Position> positionsToAdd = new ArrayList<>();
     private static final List<Integer> correspondingNbBambous = new ArrayList<>();
-    private static final List<Plot> plotsDrawen = new ArrayList<>();
+    private static final List<Plot> plotsDrawn = new ArrayList<>();
     private static final List<Color> colorsToAdd = new ArrayList<>();
     private static Position center;
     private final GPanel panel;
@@ -57,13 +57,12 @@ public class MapInterface extends JFrame {
         setVisible(true);
     }
 
-    public boolean next() {
-        if (next) {
-            next = false;
+    public boolean next(){
+        if(next){
+            next=false;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public void updateSize() {
@@ -73,10 +72,11 @@ public class MapInterface extends JFrame {
     public void drawMap(Map map, Position newGardenerPosition, Position newPandaPosition) {
         gardenerPosition  = newGardenerPosition;
         pandaPosition = newPandaPosition;
+
         List<Plot> plots = map.getMapPlots();
         List<Plot> plotsToRemove = new ArrayList<>();
         for (Plot plot1 : plots) {
-            for (Plot plot2 : plotsDrawen) {
+            for (Plot plot2 : plotsDrawn) {
                 if (plot1.getPosition().equals(plot2.getPosition()) && plot1.isIrrigated() != plot2.isIrrigated()) {
                     plotsToRemove.add(plot2);
                     colorsToAdd.remove(positionsToAdd.indexOf(plot2.getPosition()));
@@ -84,11 +84,11 @@ public class MapInterface extends JFrame {
                 }
             }
         }
-        plotsDrawen.removeAll(plotsToRemove);
-        plots.removeAll(plotsDrawen);
+        plotsDrawn.removeAll(plotsToRemove);
+        plots.removeAll(plotsDrawn);
         for (Plot plot : plots) {
             drawHexagon(plot);
-            plotsDrawen.add(new Plot(plot));
+            plotsDrawn.add(new Plot(plot));
         }
         paintComponents(getGraphics());
         repaint();
@@ -97,25 +97,15 @@ public class MapInterface extends JFrame {
     private void drawHexagon(Plot plot) {
         Position position = plot.getPosition();
         PlotType plotType = plot.getType();
-        int nbBambous = plot.getNumberOfBambou();
+        int nbBamboos = plot.getNumberOfBamboo();
 
-        Color color;
-        switch (plotType.ordinal()) {
-            case 0:
-                color = new Color(0, 52, 192);
-                break;
-            case 1:
-                color = new Color(63, 131, 1);
-                break;
-            case 2:
-                color = new Color(199, 197, 0);
-                break;
-            case 3:
-                color = new Color(196, 2, 2);
-                break;
-            default:
-                color = Color.BLACK;
-        }
+        Color color = switch (plotType.ordinal()) {
+            case 0 -> new Color(0, 52, 192);
+            case 1 -> new Color(63, 131, 1);
+            case 2 -> new Color(199, 197, 0);
+            case 3 -> new Color(196, 2, 2);
+            default -> Color.BLACK;
+        };
 
         positionsToAdd.add(position);
         if (!plot.isIrrigated()) {
@@ -123,7 +113,7 @@ public class MapInterface extends JFrame {
             color = color.darker();
         }
         colorsToAdd.add(color);
-        correspondingNbBambous.add(nbBambous);
+        correspondingNbBambous.add(nbBamboos);
     }
 
     private class GPanel extends JPanel {
@@ -144,10 +134,10 @@ public class MapInterface extends JFrame {
 
                 graphics.setColor(Color.WHITE);
 
-                for (Plot plot : plotsDrawen) {
-                    if (plot.getNumberOfBambou() > 0) {
+                for (Plot plot : plotsDrawn) {
+                    if (plot.getNumberOfBamboo() > 0) {
                         Position stringPosition = getPlotPositionInGrid(plot.getPosition());
-                        graphics.drawString(String.valueOf(plot.getNumberOfBambou()), stringPosition.getX(), stringPosition.getY());
+                        graphics.drawString(String.valueOf(plot.getNumberOfBamboo()), stringPosition.getX(), stringPosition.getY());
                     }
                 }
                 Position gardenerPositionInGrid = getPlotPositionInGrid(gardenerPosition);
@@ -159,16 +149,16 @@ public class MapInterface extends JFrame {
         }
 
         private Polygon getHexagon(Position position) {
-            int x = (int) ((HEXAGONE_SIZE / 2.) * (3. / 2 * position.getQ())) + center.getX();
-            int y = (int) ((HEXAGONE_SIZE / 2.) * (sqrt(3) / 2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
-            int[] xPoints = {x + HEXAGONE_SIZE / 4, x + HEXAGONE_SIZE / 2, x + HEXAGONE_SIZE / 4, x - HEXAGONE_SIZE / 4, x - HEXAGONE_SIZE / 2, x - HEXAGONE_SIZE / 4};
-            int[] yPoints = {(int) (y + (HEXAGONE_SIZE * (0.42))), y, (int) (y - (HEXAGONE_SIZE * (0.42))), (int) (y - (HEXAGONE_SIZE * (0.42))), y, (int) (y + (HEXAGONE_SIZE * (0.42)))};
+            int x = (int) ((HEXAGON_SIZE / 2.) * (3. / 2 * position.getQ())) + center.getX();
+            int y = (int) ((HEXAGON_SIZE / 2.) * (sqrt(3) / 2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
+            int[] xPoints = {x + HEXAGON_SIZE / 4, x + HEXAGON_SIZE / 2, x + HEXAGON_SIZE / 4, x - HEXAGON_SIZE / 4, x - HEXAGON_SIZE / 2, x - HEXAGON_SIZE / 4};
+            int[] yPoints = {(int) (y + (HEXAGON_SIZE * (0.42))), y, (int) (y - (HEXAGON_SIZE * (0.42))), (int) (y - (HEXAGON_SIZE * (0.42))), y, (int) (y + (HEXAGON_SIZE * (0.42)))};
             return new Polygon(xPoints, yPoints, 6);
         }
 
         private Position getPlotPositionInGrid(Position position) {
-            int x = (int) ((HEXAGONE_SIZE / 2.) * (3. / 2 * position.getQ())) + center.getX();
-            int y = (int) ((HEXAGONE_SIZE / 2.) * (sqrt(3) / 2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
+            int x = (int) ((HEXAGON_SIZE / 2.) * (3. / 2 * position.getQ())) + center.getX();
+            int y = (int) ((HEXAGON_SIZE / 2.) * (sqrt(3) / 2 * position.getQ() + sqrt(3) * position.getR())) + center.getY();
             return new Position(x, y);
         }
     }

@@ -25,7 +25,7 @@ class ObjectivePlotsTest {
 
     @Test
     void verifyGardenerObj() {
-        assertFalse(new ObjectivePlots(0, (Pattern) null).verifyGardenerObj(null));
+        assertFalse(new ObjectivePlots(0, null).verifyGardenerObj(null));
     }
 
     @Test

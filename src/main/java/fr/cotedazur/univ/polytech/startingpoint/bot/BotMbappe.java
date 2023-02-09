@@ -9,8 +9,6 @@ import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PandaBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PatternBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
-
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +17,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
 
     Referee referee;
     Map map;
-    List<Bambou> myBambous;
+    List<Bamboo> myBambous;
 
     public BotMbappe() {
         this(null, null);
@@ -31,7 +29,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
         myBambous = null;
     }
 
-    public void setEnvirronement(Referee referee, Map map) {
+    public void setEnvironment(Referee referee, Map map) {
         this.referee = referee;
         this.map = map;
     }
@@ -40,7 +38,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
     public Action play(List<ActionType> banActionTypes, WeatherType weather) {
         this.myBambous = referee.getMyBambous(this);
         List<Objective> objectives = referee.getMyObjectives(this);
-        Collections.sort(objectives, Comparator.comparing(Objective::getPoint));
+        objectives.sort(Comparator.comparing(Objective::getPoint));
         if (objectives.isEmpty()) return pickObjective();
         for (Objective objective : objectives) {
             Action action = objective.tryToFillObjective(this, banActionTypes, weather);
@@ -60,7 +58,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
         return gardenerBotResolver.fillObjectiveGardener(bambouType, banActionTypes, weather);
     }
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather) {
+    public Action fillObjectivePanda(List<Bamboo> bambouSections, List<ActionType> banActionTypes, WeatherType weather) {
         PandaBotResolver pandaBotResolver = new PandaBotResolver(map, referee, this);
         return pandaBotResolver.fillObjectivePanda(bambouSections, myBambous, banActionTypes, weather);
     }

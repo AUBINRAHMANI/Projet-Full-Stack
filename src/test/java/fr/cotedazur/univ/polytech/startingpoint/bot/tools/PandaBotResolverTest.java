@@ -35,11 +35,11 @@ class PandaBotResolverTest {
         Playable bot = new BotMbappe();
         PandaBotResolver pandaBotResolver = new PandaBotResolver(mockedMap, mockedReferee, bot);
 
-        List<Bambou> bambousToHave = new ArrayList<>();
-        bambousToHave.add(new Bambou(PlotType.GREEN));
-        bambousToHave.add(new Bambou(PlotType.GREEN));
+        List<Bamboo> bambousToHave = new ArrayList<>();
+        bambousToHave.add(new Bamboo(PlotType.GREEN));
+        bambousToHave.add(new Bamboo(PlotType.GREEN));
 
-        Action result = pandaBotResolver.fillObjectivePanda( bambousToHave , Arrays.asList(new Bambou(PlotType.GREEN)),List.of(),null);
+        Action result = pandaBotResolver.fillObjectivePanda( bambousToHave , Arrays.asList(new Bamboo(PlotType.GREEN)),List.of(),null);
         assertEquals(ActionType.PUT_PLOT, result.toType());
         assertEquals(1, result.getPosition().getDistanceToPosition(new Position(0,0)));
 
@@ -53,7 +53,7 @@ class PandaBotResolverTest {
         assertEquals(ActionType.MOVE_GARDENER, result.toType());
         assertEquals(new Position(0,1), result.getPosition());
 
-        mockedMap.getMapPlots().get(1).growBambou();
+        mockedMap.getMapPlots().get(1).growBamboo();
 
         result = pandaBotResolver.fillObjectivePanda( bambousToHave , List.of() ,List.of(),null);
         assertEquals(ActionType.MOVE_PANDA, result.toType());

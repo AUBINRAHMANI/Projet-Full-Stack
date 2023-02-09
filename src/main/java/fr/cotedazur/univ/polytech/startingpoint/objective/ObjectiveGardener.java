@@ -6,23 +6,23 @@ import fr.cotedazur.univ.polytech.startingpoint.PlotType;
 import fr.cotedazur.univ.polytech.startingpoint.WeatherType;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 
 import java.util.List;
 
 public class ObjectiveGardener extends Objective {
 
-    int nbBambou;
+    int nbBamboo;
     int nbPlot;
-    PlotType bambouType;
+    PlotType bambooType;
     boolean improvement;
 
-    public ObjectiveGardener(int point, int nbBambou, PlotType bambouType, boolean improvement, int nbSection) {
+    public ObjectiveGardener(int point, int nbBamboo, PlotType bambooType, boolean improvement, int nbSection) {
         super(point);
-        this.nbBambou = nbBambou;
+        this.nbBamboo = nbBamboo;
         this.nbPlot = nbSection;
-        this.bambouType = bambouType;
+        this.bambooType = bambooType;
         this.improvement = improvement;
     }
 
@@ -33,26 +33,26 @@ public class ObjectiveGardener extends Objective {
 
     @Override
     public boolean verifyGardenerObj(GameEngine gameEngine) {
-        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, nbPlot);
+        return gameEngine.computeObjectiveGardener(nbBamboo, bambooType, nbPlot);
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfil) {
         return false;
     }
 
     @Override
     public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather) {
-        return bot.fillObjectiveGardener(bambouType, improvement, banActionTypes, weather);
+        return bot.fillObjectiveGardener(bambooType, improvement, banActionTypes, weather);
     }
 
     @Override
     public String toString() {
         return "ObjectiveGardener{" +
                 "points=" + points +
-                "nbBambou=" + nbBambou +
+                "nbBamboo=" + nbBamboo +
                 ", nbSection=" + nbPlot +
-                ", bambouType=" + bambouType +
+                ", bambooType=" + bambooType +
                 ", improvement=" + improvement +
                 '}';
     }

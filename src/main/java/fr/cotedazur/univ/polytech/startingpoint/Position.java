@@ -79,11 +79,11 @@ public class Position {
         q *= -1;
         r *= -1;
         s *= -1;
-        int qtemp = q;
-        int rtemp = r;
+        int qTemp = q;
+        int rTemp = r;
         q = s;
-        r = qtemp;
-        s = rtemp;
+        r = qTemp;
+        s = rTemp;
     }
 
     public void translateUP() {
@@ -122,14 +122,14 @@ public class Position {
     }
 
     public boolean isCenter() {
-        return (q == 0 && r == 0 && s == 0);
+        return (q != 0 || r != 0 || s != 0);
     }
 
     public boolean isCloseToCenter() {
         return (abs(q) + abs(r) + abs(s) == 2);
     }
 
-    public boolean isDeplacementALine(Position position) {
+    public boolean isMovementALine(Position position) {
         return this.getQ() == position.getQ() || this.getR() == position.getR() || this.getS() == position.getS();
     }
 

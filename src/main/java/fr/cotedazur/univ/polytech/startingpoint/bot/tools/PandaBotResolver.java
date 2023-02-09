@@ -23,31 +23,29 @@ public class PandaBotResolver {
     }
 
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections, List<Bambou> myBambous, List<ActionType> banActionTypes, WeatherType weather) {
-        ArrayList<Bambou> missingBambous = new ArrayList<>(bambouSections);
-        for (Bambou bambou : myBambous) removeBambou(missingBambous, bambou);
-        if (!missingBambous.isEmpty()) {
-            if (!banActionTypes.contains(ActionType.MOVE_PANDA)) {
-                for (Bambou bambou : missingBambous) {
-                    MovePandaAction action = tryEatBambouOfType(bambou.getBambouType());
-                    if (action != null) return action;
-                }
-                for (Plot plot : map.getMapPlots()) {
-                    if (plot.getType() == missingBambous.get(missingBambous.size() - 1).getBambouType() && plot.getNumberOfBambou() > 0) {
-                        return movePandaToUnlock(referee.getPandaPosition());
-                    }
+    public Action fillObjectivePanda(List<Bamboo> bambooSections, List<Bamboo> myBamboos, List<ActionType> banActionTypes, WeatherType weather) {
+        ArrayList<Bamboo> missingBamboos = new ArrayList<>(bambooSections);
+        for (Bamboo bambou : myBamboos) removeBamboo(missingBamboos, bambou);
+        if (!missingBamboos.isEmpty() && !banActionTypes.contains(ActionType.MOVE_PANDA)) {
+            for (Bamboo bambou : missingBamboos) {
+                MovePandaAction action = tryEatBambooOfType(bambou.getBambooType());
+                if (action != null) return action;
+            }
+            for (Plot plot : map.getMapPlots()) {
+                if (plot.getType() == missingBamboos.get(missingBamboos.size() - 1).getBambooType() && plot.getNumberOfBamboo() > 0) {
+                    return movePandaToUnlock(referee.getPandaPosition());
                 }
             }
             GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-            return gardenerBotResolver.fillObjectiveGardener(missingBambous.get(missingBambous.size() - 1).getBambouType(), banActionTypes, weather);
+            return gardenerBotResolver.fillObjectiveGardener(missingBamboos.get(missingBamboos.size() - 1).getBambooType(), banActionTypes, weather);
         }
         PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
-        return patternBotResolver.putRandomlyAPLot(bambouSections.get(0).getBambouType(), banActionTypes);
+        return patternBotResolver.putRandomlyAPLot(bambooSections.get(0).getBambooType(), banActionTypes);
     }
 
-    private MovePandaAction tryEatBambouOfType(PlotType bambouType) {
+    private MovePandaAction tryEatBambooOfType(PlotType bambooType) {
         for (Plot plot : map.getMapPlots()) {
-            if (plot.getType() == bambouType && plot.getNumberOfBambou() > 0) {
+            if (plot.getType() == bambooType && plot.getNumberOfBamboo() > 0) {
                 MovePandaAction action = movePandaOnPlantation(plot.getPosition());
                 if (action != null) {
                     return action;
@@ -57,10 +55,10 @@ public class PandaBotResolver {
         return null;
     }
 
-    private void removeBambou(ArrayList<Bambou> bambous, Bambou bambouToRemove) {
-        for (int i = 0; i < bambous.size(); ++i) {
-            if (bambous.get(i).getBambouType() == bambouToRemove.getBambouType()) {
-                bambous.remove(i);
+    private void removeBamboo(ArrayList<Bamboo> bamboos, Bamboo bambooToRemove) {
+        for (int i = 0; i < bamboos.size(); ++i) {
+            if (bamboos.get(i).getBambooType() == bambooToRemove.getBambooType()) {
+                bamboos.remove(i);
                 break;
             }
         }
@@ -75,7 +73,7 @@ public class PandaBotResolver {
     }
 
     public MovePandaAction movePandaOnPlantation(Position position) {
-        if (position.isDeplacementALine(referee.getPandaPosition())) {
+        if (position.isMovementALine(referee.getPandaPosition())) {
             return new MovePandaAction(bot, position);
         }
         return null;

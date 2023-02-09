@@ -52,12 +52,6 @@ public class Pattern {
         }
     }
 
-    public void translateRight() {
-        for (Plot plot : plots) {
-            plot.getPosition().translateRight();
-        }
-    }
-
     public void translateUp() {
         for (Plot plot : plots) {
             plot.getPosition().translateUP();

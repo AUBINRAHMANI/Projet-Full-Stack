@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlotTypeTest {
 
     @Test
-    void testOfPlotypeEnumValues() {
+    void testOfPlotTypeEnumValues() {
         PlotType plotType = PlotType.POND;
         assertEquals(PlotType.valueOf("POND"), plotType);
 

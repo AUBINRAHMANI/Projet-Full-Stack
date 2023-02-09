@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +46,7 @@ public class Irrigation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Irrigation that = (Irrigation) o;
-        return positions.containsAll(that.positions) && positions.size() == 2;
+        return new HashSet<>(positions).containsAll(that.positions) && positions.size() == 2;
     }
 
     @Override

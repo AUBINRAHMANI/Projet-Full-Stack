@@ -193,13 +193,13 @@ class MapTest implements Loggeable {
     }
 
     @Test
-    void isIrrigationsLinked() {
+    void isIrrigationLinked() {
         Map map = new Map();
         Irrigation irrigation1 = new Irrigation(new Position(0, 1), new Position(1, 1));
         Irrigation irrigation2 = new Irrigation(new Position(0, 1), new Position(1, 2));
 
-        assertTrue(map.isIrrigationsLinked(irrigation1));
-        assertFalse(map.isIrrigationsLinked(irrigation2));
+        assertTrue(map.isIrrigationLinked(irrigation1));
+        assertFalse(map.isIrrigationLinked(irrigation2));
     }
 
     @Test

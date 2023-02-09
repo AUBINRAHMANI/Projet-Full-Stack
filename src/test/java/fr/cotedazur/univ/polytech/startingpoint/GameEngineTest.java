@@ -1,7 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
@@ -21,7 +21,7 @@ class GameEngineTest {
     @Test
     void pickObjectiveTest() {
         Deck<Objective> deck = new Deck<>(mockedGame);
-        Objective objective = new ObjectivePlots(5, (Pattern) null);
+        Objective objective = new ObjectivePlots(5, null);
         deck.addCard(objective);
         GameEngine gameEngine = new GameEngine(deck, null, null);
 
@@ -98,17 +98,17 @@ class GameEngineTest {
     void computeObjectivePanda() {
         GameEngine gameEngine = new GameEngine(null, null, null);
 
-        BotProfil botProfil = new BotProfil(new BotMbappe(null, null), "");
-        botProfil.addBanbou(new Bambou(PlotType.GREEN));
+        BotProfile botProfil = new BotProfile(new BotMbappe(null, null), "");
+        botProfil.addBamboo(new Bamboo(PlotType.GREEN));
 
-        ArrayList<Bambou> bambousObjective = new ArrayList<>();
-        bambousObjective.add(new Bambou(PlotType.GREEN));
-        bambousObjective.add(new Bambou(PlotType.GREEN));
+        ArrayList<Bamboo> bamboosObjective = new ArrayList<>();
+        bamboosObjective.add(new Bamboo(PlotType.GREEN));
+        bamboosObjective.add(new Bamboo(PlotType.GREEN));
 
-        assertFalse(gameEngine.computeObjectivePanda(botProfil, bambousObjective));
-        botProfil.addBanbou(new Bambou(PlotType.GREEN));
-        assertTrue(gameEngine.computeObjectivePanda(botProfil, bambousObjective));
-        assertTrue(botProfil.getBambous().isEmpty());
+        assertFalse(gameEngine.computeObjectivePanda(botProfil, bamboosObjective));
+        botProfil.addBamboo(new Bamboo(PlotType.GREEN));
+        assertTrue(gameEngine.computeObjectivePanda(botProfil, bamboosObjective));
+        assertTrue(botProfil.getBamboos().isEmpty());
 
     }
 
@@ -131,7 +131,7 @@ class GameEngineTest {
     }
 
     @Test
-    void growBambouTest() {
+    void growBambooTest() {
         Map map = new Map();
         Plot plot = new Plot(PlotType.GREEN, new Position(0, 1));
         Plot plot2 = new Plot(PlotType.GREEN, new Position(1, 1));
@@ -139,8 +139,8 @@ class GameEngineTest {
         map.putPlot(plot2);
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.moveGardener(new Position(0, 1));
-        assertEquals(1, plot.getNumberOfBambou());
-        assertEquals(1, plot2.getNumberOfBambou());
+        assertEquals(1, plot.getNumberOfBamboo());
+        assertEquals(1, plot2.getNumberOfBamboo());
     }
 
     @Test
@@ -153,10 +153,10 @@ class GameEngineTest {
         map.putPlot(plot2);
         map.putPlot(plot3);
 
-        for (int i = 0; i < 3; ++i) plot1.growBambou();
+        for (int i = 0; i < 3; ++i) plot1.growBamboo();
         for (int i = 0; i < 3; ++i) {
-            plot2.growBambou();
-            plot3.growBambou();
+            plot2.growBamboo();
+            plot3.growBamboo();
         }
 
         GameEngine gameEngine = new GameEngine(null, null, map);
@@ -169,12 +169,10 @@ class GameEngineTest {
     }
 
     @Test
-    void eatBambou() {
+    void eatBamboo() {
         Map map = new Map();
         Position position = new Position(1, 0);
         Plot plot = new Plot(PlotType.GREEN, position);
-        Bambou bambou = new Bambou(PlotType.GREEN);
-        Bambou bambou1 = new Bambou(PlotType.GREEN);
 
         plot.isIrrigatedIsTrue();
 
@@ -185,9 +183,9 @@ class GameEngineTest {
         gameEngine.moveGardener(position);
         gameEngine.moveGardener(position);
 
-        gameEngine.eatBambou(game, null, position);
+        gameEngine.eatBamboo(game, null, position);
 
-        assertEquals(1, plot.getNumberOfBambou());
+        assertEquals(1, plot.getNumberOfBamboo());
     }
 
     @Test
@@ -210,8 +208,8 @@ class GameEngineTest {
         map.putPlot(plot2);
         GameEngine gameEngine = new GameEngine(null, null, map);
         gameEngine.rainAction(new Position(0, 1));
-        assertEquals(1, plot.getNumberOfBambou());
-        assertNotEquals(1, plot2.getNumberOfBambou());
+        assertEquals(1, plot.getNumberOfBamboo());
+        assertNotEquals(1, plot2.getNumberOfBamboo());
 
     }
 
