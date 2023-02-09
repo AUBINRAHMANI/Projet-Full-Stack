@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.Bambou;
+import fr.cotedazur.univ.polytech.startingpoint.Bamboo;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Plot;
 import fr.cotedazur.univ.polytech.startingpoint.WeatherType;
@@ -13,11 +13,11 @@ import java.util.List;
 
 public class ObjectivePanda extends Objective {
 
-    List<Bambou> bambouSections;
+    List<Bamboo> bambooSections;
 
-    public ObjectivePanda(int point, List<Bambou> bambouSections) {
+    public ObjectivePanda(int point, List<Bamboo> bambooSections) {
         super(point);
-        this.bambouSections = bambouSections;
+        this.bambooSections = bambooSections;
     }
 
     @Override
@@ -32,19 +32,19 @@ public class ObjectivePanda extends Objective {
 
     @Override
     public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
-        return gameEngine.computeObjectivePanda(botProfil, bambouSections);
+        return gameEngine.computeObjectivePanda(botProfil, bambooSections);
     }
 
     @Override
     public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather) {
-        return bot.fillObjectivePanda(bambouSections, banActionTypes, weather);
+        return bot.fillObjectivePanda(bambooSections, banActionTypes, weather);
     }
 
     @Override
     public String toString() {
         return "ObjectivePanda{" +
                 "points=" + points +
-                "bambouSections=" + bambouSections +
+                "bambooSections=" + bambooSections +
                 '}';
     }
 }

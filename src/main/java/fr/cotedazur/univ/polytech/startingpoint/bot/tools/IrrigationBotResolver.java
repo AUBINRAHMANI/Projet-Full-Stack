@@ -57,7 +57,7 @@ public class IrrigationBotResolver {
         for (Plot plot : map.getNeighbours(position)) {
             Irrigation irrigation = new Irrigation(position, plot.getPosition());
 
-            if (map.isIrrigationsLinked(irrigation) && !map.irrigationExist(irrigation)) {
+            if (map.isIrrigationLinked(irrigation) && !map.irrigationExist(irrigation)) {
                 return new PutIrrigationAction(irrigation);
             }
         }

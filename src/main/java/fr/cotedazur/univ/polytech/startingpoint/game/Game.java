@@ -6,13 +6,13 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
-import fr.cotedazur.univ.polytech.startingpoint.debug_Interface.MapInterface;
+import fr.cotedazur.univ.polytech.startingpoint.debug_interface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectiveGardener;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePanda;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
-import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatistiqueManager;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
 import java.security.SecureRandom;
 import java.util.*;
@@ -23,7 +23,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
     static final int MAX_NB_ROUND = 100;
     static final int NB_OBJECTIVE_TO_FINISH = 9;
     static final int NB_ACTIONS_PER_ROUND = 2;
-    private final StatistiqueManager statistiqueManager;
+    private final StatisticManager statistiqueManager;
     Random random;
     GameEngine gameEngine;
     List<BotProfil> botProfiles;
@@ -37,7 +37,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         this(null, List.of(), false);
     }
 
-    public Game(StatistiqueManager statistiqueManager, List<BotProfil> botProfiles, boolean debug) {
+    public Game(StatisticManager statistiqueManager, List<BotProfil> botProfiles, boolean debug) {
         this.random = new SecureRandom();
         previousActions = new ArrayList<>();
         Deck<Objective> objectiveDeck = generateObjectiveDrawPile();
@@ -48,7 +48,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         this.timeOutCounter = 0;
 
         for (BotProfil botProfil : this.botProfiles) {
-            botProfil.getBot().setEnvirronement(this, gameEngine.getMap());
+            botProfil.getBot().setEnvironment(this, gameEngine.getMap());
         }
 
         if (debug) {
@@ -143,9 +143,9 @@ public class Game implements DeckSignal, Referee, Loggeable {
         }
 
         for (int i = 0; i < 20; ++i) {
-            ArrayList<Bambou> bambous = new ArrayList<>();
+            ArrayList<Bamboo> bambous = new ArrayList<>();
             for (int j = 0; j < (random.nextInt(2) + 2); ++j) {
-                bambous.add(new Bambou(PlotType.values()[random.nextInt(upperRandForPlotType) + 1]));
+                bambous.add(new Bamboo(PlotType.values()[random.nextInt(upperRandForPlotType) + 1]));
             }
             objectiveDeck.addCard(new ObjectivePanda(random.nextInt(4) + 1, bambous));
         }
@@ -287,14 +287,14 @@ public class Game implements DeckSignal, Referee, Loggeable {
         }
     }
 
-    public List<Bambou> getMyBambous(Playable bot) {
+    public List<Bamboo> getMyBambous(Playable bot) {
         for (BotProfil botProfil : botProfiles) {
             if (botProfil.getBot() == bot) return botProfil.getBambous();
         }
         return List.of();
     }
 
-    public void addBamboutToBot(Playable bot, Bambou bambou) {
+    public void addBamboutToBot(Playable bot, Bamboo bambou) {
         for (BotProfil botProfil : botProfiles) {
             if (botProfil.getBot() == bot) {
                 botProfil.addBanbou(bambou);

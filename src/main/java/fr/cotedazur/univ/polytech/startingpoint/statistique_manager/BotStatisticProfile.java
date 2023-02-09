@@ -2,24 +2,24 @@ package fr.cotedazur.univ.polytech.startingpoint.statistique_manager;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 
-public class BotStatistiqueProfil {
+public class BotStatisticProfile {
 
     String botName;
     Playable bot;
     private int nbVictories;
     private int nbDefeats;
 
-    private int nombredeTours;
-    private int nombredeParties;
+    private int nbOfRounds;
+    private int nbOfGame;
 
 
-    public BotStatistiqueProfil(Playable bot, String botName) {
+    public BotStatisticProfile(Playable bot, String botName) {
         this.bot = bot;
         this.botName = botName;
         this.nbVictories = 0;
         this.nbDefeats = 0;
-        this.nombredeTours = 0;
-        this.nombredeParties = 0;
+        this.nbOfRounds = 0;
+        this.nbOfGame = 0;
     }
 
     public void addVictory() {
@@ -30,12 +30,12 @@ public class BotStatistiqueProfil {
         nbDefeats += 1;
     }
 
-    public void addNombredeTours() {
-        ++nombredeTours;
+    public void addNbOfRounds() {
+        ++nbOfRounds;
     }
 
     public void addNumberOfGames() {
-        ++nombredeParties;
+        ++nbOfGame;
     }
 
     public Playable getBot() {
@@ -54,17 +54,17 @@ public class BotStatistiqueProfil {
         return nbDefeats;
     }
 
-    public int getNbdeTours() {
-        return nombredeTours;
+    public int getNbOfRounds() {
+        return nbOfRounds;
     }
 
     public int getNumberOfGames() {
-        return nombredeParties;
+        return nbOfGame;
     }
 
     public String toString() {
-        return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + "\n"
-                + "Nombre de tours effectué : " + this.getNbdeTours() + " pour " + this.getNumberOfGames() + " de parties";
+        return "Number of wins  " + this.getBotName() + ": " + this.getNbVictories() + "\n"
+                + "Number of rounds done : " + this.getNbOfRounds() + " for " + this.getNumberOfGames() + " games";
 
     }
 }

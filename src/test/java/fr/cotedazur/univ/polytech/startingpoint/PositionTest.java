@@ -145,7 +145,7 @@ class PositionTest {
     }
 
     @Test
-    void isDeplacementALine() {
+    void isMovementALine() {
         Position position1 = new Position(1, 4);
         Position position2 = new Position(3, 4);
         Position position3 = new Position(5, 2);
@@ -156,14 +156,14 @@ class PositionTest {
         Position position8 = new Position(2, 4);
         Position position9 = new Position(0, 2);
 
-        assertFalse(position1.isDeplacementALine(position2));
-        assertTrue(position1.isDeplacementALine(position3));
-        assertTrue(position1.isDeplacementALine(position4));
-        assertTrue(position1.isDeplacementALine(position5));
-        assertTrue(position1.isDeplacementALine(position6));
-        assertTrue(position1.isDeplacementALine(position7));
-        assertTrue(position1.isDeplacementALine(position8));
-        assertFalse(position1.isDeplacementALine(position9));
+        assertFalse(position1.isMovementALine(position2));
+        assertTrue(position1.isMovementALine(position3));
+        assertTrue(position1.isMovementALine(position4));
+        assertTrue(position1.isMovementALine(position5));
+        assertTrue(position1.isMovementALine(position6));
+        assertTrue(position1.isMovementALine(position7));
+        assertTrue(position1.isMovementALine(position8));
+        assertFalse(position1.isMovementALine(position9));
     }
 
     @Test

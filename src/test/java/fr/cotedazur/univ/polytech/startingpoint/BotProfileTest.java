@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BotProfilTest {
+class BotProfileTest {
 
     @Test
     void getBot_() {
@@ -20,7 +20,7 @@ class BotProfilTest {
     @Test
     void getObjectives_() {
         BotMbappe bot = new BotMbappe(null, null);
-        Objective objective = new ObjectivePlots(1, (Pattern) null);
+        Objective objective = new ObjectivePlots(1, null);
         BotProfil botProfil = new BotProfil(bot, "");
         botProfil.addObjective(objective);
         assertEquals(objective, botProfil.getObjectives().get(0));
@@ -29,7 +29,7 @@ class BotProfilTest {
     @Test
     void setObjectiveCompleted() {
         BotMbappe bot = new BotMbappe(null, null);
-        Objective objective = new ObjectivePlots(1, (Pattern) null);
+        Objective objective = new ObjectivePlots(1, null);
         BotProfil botProfil = new BotProfil(bot, "");
         botProfil.addObjective(objective);
         botProfil.setObjectiveCompleted(objective);
@@ -40,7 +40,7 @@ class BotProfilTest {
     @Test
     void getNbCompletedObjective_() {
         BotMbappe bot = new BotMbappe(null, null);
-        Objective objective = new ObjectivePlots(1, (Pattern) null);
+        Objective objective = new ObjectivePlots(1, null);
         BotProfil botProfil = new BotProfil(bot, "");
         botProfil.addObjective(objective);
         botProfil.setObjectiveCompleted(objective);
@@ -48,10 +48,10 @@ class BotProfilTest {
     }
 
     @Test
-    void addBanbou() {
+    void addBamboo() {
         BotProfil botProfil = new BotProfil(new BotMbappe(null, null), "");
-        Bambou bambou = new Bambou(PlotType.GREEN);
-        botProfil.addBanbou(bambou);
-        assertEquals(bambou, botProfil.getBambous().get(0));
+        Bamboo bamboo = new Bamboo(PlotType.GREEN);
+        botProfil.addBanbou(bamboo);
+        assertEquals(bamboo, botProfil.getBambous().get(0));
     }
 }

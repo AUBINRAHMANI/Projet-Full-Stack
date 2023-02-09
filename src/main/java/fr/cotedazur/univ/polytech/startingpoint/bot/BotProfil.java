@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.bot;
 
-import fr.cotedazur.univ.polytech.startingpoint.Bambou;
+import fr.cotedazur.univ.polytech.startingpoint.Bamboo;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class BotProfil {
     private final Playable bot;
     String botName;
     private List<Objective> objectives;
-    private List<Bambou> bambous;
+    private List<Bamboo> bambous;
     private int points;
     private int nbCompletedObjective;
 
@@ -60,15 +60,15 @@ public class BotProfil {
         points += objective.getPoint();
     }
 
-    public void addBanbou(Bambou bambou) {
+    public void addBanbou(Bamboo bambou) {
         bambous.add(bambou);
     }
 
-    public List<Bambou> getBambous() {
+    public List<Bamboo> getBambous() {
         return bambous;
     }
 
-    public void setBambous(List<Bambou> bambous) {
+    public void setBambous(List<Bamboo> bambous) {
         this.bambous = bambous;
     }
 }

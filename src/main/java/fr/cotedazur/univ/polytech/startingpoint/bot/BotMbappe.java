@@ -17,7 +17,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
 
     Referee referee;
     Map map;
-    List<Bambou> myBambous;
+    List<Bamboo> myBambous;
 
     public BotMbappe() {
         this(null, null);
@@ -29,7 +29,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
         myBambous = null;
     }
 
-    public void setEnvirronement(Referee referee, Map map) {
+    public void setEnvironment(Referee referee, Map map) {
         this.referee = referee;
         this.map = map;
     }
@@ -58,7 +58,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
         return gardenerBotResolver.fillObjectiveGardener(bambouType, banActionTypes, weather);
     }
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather) {
+    public Action fillObjectivePanda(List<Bamboo> bambouSections, List<ActionType> banActionTypes, WeatherType weather) {
         PandaBotResolver pandaBotResolver = new PandaBotResolver(map, referee, this);
         return pandaBotResolver.fillObjectivePanda(bambouSections, myBambous, banActionTypes, weather);
     }

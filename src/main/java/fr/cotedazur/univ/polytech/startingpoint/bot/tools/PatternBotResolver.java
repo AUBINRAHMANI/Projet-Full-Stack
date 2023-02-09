@@ -20,34 +20,31 @@ public class PatternBotResolver {
 
     public Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes) {
         for (Plot plot : map.getMapPlots()) {
-            if (plot.getType() == pattern.getPlots().get(0).getType()) {
+            if(!map.checkIfPossibleToPlacePattern(pattern, plot.getPosition()).isEmpty() && (plot.getType() == pattern.getPlots().get(0).getType())) {
                 List<List<Plot>> result = map.checkIfPossibleToPlacePattern(pattern, plot.getPosition());
-                if (result != null) {
-                    List<Plot> missingPlots = result.get(0);
-                    List<Plot> nonIrrigatedPlots = result.get(1);
-                    if (!banActionTypes.contains(ActionType.PUT_PLOT)) {
-                        for (Plot tempPlot : missingPlots) {
-                            Position tempPlotPosition = tempPlot.getPosition();
-                            if (map.isPossibleToPutPlot(tempPlotPosition)) {
-                                return new PutPlotAction(tempPlot);
-                            } else {
-                                if (!map.getNeighbours(tempPlotPosition).isEmpty()) {
-                                    List<Position> positions = map.closestAvailableSpace(tempPlotPosition);
-                                    for (Position position : positions) {
-                                        if (map.isPossibleToPutPlot(position)) {
-                                            return new PutPlotAction(new Plot(tempPlot.getType(), position));
-                                        }
+                List<Plot> missingPlots = result.get(0);
+                List<Plot> nonIrrigatedPlots = result.get(1);
+                if (!banActionTypes.contains(ActionType.PUT_PLOT)) {
+                    for (Plot tempPlot : missingPlots) {
+                        Position tempPlotPosition = tempPlot.getPosition();
+                        if (map.isPossibleToPutPlot(tempPlotPosition)) {
+                            return new PutPlotAction(tempPlot);
+                        } else {
+                            if (!map.getNeighbours(tempPlotPosition).isEmpty()) {
+                                List<Position> positions = map.closestAvailableSpace(tempPlotPosition);
+                                for (Position position : positions) {
+                                    if (map.isPossibleToPutPlot(position)) {
+                                        return new PutPlotAction(new Plot(tempPlot.getType(), position));
                                     }
-
                                 }
                             }
                         }
                     }
-                    if (!nonIrrigatedPlots.isEmpty()) {
-                        IrrigationBotResolver irrigationBotResolver = new IrrigationBotResolver(map, referee);
-                        Action action = irrigationBotResolver.tryPutIrrigation(nonIrrigatedPlots.get(0).getPosition(), banActionTypes);
-                        if (action != null) return action;
-                    }
+                }
+                if (!nonIrrigatedPlots.isEmpty()) {
+                    IrrigationBotResolver irrigationBotResolver = new IrrigationBotResolver(map, referee);
+                    Action action = irrigationBotResolver.tryPutIrrigation(nonIrrigatedPlots.get(0).getPosition(), banActionTypes);
+                    if (action != null) return action;
                 }
             }
         }

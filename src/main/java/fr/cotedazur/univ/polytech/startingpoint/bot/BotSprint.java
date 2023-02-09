@@ -17,7 +17,7 @@ public class BotSprint implements Playable {
 
     Referee referee;
     Map map;
-    List<Bambou> myBamboos;
+    List<Bamboo> myBamboos;
 
     public BotSprint() {
         this(null, null);
@@ -29,7 +29,7 @@ public class BotSprint implements Playable {
         this.myBamboos = new ArrayList<>();
     }
 
-    public void setEnvirronement(Referee referee, Map map) {
+    public void setEnvironment(Referee referee, Map map) {
         this.referee = referee;
         this.map = map;
     }
@@ -56,7 +56,7 @@ public class BotSprint implements Playable {
             return action;
         }
 
-        //Try eat Bambou
+        //Try to eat Bamboo
         banActionTypes = new ArrayList<>();
         for (ActionType actionType : ActionType.values()) {
             if (actionType != ActionType.MOVE_PANDA) {
@@ -112,14 +112,14 @@ public class BotSprint implements Playable {
         return null;
     }
 
-    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
+    public Action fillObjectiveGardener(PlotType bambooType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
         GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-        return gardenerBotResolver.fillObjectiveGardener(bambouType, banActionTypes, weather);
+        return gardenerBotResolver.fillObjectiveGardener(bambooType, banActionTypes, weather);
     }
 
-    public Action fillObjectivePanda(List<Bambou> bambouSections, List<ActionType> banActionTypes, WeatherType weather) {
+    public Action fillObjectivePanda(List<Bamboo> bambooSections, List<ActionType> banActionTypes, WeatherType weather) {
         PandaBotResolver pandaBotResolver = new PandaBotResolver(map, referee, this);
-        return pandaBotResolver.fillObjectivePanda(bambouSections, myBamboos, banActionTypes, weather);
+        return pandaBotResolver.fillObjectivePanda(bambooSections, myBamboos, banActionTypes, weather);
     }
 
     public Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes) {

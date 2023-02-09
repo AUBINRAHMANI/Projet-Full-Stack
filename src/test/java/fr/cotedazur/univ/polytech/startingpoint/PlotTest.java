@@ -20,33 +20,33 @@ class PlotTest {
     }
 
     @Test
-    void getNumberOfBambouTest() {
+    void getNumberOfBambooTest() {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 3));
         plot.isIrrigatedIsTrue();
-        assertEquals(0, plot.getNumberOfBambou());
-        plot.growBambou();
-        assertEquals(1, plot.getNumberOfBambou());
-        plot.growBambou();
-        assertEquals(2, plot.getNumberOfBambou());
+        assertEquals(0, plot.getNumberOfBamboo());
+        plot.growBamboo();
+        assertEquals(1, plot.getNumberOfBamboo());
+        plot.growBamboo();
+        assertEquals(2, plot.getNumberOfBamboo());
     }
 
     @Test
-    void checkIfgrowBambouWorksTest() {
+    void checkIfGrowBambooWorksTest() {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 3));
         plot.isIrrigatedIsTrue();
-        plot.growBambou();
-        assertEquals(1, plot.getNumberOfBambou());
+        plot.growBamboo();
+        assertEquals(1, plot.getNumberOfBamboo());
     }
 
     @Test
-    void eatBambouTest() {
+    void eatBambooTest() {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 3));
         plot.isIrrigatedIsTrue();
-        assertEquals(0, plot.getNumberOfBambou());
-        plot.growBambou();
-        assertEquals(1, plot.getNumberOfBambou());
-        plot.eatBambou();
-        assertEquals(0, plot.getNumberOfBambou());
+        assertEquals(0, plot.getNumberOfBamboo());
+        plot.growBamboo();
+        assertEquals(1, plot.getNumberOfBamboo());
+        plot.eatBamboo();
+        assertEquals(0, plot.getNumberOfBamboo());
     }
 
 }

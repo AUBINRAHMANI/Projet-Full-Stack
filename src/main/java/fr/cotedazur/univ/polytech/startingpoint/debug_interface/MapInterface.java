@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.debug_Interface;
+package fr.cotedazur.univ.polytech.startingpoint.debug_interface;
 
 import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.Plot;
@@ -58,8 +58,6 @@ public class MapInterface extends JFrame {
     }
 
     public void drawMap(Map map, Position newGardenerPosition, Position newPandaPosition) {
-        Position gardenerPosition = newGardenerPosition;
-        Position pandaPosition = newPandaPosition;
         List<Plot> plots = map.getMapPlots();
         List<Plot> plotsToRemove = new ArrayList<>();
         for (Plot plot1 : plots) {
@@ -77,32 +75,22 @@ public class MapInterface extends JFrame {
             drawHexagon(plot);
             plotsDrawn.add(new Plot(plot));
         }
-        panel.paintComponent(getGraphics(), gardenerPosition, pandaPosition);
+        panel.paintComponent(getGraphics(), newGardenerPosition, newPandaPosition);
         repaint();
     }
 
     private void drawHexagon(Plot plot) {
         Position position = plot.getPosition();
         PlotType plotType = plot.getType();
-        int nbBambous = plot.getNumberOfBambou();
+        int nbBamboos = plot.getNumberOfBamboo();
 
-        Color color;
-        switch (plotType.ordinal()) {
-            case 0:
-                color = new Color(0, 52, 192);
-                break;
-            case 1:
-                color = new Color(63, 131, 1);
-                break;
-            case 2:
-                color = new Color(199, 197, 0);
-                break;
-            case 3:
-                color = new Color(196, 2, 2);
-                break;
-            default:
-                color = Color.BLACK;
-        }
+        Color color = switch (plotType.ordinal()) {
+            case 0 -> new Color(0, 52, 192);
+            case 1 -> new Color(63, 131, 1);
+            case 2 -> new Color(199, 197, 0);
+            case 3 -> new Color(196, 2, 2);
+            default -> Color.BLACK;
+        };
 
         positionsToAdd.add(position);
         if (!plot.isIrrigated()) {
@@ -110,7 +98,7 @@ public class MapInterface extends JFrame {
             color = color.darker();
         }
         colorsToAdd.add(color);
-        correspondingNbBambous.add(nbBambous);
+        correspondingNbBambous.add(nbBamboos);
     }
 
     private class GPanel extends JPanel {
@@ -132,9 +120,9 @@ public class MapInterface extends JFrame {
                 graphics.setColor(Color.WHITE);
 
                 for (Plot plot : plotsDrawn) {
-                    if (plot.getNumberOfBambou() > 0) {
+                    if (plot.getNumberOfBamboo() > 0) {
                         Position stringPosition = getPlotPositionInGrid(plot.getPosition());
-                        graphics.drawString(String.valueOf(plot.getNumberOfBambou()), stringPosition.getX(), stringPosition.getY());
+                        graphics.drawString(String.valueOf(plot.getNumberOfBamboo()), stringPosition.getX(), stringPosition.getY());
                     }
                 }
                 Position gardenerPositionInGrid = getPlotPositionInGrid(gardenerPosition);

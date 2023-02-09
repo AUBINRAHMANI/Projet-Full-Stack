@@ -8,8 +8,8 @@ class WeatherTypeTest {
 
     @Test
     void testOfWeatherTypeEnumValues() {
-        WeatherType weatherTypeNoMeteo = WeatherType.NOMETEO;
-        assertEquals(WeatherType.valueOf("NOMETEO"), weatherTypeNoMeteo);
+        WeatherType weatherTypeNoWeather = WeatherType.NO_WEATHER;
+        assertEquals(WeatherType.valueOf("NO_WEATHER"), weatherTypeNoWeather);
 
         WeatherType weatherTypeSun = WeatherType.SUN;
         assertEquals(WeatherType.valueOf("SUN"), weatherTypeSun);

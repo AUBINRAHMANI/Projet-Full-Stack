@@ -14,7 +14,7 @@ class DeckTest {
 
     @Test
     void addCardTest() {
-        Deck deck = new Deck(mockedGame);
+        Deck<Integer> deck = new Deck<>(mockedGame);
         for (int i = 0; i < 10; ++i) {
             deck.addCard(i);
         }
@@ -25,7 +25,7 @@ class DeckTest {
 
     @Test
     void getNextCardTest() {
-        Deck deck = new Deck(mockedGame);
+        Deck<Integer> deck = new Deck<>(mockedGame);
         deck.addCard(5);
         deck.addCard(3);
         assertEquals(5, deck.getNextCard());

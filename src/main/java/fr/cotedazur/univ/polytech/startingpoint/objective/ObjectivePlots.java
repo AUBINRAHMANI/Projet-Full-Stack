@@ -16,12 +16,6 @@ public class ObjectivePlots extends Objective {
 
     Pattern pattern;
 
-    public ObjectivePlots(int point, List<Plot> plots) {
-        super(point);
-        pattern = new Pattern(plots);
-
-    }
-
     public ObjectivePlots(int point, Pattern pattern) {
         super(point);
         this.pattern = pattern;
