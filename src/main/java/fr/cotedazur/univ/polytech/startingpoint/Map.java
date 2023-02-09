@@ -101,7 +101,7 @@ public class Map implements Loggeable {
         List<Position> path = new ArrayList<>();
         path.add(target);
 
-        while (path.get(path.size() - 1).equals(start)) {
+        while (!path.get(path.size() - 1).equals(start)) {
             Position bestNextPosition = null;
             int minDistance = -1;
             for (Position position : path.get(path.size() - 1).closestPositions()) {
@@ -151,7 +151,7 @@ public class Map implements Loggeable {
 
             }
         }
-        return Optional.ofNullable(Arrays.asList(bestPatternSpot, bestNonIrrigatedSpots));
+        return Optional.of(Arrays.asList(bestPatternSpot, bestNonIrrigatedSpots));
     }
 
     public Optional<List<List<Plot>>> computePatternVerification(Pattern pattern, Position currentPosition) {
@@ -169,7 +169,7 @@ public class Map implements Loggeable {
                 return Optional.empty();
             }
         }
-        return Optional.ofNullable( Arrays.asList(missingPlots, nonIrrigatedPlot) );
+        return Optional.of( Arrays.asList(missingPlots, nonIrrigatedPlot) );
     }
 
     public boolean putIrrigation(Irrigation irrigation) {
