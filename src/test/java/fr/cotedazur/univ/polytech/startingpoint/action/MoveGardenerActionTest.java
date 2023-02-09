@@ -47,4 +47,11 @@ class MoveGardenerActionTest {
         MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
         assertEquals(ActionType.MOVE_GARDENER, moveGardenerAction.toType());
     }
+
+    @Test
+    void equals(){
+        Action action1 = new MoveGardenerAction( new Position(1,0) );
+        Action action2 = new MoveGardenerAction( new Position(3,0) );
+        assertEquals(action1, action2);
+    }
 }

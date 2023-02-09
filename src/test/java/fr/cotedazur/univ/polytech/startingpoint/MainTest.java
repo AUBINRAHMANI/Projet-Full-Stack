@@ -75,6 +75,6 @@ class MainTest {
     @Test
     void getCSV() {
         Main main = new Main();
-        assertEquals(main.getCSV(), false );
+        assertEquals(main.getCsv(), false );
     }
 }

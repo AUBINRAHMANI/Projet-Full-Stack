@@ -1,6 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.PlotType;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
@@ -45,5 +47,12 @@ class RainActionTest {
         Position position = new Position(3,6);
         RainAction rainAction = new RainAction(position);
         assertEquals(rainAction.toType(), ActionType.RAIN);
+    }
+
+    @Test
+    void equals(){
+        Action action1 = new RainAction( new Position(1,1) );
+        Action action2 = new RainAction( new Position(0,1) );
+        assertEquals(action1, action2);
     }
 }

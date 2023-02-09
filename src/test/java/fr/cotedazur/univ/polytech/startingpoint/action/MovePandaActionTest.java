@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -46,5 +47,12 @@ class MovePandaActionTest {
         Position position = new Position(2, 1);
         MovePandaAction movePandaAction = new MovePandaAction(null, position);
         assertEquals(ActionType.MOVE_PANDA, movePandaAction.toType());
+    }
+
+    @Test
+    void equals(){
+        Action action1 = new MovePandaAction(new BotMbappe(), new Position(1,0) );
+        Action action2 = new MovePandaAction(null, new Position(3,0) );
+        assertEquals(action1, action2);
     }
 }

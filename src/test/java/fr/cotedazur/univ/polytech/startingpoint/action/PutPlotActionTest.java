@@ -1,9 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
-import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
-import fr.cotedazur.univ.polytech.startingpoint.Plot;
-import fr.cotedazur.univ.polytech.startingpoint.PlotType;
-import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -46,5 +43,12 @@ class PutPlotActionTest {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
         PutPlotAction putPlotAction = new PutPlotAction(plot);
         assertEquals(ActionType.PUT_PLOT, putPlotAction.toType());
+    }
+
+    @Test
+    void equals(){
+        Action action1 = new PutPlotAction( new Plot(PlotType.YELLOW, new Position(1,1)) );
+        Action action2 = new PutPlotAction( new Plot(PlotType.GREEN, new Position(0,1)) );
+        assertEquals(action1, action2);
     }
 }

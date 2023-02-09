@@ -29,4 +29,11 @@ class PutIrrigationActionTest {
         PutIrrigationAction putIrrigationAction = new PutIrrigationAction(irrigation);
         assertEquals(ActionType.PUT_IRRIGATION, putIrrigationAction.toType());
     }
+
+    @Test
+    void equals(){
+        Action action1 = new PutIrrigationAction( new Irrigation(new Position(0,1), new Position(1,1)) );
+        Action action2 = new PutIrrigationAction( new Irrigation(new Position(1,1) , new Position(0,1)) );
+        assertEquals(action1, action2);
+    }
 }
