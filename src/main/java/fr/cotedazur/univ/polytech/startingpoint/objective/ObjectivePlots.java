@@ -51,7 +51,7 @@ public class ObjectivePlots extends Objective {
 
     @Override
     public void incrementationPointsObjective(StatisticManager statisticManager, Playable bot) {
-        statisticManager.incrementNumberPointsObjectivePlot(bot,this.getPoint());
+        statisticManager.incrementNumberPointsObjectivePlot(bot, this.getPoint());
     }
 
     @Override

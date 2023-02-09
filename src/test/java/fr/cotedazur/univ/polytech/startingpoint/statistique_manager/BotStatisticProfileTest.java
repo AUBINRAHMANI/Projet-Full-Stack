@@ -3,7 +3,7 @@ package fr.cotedazur.univ.polytech.startingpoint.statistique_manager;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BotStatisticProfileTest {
 

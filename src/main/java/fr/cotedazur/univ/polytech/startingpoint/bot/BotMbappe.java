@@ -9,6 +9,7 @@ import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PandaBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PatternBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;

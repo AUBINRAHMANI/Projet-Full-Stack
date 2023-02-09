@@ -1,14 +1,13 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
-import fr.cotedazur.univ.polytech.startingpoint.Plot;
-import fr.cotedazur.univ.polytech.startingpoint.PlotType;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -37,22 +36,22 @@ class RainActionTest {
 
     @Test
     void getPosition() {
-        Position position = new Position(3,6);
+        Position position = new Position(3, 6);
         RainAction rainAction = new RainAction(position);
-        assertEquals(rainAction.getPosition(),position);
+        assertEquals(rainAction.getPosition(), position);
     }
 
     @Test
     void toType() {
-        Position position = new Position(3,6);
+        Position position = new Position(3, 6);
         RainAction rainAction = new RainAction(position);
         assertEquals(rainAction.toType(), ActionType.RAIN);
     }
 
     @Test
-    void equals(){
-        Action action1 = new RainAction( new Position(1,1) );
-        Action action2 = new RainAction( new Position(0,1) );
+    void equals() {
+        Action action1 = new RainAction(new Position(1, 1));
+        Action action2 = new RainAction(new Position(0, 1));
         assertEquals(action1, action2);
     }
 }

@@ -178,9 +178,9 @@ class PositionTest {
 
 
     @Test
-    void getDistanceBetweenPositions(){
-        Position position1 = new Position(0,0);
-        Position position2 = new Position(1,2);
+    void getDistanceBetweenPositions() {
+        Position position1 = new Position(0, 0);
+        Position position2 = new Position(1, 2);
         assertEquals(2, position1.getDistanceToPosition(position2));
     }
 }

@@ -1,18 +1,14 @@
 package fr.cotedazur.univ.polytech.startingpoint.game;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
-import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
-import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.BotStatisticProfile;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,12 +27,11 @@ class GameTest {
         game.start();
         if (game.checkWinner() == null) {
             assertEquals(1, statisticManager.getNbOfDrawGames());
-        }
-        else {
-            for(BotStatisticProfile botProfile : statisticManager.getBotsStatisticsProfiles()){
-                if(botProfile.getNbVictories() == 1){
+        } else {
+            for (BotStatisticProfile botProfile : statisticManager.getBotsStatisticsProfiles()) {
+                if (botProfile.getNbVictories() == 1) {
                     assertEquals(botProfile.getBotName(), game.checkWinner().getBotName());
-                } else if (botProfile.getNbVictories() == 0){
+                } else if (botProfile.getNbVictories() == 0) {
                     assertNotEquals(botProfile.getBotName(), game.checkWinner().getBotName());
                 }
             }
@@ -55,6 +50,6 @@ class GameTest {
         statisticManager.initBotsStatisticsProfiles(players);
         Game game = new Game(statisticManager, players);
         game.start();
-        assertTrue(game.getPreviousActions() != null);
+        assertNotNull(game.getPreviousActions());
     }
 }

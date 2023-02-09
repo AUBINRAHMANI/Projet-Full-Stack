@@ -1,4 +1,5 @@
 package fr.cotedazur.univ.polytech.startingpoint;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
@@ -22,22 +23,22 @@ public class CSVManager implements Loggeable {
     public void exportData(List<BotStatisticProfile> botsStatisticsProfiles, int nbDrawMatch, String fileName) {
         this.file = new File(fileName);
         this.setData(botsStatisticsProfiles);
-        if(file.exists()){
+        if (file.exists()) {
             LOGGER.info("File already exist");
             this.saveData(this.parseDataIfFileExist(getCSVFile(), nbDrawMatch));
-        }
-        else{
+        } else {
             this.createFileAndDirectoryIfNotExist();
             LOGGER.info("File doesn't exist");
             this.saveData(this.parseDataIfFileNotExist(nbDrawMatch));
         }
     }
-    public void setData(List<BotStatisticProfile> botsStatisticsProfiles) {
-        this.botsStatisticsProfiles = botsStatisticsProfiles;
-    }
 
     public List<BotStatisticProfile> getData() {
         return botsStatisticsProfiles;
+    }
+
+    public void setData(List<BotStatisticProfile> botsStatisticsProfiles) {
+        this.botsStatisticsProfiles = botsStatisticsProfiles;
     }
 
     public List<String[]> getCSVFile() {
@@ -45,26 +46,24 @@ public class CSVManager implements Loggeable {
         List<String[]> list = new ArrayList<>();
         try (Reader reader = Files.newBufferedReader(path)) {
             csvReader(reader, list);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return list;
     }
 
-    private void csvReader(Reader reader, List<String[]> list){
+    private void csvReader(Reader reader, List<String[]> list) {
         try (CSVReader csvReader = new CSVReader(reader)) {
             String[] line;
             while ((line = csvReader.readNext()) != null) {
                 list.add(line);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOGGER.warning("Error while reading the file");
         }
     }
 
-    public String[] getHeader(){
+    public String[] getHeader() {
         String[] header = new String[21];
         header[0] = "Bot";
         header[1] = "Victories";
@@ -90,7 +89,7 @@ public class CSVManager implements Loggeable {
         return header;
     }
 
-    public List<String[]> parseDataIfFileNotExist(int nbDrawMatch){
+    public List<String[]> parseDataIfFileNotExist(int nbDrawMatch) {
         List<String[]> data = new ArrayList<>();
         String[] header = getHeader();
         data.add(header);
@@ -101,7 +100,7 @@ public class CSVManager implements Loggeable {
             statBot[2] = Integer.toString(botStatisticProfile.getNbDefeats());
             statBot[4] = Integer.toString(botStatisticProfile.getNbOfRounds());
             statBot[5] = Integer.toString(botStatisticProfile.getNbOfGames());
-            statBot[6] = Integer.toString(botStatisticProfile.getNbOfRounds()/botStatisticProfile.getNbOfGames());
+            statBot[6] = Integer.toString(botStatisticProfile.getNbOfRounds() / botStatisticProfile.getNbOfGames());
             statBot[7] = Integer.toString(botStatisticProfile.getNumberDealParPartie());
             statBot[8] = Integer.toString(botStatisticProfile.getDealMoveGardener());
             statBot[9] = Integer.toString(botStatisticProfile.getDealMovePanda());
@@ -122,16 +121,16 @@ public class CSVManager implements Loggeable {
         return data;
     }
 
-    public List<String[]> parseDataIfFileExist(List<String[]> data, int nbDrawMatch){
+    public List<String[]> parseDataIfFileExist(List<String[]> data, int nbDrawMatch) {
 
-        for(int i = 1; i < data.size(); i++) {
-            for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-                if(data.get(i)[0].equals(botStatisticProfile.getBotName())){
+        for (int i = 1; i < data.size(); i++) {
+            for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+                if (data.get(i)[0].equals(botStatisticProfile.getBotName())) {
                     data.get(i)[1] = Integer.toString(Integer.parseInt(data.get(i)[1]) + botStatisticProfile.getNbVictories());
                     data.get(i)[2] = Integer.toString(Integer.parseInt(data.get(i)[2]) + botStatisticProfile.getNbDefeats());
                     data.get(i)[4] = Integer.toString(Integer.parseInt(data.get(i)[4]) + botStatisticProfile.getNbOfRounds());
                     data.get(i)[5] = Integer.toString(Integer.parseInt(data.get(i)[5]) + botStatisticProfile.getNbOfGames());
-                    data.get(i)[6] = Integer.toString((Integer.parseInt(data.get(i)[6]) + botStatisticProfile.getNbOfRounds())/botStatisticProfile.getNbOfGames());
+                    data.get(i)[6] = Integer.toString((Integer.parseInt(data.get(i)[6]) + botStatisticProfile.getNbOfRounds()) / botStatisticProfile.getNbOfGames());
                     data.get(i)[7] = Integer.toString(Integer.parseInt(data.get(i)[7]) + botStatisticProfile.getNumberDealParPartie());
                     data.get(i)[8] = Integer.toString(Integer.parseInt(data.get(i)[8]) + botStatisticProfile.getDealMoveGardener());
                     data.get(i)[9] = Integer.toString(Integer.parseInt(data.get(i)[9]) + botStatisticProfile.getDealMovePanda());
@@ -153,22 +152,22 @@ public class CSVManager implements Loggeable {
         return new ArrayList<>(data);
     }
 
-    public void createFileAndDirectoryIfNotExist(){
+    public void createFileAndDirectoryIfNotExist() {
         Path path = Paths.get(this.file.toPath().getName(1).toUri());
-            try {
-                Files.createDirectories(path);
-                if(!this.file.createNewFile()){
-                    LOGGER.warning("Error while creating the file");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            Files.createDirectories(path);
+            if (!this.file.createNewFile()) {
+                LOGGER.warning("Error while creating the file");
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void saveData(List<String[]> data){
+    public void saveData(List<String[]> data) {
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(this.file, false));
-            for(String[] line : data){
+            for (String[] line : data) {
                 writer.writeNext(line);
             }
             writer.close();

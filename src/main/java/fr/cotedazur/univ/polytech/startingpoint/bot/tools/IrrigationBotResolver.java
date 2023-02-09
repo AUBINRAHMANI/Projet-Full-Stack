@@ -8,7 +8,6 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 
 import java.util.List;
 
-import static fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable.LOGGER;
 
 public class IrrigationBotResolver {
 
@@ -25,15 +24,15 @@ public class IrrigationBotResolver {
             return null;
         }
         List<Position> path = map.getPathBetweenPositions(new Position(0, 0), target);
-        if(path!=null) {
+        if (path != null) {
             for (int i = path.size() - 1; i > 0; --i) {
                 Plot plot = map.findPlot(path.get(i));
                 if (!plot.isIrrigated()) {
-                    Action action = tryPutIrrigationOnPosition(path.get(i));
+                    Action action = tryPutIrrigationOnPosition(path.get(i), banActionTypes);
                     if (action != null) {
                         return action;
-                    }else {
-                        return tryPutIrrigationOnPosition(path.get(i-1));
+                    } else {
+                        return tryPutIrrigationOnPosition(path.get(i - 1), banActionTypes);
                     }
                 }
             }
@@ -42,31 +41,26 @@ public class IrrigationBotResolver {
     }
 
     private Action placeRandomIrrigation(List<ActionType> banActionTypes) {
-        if(!banActionTypes.contains(ActionType.PUT_IRRIGATION)) {
-            for (Plot plot : map.getMapPlots()) {
-                if (!plot.isIrrigated()) {
-                    Action action = tryPutIrrigationOnPosition(plot.getPosition());
-                    if (action != null) return action;
-                }
-            }
-            for (Plot plot : map.getMapPlots()) {
-                if (plot.isIrrigated()) {
-                    Action action = tryPutIrrigationOnPosition(plot.getPosition());
-                    if (action != null) return action;
-                }
+        for (Plot plot : map.getMapPlots()) {
+            if (!plot.isIrrigated()) {
+                Action action = tryPutIrrigationOnPosition(plot.getPosition(), banActionTypes);
+                if (action != null) return action;
             }
         }
-        if(!banActionTypes.contains(ActionType.PUT_PLOT)) {
-            PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
-            return patternBotResolver.putRandomlyAPLot(PlotType.GREEN, banActionTypes);
+        for (Plot plot : map.getMapPlots()) {
+            if (plot.isIrrigated()) {
+                Action action = tryPutIrrigationOnPosition(plot.getPosition(), banActionTypes);
+                if (action != null) return action;
+            }
         }
-        return null;
+        PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
+        return patternBotResolver.putRandomlyAPLot(PlotType.GREEN, banActionTypes);
     }
 
-    private Action tryPutIrrigationOnPosition(Position position) {
+    private Action tryPutIrrigationOnPosition(Position position, List<ActionType> banActionTypes) {
         for (Plot plot : map.getNeighbours(position)) {
             Irrigation irrigation = new Irrigation(position, plot.getPosition());
-            if (map.isIrrigationLinked(irrigation) && !map.irrigationExist(irrigation)) {
+            if (map.isIrrigationLinked(irrigation) && !map.irrigationExist(irrigation) && !banActionTypes.contains(ActionType.PUT_IRRIGATION) ) {
                 return new PutIrrigationAction(irrigation);
             }
         }

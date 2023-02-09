@@ -47,21 +47,21 @@ public class BotStatisticProfile {
         this.nbDefeats = 0;
         this.nbOfRounds = 0;
         this.nbOfGame = 0;
-        this.numberDealParPartie=0;
-        this.numberDealMoveGardener=0;
-        this.numberDealMovePanda=0;
-        this.numberDealPickObjective =0;
-        this.numberDealPutIrrigation=0;
-        this.numberDealPutPlot=0;
-        this.numberDealRain=0;
-        this.numberDealThunder=0;
-        this.numberObjectiveGardener=0;
-        this.numberObjectivePanda=0;
-        this.numberObjectivePlots=0;
-        this.numberPointsObjectiveGardener=0;
-        this.numberPointsObjectivePanda=0;
-        this.numberPointsObjectivePlot=0;
-        this.numberTotalPoints=0;
+        this.numberDealParPartie = 0;
+        this.numberDealMoveGardener = 0;
+        this.numberDealMovePanda = 0;
+        this.numberDealPickObjective = 0;
+        this.numberDealPutIrrigation = 0;
+        this.numberDealPutPlot = 0;
+        this.numberDealRain = 0;
+        this.numberDealThunder = 0;
+        this.numberObjectiveGardener = 0;
+        this.numberObjectivePanda = 0;
+        this.numberObjectivePlots = 0;
+        this.numberPointsObjectiveGardener = 0;
+        this.numberPointsObjectivePanda = 0;
+        this.numberPointsObjectivePlot = 0;
+        this.numberTotalPoints = 0;
     }
 
     public void addVictory() {
@@ -71,6 +71,7 @@ public class BotStatisticProfile {
     public void addDefeat() {
         nbDefeats += 1;
     }
+
     public void addNbOfRounds() {
         ++nbOfRounds;
     }
@@ -79,59 +80,61 @@ public class BotStatisticProfile {
         ++nbOfGame;
     }
 
-    public void addNumberDealPerGames(){
+    public void addNumberDealPerGames() {
         ++numberDealParPartie;
     }
 
-    public void addDealMoveGardener(){
+    public void addDealMoveGardener() {
         ++this.numberDealMoveGardener;
     }
-    public void addDealMovePanda(){
+
+    public void addDealMovePanda() {
         ++this.numberDealMovePanda;
     }
 
-    public void addDealPickObjective(){
+    public void addDealPickObjective() {
         ++this.numberDealPickObjective;
 
     }
-    public void addDealPutIrrigation(){
+
+    public void addDealPutIrrigation() {
         ++this.numberDealPutIrrigation;
     }
 
-    public void addDealPutPlot(){
+    public void addDealPutPlot() {
         ++this.numberDealPutPlot;
     }
 
-    public void addDealRain(){
+    public void addDealRain() {
         ++this.numberDealRain;
     }
 
-    public void addDealThunder(){
+    public void addDealThunder() {
         ++this.numberDealThunder;
     }
 
-    public void addObjectiveGardener(){
+    public void addObjectiveGardener() {
         ++this.numberObjectiveGardener;
     }
 
-    public void addObjectivePanda(){
+    public void addObjectivePanda() {
         ++this.numberObjectivePanda;
     }
 
-    public void addObjectivePlots(){
+    public void addObjectivePlots() {
         ++this.numberObjectivePlots;
     }
 
-    public void addNumberPointsObjectiveGardener(int points){
-        this.numberPointsObjectiveGardener+=points;
+    public void addNumberPointsObjectiveGardener(int points) {
+        this.numberPointsObjectiveGardener += points;
     }
 
-    public void addNumberPointsObjectivePanda(int points){
-        this.numberPointsObjectivePanda+=points;
+    public void addNumberPointsObjectivePanda(int points) {
+        this.numberPointsObjectivePanda += points;
     }
 
-    public void addNumberPointsObjectivePlot(int points){
-        this.numberPointsObjectivePlot+=points;
+    public void addNumberPointsObjectivePlot(int points) {
+        this.numberPointsObjectivePlot += points;
     }
 
     public Playable getBot() {
@@ -149,6 +152,7 @@ public class BotStatisticProfile {
     public int getNbDefeats() {
         return nbDefeats;
     }
+
     public int getNbOfRounds() {
         return nbOfRounds;
     }
@@ -157,96 +161,98 @@ public class BotStatisticProfile {
         return nbOfGame;
     }
 
-    public int getNumberDealParPartie(){
+    public int getNumberDealParPartie() {
         return numberDealParPartie;
     }
 
-    public int getDealMoveGardener(){
+    public int getDealMoveGardener() {
         return this.numberDealMoveGardener;
     }
-    public int getDealMovePanda(){
+
+    public int getDealMovePanda() {
         return this.numberDealMovePanda;
     }
 
-    public int getDealPickObjective(){
+    public int getDealPickObjective() {
         return this.numberDealPickObjective;
 
     }
-    public int getDealPutIrrigation(){
+
+    public int getDealPutIrrigation() {
         return this.numberDealPutIrrigation;
     }
 
-    public int getDealPutPlot(){
+    public int getDealPutPlot() {
         return this.numberDealPutPlot;
     }
 
-    public int getDealRain(){
+    public int getDealRain() {
         return this.numberDealRain;
     }
 
-    public int getDealThunder(){
+    public int getDealThunder() {
         return this.numberDealThunder;
     }
 
-    public int getNumberObjectiveGardener(){
+    public int getNumberObjectiveGardener() {
         return this.numberObjectiveGardener;
     }
 
-    public int getNumberObjectivePanda(){
+    public int getNumberObjectivePanda() {
         return this.numberObjectivePanda;
     }
 
-    public int getNumberObjectivePlots(){
+    public int getNumberObjectivePlots() {
         return this.numberObjectivePlots;
     }
 
-    public int getNumberPointsObjectiveGardener(){
+    public int getNumberPointsObjectiveGardener() {
         return this.numberPointsObjectiveGardener;
     }
 
-    public int getNumberPointsObjectivePanda(){
+    public int getNumberPointsObjectivePanda() {
         return this.numberPointsObjectivePanda;
     }
 
-    public int getNumberPointsObjectivePlot(){
+    public int getNumberPointsObjectivePlot() {
         return this.numberPointsObjectivePlot;
     }
 
-    public int getNumberTotalPoints(){
+    public int getNumberTotalPoints() {
         this.numberTotalPoints = this.numberPointsObjectiveGardener + this.numberPointsObjectivePanda + this.numberPointsObjectivePlot;
         return numberTotalPoints;
     }
 
-    public void resetNumberPointsObjective(){
-        this.numberPointsObjectivePlot=0;
-        this.numberPointsObjectivePanda=0;
-        this.numberPointsObjectiveGardener=0;
+    public void resetNumberPointsObjective() {
+        this.numberPointsObjectivePlot = 0;
+        this.numberPointsObjectivePanda = 0;
+        this.numberPointsObjectiveGardener = 0;
 
     }
 
-    public float pourcentageWin(){
-       float pourcentage=0;
-       pourcentage = ((float)this.getNbVictories() * 100)/ this.getNbOfGames();
-       return pourcentage;
-    }
-
-    public float pourcentageDefeat(){
-        float pourcentage =0;
-        pourcentage = ((float)(this.getNbDefeats()*100)/ this.getNbOfGames());
+    public float pourcentageWin() {
+        float pourcentage = 0;
+        pourcentage = ((float) this.getNbVictories() * 100) / this.getNbOfGames();
         return pourcentage;
     }
 
-    public float scoreAverage(){
-        float average =0;
-        average = (float)this.getNumberTotalPoints() / this.getNbOfGames();
+    public float pourcentageDefeat() {
+        float pourcentage = 0;
+        pourcentage = ((float) (this.getNbDefeats() * 100) / this.getNbOfGames());
+        return pourcentage;
+    }
+
+    public float scoreAverage() {
+        float average = 0;
+        average = (float) this.getNumberTotalPoints() / this.getNbOfGames();
         return average;
 
     }
 
-    public String toString(){
+    public String toString() {
         return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + " pour  " + this.getNbOfGames() + " parties. Soit " + this.pourcentageWin() + "% de victoire. \n"
                 + "Nombre de defaite : " + this.getNbDefeats() + " pour " + this.getNbOfGames() + " parties. Soit " + this.pourcentageDefeat() + " % de defaites." +
-                " \n Le score moyen de points de " + this.getBotName() + " est de  : " + String.format("%.2f",this.scoreAverage()) + " ! Il a obtenu en tout " + this.getNumberTotalPoints() + " points ! \n";
+                " \n Le score moyen de points de " + this.getBotName() + " est de  : " + String.format("%.2f", this.scoreAverage()) + " ! Il a obtenu en tout " + this.getNumberTotalPoints() + " points ! \n";
     }
 
 

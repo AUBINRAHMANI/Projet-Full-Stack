@@ -1,6 +1,5 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import org.junit.jupiter.api.Test;
 
@@ -167,7 +166,7 @@ class MapTest implements Loggeable {
         assertTrue(result.get(0).isEmpty());
         assertTrue(result.get(1).isEmpty());
 
-        plots.set(0, new Plot(PlotType.YELLOW, new Position(0,1)));
+        plots.set(0, new Plot(PlotType.YELLOW, new Position(0, 1)));
         pattern = new Pattern(plots);
 
         Optional<List<List<Plot>>> result2 = map.computePatternVerification(pattern, plots.get(1).getPosition());
@@ -203,41 +202,41 @@ class MapTest implements Loggeable {
     }
 
     @Test
-    void checkIfPossibleToPlacePattern(){
+    void checkIfPossibleToPlacePattern() {
         Map map = new Map();
         ArrayList<Plot> plots = new ArrayList<>();
-        plots.add(new Plot( PlotType.POND, new Position(0,0)));
-        plots.add(new Plot( PlotType.RED, new Position(1,0)));
-        plots.add(new Plot( PlotType.YELLOW, new Position(0,1)));
-        plots.add(new Plot( PlotType.YELLOW, new Position(2,0)));
+        plots.add(new Plot(PlotType.POND, new Position(0, 0)));
+        plots.add(new Plot(PlotType.RED, new Position(1, 0)));
+        plots.add(new Plot(PlotType.YELLOW, new Position(0, 1)));
+        plots.add(new Plot(PlotType.YELLOW, new Position(2, 0)));
 
         Pattern pattern = new Pattern(plots);
 
         List<List<Plot>> plots2 = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition()).get();
-        assertEquals(3 ,plots2.get(0).size());
-        assertEquals(3 ,plots2.get(1).size());
+        assertEquals(3, plots2.get(0).size());
+        assertEquals(3, plots2.get(1).size());
 
         map.putPlot(plots.get(1));
 
         plots2 = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition()).get();
-        assertEquals(2 ,plots2.get(0).size());
-        assertEquals(2 ,plots2.get(1).size());
+        assertEquals(2, plots2.get(0).size());
+        assertEquals(2, plots2.get(1).size());
 
         map.putPlot(plots.get(2));
-        map.putPlot(new Plot(PlotType.GREEN, new Position(1,1)));
-        map.putPlot(new Plot(PlotType.GREEN, new Position(1,2)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1, 1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1, 2)));
         map.putPlot(plots.get(3));
 
         plots2 = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition()).get();
-        assertEquals(0 ,plots2.get(0).size());
-        assertEquals(1 ,plots2.get(1).size());
+        assertEquals(0, plots2.get(0).size());
+        assertEquals(1, plots2.get(1).size());
 
-        plots.set(0, new Plot( PlotType.YELLOW, new Position(0,0)));
+        plots.set(0, new Plot(PlotType.YELLOW, new Position(0, 0)));
         pattern = new Pattern(pattern);
 
-        for(int i=-5; i<5 ; ++i){
-            for(int j=-5; j<5 ; ++j){
-                map.putPlot(new Plot(PlotType.RED, new Position(i,j)));
+        for (int i = -5; i < 5; ++i) {
+            for (int j = -5; j < 5; ++j) {
+                map.putPlot(new Plot(PlotType.RED, new Position(i, j)));
             }
         }
         Optional<List<List<Plot>>> result = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition());
@@ -246,35 +245,35 @@ class MapTest implements Loggeable {
     }
 
     @Test
-    void getPathBetweenPositions(){
+    void getPathBetweenPositions() {
         Map map = new Map();
-        map.putPlot(new Plot(PlotType.GREEN, new Position(0,1)));
-        map.putPlot(new Plot(PlotType.GREEN, new Position(1,1)));
-        map.putPlot(new Plot(PlotType.GREEN, new Position(1,2)));
-        map.putPlot(new Plot(PlotType.GREEN, new Position(2,1)));
-        map.putPlot(new Plot(PlotType.GREEN, new Position(2,2)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(0, 1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1, 1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1, 2)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(2, 1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(2, 2)));
 
-        List<Position> result = map.getPathBetweenPositions(new Position(0,0), new Position(2,2));
+        List<Position> result = map.getPathBetweenPositions(new Position(0, 0), new Position(2, 2));
 
         List<Position> expected = new ArrayList<>();
-        expected.add(new Position(0,0));
-        expected.add(new Position(1,1));
-        expected.add(new Position(2,1));
-        expected.add(new Position(2,2));
+        expected.add(new Position(0, 0));
+        expected.add(new Position(1, 1));
+        expected.add(new Position(2, 1));
+        expected.add(new Position(2, 2));
 
         assertTrue(result.containsAll(expected));
     }
 
     @Test
-    void irrigationExist(){
+    void irrigationExist() {
         Map map = new Map();
-        Irrigation irrigation = new Irrigation(new Position(0,1), new Position(1,1));
+        Irrigation irrigation = new Irrigation(new Position(0, 1), new Position(1, 1));
 
         map.putIrrigation(irrigation);
         assertFalse(map.irrigationExist(irrigation));
 
-        map.putPlot(new Plot(PlotType.GREEN, new Position(0,1)));
-        map.putPlot(new Plot(PlotType.GREEN, new Position(1,1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(0, 1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1, 1)));
 
         map.putIrrigation(irrigation);
         assertTrue(map.irrigationExist(irrigation));
