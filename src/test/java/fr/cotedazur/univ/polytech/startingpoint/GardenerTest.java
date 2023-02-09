@@ -13,4 +13,10 @@ class GardenerTest {
         gardener.setPosition(position);
         assertEquals(position, gardener.getPosition());
     }
+
+    @Test
+    void getPositionTest(){
+        Gardener gardener = new Gardener();
+        assertEquals(gardener.getPosition(),new Position(0,0));
+    }
 }
