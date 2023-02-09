@@ -58,7 +58,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         }
     }
 
-    public void start() {
+    public boolean start() {
         do {
             ++timeOutCounter;
             statisticManager.addRound();
@@ -72,11 +72,9 @@ public class Game implements DeckSignal, Referee, Loggeable {
             LOGGER.finest(() -> "Number of rounds" + this.timeOutCounter);
         } while (!checkFinishingCondition());
         BotProfile winner = checkWinner();
-
         statisticManager.addGame();
-
-
         printWinner(winner);
+        return true;
     }
 
     private void saveAction(Action action) {
