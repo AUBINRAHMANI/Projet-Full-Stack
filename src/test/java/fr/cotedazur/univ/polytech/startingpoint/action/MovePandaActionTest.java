@@ -46,7 +46,7 @@ class MovePandaActionTest {
     void toType() {
         Position position = new Position(2, 1);
         MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertEquals(movePandaAction.toType(), ActionType.MOVE_PANDA);
+        assertEquals(ActionType.MOVE_PANDA, movePandaAction.toType());
     }
 
     @Test

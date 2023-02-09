@@ -35,7 +35,6 @@ class PutPlotActionTest {
         PutPlotAction putPlotAction = new PutPlotAction(null);
         assertTrue(putPlotAction.verifyObjectiveAfterAction(mockedGame, null));
     }
-
     @Test
     void getPosition() {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
@@ -47,7 +46,7 @@ class PutPlotActionTest {
     void toType() {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
         PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertEquals(putPlotAction.toType(), ActionType.PUT_PLOT);
+        assertEquals(ActionType.PUT_PLOT, putPlotAction.toType());
     }
 
     @Test

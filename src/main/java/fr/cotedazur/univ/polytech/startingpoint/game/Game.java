@@ -105,8 +105,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
         }
         return false;
     }
-
-    @Override
     public void emptyDeck() {
         gameEngine.regenerateDecks(generateObjectiveDrawPile(), generatePlotDrawPile());
     }
@@ -265,7 +263,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         return List.of();
     }
 
-    public void printWinner(BotProfile botProfile) {
+    private void printWinner(BotProfile botProfile) {
         if (botProfile == null) {
             LOGGER.fine("Match nul ! Aucun bot n'a su completer un objectif pendant " + MAX_NB_ROUND + " tours");
             statisticManager.addDrawGame();

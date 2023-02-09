@@ -41,7 +41,6 @@ public class BotStatisticProfile {
     private int numberTotalPoints;
 
     public BotStatisticProfile(Playable bot, String botName) {
-
         this.bot = bot;
         this.botName = botName;
         this.nbVictories = 0;
