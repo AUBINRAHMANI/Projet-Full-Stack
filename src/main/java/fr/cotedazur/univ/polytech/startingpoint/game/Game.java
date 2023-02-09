@@ -78,9 +78,8 @@ public class Game implements DeckSignal, Referee, Loggeable {
         BotProfil winner = checkWinner();
 
         statistiqueManager.addNumberOfGame();
-
-
         printWinner(winner);
+        //statistiqueManager.resetPointsObjective(); //trouver ou reset tout ca
         return true;
     }
 
@@ -203,6 +202,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     LOGGER.finer(()-> "Le score de " + botName + " = " + botProfil.getPoints() + " points");
                     logValidatedObjective(objective, botName, botProfil);
                     objective.incrementationObjective(statistiqueManager, botProfil.getBot());
+                    objective.incrementationPointsObjective(statistiqueManager, botProfil.getBot());
                 }
             }
             botProfil.getObjectives().removeAll(validatedObjective);
@@ -222,6 +222,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     botProfil.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfil);
                     objective.incrementationObjective(statistiqueManager, botProfil.getBot());
+                    objective.incrementationPointsObjective(statistiqueManager, botProfil.getBot());
                 }
             }
             botProfil.getObjectives().removeAll(validatedObjective);
@@ -250,6 +251,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     botProfil.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfil);
                     objective.incrementationObjective(statistiqueManager,botProfil.getBot());
+                    objective.incrementationPointsObjective(statistiqueManager, botProfil.getBot());
                 }
             }
             botProfil.getObjectives().removeAll(validatedObjective);

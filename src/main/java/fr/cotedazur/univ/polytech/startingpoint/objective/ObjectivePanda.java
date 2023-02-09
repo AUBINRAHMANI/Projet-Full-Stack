@@ -46,6 +46,11 @@ public class ObjectivePanda extends Objective {
         statistiqueManager.incrementNumberObjectivePanda(bot);
     }
 
+    @Override
+    public void incrementationPointsObjective(StatistiqueManager statistiqueManager, Playable bot) {
+        statistiqueManager.incrementNumberPointsObjectivePanda(bot,this.getPoint());
+    }
+
 
     @Override
     public String toString() {

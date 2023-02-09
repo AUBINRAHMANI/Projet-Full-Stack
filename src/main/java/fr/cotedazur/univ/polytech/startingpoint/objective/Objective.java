@@ -37,6 +37,9 @@ public abstract class Objective {
 
     public abstract void incrementationObjective(StatistiqueManager statistiqueManager, Playable bot);
 
+    public abstract void incrementationPointsObjective(StatistiqueManager statistiqueManager, Playable bot);
+
+
     public abstract String toString();
 
 }

@@ -24,7 +24,7 @@ public class StatistiqueManager implements Loggeable {
     }
 
     public void addMatchNul() {
-        this.nombreMatchNul += 1;
+        ++this.nombreMatchNul;
     }
 
     public int getMatchNul() {
@@ -73,6 +73,8 @@ public class StatistiqueManager implements Loggeable {
             }
         }
     }
+
+
 
     public List<BotStatistiqueProfil> getBotStatistiqueProfils() {
         return this.botStatistiqueProfils;
@@ -160,6 +162,36 @@ public class StatistiqueManager implements Loggeable {
         for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
             if(botStatistiqueProfil.getBot() == bot){
                 botStatistiqueProfil.addObjectivePlots();
+            }
+        }
+    }
+
+    public void resetPointsObjective() {
+        for (BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils) {
+            botStatistiqueProfil.resetNumberPointsObjective();
+        }
+    }
+
+    public void incrementNumberPointsObjectiveGardener(Playable bot, int points){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+            if(botStatistiqueProfil.getBot()==bot){
+                botStatistiqueProfil.addNumberPointsObjectiveGardener(points);
+            }
+        }
+    }
+
+    public void incrementNumberPointsObjectivePanda(Playable bot, int points){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+            if(botStatistiqueProfil.getBot()==bot){
+                botStatistiqueProfil.addNumberPointsObjectivePanda(points);
+            }
+        }
+    }
+
+    public void incrementNumberPointsObjectivePlot(Playable bot,int points){
+        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+            if(botStatistiqueProfil.getBot()==bot){
+                botStatistiqueProfil.addNumberPointsObjectivePlot(points);
             }
         }
     }

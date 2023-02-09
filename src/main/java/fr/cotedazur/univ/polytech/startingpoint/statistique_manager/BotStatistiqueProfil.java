@@ -2,6 +2,8 @@ package fr.cotedazur.univ.polytech.startingpoint.statistique_manager;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 
+import java.awt.*;
+
 public class BotStatistiqueProfil {
 
     String botName;
@@ -124,6 +126,18 @@ public class BotStatistiqueProfil {
         ++this.numberObjectivePlots;
     }
 
+    public void addNumberPointsObjectiveGardener(int points){
+        this.numberPointsObjectiveGardener+=points;
+    }
+
+    public void addNumberPointsObjectivePanda(int points){
+        this.numberPointsObjectivePanda+=points;
+    }
+
+    public void addNumberPointsObjectivePlot(int points){
+        this.numberPointsObjectivePlot+=points;
+    }
+
     public Playable getBot() {
         return bot;
     }
@@ -191,6 +205,25 @@ public class BotStatistiqueProfil {
         return this.numberObjectivePlots;
     }
 
+    public int getNumberPointsObjectiveGardener(){
+        return this.numberPointsObjectiveGardener;
+    }
+
+    public int getNumberPointsObjectivePanda(){
+        return this.numberPointsObjectivePanda;
+    }
+
+    public int getNumberPointsObjectivePlot(){
+        return this.numberPointsObjectivePlot;
+    }
+
+    public void resetNumberPointsObjective(){
+        this.numberPointsObjectivePlot=0;
+        this.numberPointsObjectivePanda=0;
+        this.numberPointsObjectiveGardener=0;
+
+    }
+
     public String toString() {
         return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + "\n"
                 + "Nombre de tours effectué : " + this.getNbdeTours() + " pour " + this.getNumberOfGames() + " parties \n"
@@ -200,8 +233,11 @@ public class BotStatistiqueProfil {
                 + "l'action de prendre un objectif " + this.getDealPickObjective() + " fois, l'action de poser une irrigation " + this.getDealPutIrrigation()
                 + " fois, l'action de poser une parcelle " + this.getDealPutPlot() + " fois, l'action de chosisir la pluie " +
                 this.getDealRain() + " fois , et enfin l'action de choisir le tonnerre " + this.getDealThunder() + " fois \n"
-                + this.getBotName() + " a completé " + this.getNumberObjectiveGardener() + " objectifs gardiens, "
-                + this.getNumberObjectivePanda() + " objectifs Panda, et " + this.getNumberObjectifPlots() + " objectifs Plot";
+                + this.getBotName() + " a completé " + this.getNumberObjectiveGardener() + " objectifs gardiens, ce qui lui a donné : "
+                + this.getNumberPointsObjectiveGardener() + " points, " + this.getNumberObjectivePanda() + " objectifs Panda ce qui lui a donné : "
+                +this.getNumberPointsObjectivePanda() + " points, et il a completé "  + this.getNumberObjectifPlots() + " objectifs Plot ce qui lui a donné : "
+                + this.getNumberPointsObjectivePlot() + " points ! \n";
+
 
     }
 }
