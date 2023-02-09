@@ -58,7 +58,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         }
     }
 
-    public boolean start() {
+    public void start() {
         do {
             ++timeOutCounter;
             statisticManager.addRound();
@@ -74,7 +74,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         BotProfile winner = checkWinner();
         statisticManager.addGame();
         printWinner(winner);
-        return true;
+        //statistiqueManager.resetPointsObjective(); //trouver ou reset tout ca
     }
 
     private void saveAction(Action action) {
@@ -103,9 +103,9 @@ public class Game implements DeckSignal, Referee, Loggeable {
                 banActionTypes.add(action.toType());
                 action.verifyObjectiveAfterAction(this);
                 saveAction(action);
-                if(mapInterface!=null){
-                    mapInterface.drawMap(gameEngine.getMap(), gameEngine.getGardenerPosition(), gameEngine.getPandaPosition());
-                }
+                mapInterface.drawMap(gameEngine.getMap(), gameEngine.getGardenerPosition(), gameEngine.getPandaPosition());
+                action.incrementAction(statisticManager, botProfile.getBot());
+                statisticManager.addCoups(botProfile.getBot());
             }
         }
     }
@@ -194,6 +194,8 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     LOGGER.finer(()-> botName + " gagne " + objective.getPoint() + " points");
                     LOGGER.finer(()-> "Le score de " + botName + " = " + botProfile.getPoints() + " points");
                     logValidatedObjective(objective, botName, botProfile);
+                    objective.incrementationObjective(statisticManager, botProfile.getBot());
+                    objective.incrementationPointsObjective(statisticManager, botProfile.getBot());
                 }
             }
             botProfile.getObjectives().removeAll(validatedObjective);
@@ -212,6 +214,8 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     validatedObjective.add(objective);
                     botProfile.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfile);
+                    objective.incrementationObjective(statisticManager, botProfile.getBot());
+                    objective.incrementationPointsObjective(statisticManager, botProfile.getBot());
                 }
             }
             botProfile.getObjectives().removeAll(validatedObjective);
@@ -239,6 +243,8 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     validatedObjective.add(objective);
                     botProfile.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfile);
+                    objective.incrementationObjective(statisticManager,botProfile.getBot());
+                    objective.incrementationPointsObjective(statisticManager, botProfile.getBot());
                 }
             }
             botProfile.getObjectives().removeAll(validatedObjective);

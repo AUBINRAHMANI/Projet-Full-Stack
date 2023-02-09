@@ -7,6 +7,7 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
 import java.util.List;
 
@@ -22,6 +23,10 @@ public abstract class Objective {
         return points;
     }
 
+    public void resetPoint(){
+        this.points=0;
+    }
+
     public abstract boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot);
 
     public abstract boolean verifyGardenerObj(GameEngine gameEngine);
@@ -29,6 +34,11 @@ public abstract class Objective {
     public abstract boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfil);
 
     public abstract Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather);
+
+    public abstract void incrementationObjective(StatisticManager statistiqueManager, Playable bot);
+
+    public abstract void incrementationPointsObjective(StatisticManager statistiqueManager, Playable bot);
+
 
     public abstract String toString();
 
