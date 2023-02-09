@@ -203,11 +203,7 @@ public class StatistiqueManager implements Loggeable {
     public String toString() {
         return "StatistiqueManager{ \n" +
                 "botStatistiqueProfils=" + "\n" + botStatistiqueProfils + "\n"
-                + ", NombreMatchNul : " + nombreMatchNul + " . Soit " + this.pourcentageMatchNul() + " % de match nul" +
+                + ", Nombre Match Nul : " + nombreMatchNul + " . Soit " + this.pourcentageMatchNul() + "% de match nul" +
                 '}';
     }
-
-
-
-
 }

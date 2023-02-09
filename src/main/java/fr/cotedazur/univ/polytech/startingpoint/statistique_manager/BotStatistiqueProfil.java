@@ -266,11 +266,12 @@ public class BotStatistiqueProfil {
                 +this.getNumberPointsObjectivePanda() + " points, et il a completé "  + this.getNumberObjectifPlots() + " objectifs Plot ce qui lui a donné : "
                 + this.getNumberPointsObjectivePlot() + " points ! \n";
     }
-
  */
     public String toString(){
         return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + " pour  " + this.getNumberOfGames() + " parties. Soit " + this.pourcentageWin() + "% de victoire. \n"
                 + "Nombre de defaite : " + this.getNbDefeats() + " pour " + this.getNumberOfGames() + " parties. Soit " + this.pourcentageDefeat() + " % de defaites." +
                 " \n Le score moyen de points de " + this.getBotName() + " est de  : " + String.format("%.2f",this.scoreAverage()) + " ! Il a obtenu en tout " + this.getNumberTotalPoints() + " points ! \n";
     }
+
+
 }
