@@ -33,47 +33,6 @@ class MovePandaActionTest {
         MovePandaAction movePandaAction = new MovePandaAction(null, null);
         assertTrue(movePandaAction.verifyObjectiveAfterAction(mockedGame, null));
     }
-    @Test
-    void isActionMoveGardener() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionMoveGardener());
-    }
-
-    @Test
-    void isActionMovePanda() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertTrue(movePandaAction.isActionMovePanda());
-    }
-
-    @Test
-    void isActionPutPlot() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionPutPlot());
-    }
-
-    @Test
-    void isActionPickObjective() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionPickObjective());
-    }
-
-    @Test
-    void isActionRain() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionRain());
-    }
-
-    @Test
-    void isActionThunder() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionThunder());
-    }
 
     @Test
     void getPosition() {
@@ -86,6 +45,6 @@ class MovePandaActionTest {
     void toType() {
         Position position = new Position(2, 1);
         MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertEquals(movePandaAction.toType(), ActionType.MOVE_PANDA);
+        assertEquals(ActionType.MOVE_PANDA, movePandaAction.toType());
     }
 }

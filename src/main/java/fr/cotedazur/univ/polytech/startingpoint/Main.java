@@ -29,7 +29,7 @@ public class Main implements Loggeable {
     @Parameter(names = "--demo --finest", description = "affiche tous les logs")
     private Boolean DEMO_FINEST = false;
     @Parameter(names = "--2thousand --warning", description = "seul les logs liés a des problemes sont affichés")
-    private Boolean TWO_THOUSAND_WARNING = false;
+    private Boolean twoThousandWarning = false;
     @Parameter(names = "--2thousand --fine", description = "affiche les logs du resultat de la game ")
     private Boolean TWO_THOUSAND_FINE = false;
     @Parameter(names = "--2thousand --finer", description = "affiche les logs du resultat et objectif complété")
@@ -132,7 +132,7 @@ public class Main implements Loggeable {
     }
 
     public Boolean getTwoThousandWarning() {
-        return TWO_THOUSAND_WARNING;
+        return twoThousandWarning;
     }
 
     public Boolean getTwoThousandFine() {

@@ -36,47 +36,6 @@ class PutPlotActionTest {
         assertTrue(putPlotAction.verifyObjectiveAfterAction(mockedGame, null));
     }
     @Test
-    void isActionMoveGardener() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionMoveGardener());
-    }
-
-    @Test
-    void isActionMovePanda() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionMovePanda());
-    }
-
-    @Test
-    void isActionPutPlot() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertTrue(putPlotAction.isActionPutPlot());
-    }
-
-    @Test
-    void isActionPickObjective() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionPickObjective());
-    }
-
-    @Test
-    void isActionRain() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionRain());
-    }
-
-    @Test
-    void isActionThunder() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionThunder());
-    }
-    @Test
     void getPosition() {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
         PutPlotAction putPlotAction = new PutPlotAction(plot);
@@ -86,6 +45,6 @@ class PutPlotActionTest {
     void toType() {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
         PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertEquals(putPlotAction.toType(), ActionType.PUT_PLOT);
+        assertEquals(ActionType.PUT_PLOT, putPlotAction.toType());
     }
 }

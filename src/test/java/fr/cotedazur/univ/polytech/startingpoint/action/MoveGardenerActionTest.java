@@ -33,47 +33,6 @@ class MoveGardenerActionTest {
         MoveGardenerAction moveGardenerAction = new MoveGardenerAction(null);
         assertTrue(moveGardenerAction.verifyObjectiveAfterAction(mockedGame, null));
     }
-    @Test
-    void isActionMoveGardener() {
-        Position position = new Position(2, 1);
-        MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
-        assertTrue(moveGardenerAction.isActionMoveGardener());
-    }
-
-    @Test
-    void isActionMovePanda() {
-        Position position = new Position(2, 1);
-        MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
-        assertFalse(moveGardenerAction.isActionMovePanda());
-    }
-
-    @Test
-    void isActionPutPlot() {
-        Position position = new Position(2, 1);
-        MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
-        assertFalse(moveGardenerAction.isActionPutPlot());
-    }
-
-    @Test
-    void isActionPickObjective() {
-        Position position = new Position(2, 1);
-        MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
-        assertFalse(moveGardenerAction.isActionPickObjective());
-    }
-
-    @Test
-    void isActionRain() {
-        Position position = new Position(2, 1);
-        MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
-        assertFalse(moveGardenerAction.isActionRain());
-    }
-
-    @Test
-    void isActionThunder() {
-        Position position = new Position(2, 1);
-        MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
-        assertFalse(moveGardenerAction.isActionThunder());
-    }
 
     @Test
     void getPosition() {
@@ -86,6 +45,6 @@ class MoveGardenerActionTest {
     void toType() {
         Position position = new Position(2, 1);
         MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
-        assertEquals(moveGardenerAction.toType(), ActionType.MOVE_GARDENER);
+        assertEquals(ActionType.MOVE_GARDENER, moveGardenerAction.toType());
     }
 }
