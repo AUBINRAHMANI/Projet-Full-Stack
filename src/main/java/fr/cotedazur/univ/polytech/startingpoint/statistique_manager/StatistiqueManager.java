@@ -31,6 +31,19 @@ public class StatistiqueManager implements Loggeable {
         return this.nombreMatchNul;
     }
 
+    public float pourcentageMatchNul(){
+        BotStatistiqueProfil bot = null;
+        float nombreDeMatch =0;
+        float pourcentage =0;
+        for (BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils ){
+                bot = botStatistiqueProfil;
+              nombreDeMatch = bot.getNumberOfGames();
+    }
+
+            pourcentage = ((this.getMatchNul()*100)/nombreDeMatch);
+        return pourcentage;
+}
+
     public void initBotsStatistiquesProfiles(List<BotProfil> botProfils) {
         for (BotProfil botProfil : botProfils) {
             botStatistiqueProfils.add(new BotStatistiqueProfil(botProfil.getBot(), botProfil.getBotName()));
@@ -74,18 +87,8 @@ public class StatistiqueManager implements Loggeable {
         }
     }
 
-
-
     public List<BotStatistiqueProfil> getBotStatistiqueProfils() {
         return this.botStatistiqueProfils;
-    }
-
-    @Override
-    public String toString() {
-        return "StatistiqueManager{" +
-                "botStatistiqueProfils=" + botStatistiqueProfils + "\n"
-                + ", NombreMatchNul=" + nombreMatchNul +
-                '}';
     }
 
     public void incrementGardenerAction(Playable bot) {
@@ -195,4 +198,16 @@ public class StatistiqueManager implements Loggeable {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "StatistiqueManager{ \n" +
+                "botStatistiqueProfils=" + "\n" + botStatistiqueProfils + "\n"
+                + ", NombreMatchNul : " + nombreMatchNul + " . Soit " + this.pourcentageMatchNul() + " % de match nul" +
+                '}';
+    }
+
+
+
+
 }

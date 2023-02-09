@@ -79,7 +79,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
         statistiqueManager.addNumberOfGame();
         printWinner(winner);
-        //statistiqueManager.resetPointsObjective(); //trouver ou reset tout ca
         return true;
     }
 

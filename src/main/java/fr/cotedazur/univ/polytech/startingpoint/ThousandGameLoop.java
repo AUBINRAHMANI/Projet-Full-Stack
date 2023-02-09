@@ -41,8 +41,8 @@ public class ThousandGameLoop implements Loggeable {
                 botProfil.resetPoints();
             }
 
-            LOGGER.config(statistiqueManager.toString());
-            statistiqueManager.resetPointsObjective();
+            //LOGGER.config(statistiqueManager.toString());   Pour la demo plus poussé avec toutes les stats
+            //if(i!=999)statistiqueManager.resetPointsObjective();
         }
         Path path = Paths.get(".", "stats", "statistique.csv");
         csvManager.exportData(statistiqueManager.getBotStatistiqueProfils(), statistiqueManager.getMatchNul(), path.toString());
