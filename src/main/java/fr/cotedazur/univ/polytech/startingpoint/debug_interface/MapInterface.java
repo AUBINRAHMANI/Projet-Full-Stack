@@ -118,7 +118,6 @@ public class MapInterface extends JFrame {
 
     private class GPanel extends JPanel {
 
-
         public void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
             updateSize();

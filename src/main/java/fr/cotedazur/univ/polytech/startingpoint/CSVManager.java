@@ -36,6 +36,10 @@ public class CSVManager implements Loggeable {
         this.botsStatisticsProfiles = botsStatisticsProfiles;
     }
 
+    public List<BotStatisticProfile> getData() {
+        return botsStatisticsProfiles;
+    }
+
     public List<String[]> getCSVFile() {
         Path path = Paths.get(this.file.toURI());
         List<String[]> list = new ArrayList<>();
@@ -60,8 +64,7 @@ public class CSVManager implements Loggeable {
         }
     }
 
-    public List<String[]> parseDataIfFileNotExist(int nbDrawMatch){
-        List<String[]> data = new ArrayList<>();
+    public String[] getHeader(){
         String[] header = new String[7];
         header[0] = "Bot";
         header[1] = "Victories";
@@ -70,6 +73,12 @@ public class CSVManager implements Loggeable {
         header[4] = "Number of rounds";
         header[5] = "Number of games";
         header[6] = "Number of rounds per game";
+        return header;
+    }
+
+    public List<String[]> parseDataIfFileNotExist(int nbDrawMatch){
+        List<String[]> data = new ArrayList<>();
+        String[] header = getHeader();
         data.add(header);
         for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
             String[] statBot = new String[7];

@@ -94,7 +94,7 @@ public class GameEngine implements Loggeable {
     public void eatBamboo(Referee referee, Playable bot, Position position) {
         Plot plot = map.findPlot(position);
         Bamboo bamboo = plot.eatBamboo();
-        if (bamboo != null && referee != null) referee.addBamboutToBot(bot, bamboo);
+        if (bamboo != null && referee != null) referee.addBambooToBot(bot, bamboo);
     }
 
 
@@ -126,8 +126,8 @@ public class GameEngine implements Loggeable {
         }
     }
 
-    public boolean computeObjectivePanda(BotProfile botProfil, List<Bamboo> bamboosToHave) {
-        List<Bamboo> playerBamboos = new ArrayList<>(botProfil.getBamboos());
+    public boolean computeObjectivePanda(BotProfile botProfile, List<Bamboo> bamboosToHave) {
+        List<Bamboo> playerBamboos = new ArrayList<>(botProfile.getBamboos());
         for (Bamboo bamboo : bamboosToHave) {
             if (playerBamboos.contains(bamboo)) {
                 playerBamboos.remove(bamboo);
@@ -135,7 +135,7 @@ public class GameEngine implements Loggeable {
                 return false;
             }
         }
-        botProfil.setBamboos(playerBamboos);
+        botProfile.setBamboos(playerBamboos);
         return true;
     }
 
