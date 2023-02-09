@@ -26,29 +26,8 @@ public class PatternBotResolver {
                 if (result.isPresent()) {
                     List<Plot> missingPlots = result.get().get(0);
                     List<Plot> nonIrrigatedPlots = result.get().get(1);
-                    if (!banActionTypes.contains(ActionType.PUT_PLOT)) {
-                        for (Plot tempPlot : missingPlots) {
-                            Position tempPlotPosition = tempPlot.getPosition();
-                            if (map.isPossibleToPutPlot(tempPlotPosition)) {
-                                return new PutPlotAction(tempPlot);
-                            } else {
-                                if (!map.getNeighbours(tempPlotPosition).isEmpty()) {
-                                    List<Position> positions = map.closestAvailableSpace(tempPlotPosition);
-                                    for (Position position : positions) {
-                                        if (map.isPossibleToPutPlot(position)) {
-                                            return new PutPlotAction(new Plot(tempPlot.getType(), position));
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-                    if (!nonIrrigatedPlots.isEmpty()) {
-                        IrrigationBotResolver irrigationBotResolver = new IrrigationBotResolver(map, referee);
-                        Action action = irrigationBotResolver.tryPutIrrigation(nonIrrigatedPlots.get(0).getPosition(), banActionTypes);
-                        if (action != null) return action;
-                    }
+                    Action action = resolveMissingAndNonIrrigatedSpot(banActionTypes, missingPlots, nonIrrigatedPlots);
+                    if(action!=null)return action;
                 }
             }
         }
@@ -58,6 +37,33 @@ public class PatternBotResolver {
                     return new PutPlotAction(new Plot(pattern.getPlots().get(0).getType(), map.closestAvailableSpace(plot.getPosition()).get(0)));
                 }
             }
+        }
+        return null;
+    }
+
+    Action resolveMissingAndNonIrrigatedSpot(List<ActionType> banActionTypes, List<Plot> missingPlots, List<Plot> nonIrrigatedPlots){
+        if (!banActionTypes.contains(ActionType.PUT_PLOT)) {
+            for (Plot tempPlot : missingPlots) {
+                Position tempPlotPosition = tempPlot.getPosition();
+                if (map.isPossibleToPutPlot(tempPlotPosition)) {
+                    return new PutPlotAction(tempPlot);
+                } else {
+                    if (!map.getNeighbours(tempPlotPosition).isEmpty()) {
+                        List<Position> positions = map.closestAvailableSpace(tempPlotPosition);
+                        for (Position position : positions) {
+                            if (map.isPossibleToPutPlot(position)) {
+                                return new PutPlotAction(new Plot(tempPlot.getType(), position));
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        if (!nonIrrigatedPlots.isEmpty()) {
+            IrrigationBotResolver irrigationBotResolver = new IrrigationBotResolver(map, referee);
+            Action action = irrigationBotResolver.tryPutIrrigation(nonIrrigatedPlots.get(0).getPosition(), banActionTypes);
+            if (action != null) return action;
         }
         return null;
     }

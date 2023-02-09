@@ -19,7 +19,7 @@ public class IrrigationBotResolver {
     }
 
     public Action tryPutIrrigation(Position target, List<ActionType> banActionTypes) {
-        if (!banActionTypes.contains(ActionType.PUT_IRRIGATION)) {
+        if (banActionTypes.contains(ActionType.PUT_IRRIGATION)) {
             return null;
         }
         List<Position> path = map.getPathBetweenPositions(new Position(0, 0), target);

@@ -50,6 +50,10 @@ class PatternBotResolverTest {
         result = patternBotResolver.fillObjectivePlots(pattern, List.of());
         assertEquals(ActionType.PUT_PLOT, result.toType());
         assertEquals(2,result.getPosition().getDistanceToPosition(new Position(0,0)));
+        mockedMap.putPlot(new Plot(PlotType.GREEN, result.getPosition()));
+
+        result = patternBotResolver.fillObjectivePlots(pattern, Arrays.asList(ActionType.PUT_PLOT));
+        assertEquals(ActionType.PUT_IRRIGATION, result.toType());
     }
 
     @Test
@@ -64,6 +68,9 @@ class PatternBotResolverTest {
 
         result = patternBotResolver.placePLot(PlotType.GREEN, new Position(5,4), List.of());
         assertNotEquals(new Position(5, 4) ,result.getPosition());
+
+        result = patternBotResolver.placePLot(null, new Position(0,1), List.of());
+        assertEquals(new Position(0, 1) ,result.getPosition());
     }
 
     @Test
