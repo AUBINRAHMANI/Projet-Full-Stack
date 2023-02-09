@@ -6,8 +6,8 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -38,7 +38,7 @@ class MoveGardenerActionTest {
     void getPosition() {
         Position position = new Position(2, 1);
         MoveGardenerAction moveGardenerAction = new MoveGardenerAction(position);
-        assertEquals(moveGardenerAction.getPosition(),position);
+        assertEquals(moveGardenerAction.getPosition(), position);
     }
 
     @Test
@@ -49,9 +49,9 @@ class MoveGardenerActionTest {
     }
 
     @Test
-    void equals(){
-        Action action1 = new MoveGardenerAction( new Position(1,0) );
-        Action action2 = new MoveGardenerAction( new Position(3,0) );
+    void equals() {
+        Action action1 = new MoveGardenerAction(new Position(1, 0));
+        Action action2 = new MoveGardenerAction(new Position(3, 0));
         assertEquals(action1, action2);
     }
 }

@@ -1,15 +1,11 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
-import net.bytebuddy.dynamic.DynamicType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import static java.lang.Math.abs;
-import static java.lang.Math.max;
 
 public class Map implements Loggeable {
     List<Plot> mapPlots;
@@ -104,12 +100,12 @@ public class Map implements Loggeable {
             Position bestNextPosition = null;
             int minDistance = -1;
             for (Position position : path.get(path.size() - 1).closestPositions()) {
-                if ( !path.contains(position) && findPlot(position) != null && (minDistance == -1 || position.getDistanceToPosition(new Position(0, 0)) < minDistance)) {
+                if (!path.contains(position) && findPlot(position) != null && (minDistance == -1 || position.getDistanceToPosition(new Position(0, 0)) < minDistance)) {
                     bestNextPosition = position;
                     minDistance = bestNextPosition.getDistanceToPosition(new Position(0, 0));
                 }
             }
-            if(bestNextPosition==null)return List.of();
+            if (bestNextPosition == null) return List.of();
             path.add(bestNextPosition);
         }
         return path;
@@ -124,7 +120,7 @@ public class Map implements Loggeable {
             tempPattern.setAncerPoint(plot.getPosition());
             for (int i = 0; i < 5; i++) {
                 Optional<List<List<Plot>>> result = computePatternVerification(tempPattern, position);
-                if(result.isPresent()){
+                if (result.isPresent()) {
                     List<Plot> missingPlots = result.get().get(0);
                     List<Plot> nonIrrigatedPlots = result.get().get(1);
                     if (missingPlots.isEmpty() && nonIrrigatedPlots.isEmpty()) {
@@ -165,11 +161,11 @@ public class Map implements Loggeable {
                 nonIrrigatedPlot.add(new Plot(plot.getType(), plot.getPosition()));
             } else if (plot.getType() == findPlot(plot.getPosition()).getType() && !findPlot(plot.getPosition()).isIrrigated()) {
                 nonIrrigatedPlot.add(new Plot(plot.getType(), plot.getPosition()));
-            }else if(plot.getType() != findPlot(plot.getPosition()).getType()){
+            } else if (plot.getType() != findPlot(plot.getPosition()).getType()) {
                 return Optional.empty();
             }
         }
-        return Optional.of( Arrays.asList(missingPlots, nonIrrigatedPlot) );
+        return Optional.of(Arrays.asList(missingPlots, nonIrrigatedPlot));
     }
 
     public boolean putIrrigation(Irrigation irrigation) {

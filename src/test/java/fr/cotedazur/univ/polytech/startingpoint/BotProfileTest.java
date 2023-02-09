@@ -2,7 +2,6 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
 import org.junit.jupiter.api.Test;
@@ -57,7 +56,7 @@ class BotProfileTest {
     }
 
     @Test
-    void resetPoints(){
+    void resetPoints() {
         BotProfile botProfil = new BotProfile(null, "");
         botProfil.setObjectiveCompleted(new ObjectivePlots(3, new Pattern()));
         assertEquals(3, botProfil.getPoints());

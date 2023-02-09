@@ -2,79 +2,80 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class MainTest {
 
     @Test
     void getTwoThousandConfig() {
         Main main = new Main();
-        assertEquals(main.getTwoThousandConfig(), false );
+        assertFalse(main.getTwoThousandConfig());
     }
 
     @Test
     void getDemo() {
         Main main = new Main();
-        assertEquals(main.getDemo(), false );
+        assertFalse(main.getDemo());
     }
 
     @Test
     void getTwoThousand() {
         Main main = new Main();
-        assertEquals(main.getTwoThousand(), false );
+        assertFalse(main.getTwoThousand());
     }
 
     @Test
     void getDemoWarning() {
         Main main = new Main();
-        assertEquals(main.getDemoWarning(), false );
+        assertFalse(main.getDemoWarning());
     }
 
     @Test
     void getDemoFine() {
         Main main = new Main();
-        assertEquals(main.getDemoFine(), false );
+        assertFalse(main.getDemoFine());
     }
 
     @Test
     void getDemoFiner() {
         Main main = new Main();
-        assertEquals(main.getDemoFiner(), false );
+        assertFalse(main.getDemoFiner());
     }
 
     @Test
     void getDemoFinest() {
         Main main = new Main();
-        assertEquals(main.getDemoFinest(), false );
+        assertFalse(main.getDemoFinest());
     }
 
     @Test
     void getTwoThousandWarning() {
         Main main = new Main();
-        assertEquals(main.getTwoThousandWarning(), false );
+        assertFalse(main.getTwoThousandWarning());
     }
 
     @Test
     void getTwoThousandFine() {
         Main main = new Main();
-        assertEquals(main.getTwoThousandFine(), false );
+        assertFalse(main.getTwoThousandFine());
     }
 
     @Test
     void getTwoThousandFiner() {
         Main main = new Main();
-        assertEquals(main.getTwoThousandFiner(), false );
+        assertFalse(main.getTwoThousandFiner());
     }
 
     @Test
     void getTwoThousandFinest() {
         Main main = new Main();
-        assertEquals(main.getTwoThousandFinest(), false );
+        assertFalse(main.getTwoThousandFinest());
     }
 
     @Test
     void getCSV() {
         Main main = new Main();
-        assertEquals(main.getCsv(), false );
+        assertFalse(main.getCsv());
     }
 }

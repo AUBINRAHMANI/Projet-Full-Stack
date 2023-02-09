@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PatternTest {
 
     @Test
-    void constructorOfCopy(){
+    void constructorOfCopy() {
         ArrayList<Plot> plots = new ArrayList<>();
         plots.add(new Plot(PlotType.GREEN, new Position(0, 1)));
         plots.add(new Plot(PlotType.POND, new Position(0, 0)));

@@ -2,10 +2,10 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -26,8 +26,9 @@ public class ThousandGameLoop implements Loggeable {
         players.add(bob2);
         statisticManager.initBotsStatisticsProfiles(players);
 
-        for (int i = 0; i<1 ; ++i) {
-            LOGGER.log(Level.CONFIG , "Game {0}", i);
+
+        for (int i = 0; i < 100; ++i) {
+            LOGGER.log(Level.CONFIG, "Game {0}", i);
             Game game = new Game(statisticManager, players);
             game.start();
             for (BotProfile botProfile : players) {

@@ -15,8 +15,8 @@ class GardenerTest {
     }
 
     @Test
-    void getPositionTest(){
+    void getPositionTest() {
         Gardener gardener = new Gardener();
-        assertEquals(gardener.getPosition(),new Position(0,0));
+        assertEquals(gardener.getPosition(), new Position(0, 0));
     }
 }

@@ -55,7 +55,7 @@ public class ThunderAction implements Action {
         return ActionType.THUNDER;
     }
 
-    public void incrementAction(StatisticManager statistiqueManager, Playable bot){
+    public void incrementAction(StatisticManager statistiqueManager, Playable bot) {
         statistiqueManager.incrementThunderAction(bot);
     }
 }

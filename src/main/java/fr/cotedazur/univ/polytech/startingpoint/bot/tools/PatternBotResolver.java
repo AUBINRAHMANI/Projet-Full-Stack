@@ -5,11 +5,9 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.PutPlotAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
-import static fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable.LOGGER;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 public class PatternBotResolver {
 
@@ -29,7 +27,7 @@ public class PatternBotResolver {
                     List<Plot> missingPlots = result.get().get(0);
                     List<Plot> nonIrrigatedPlots = result.get().get(1);
                     Action action = resolveMissingAndNonIrrigatedSpot(banActionTypes, missingPlots, nonIrrigatedPlots);
-                    if(action!=null)return action;
+                    if (action != null) return action;
                 }
             }
         }
@@ -43,7 +41,7 @@ public class PatternBotResolver {
         return null;
     }
 
-    private Action resolveMissingAndNonIrrigatedSpot(List<ActionType> banActionTypes, List<Plot> missingPlots, List<Plot> nonIrrigatedPlots){
+    private Action resolveMissingAndNonIrrigatedSpot(List<ActionType> banActionTypes, List<Plot> missingPlots, List<Plot> nonIrrigatedPlots) {
         if (!banActionTypes.contains(ActionType.PUT_PLOT)) {
             for (Plot tempPlot : missingPlots) {
                 Position tempPlotPosition = tempPlot.getPosition();
@@ -65,7 +63,7 @@ public class PatternBotResolver {
         if (!nonIrrigatedPlots.isEmpty()) {
             IrrigationBotResolver irrigationBotResolver = new IrrigationBotResolver(map, referee);
             Action action = irrigationBotResolver.tryPutIrrigation(nonIrrigatedPlots.get(0).getPosition(), banActionTypes);
-            if (action != null) return action;
+            return action;
         }
         return null;
     }
@@ -74,7 +72,7 @@ public class PatternBotResolver {
     public PutPlotAction placePLot(PlotType plotType, Position position, List<ActionType> banActionTypes) {
         List<Plot> plots = referee.pickPlot();
         for (Plot plot : plots) {
-            if(map.isPossibleToPutPlot(position)) {
+            if (map.isPossibleToPutPlot(position)) {
                 if (plotType == null) {
                     plot.setPosition(position);
                     return new PutPlotAction(plot);

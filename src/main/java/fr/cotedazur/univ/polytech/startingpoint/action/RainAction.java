@@ -1,4 +1,5 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
+
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
@@ -54,7 +55,7 @@ public class RainAction implements Action {
         return ActionType.RAIN;
     }
 
-    public void incrementAction(StatisticManager statistiqueManager, Playable bot){
+    public void incrementAction(StatisticManager statistiqueManager, Playable bot) {
         statistiqueManager.incrementRainAction(bot);
     }
 }
