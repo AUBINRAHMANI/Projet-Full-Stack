@@ -112,8 +112,8 @@ public class GameEngine implements Loggeable {
 
     public boolean computeObjectiveGardener(int nbBamboo, PlotType bambooType, int nbPlot) {
         Plot plot = map.findPlot(gardener.getPosition());
-        if (nbBamboo > 3) {
-            return plot.getNumberOfBamboo() <= nbBamboo && plot.getType() == bambooType;
+        if (nbPlot==1) {
+            return plot.getNumberOfBamboo() >= nbBamboo && plot.getType() == bambooType;
         } else {
             if (plot.getNumberOfBamboo() <= nbBamboo || plot.getType() != bambooType) return false;
             int nbValidatedPlots = 0;
