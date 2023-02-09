@@ -100,16 +100,16 @@ public class Map implements Loggeable {
     public List<Position> getPathBetweenPositions(Position start, Position target) {
         List<Position> path = new ArrayList<>();
         path.add(target);
-
         while (!path.get(path.size() - 1).equals(start)) {
             Position bestNextPosition = null;
             int minDistance = -1;
             for (Position position : path.get(path.size() - 1).closestPositions()) {
-                if (findPlot(position) != null && (minDistance == -1 || position.getDistanceToPosition(new Position(0, 0)) < minDistance)) {
+                if ( !path.contains(position) && findPlot(position) != null && (minDistance == -1 || position.getDistanceToPosition(new Position(0, 0)) < minDistance)) {
                     bestNextPosition = position;
                     minDistance = bestNextPosition.getDistanceToPosition(new Position(0, 0));
                 }
             }
+            if(bestNextPosition==null)return List.of();
             path.add(bestNextPosition);
         }
         return path;

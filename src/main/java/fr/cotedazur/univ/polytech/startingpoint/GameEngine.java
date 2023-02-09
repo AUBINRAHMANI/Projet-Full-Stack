@@ -100,7 +100,7 @@ public class GameEngine implements Loggeable {
 
     public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot) {
         Optional<List<List<Plot>>> result = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
-        LOGGER.config(result.toString());
+        LOGGER.fine(result.toString());
         if (result.isPresent()) {
             List<Plot> missingPlots = result.get().get(0);
             List<Plot> nonIrrigatedPlot = result.get().get(1);
