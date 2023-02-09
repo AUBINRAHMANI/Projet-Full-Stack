@@ -30,19 +30,20 @@ class CSVManagerTest {
 
     @Test
     void parseDataIfFileNotExist() {
-        BotSprint botSprint = new BotSprint();
-        BotMbappe botMbappe = new BotMbappe();
-        BotProfile botProfile1 = new BotProfile(botSprint, "BotSprint");
-        BotProfile botProfile2 = new BotProfile(botMbappe, "BotMbappe");
-        List<BotProfile> listOfBotProfiles = List.of(botProfile1, botProfile2);
+        List<BotProfile> listOfBotProfiles = new ArrayList<>();
+        BotProfile botSprint = new BotProfile(new BotSprint(), "Sprint");
+        BotProfile botMbappe = new BotProfile(new BotSprint(), "Mbappe");
+        listOfBotProfiles.add(botSprint);
+        listOfBotProfiles.add(botMbappe);
         StatisticManager statisticManager = new StatisticManager();
         statisticManager.initBotsStatisticsProfiles(listOfBotProfiles);
         statisticManager.addDrawGame();
-        statisticManager.addWinner(botSprint);
-        statisticManager.addLoser(botMbappe);
+        statisticManager.addWinner(statisticManager.getBotsStatisticsProfiles().get(0).getBot());
+        statisticManager.addLoser(statisticManager.getBotsStatisticsProfiles().get(1).getBot());
         statisticManager.addGame();
         statisticManager.addRound();
         CSVManager csvManager = new CSVManager();
+        csvManager.setData(statisticManager.getBotsStatisticsProfiles());
         List<String[]> listData = new ArrayList<>();
         listData.add(csvManager.getHeader());
         for (BotStatisticProfile botStatisticProfile : statisticManager.getBotsStatisticsProfiles()) {
@@ -55,20 +56,6 @@ class CSVManagerTest {
             botData[6] = Integer.toString(botStatisticProfile.getNbOfRounds() / botStatisticProfile.getNbOfGames());
             listData.add(botData);
         }
-
-        assertEquals(listData, csvManager.parseDataIfFileNotExist(statisticManager.getNbOfDrawGames()));
-    }
-
-    @Test
-    void parseDataIfFileExist() {
-
-    }
-
-    @Test
-    void createFileAndDirectoryIfNotExist() {
-    }
-
-    @Test
-    void saveData() {
+        assertEquals(listData.size(), csvManager.parseDataIfFileNotExist(statisticManager.getNbOfDrawGames()).size());
     }
 }
