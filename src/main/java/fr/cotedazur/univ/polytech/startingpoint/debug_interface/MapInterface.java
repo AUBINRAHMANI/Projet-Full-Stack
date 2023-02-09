@@ -18,7 +18,7 @@ public class MapInterface extends JFrame {
 
     static final int HEXAGON_SIZE = 40;
     private static final List<Position> positionsToAdd = new ArrayList<>();
-    private static final List<Integer> correspondingNbBambous = new ArrayList<>();
+    private static final List<Integer> correspondingNbBamboos = new ArrayList<>();
     private static final List<Plot> plotsDrawn = new ArrayList<>();
     private static final List<Color> colorsToAdd = new ArrayList<>();
     private static Position center;
@@ -98,7 +98,7 @@ public class MapInterface extends JFrame {
             color = color.darker();
         }
         colorsToAdd.add(color);
-        correspondingNbBambous.add(nbBamboos);
+        correspondingNbBamboos.add(nbBamboos);
     }
 
     private class GPanel extends JPanel {
