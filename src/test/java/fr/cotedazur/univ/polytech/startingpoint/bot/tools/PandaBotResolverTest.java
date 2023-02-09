@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,8 +37,13 @@ class PandaBotResolverTest {
 
         List<Bambou> bambousToHave = new ArrayList<>();
         bambousToHave.add(new Bambou(PlotType.GREEN));
+        bambousToHave.add(new Bambou(PlotType.GREEN));
 
-        Action result = pandaBotResolver.fillObjectivePanda( bambousToHave , List.of() ,List.of(),null);
+        Action result = pandaBotResolver.fillObjectivePanda( bambousToHave , Arrays.asList(new Bambou(PlotType.GREEN)),List.of(),null);
+        assertEquals(ActionType.PUT_PLOT, result.toType());
+        assertEquals(1, result.getPosition().getDistanceToPosition(new Position(0,0)));
+
+        result = pandaBotResolver.fillObjectivePanda( bambousToHave , bambousToHave ,List.of(),null);
         assertEquals(ActionType.PUT_PLOT, result.toType());
         assertEquals(1, result.getPosition().getDistanceToPosition(new Position(0,0)));
 

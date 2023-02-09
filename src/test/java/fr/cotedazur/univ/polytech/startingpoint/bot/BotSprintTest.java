@@ -40,9 +40,9 @@ class BotSprintTest {
         mockedMap.putPlot(new Plot(PlotType.GREEN, new Position(1,1)));
         mockedMap.putPlot(new Plot(PlotType.GREEN, new Position(0,1)));
 
-       // when(mockedReferee.getMyObjectives(botSprint)).thenReturn(objectives);
-        //resutl = botSprint.play(List.of(), WeatherType.QUESTIONMARK);
-        //assertEquals(ActionType.PUT_IRRIGATION, resutl.toType());
+       when(mockedReferee.getMyObjectives(botSprint)).thenReturn(objectives);
+       resutl = botSprint.play(List.of(), WeatherType.QUESTIONMARK);
+       //assertEquals(ActionType.PUT_IRRIGATION, resutl.toType());
     }
 
     @Test
@@ -51,6 +51,7 @@ class BotSprintTest {
 
     @Test
     void fillObjectiveGardener() {
+
     }
 
     @Test
