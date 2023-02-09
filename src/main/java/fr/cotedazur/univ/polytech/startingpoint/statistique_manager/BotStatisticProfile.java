@@ -193,7 +193,7 @@ public class BotStatisticProfile {
         return this.numberObjectivePanda;
     }
 
-    public int getNumberObjectifPlots(){
+    public int getNumberObjectivePlots(){
         return this.numberObjectivePlots;
     }
 
@@ -227,7 +227,7 @@ public class BotStatisticProfile {
                 this.getDealRain() + " fois , et enfin l'action de choisir le tonnerre " + this.getDealThunder() + " fois \n"
                 + this.getBotName() + " a completé " + this.getNumberObjectiveGardener() + " objectifs gardiens, ce qui lui a donné : "
                 + this.getNumberPointsObjectiveGardener() + " points, " + this.getNumberObjectivePanda() + " objectifs Panda ce qui lui a donné : "
-                +this.getNumberPointsObjectivePanda() + " points, et il a completé "  + this.getNumberObjectifPlots() + " objectifs Plot ce qui lui a donné : "
+                +this.getNumberPointsObjectivePanda() + " points, et il a completé "  + this.getNumberObjectivePlots() + " objectifs Plot ce qui lui a donné : "
                 + this.getNumberPointsObjectivePlot() + " points ! \n";
 
     }

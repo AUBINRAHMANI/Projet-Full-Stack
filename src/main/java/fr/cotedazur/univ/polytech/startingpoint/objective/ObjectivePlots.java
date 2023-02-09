@@ -34,7 +34,7 @@ public class ObjectivePlots extends Objective {
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfil) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfile) {
         return false;
     }
 
@@ -44,14 +44,14 @@ public class ObjectivePlots extends Objective {
     }
 
     @Override
-    public void incrementationObjective(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementNumberObjectivePlots(bot);
+    public void incrementationObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberObjectivePlots(bot);
 
     }
 
     @Override
-    public void incrementationPointsObjective(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementNumberPointsObjectivePlot(bot,this.getPoint());
+    public void incrementationPointsObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberPointsObjectivePlot(bot,this.getPoint());
     }
 
     @Override
