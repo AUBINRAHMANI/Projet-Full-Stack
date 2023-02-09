@@ -38,7 +38,10 @@ public class BotStatisticProfile {
 
     private int numberPointsObjectivePlot;
 
+    private int numberTotalPoints;
+
     public BotStatisticProfile(Playable bot, String botName) {
+
         this.bot = bot;
         this.botName = botName;
         this.nbVictories = 0;
@@ -59,6 +62,7 @@ public class BotStatisticProfile {
         this.numberPointsObjectiveGardener=0;
         this.numberPointsObjectivePanda=0;
         this.numberPointsObjectivePlot=0;
+        this.numberTotalPoints=0;
     }
 
     public void addVictory() {
@@ -209,12 +213,37 @@ public class BotStatisticProfile {
         return this.numberPointsObjectivePlot;
     }
 
+    public int getNumberTotalPoints(){
+        this.numberTotalPoints = this.numberPointsObjectiveGardener + this.numberPointsObjectivePanda + this.numberPointsObjectivePlot;
+        return numberTotalPoints;
+    }
+
     public void resetNumberPointsObjective(){
         this.numberPointsObjectivePlot=0;
         this.numberPointsObjectivePanda=0;
         this.numberPointsObjectiveGardener=0;
 
     }
+
+    public float pourcentageWin(){
+       float pourcentage=0;
+       pourcentage = ((float)this.getNbVictories() * 100)/(float)this.getNbOfGames();
+       return pourcentage;
+    }
+
+    public float pourcentageDefeat(){
+        float pourcentage =0;
+        pourcentage = ((float)(this.getNbDefeats()*100)/(float) this.getNbOfGames());
+        return pourcentage;
+    }
+
+    public float scoreAverage(){
+        float average =0;
+        average = (float)this.getNumberTotalPoints() / (float)this.getNbOfGames();
+        return average;
+
+    }
+/* Pour le csv et des statistiques plus poussés
 
     public String toString() {
         return "Number of wins  " + this.getBotName() + ": " + this.getNbVictories() + "\n"
@@ -229,6 +258,13 @@ public class BotStatisticProfile {
                 + this.getNumberPointsObjectiveGardener() + " points, " + this.getNumberObjectivePanda() + " objectifs Panda ce qui lui a donné : "
                 +this.getNumberPointsObjectivePanda() + " points, et il a completé "  + this.getNumberObjectifPlots() + " objectifs Plot ce qui lui a donné : "
                 + this.getNumberPointsObjectivePlot() + " points ! \n";
-
     }
+ */
+    public String toString(){
+        return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + " pour  " + this.getNbOfGames() + " parties. Soit " + this.pourcentageWin() + "% de victoire. \n"
+                + "Nombre de defaite : " + this.getNbDefeats() + " pour " + this.getNbOfGames() + " parties. Soit " + this.pourcentageDefeat() + " % de defaites." +
+                " \n Le score moyen de points de " + this.getBotName() + " est de  : " + String.format("%.2f",this.scoreAverage()) + " ! Il a obtenu en tout " + this.getNumberTotalPoints() + " points ! \n";
+    }
+
+
 }
