@@ -1,9 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
-import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
-import fr.cotedazur.univ.polytech.startingpoint.Plot;
-import fr.cotedazur.univ.polytech.startingpoint.PlotType;
-import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -35,47 +32,7 @@ class PutPlotActionTest {
         PutPlotAction putPlotAction = new PutPlotAction(null);
         assertTrue(putPlotAction.verifyObjectiveAfterAction(mockedGame, null));
     }
-    @Test
-    void isActionMoveGardener() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionMoveGardener());
-    }
 
-    @Test
-    void isActionMovePanda() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionMovePanda());
-    }
-
-    @Test
-    void isActionPutPlot() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertTrue(putPlotAction.isActionPutPlot());
-    }
-
-    @Test
-    void isActionPickObjective() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionPickObjective());
-    }
-
-    @Test
-    void isActionRain() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionRain());
-    }
-
-    @Test
-    void isActionThunder() {
-        Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
-        PutPlotAction putPlotAction = new PutPlotAction(plot);
-        assertFalse(putPlotAction.isActionThunder());
-    }
     @Test
     void getPosition() {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
@@ -87,5 +44,12 @@ class PutPlotActionTest {
         Plot plot = new Plot(PlotType.GREEN, new Position(2, 1));
         PutPlotAction putPlotAction = new PutPlotAction(plot);
         assertEquals(putPlotAction.toType(), ActionType.PUT_PLOT);
+    }
+
+    @Test
+    void equals(){
+        Action action1 = new PutPlotAction( new Plot(PlotType.YELLOW, new Position(1,1)) );
+        Action action2 = new PutPlotAction( new Plot(PlotType.GREEN, new Position(0,1)) );
+        assertEquals(action1, action2);
     }
 }

@@ -1,6 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.PlotType;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
@@ -44,5 +46,12 @@ class ThunderActionTest {
         Position position = new Position(3,6);
         ThunderAction thunderAction = new ThunderAction(position);
         assertEquals(thunderAction.toType(), ActionType.THUNDER);
+    }
+
+    @Test
+    void equals(){
+        Action action1 = new ThunderAction( new Position(1,1) );
+        Action action2 = new ThunderAction( new Position(0,1) );
+        assertEquals(action1, action2);
     }
 }

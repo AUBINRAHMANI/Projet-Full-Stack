@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -33,47 +34,6 @@ class MovePandaActionTest {
         MovePandaAction movePandaAction = new MovePandaAction(null, null);
         assertTrue(movePandaAction.verifyObjectiveAfterAction(mockedGame, null));
     }
-    @Test
-    void isActionMoveGardener() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionMoveGardener());
-    }
-
-    @Test
-    void isActionMovePanda() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertTrue(movePandaAction.isActionMovePanda());
-    }
-
-    @Test
-    void isActionPutPlot() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionPutPlot());
-    }
-
-    @Test
-    void isActionPickObjective() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionPickObjective());
-    }
-
-    @Test
-    void isActionRain() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionRain());
-    }
-
-    @Test
-    void isActionThunder() {
-        Position position = new Position(2, 1);
-        MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertFalse(movePandaAction.isActionThunder());
-    }
 
     @Test
     void getPosition() {
@@ -87,5 +47,12 @@ class MovePandaActionTest {
         Position position = new Position(2, 1);
         MovePandaAction movePandaAction = new MovePandaAction(null, position);
         assertEquals(movePandaAction.toType(), ActionType.MOVE_PANDA);
+    }
+
+    @Test
+    void equals(){
+        Action action1 = new MovePandaAction(new BotMbappe(), new Position(1,0) );
+        Action action2 = new MovePandaAction(null, new Position(3,0) );
+        assertEquals(action1, action2);
     }
 }
