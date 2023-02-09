@@ -11,18 +11,24 @@ import java.util.List;
 public class StatistiqueManager implements Loggeable {
 
     private final List<BotStatistiqueProfil> botStatistiqueProfils;
-    private int NombreMatchNul = 0;
+
     Action actions;
+
+    private int nombreMatchNul = 0;
 
 
     public StatistiqueManager() {
         this.botStatistiqueProfils = new ArrayList<>();
-        this.NombreMatchNul = 0;
         actions = null;
+        this.nombreMatchNul = 0;
     }
 
     public void addMatchNul() {
-        this.NombreMatchNul += 1;
+        this.nombreMatchNul += 1;
+    }
+
+    public int getMatchNul() {
+        return this.nombreMatchNul;
     }
 
     public void initBotsStatistiquesProfiles(List<BotProfil> botProfils) {
@@ -54,8 +60,8 @@ public class StatistiqueManager implements Loggeable {
 
     }
 
-    public void addNumberOfGame(){
-        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
+    public void addNumberOfGame() {
+        for (BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils) {
             botStatistiqueProfil.addNumberOfGames();
         }
     }
@@ -68,54 +74,15 @@ public class StatistiqueManager implements Loggeable {
         }
     }
 
-    public void setActions(Action action){
-        this.actions = action;
+    public List<BotStatistiqueProfil> getBotStatistiqueProfils() {
+        return this.botStatistiqueProfils;
     }
 
-    public Action getActions(){
-        return this.actions;
-    }
-
-    public void addActionSpecific(Playable bot){
-        for(BotStatistiqueProfil botStatistiqueProfil : botStatistiqueProfils){
-            if (botStatistiqueProfil.getBot()==bot){
-                switch(this.actions.toType()) {
-                    case MOVE_GARDENER :
-                        botStatistiqueProfil.addDealMoveGardener();
-                        break;
-                    case MOVE_PANDA:
-                        botStatistiqueProfil.addDealMovePanda();
-                        break;
-
-                    case PICK_OBJECTIVE:
-                        botStatistiqueProfil.addDealPickObjective();
-                        break;
-
-                    case PUT_IRRIGATION:
-                        botStatistiqueProfil.addDealPutIrrigation();
-                        break;
-
-                    case PUT_PLOT:
-                        botStatistiqueProfil.addDealPutPlot();
-                        break;
-
-                    case RAIN:
-                        botStatistiqueProfil.addDealRain();
-                        break;
-
-                    case THUNDER :
-                        botStatistiqueProfil.addDealThunder();
-                        break;
-                }
-            }
-        }
-
-    }
     @Override
     public String toString() {
         return "StatistiqueManager{" +
                 "botStatistiqueProfils=" + botStatistiqueProfils + "\n"
-                + ", NombreMatchNul=" + NombreMatchNul +
+                + ", NombreMatchNul=" + nombreMatchNul +
                 '}';
     }
 

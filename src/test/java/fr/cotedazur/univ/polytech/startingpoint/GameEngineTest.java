@@ -178,7 +178,6 @@ class GameEngineTest {
 
         plot.isIrrigatedIsTrue();
 
-
         map.putPlot(plot);
         Game game = new Game();
         GameEngine gameEngine = new GameEngine(null, null, map);
@@ -231,6 +230,4 @@ class GameEngineTest {
         assertTrue(gameEngine.thunderAction(position));
         assertFalse(gameEngine.thunderAction(position2));
     }
-
-
 }

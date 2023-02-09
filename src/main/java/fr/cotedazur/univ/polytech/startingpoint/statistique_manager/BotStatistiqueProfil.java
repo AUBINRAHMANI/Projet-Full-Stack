@@ -34,6 +34,12 @@ public class BotStatistiqueProfil {
 
     private int numberObjectivePlots;
 
+    private int numberPointsObjectiveGardener;
+
+    private int numberPointsObjectivePanda;
+
+    private int numberPointsObjectivePlot;
+
 
 
 
@@ -55,6 +61,9 @@ public class BotStatistiqueProfil {
         this.numberObjectiveGardener=0;
         this.numberObjectivePanda=0;
         this.numberObjectivePlots=0;
+        this.numberPointsObjectiveGardener=0;
+        this.numberPointsObjectivePanda=0;
+        this.numberPointsObjectivePlot=0;
     }
 
     public void addVictory() {

@@ -16,12 +16,12 @@ import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.values;
 
 public class GameEngine implements Loggeable {
 
-    Random random;
-    private Deck<Objective> objectiveDeck;
-    private Deck<Plot> plotDeck;
     private final Map map;
     private final Gardener gardener;
     private final Panda panda;
+    Random random;
+    private Deck<Objective> objectiveDeck;
+    private Deck<Plot> plotDeck;
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
@@ -142,6 +142,7 @@ public class GameEngine implements Loggeable {
         return true;
     }
 
+
     public WeatherType drawWeather() {
         int choseNumber = 1 + random.nextInt(7 - 1);
         WeatherType weather = values()[choseNumber];
@@ -162,10 +163,5 @@ public class GameEngine implements Loggeable {
             return true;
         }
         return false;
-    }
-
-
-    public boolean irrigationExist(Irrigation irrigation) {
-        return map.irrigationExist(irrigation);
     }
 }

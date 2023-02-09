@@ -17,13 +17,13 @@ import static java.lang.Math.sqrt;
 public class MapInterface extends JFrame {
 
     final static int HEXAGONE_SIZE = 40;
-    private static Position center;
     private static final List<Position> positionsToAdd = new ArrayList<>();
     private static final List<Integer> correspondingNbBambous = new ArrayList<>();
     private static final List<Plot> plotsDrawen = new ArrayList<>();
     private static final List<Color> colorsToAdd = new ArrayList<>();
-    volatile boolean next;
+    private static Position center;
     private final GPanel panel;
+    volatile boolean next;
 
     public MapInterface() {
         setSize(960, 540);
