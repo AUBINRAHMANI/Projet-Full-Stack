@@ -18,7 +18,7 @@ import static org.mockito.Mockito.spy;
 class GardenerBotResolverTest {
 
     @Mock
-    Referee mockedReferee = spy(new Game());
+    Referee mockedReferee = spy(new Game(null, List.of(), false));
     Map mockedMap = spy(new Map());
     @Test
     void fillObjectiveGardener() {

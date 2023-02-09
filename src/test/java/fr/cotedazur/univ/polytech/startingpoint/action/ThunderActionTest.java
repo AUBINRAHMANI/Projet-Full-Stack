@@ -29,49 +29,7 @@ class ThunderActionTest {
     void verifyObjectiveAfterAction() {
         when(mockedGame.computeObjectivesPanda()).thenReturn(true);
         ThunderAction thunderAction  = new ThunderAction(null);
-        assertTrue(thunderAction.verifyObjectiveAfterAction(mockedGame));
-    }
-
-    @Test
-    void isActionMoveGardener() {
-        Position position = new Position(3,6);
-        ThunderAction thunderAction = new ThunderAction(position);
-        assertFalse(thunderAction.isActionMoveGardener());
-    }
-
-    @Test
-    void isActionMovePanda() {
-        Position position = new Position(3,6);
-        ThunderAction thunderAction = new ThunderAction(position);
-        assertFalse(thunderAction.isActionMovePanda());
-    }
-
-    @Test
-    void isActionPutPlot() {
-        Position position = new Position(3,6);
-        ThunderAction thunderAction = new ThunderAction(position);
-        assertFalse(thunderAction.isActionPutPlot());
-    }
-
-    @Test
-    void isActionPickObjective() {
-        Position position = new Position(3,6);
-        ThunderAction thunderAction = new ThunderAction(position);
-        assertFalse(thunderAction.isActionPickObjective());
-    }
-
-    @Test
-    void isActionRain() {
-        Position position = new Position(3,6);
-        ThunderAction thunderAction = new ThunderAction(position);
-        assertFalse(thunderAction.isActionRain());
-    }
-
-    @Test
-    void isActionThunder() {
-        Position position = new Position(3,6);
-        ThunderAction thunderAction = new ThunderAction(position);
-        assertTrue(thunderAction.isActionThunder());
+        assertTrue(thunderAction.verifyObjectiveAfterAction(mockedGame, null));
     }
 
     @Test

@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.Plot;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
@@ -24,7 +25,7 @@ public class PutPlotAction implements Action {
     }
 
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee) {
+    public boolean verifyObjectiveAfterAction(Referee referee, Map map) {
         return referee.computeObjectivesPlot(plot);
     }
 
@@ -32,12 +33,12 @@ public class PutPlotAction implements Action {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return isActionPutPlot();
+        return ActionType.PUT_PLOT.equals(toType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isActionPutPlot());
+        return Objects.hash(toType());
     }
 
     @Override
@@ -45,36 +46,6 @@ public class PutPlotAction implements Action {
         return "PutPlotAction{" +
                 "_plot=" + plot +
                 '}';
-    }
-
-    @Override
-    public boolean isActionMoveGardener() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionMovePanda() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return true;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
     }
 
     @Override

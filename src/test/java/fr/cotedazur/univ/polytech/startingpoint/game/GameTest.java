@@ -58,14 +58,14 @@ class GameTest {
         assertTrue(game.getPreviousActions() != null);
     }
 
-    @Test
+    /*@Test
     void emptyDeck() {
         //Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map
         Deck<Objective> objectiveDeck = new Deck<>();
         Deck<Plot> plotDeck = new Deck<>();
         Map map = new Map();
         GameEngine gameEngine = new GameEngine(objectiveDeck, plotDeck, map);
-    }
+    }*/
 
     @Test
     void pickObjective() {

@@ -31,7 +31,7 @@ class MovePandaActionTest {
     void verifyObjectiveAfterAction() {
         when(mockedGame.computeObjectivesPanda()).thenReturn(true);
         MovePandaAction movePandaAction = new MovePandaAction(null, null);
-        assertTrue(movePandaAction.verifyObjectiveAfterAction(mockedGame));
+        assertTrue(movePandaAction.verifyObjectiveAfterAction(mockedGame, null));
     }
     @Test
     void isActionMoveGardener() {

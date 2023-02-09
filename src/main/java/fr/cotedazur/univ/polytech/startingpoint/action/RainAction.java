@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
@@ -20,7 +21,7 @@ public class RainAction implements Action {
     }
 
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee) {
+    public boolean verifyObjectiveAfterAction(Referee referee, Map map) {
         return referee.computeObjectivesGardener();
     }
 
@@ -28,12 +29,12 @@ public class RainAction implements Action {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return isActionRain();
+        return ActionType.RAIN.equals(toType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isActionRain());
+        return Objects.hash(toType());
     }
 
     @Override
@@ -41,36 +42,6 @@ public class RainAction implements Action {
         return "RainAction{" +
                 "_position=" + position +
                 '}';
-    }
-
-    @Override
-    public boolean isActionMoveGardener() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionMovePanda() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return true;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
     }
 
     @Override

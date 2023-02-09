@@ -93,13 +93,6 @@ public class StatisticManager implements Loggeable {
         return this.botsStatisticsProfiles;
     }
 
-    @Override
-    public String toString() {
-        return "StatisticManager{" +
-                "botStatisticsProfiles=" + botsStatisticsProfiles + "\n"
-                + ", NumberOfDrawGames=" + nbOfDrawGames + "Soit " + this.percentageMatchNul() + "% de match nul" +
-        '}';
-    }
 
     public void incrementGardenerAction(Playable bot) {
         for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
@@ -207,5 +200,13 @@ public class StatisticManager implements Loggeable {
                 botStatisticProfile.addNumberPointsObjectivePlot(points);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "StatisticManager{" +
+                "botStatisticsProfiles=" + botsStatisticsProfiles + "\n"
+                + ", NumberOfDrawGames=" + nbOfDrawGames + "Soit " + this.percentageMatchNul() + "% de match nul" +
+                '}';
     }
 }

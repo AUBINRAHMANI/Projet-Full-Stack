@@ -6,7 +6,6 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
-import fr.cotedazur.univ.polytech.startingpoint.debug_interface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectiveGardener;
@@ -20,21 +19,16 @@ import java.util.*;
 
 public class Game implements DeckSignal, Referee, Loggeable {
 
-    static final int MAX_NB_ROUND = 70;
+    static final int MAX_NB_ROUND = 50;
     static final int NB_OBJECTIVE_TO_FINISH = 9;
     static final int NB_ACTIONS_PER_ROUND = 2;
     private final StatisticManager statisticManager;
     Random random;
     GameEngine gameEngine;
     List<BotProfile> botProfiles;
-    MapInterface mapInterface;
     int nbActions;
     List<Action> previousActions;
     private int timeOutCounter;
-
-    public Game() {
-        this(null, List.of(), false);
-    }
 
     public Game(StatisticManager statisticManager, List<BotProfile> botProfiles, boolean debug) {
         this.random = new SecureRandom();
@@ -49,27 +43,20 @@ public class Game implements DeckSignal, Referee, Loggeable {
         for (BotProfile botProfile : this.botProfiles) {
             botProfile.getBot().setEnvironment(this, gameEngine.getMap());
         }
-
-        if (debug) {
-            mapInterface = new MapInterface();
-            mapInterface.drawMap(gameEngine.getMap(), gameEngine.getGardenerPosition(), gameEngine.getPandaPosition());
-        } else {
-            mapInterface = null;
-        }
     }
 
     public void start() {
         do {
+            Long startTime = System.currentTimeMillis();
             ++timeOutCounter;
             statisticManager.addRound();
             for (BotProfile botProfile : botProfiles) {
                 nbActions = NB_ACTIONS_PER_ROUND;
                 WeatherType weather = gameEngine.drawWeather();
-                LOGGER.finest("Tour de " + botProfile.getBotName() + " : ");
                 this.applyChangesDueToWeather(weather);
                 doActions(botProfile, nbActions, weather);
             }
-            LOGGER.finest(() -> "Number of rounds" + this.timeOutCounter);
+            Long delta = System.currentTimeMillis()-startTime;
         } while (!checkFinishingCondition());
         BotProfile winner = checkWinner();
         statisticManager.addGame();
@@ -96,12 +83,9 @@ public class Game implements DeckSignal, Referee, Loggeable {
             Action action = botProfile.getBot().play(banActionTypes, weather);
             LOGGER.finer(() -> "Action : " + action);
             if (action != null && !(banActionTypes.contains(action.toType()))) {
-                if(mapInterface!=null) {
-                    while (!mapInterface.next()) ;
-                }
                 action.play(this, gameEngine);
                 banActionTypes.add(action.toType());
-                action.verifyObjectiveAfterAction(this);
+                action.verifyObjectiveAfterAction(this, gameEngine.getMap());
                 saveAction(action);
                 action.incrementAction(statisticManager, botProfile.getBot());
                 statisticManager.addCoups(botProfile.getBot());
