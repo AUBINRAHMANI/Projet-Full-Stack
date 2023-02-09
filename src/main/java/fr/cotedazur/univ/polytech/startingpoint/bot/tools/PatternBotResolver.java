@@ -66,13 +66,15 @@ public class PatternBotResolver {
     public PutPlotAction placePLot(PlotType plotType, Position position, List<ActionType> banActionTypes) {
         List<Plot> plots = referee.pickPlot();
         for (Plot plot : plots) {
-            if (plotType == null) {
-                plot.setPosition(position);
-                return new PutPlotAction(plot);
-            }
-            if (plot.getType() == plotType) {
-                plot.setPosition(position);
-                return new PutPlotAction(plot);
+            if(map.isPossibleToPutPlot(position)) {
+                if (plotType == null) {
+                    plot.setPosition(position);
+                    return new PutPlotAction(plot);
+                }
+                if (plot.getType() == plotType) {
+                    plot.setPosition(position);
+                    return new PutPlotAction(plot);
+                }
             }
         }
         return putRandomlyAPLot(plots.get(0).getType(), banActionTypes);

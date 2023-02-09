@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.max;
 
 public class Position {
 
@@ -158,6 +159,11 @@ public class Position {
         int deltaR = r - position2.getR();
         int deltaS = s - position2.getS();
         return (deltaQ + deltaR + deltaS == 0) && (abs(deltaQ) + abs(deltaR) + abs(deltaS) == 2);
+    }
+
+    public int getDistanceToPosition(Position position2) {
+        int max = max(abs(q - position2.getQ()), abs(r - position2.getR()));
+        return max(abs(s - position2.getS()), max);
     }
 }
 

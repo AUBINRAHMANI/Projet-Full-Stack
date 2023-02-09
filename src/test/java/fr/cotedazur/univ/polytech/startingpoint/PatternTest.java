@@ -5,8 +5,25 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PatternTest {
+
+    @Test
+    void constructorOfCopy(){
+        ArrayList<Plot> plots = new ArrayList<>();
+        plots.add(new Plot(PlotType.GREEN, new Position(0, 1)));
+        plots.add(new Plot(PlotType.POND, new Position(0, 0)));
+        plots.add(new Plot(PlotType.GREEN, new Position(1, 2)));
+        plots.add(new Plot(PlotType.RED, new Position(1, 1)));
+        for (Plot plot : plots) {
+            plot.isIrrigatedIsTrue();
+        }
+        Pattern pattern = new Pattern(plots);
+        pattern = new Pattern(pattern);
+
+        assertTrue(pattern.getPlots().containsAll(plots));
+    }
 
     @Test
     void rotate60Right() {

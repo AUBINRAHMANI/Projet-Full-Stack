@@ -21,7 +21,7 @@ public class ThousandGameLoop implements Loggeable {
 
         StatistiqueManager statistiqueManager = new StatistiqueManager();
         CSVManager csvManager = new CSVManager();
-        Loggeable.initLogger(Level.CONFIG);
+        Loggeable.initLogger(Level.FINEST);
 
         List<BotProfil> players = new ArrayList<>();
         BotProfil bob1 = new BotProfil(new BotSprint(), "Sprint");

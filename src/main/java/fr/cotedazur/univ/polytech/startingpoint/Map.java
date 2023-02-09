@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import net.bytebuddy.dynamic.DynamicType;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.Optional;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 
-public class Map {
+public class Map implements Loggeable {
     List<Plot> mapPlots;
     List<Irrigation> irrigations;
 
@@ -44,10 +45,6 @@ public class Map {
                 plot.isIrrigatedIsTrue();
                 return true;
             }
-        }
-        if (plot.getPosition().isCloseToCenter()) {
-            plot.isIrrigatedIsTrue();
-            return true;
         }
         return false;
     }
@@ -100,22 +97,17 @@ public class Map {
         return plots;
     }
 
-    public int getDistanceBetweenPositions(Position position1, Position position2) {
-        int max = max(abs(position1.getQ() - position2.getQ()), abs(position1.getR() - position2.getR()));
-        return max(abs(position1.getS() - position2.getS()), max);
-    }
-
     public List<Position> getPathBetweenPositions(Position start, Position target) {
         List<Position> path = new ArrayList<>();
         path.add(target);
 
-        while (path.get(path.size() - 1).equals(start)) {
+        while ( !path.get(path.size() - 1).equals(start)) {
             Position bestNextPosition = null;
             int minDistance = -1;
             for (Position position : path.get(path.size() - 1).closestPositions()) {
-                if (findPlot(position) != null && (minDistance == -1 || getDistanceBetweenPositions(position, new Position(0, 0)) < minDistance)) {
+                if (findPlot(position) != null && (minDistance == -1 || position.getDistanceToPosition(new Position(0, 0)) < minDistance)) {
                     bestNextPosition = position;
-                    minDistance = getDistanceBetweenPositions(bestNextPosition, new Position(0, 0));
+                    minDistance = bestNextPosition.getDistanceToPosition(new Position(0, 0));
                 }
             }
             path.add(bestNextPosition);
@@ -126,18 +118,21 @@ public class Map {
     public Optional<List<List<Plot>>> checkIfPossibleToPlacePattern(Pattern pattern, Position position) {
         List<List<Plot>> potentialPatternSpots = new ArrayList<>();
         List<List<Plot>> potentialNonIrrigatedPlots = new ArrayList<>();
+
         Pattern tempPattern = new Pattern(pattern);
         for (Plot plot : pattern.getPlots()) {
             tempPattern.setAncerPoint(plot.getPosition());
             for (int i = 0; i < 5; i++) {
-                List<List<Plot>> result = computePatternVerification(tempPattern, position);
-                List<Plot> missingPlots = result.get(0);
-                List<Plot> nonIrrigatedPlots = result.get(1);
-                if (missingPlots.isEmpty() && nonIrrigatedPlots.isEmpty()) {
-                    return Optional.ofNullable(Arrays.asList(missingPlots, nonIrrigatedPlots));
-                } else {
-                    potentialPatternSpots.add(missingPlots);
-                    potentialNonIrrigatedPlots.add(nonIrrigatedPlots);
+                Optional<List<List<Plot>>> result = computePatternVerification(tempPattern, position);
+                if(result.isPresent()){
+                    List<Plot> missingPlots = result.get().get(0);
+                    List<Plot> nonIrrigatedPlots = result.get().get(1);
+                    if (missingPlots.isEmpty() && nonIrrigatedPlots.isEmpty()) {
+                        return Optional.ofNullable(Arrays.asList(missingPlots, nonIrrigatedPlots));
+                    } else {
+                        potentialPatternSpots.add(missingPlots);
+                        potentialNonIrrigatedPlots.add(nonIrrigatedPlots);
+                    }
                 }
                 tempPattern.rotate60Right();
             }
@@ -159,7 +154,7 @@ public class Map {
         return Optional.ofNullable(Arrays.asList(bestPatternSpot, bestNonIrrigatedSpots));
     }
 
-    public List<List<Plot>> computePatternVerification(Pattern pattern, Position currentPosition) {
+    public Optional<List<List<Plot>>> computePatternVerification(Pattern pattern, Position currentPosition) {
         Pattern tempPattern = new Pattern(pattern);
         tempPattern.applyMask(currentPosition);
         ArrayList<Plot> missingPlots = new ArrayList<>();
@@ -170,9 +165,11 @@ public class Map {
                 nonIrrigatedPlot.add(new Plot(plot.getType(), plot.getPosition()));
             } else if (plot.getType() == findPlot(plot.getPosition()).getType() && !findPlot(plot.getPosition()).isIrrigated()) {
                 nonIrrigatedPlot.add(new Plot(plot.getType(), plot.getPosition()));
+            }else if(plot.getType() != findPlot(plot.getPosition()).getType()){
+                return Optional.empty();
             }
         }
-        return Arrays.asList(missingPlots, nonIrrigatedPlot);
+        return Optional.ofNullable( Arrays.asList(missingPlots, nonIrrigatedPlot) );
     }
 
     public boolean putIrrigation(Irrigation irrigation) {
@@ -200,7 +197,7 @@ public class Map {
                 return true;
             }
         }
-        return irrigation.getPositions().get(0).isCloseToCenter() && irrigation.getPositions().get(1).isCloseToCenter();
+        return false;
     }
 
     public boolean irrigationExist(Irrigation irrigation) {

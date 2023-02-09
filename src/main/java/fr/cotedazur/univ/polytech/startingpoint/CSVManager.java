@@ -23,11 +23,9 @@ public class CSVManager {
         this.setData(botStatistiqueProfils);
         if(file.exists()){
             this.saveData(this.parseDataIfFileExist(getCSVFile(), nbDrawMatch));
-            System.out.println("caca");
         }
         else{
             this.createFileIfNotExist();
-            System.out.println(file.getAbsoluteFile());
             this.saveData(this.parseDataIfFileNotExist(nbDrawMatch));
         }
     }
