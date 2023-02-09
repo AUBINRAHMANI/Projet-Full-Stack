@@ -33,12 +33,12 @@ public class PutPlotAction implements Action {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return isActionPutPlot();
+        return ActionType.PUT_PLOT.equals(toType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isActionPutPlot());
+        return Objects.hash(toType());
     }
 
     @Override
@@ -46,36 +46,6 @@ public class PutPlotAction implements Action {
         return "PutPlotAction{" +
                 "_plot=" + plot +
                 '}';
-    }
-
-    @Override
-    public boolean isActionMoveGardener() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionMovePanda() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return true;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
     }
 
     @Override

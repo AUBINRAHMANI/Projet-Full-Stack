@@ -31,12 +31,12 @@ public class PickObjectiveAction implements Action {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return isActionPickObjective();
+        return ActionType.PICK_OBJECTIVE.equals(toType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isActionPickObjective());
+        return Objects.hash(toType());
     }
 
     @Override
@@ -44,36 +44,6 @@ public class PickObjectiveAction implements Action {
         return "PickObjectiveAction{" +
                 "bot=" + bot +
                 '}';
-    }
-
-    @Override
-    public boolean isActionMoveGardener() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionMovePanda() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return true;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
     }
 
     @Override

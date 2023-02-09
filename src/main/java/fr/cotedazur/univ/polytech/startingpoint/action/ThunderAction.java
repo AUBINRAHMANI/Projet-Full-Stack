@@ -30,12 +30,12 @@ public class ThunderAction implements Action {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return isActionThunder();
+        return ActionType.THUNDER.equals(toType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isActionThunder());
+        return Objects.hash(toType());
     }
 
     @Override
@@ -43,36 +43,6 @@ public class ThunderAction implements Action {
         return "ThunderAction{" +
                 "_position=" + position +
                 '}';
-    }
-
-    @Override
-    public boolean isActionMoveGardener() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionMovePanda() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return true;
     }
 
     @Override

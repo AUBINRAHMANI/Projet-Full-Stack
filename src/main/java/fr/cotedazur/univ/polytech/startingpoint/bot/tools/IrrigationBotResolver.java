@@ -38,25 +38,29 @@ public class IrrigationBotResolver {
                 }
             }
         }
-        return null;
+        return placeRandomIrrigation(banActionTypes);
     }
 
     private Action placeRandomIrrigation(List<ActionType> banActionTypes) {
-        for (Plot plot : map.getMapPlots()) {
-            if (!plot.isIrrigated()) {
-                Action action = tryPutIrrigationOnPosition(plot.getPosition());
-                if (action != null) return action;
+        if(!banActionTypes.contains(ActionType.PUT_IRRIGATION)) {
+            for (Plot plot : map.getMapPlots()) {
+                if (!plot.isIrrigated()) {
+                    Action action = tryPutIrrigationOnPosition(plot.getPosition());
+                    if (action != null) return action;
+                }
+            }
+            for (Plot plot : map.getMapPlots()) {
+                if (plot.isIrrigated()) {
+                    Action action = tryPutIrrigationOnPosition(plot.getPosition());
+                    if (action != null) return action;
+                }
             }
         }
-        for (Plot plot : map.getMapPlots()) {
-            if (plot.isIrrigated()) {
-                Action action = tryPutIrrigationOnPosition(plot.getPosition());
-                if (action != null) return action;
-            }
+        if(!banActionTypes.contains(ActionType.PUT_PLOT)) {
+            PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
+            return patternBotResolver.putRandomlyAPLot(PlotType.GREEN, banActionTypes);
         }
-
-        PatternBotResolver patternBotResolver = new PatternBotResolver(map, referee);
-        return patternBotResolver.putRandomlyAPLot(PlotType.GREEN, banActionTypes);
+        return null;
     }
 
     private Action tryPutIrrigationOnPosition(Position position) {

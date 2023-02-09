@@ -31,12 +31,12 @@ public class MoveGardenerAction implements Action {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return isActionMoveGardener();
+        return ActionType.MOVE_GARDENER.equals(toType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isActionMoveGardener());
+        return Objects.hash(toType());
     }
 
     @Override
@@ -44,36 +44,6 @@ public class MoveGardenerAction implements Action {
         return "MoveGardenerAction{" +
                 "_position=" + position +
                 '}';
-    }
-
-    @Override
-    public boolean isActionMoveGardener() {
-        return true;
-    }
-
-    @Override
-    public boolean isActionMovePanda() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
     }
 
     @Override

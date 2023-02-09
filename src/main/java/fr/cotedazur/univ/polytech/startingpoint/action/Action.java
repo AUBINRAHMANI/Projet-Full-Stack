@@ -14,18 +14,6 @@ public interface Action {
     boolean verifyObjectiveAfterAction(Referee referee, Map map);
 
     String toString();
-
-    boolean isActionMoveGardener();
-
-    boolean isActionMovePanda();
-
-    boolean isActionPutPlot();
-
-    boolean isActionPickObjective();
-
-    boolean isActionRain();
-
-    boolean isActionThunder();
     void incrementAction(StatisticManager statisticManager, Playable bot);
 
     Position getPosition();

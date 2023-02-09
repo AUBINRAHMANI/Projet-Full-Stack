@@ -33,13 +33,14 @@ public class PutIrrigationAction implements Action {
 
     @Override
     public boolean equals(Object o) {
-        return this == o;
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return ActionType.PUT_IRRIGATION.equals(toType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(false);
+        return Objects.hash(toType());
     }
 
     @Override
@@ -47,36 +48,6 @@ public class PutIrrigationAction implements Action {
         return "PutIrrigationAction{" +
                 "irrigation=" + irrigation +
                 '}';
-    }
-
-    @Override
-    public boolean isActionMoveGardener() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionMovePanda() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
     }
 
     @Override

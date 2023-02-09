@@ -29,12 +29,12 @@ public class RainAction implements Action {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return isActionRain();
+        return ActionType.RAIN.equals(toType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isActionRain());
+        return Objects.hash(toType());
     }
 
     @Override
@@ -42,36 +42,6 @@ public class RainAction implements Action {
         return "RainAction{" +
                 "_position=" + position +
                 '}';
-    }
-
-    @Override
-    public boolean isActionMoveGardener() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionMovePanda() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return true;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
     }
 
     @Override

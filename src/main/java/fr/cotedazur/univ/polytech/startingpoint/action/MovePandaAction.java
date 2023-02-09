@@ -34,36 +34,12 @@ public class MovePandaAction implements Action {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return isActionMovePanda();
+        return ActionType.MOVE_PANDA.equals(toType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isActionMovePanda());
-    }
-
-    public boolean isActionMovePanda() {
-        return true;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
+        return Objects.hash(toType());
     }
 
     @Override
@@ -81,11 +57,6 @@ public class MovePandaAction implements Action {
         return "MovePandaAction{" +
                 "_position=" + position +
                 '}';
-    }
-
-    @Override
-    public boolean isActionMoveGardener() {
-        return false;
     }
 
     public void incrementAction(StatisticManager statistiqueManager, Playable bot){

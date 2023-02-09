@@ -32,47 +32,6 @@ class RainActionTest {
         assertTrue(rainAction.verifyObjectiveAfterAction(mockedGame, null));
     }
 
-    @Test
-    void isActionMoveGardener() {
-        Position position = new Position(3,6);
-        RainAction rainAction = new RainAction(position);
-        assertFalse(rainAction.isActionMoveGardener());
-    }
-
-    @Test
-    void isActionMovePanda() {
-        Position position = new Position(3,6);
-        RainAction rainAction = new RainAction(position);
-        assertFalse(rainAction.isActionMovePanda());
-    }
-
-    @Test
-    void isActionPutPlot() {
-        Position position = new Position(3,6);
-        RainAction rainAction = new RainAction(position);
-        assertFalse(rainAction.isActionPutPlot());
-    }
-
-    @Test
-    void isActionPickObjective() {
-        Position position = new Position(3,6);
-        RainAction rainAction = new RainAction(position);
-        assertFalse(rainAction.isActionPickObjective());
-    }
-
-    @Test
-    void isActionRain() {
-        Position position = new Position(3,6);
-        RainAction rainAction = new RainAction(position);
-        assertTrue(rainAction.isActionRain());
-    }
-
-    @Test
-    void isActionThunder() {
-        Position position = new Position(3,6);
-        RainAction rainAction = new RainAction(position);
-        assertFalse(rainAction.isActionThunder());
-    }
 
     @Test
     void getPosition() {

@@ -6,7 +6,6 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
-import fr.cotedazur.univ.polytech.startingpoint.debug_interface.MapInterface;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectiveGardener;
@@ -27,7 +26,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
     Random random;
     GameEngine gameEngine;
     List<BotProfile> botProfiles;
-    MapInterface mapInterface;
     int nbActions;
     List<Action> previousActions;
     private int timeOutCounter;
@@ -44,13 +42,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
         for (BotProfile botProfile : this.botProfiles) {
             botProfile.getBot().setEnvironment(this, gameEngine.getMap());
-        }
-
-        if (debug) {
-            mapInterface = new MapInterface();
-            mapInterface.drawMap(gameEngine.getMap(), gameEngine.getGardenerPosition(), gameEngine.getPandaPosition());
-        } else {
-            mapInterface = null;
         }
     }
 
@@ -92,9 +83,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
             Action action = botProfile.getBot().play(banActionTypes, weather);
             LOGGER.finer(() -> "Action : " + action);
             if (action != null && !(banActionTypes.contains(action.toType()))) {
-                if (mapInterface != null) {
-                    while (!mapInterface.next()) ;
-                }
                 action.play(this, gameEngine);
                 banActionTypes.add(action.toType());
                 action.verifyObjectiveAfterAction(this, gameEngine.getMap());
