@@ -23,14 +23,16 @@ public class IrrigationBotResolver {
             return null;
         }
         List<Position> path = map.getPathBetweenPositions(new Position(0, 0), target);
-        for (int i = path.size() - 1; i > 0; --i) {
-            Plot plot = map.findPlot(path.get(i));
-            if (!plot.isIrrigated()) {
-                Action action = tryPutIrrigationOnPosition(path.get(i));
-                if (action != null) {
-                    return action;
+        if(path!=null) {
+            for (int i = path.size() - 1; i > 0; --i) {
+                Plot plot = map.findPlot(path.get(i));
+                if (!plot.isIrrigated()) {
+                    Action action = tryPutIrrigationOnPosition(path.get(i));
+                    if (action != null) {
+                        return action;
+                    }
+                    return tryPutIrrigationOnPosition(path.get(i + 1));
                 }
-                return tryPutIrrigationOnPosition(path.get(i + 1));
             }
         }
         return placeRandomIrrigation(banActionTypes);
