@@ -41,7 +41,7 @@ public class PatternBotResolver {
         return null;
     }
 
-    Action resolveMissingAndNonIrrigatedSpot(List<ActionType> banActionTypes, List<Plot> missingPlots, List<Plot> nonIrrigatedPlots){
+    private Action resolveMissingAndNonIrrigatedSpot(List<ActionType> banActionTypes, List<Plot> missingPlots, List<Plot> nonIrrigatedPlots){
         if (!banActionTypes.contains(ActionType.PUT_PLOT)) {
             for (Plot tempPlot : missingPlots) {
                 Position tempPlotPosition = tempPlot.getPosition();

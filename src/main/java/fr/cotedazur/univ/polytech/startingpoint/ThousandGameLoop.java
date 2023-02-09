@@ -16,7 +16,7 @@ public class ThousandGameLoop implements Loggeable {
 
         StatisticManager statisticManager = new StatisticManager();
         CSVManager csvManager = new CSVManager();
-        Loggeable.initLogger(Level.FINEST);
+        Loggeable.initLogger(Level.CONFIG);
 
         List<BotProfile> players = new ArrayList<>();
         BotProfile bob1 = new BotProfile(new BotSprint(), "Sprint");
@@ -37,6 +37,6 @@ public class ThousandGameLoop implements Loggeable {
         }
         Path path = Paths.get(".", "stats", "statistic.csv");
         csvManager.exportData(statisticManager.getBotsStatisticsProfiles(), statisticManager.getNbOfDrawGames(), path.toString());
-        //LOGGER.config(statisticManager.toString());
+        LOGGER.config(statisticManager.toString());
     }
 }

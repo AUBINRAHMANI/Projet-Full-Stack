@@ -20,7 +20,7 @@ import java.util.*;
 
 public class Game implements DeckSignal, Referee, Loggeable {
 
-    static final int MAX_NB_ROUND = 100;
+    static final int MAX_NB_ROUND = 70;
     static final int NB_OBJECTIVE_TO_FINISH = 9;
     static final int NB_ACTIONS_PER_ROUND = 2;
     private final StatisticManager statistiqueManager;

@@ -27,13 +27,14 @@ public class GardenerBotResolver {
         List<Plot> typeValid = getValidPlots(bambooType);
         List<Plot> typeAndMovementValid = getValidPlotsOnDirectLine(typeValid);
         Plot plotWithMaxBamboo = getPlotWithMaxBamboo(typeAndMovementValid);
-
-        if (plotWithMaxBamboo != null) {
-            return new MoveGardenerAction(plotWithMaxBamboo.getPosition());
-        } else if (!typeValid.isEmpty()) {
-            Plot nearestPlot = getNearestValidPlot(typeValid);
-            if (nearestPlot != null) {
-                return new MoveGardenerAction(nearestPlot.getPosition());
+        if(!banActionTypes.contains(ActionType.MOVE_GARDENER)) {
+            if (plotWithMaxBamboo != null) {
+                return new MoveGardenerAction(plotWithMaxBamboo.getPosition());
+            } else if (!typeValid.isEmpty()) {
+                Plot nearestPlot = getNearestValidPlotWithValidDisplacement(typeValid);
+                if (nearestPlot != null) {
+                    return new MoveGardenerAction(nearestPlot.getPosition());
+                }
             }
         }
 
@@ -47,7 +48,7 @@ public class GardenerBotResolver {
         return new PatternBotResolver(map, referee).putRandomlyAPLot(bambooType, banActionTypes);
     }
 
-    private Plot getNearestValidPlot(List<Plot> typeValid) {
+    private Plot getNearestValidPlotWithValidDisplacement(List<Plot> typeValid) {
         for (Plot plot : typeValid) {
             if(!map.getNeighbours(plot.getPosition()).isEmpty()) {
                 List<Plot> neighboursPlots = map.getNeighbours(plot.getPosition());
@@ -60,56 +61,6 @@ public class GardenerBotResolver {
         }
         return null;
     }
-
-    /* public Action fillObjectiveGardener(PlotType bambooType, List<ActionType> banActionTypes, WeatherType weather)
-    {
-        List<Plot> typeValid = new ArrayList<>();
-        List<Plot> typeAndMovementValid = new ArrayList<>();
-        int maxNbBamboo = 0;
-        int indexMaxNbBamboo = 0;
-
-        for (Plot plot : map.getMapPlots()) {
-            if (plot.isIrrigated() && plot.getNumberOfBamboo() < 4 && plot.getType() == bambooType) {
-                typeValid.add(plot);
-                if (weather == WeatherType.RAIN) {
-                    for (int i = 3; i > 0; i--) {
-                        if (plot.getNumberOfBambou() == i) {
-                            return new RainAction(plot.getPosition());
-                        }
-                    }
-                }
-                if (plot.getPosition().isDeplacementALine(referee.getGardenerPosition())) {
-                    typeAndMovementValid.add(plot);
-                }
-            }
-        }
-        if (!typeAndMovementValid.isEmpty()) {
-            for (int i = 0; i < typeAndMovementValid.size(); i++) {
-                int numberOfBamboo = typeAndMovementValid.get(i).getNumberOfBambou();
-                if (numberOfBamboo > maxNbBamboo) {
-                    maxNbBamboo = numberOfBamboo;
-                    indexMaxNbBamboo = i;
-                }
-            }
-            return new MoveGardenerAction(typeAndMovementValid.get(indexMaxNbBamboo).getPosition());
-        } else if (!typeValid.isEmpty()) {
-            for (Plot plot : typeValid) {
-                List<Plot> neighboursPlots = map.getNeighbours(plot.getPosition());
-                for (Plot neighboursPlot : neighboursPlots) {
-                    if (neighboursPlot.getPosition().isDeplacementALine(referee.getGardenerPosition())) {
-                        return new MoveGardenerAction(neighboursPlot.getPosition());
-                    }
-                    for (Plot neighboursOfNeighboursPlot : map.getNeighbours(neighboursPlot.getPosition())) {
-                        if (neighboursOfNeighboursPlot.getPosition().isDeplacementALine(referee.getGardenerPosition())) {
-                            return new MoveGardenerAction(neighboursOfNeighboursPlot.getPosition());
-                        }
-                    }
-                }
-            }
-        }
-
-        return new PatternBotResolver(map, referee).putRandomlyAPLot(bambouType, banActionTypes);
-    }*/
 
     private Plot getPlotWithMaxBamboo(List<Plot> typeAndMovementValid) {
         Plot plotWithMaxBamboo = null;
