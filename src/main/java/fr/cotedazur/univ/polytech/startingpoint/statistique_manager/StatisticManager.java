@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.statistique_manager;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
@@ -18,13 +18,13 @@ public class StatisticManager implements Loggeable {
         this.nbOfDrawGames = 0;
     }
 
-    public void addMatchNul() {
+    public void addDrawGame() {
         this.nbOfDrawGames += 1;
     }
 
-    public void initBotsStatisticsProfiles(List<BotProfil> botProfiles) {
-        for (BotProfil botProfil : botProfiles) {
-            botsStatisticsProfiles.add(new BotStatisticProfile(botProfil.getBot(), botProfil.getBotName()));
+    public void initBotsStatisticsProfiles(List<BotProfile> botProfiles) {
+        for (BotProfile botProfile : botProfiles) {
+            botsStatisticsProfiles.add(new BotStatisticProfile(botProfile.getBot(), botProfile.getBotName()));
         }
     }
 
@@ -36,7 +36,7 @@ public class StatisticManager implements Loggeable {
         }
     }
 
-    public void addTours() {
+    public void addRound() {
         for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
             botStatisticProfile.addNbOfRounds();
         }
@@ -51,13 +51,13 @@ public class StatisticManager implements Loggeable {
 
     }
 
-    public void addNumberOfGame() {
+    public void addGame() {
         for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
             botStatisticProfile.addNumberOfGames();
         }
     }
 
-    public int getMatchNul() {
+    public int getNbOfDrawGames() {
         return this.nbOfDrawGames;
     }
     public List<BotStatisticProfile> getBotsStatisticsProfiles() {

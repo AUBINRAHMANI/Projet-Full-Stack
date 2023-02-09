@@ -6,7 +6,7 @@ import fr.cotedazur.univ.polytech.startingpoint.PlotType;
 import fr.cotedazur.univ.polytech.startingpoint.WeatherType;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class ObjectiveGardener extends Objective {
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfil) {
         return false;
     }
 

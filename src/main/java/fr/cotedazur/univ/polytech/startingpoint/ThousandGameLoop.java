@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
@@ -18,9 +18,9 @@ public class ThousandGameLoop implements Loggeable {
         CSVManager csvManager = new CSVManager();
         Loggeable.initLogger(Level.CONFIG);
 
-        List<BotProfil> players = new ArrayList<>();
-        BotProfil bob1 = new BotProfil(new BotSprint(), "Sprint");
-        BotProfil bob2 = new BotProfil(new BotSprint(), "Mbappe");
+        List<BotProfile> players = new ArrayList<>();
+        BotProfile bob1 = new BotProfile(new BotSprint(), "Sprint");
+        BotProfile bob2 = new BotProfile(new BotSprint(), "Mbappe");
         players.add(bob1);
         players.add(bob2);
 
@@ -31,12 +31,12 @@ public class ThousandGameLoop implements Loggeable {
             Game game = new Game(statisticManager, players, false);
             game.start();
 
-            for (BotProfil botProfil : players) {
+            for (BotProfile botProfil : players) {
                 botProfil.resetPoints();
             }
         }
         Path path = Paths.get(".", "stats", "statistic.csv");
-        csvManager.exportData(statisticManager.getBotsStatisticsProfiles(), statisticManager.getMatchNul(), path.toString());
+        csvManager.exportData(statisticManager.getBotsStatisticsProfiles(), statisticManager.getNbOfDrawGames(), path.toString());
         //LOGGER.config(statisticManager.toString());
     }
 }

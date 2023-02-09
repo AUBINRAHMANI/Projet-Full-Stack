@@ -6,20 +6,20 @@ import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BotProfil {
+public class BotProfile {
 
     private final Playable bot;
     String botName;
     private List<Objective> objectives;
-    private List<Bamboo> bambous;
+    private List<Bamboo> bamboos;
     private int points;
     private int nbCompletedObjective;
 
-    public BotProfil(Playable bot, String botName) {
+    public BotProfile(Playable bot, String botName) {
         this.bot = bot;
         this.botName = botName;
         objectives = new ArrayList<>();
-        bambous = new ArrayList<>();
+        bamboos = new ArrayList<>();
         points = 0;
         nbCompletedObjective = 0;
     }
@@ -39,7 +39,7 @@ public class BotProfil {
     public void resetPoints() {
         points = 0;
         nbCompletedObjective = 0;
-        bambous = new ArrayList<>();
+        bamboos = new ArrayList<>();
         objectives = new ArrayList<>();
     }
 
@@ -60,15 +60,15 @@ public class BotProfil {
         points += objective.getPoint();
     }
 
-    public void addBanbou(Bamboo bambou) {
-        bambous.add(bambou);
+    public void addBamboo(Bamboo bamboo) {
+        bamboos.add(bamboo);
     }
 
-    public List<Bamboo> getBambous() {
-        return bambous;
+    public List<Bamboo> getBamboos() {
+        return bamboos;
     }
 
-    public void setBambous(List<Bamboo> bambous) {
-        this.bambous = bambous;
+    public void setBamboos(List<Bamboo> bamboos) {
+        this.bamboos = bamboos;
     }
 }

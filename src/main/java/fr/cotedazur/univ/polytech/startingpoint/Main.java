@@ -3,12 +3,14 @@ package fr.cotedazur.univ.polytech.startingpoint;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,20 +45,23 @@ public class Main implements Loggeable {
     public static void main(String... argv) {
         Main main = new Main();
         StatisticManager statisticManager = new StatisticManager();
-        List<BotProfil> players = new ArrayList<>();
-        players.add(new BotProfil(new BotMbappe(), "bot 1"));
-        players.add(new BotProfil(new BotSprint(), "bot 2"));
+        CSVManager csvManager = new CSVManager();
+        List<BotProfile> players = new ArrayList<>();
+        players.add(new BotProfile(new BotMbappe(), "bot 1"));
+        players.add(new BotProfile(new BotSprint(), "bot 2"));
         statisticManager.initBotsStatisticsProfiles(players);
         JCommander.newBuilder().addObject(main).build().parse(argv);
 
         if (Boolean.TRUE.equals(main.getCSV())) {
             startNGame(statisticManager, players, Level.CONFIG, 10);
+            Path path = Paths.get(".", "stats", "statistic.csv");
+            csvManager.exportData(statisticManager.getBotsStatisticsProfiles(), statisticManager.getNbOfDrawGames(), path.toString());
         }
         else if (Boolean.TRUE.equals(main.getTwoThousandConfig())) {
             startNGame(statisticManager, players, Level.CONFIG, 2000);
         }
         else if (Boolean.TRUE.equals(main.getDemo())) {
-            startNGame(statisticManager, players, Level.WARNING, 1);
+            startNGame(statisticManager, players, Level.FINEST, 1);
         }
         else if (Boolean.TRUE.equals(main.getTwoThousand())) {
             startNGame(statisticManager, players, Level.WARNING, 2000);
@@ -86,13 +91,13 @@ public class Main implements Loggeable {
             startNGame(statisticManager, players, Level.FINEST, 2000);
         }
     }
-    private static void startNGame(StatisticManager statisticManager, List<BotProfil> players, Level level, int n) {
+    private static void startNGame(StatisticManager statisticManager, List<BotProfile> players, Level level, int n) {
         Loggeable.initLogger(level);
         for (int i = 0; i < n; ++i) {
             LOGGER.log(level, "Game {}", i);
             Game game = new Game(statisticManager, players, false);
             game.start();
-            for (BotProfil botProfil : players) {
+            for (BotProfile botProfil : players) {
                 botProfil.resetPoints();
             }
         }

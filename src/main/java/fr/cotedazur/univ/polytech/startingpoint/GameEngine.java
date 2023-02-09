@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
@@ -128,8 +128,8 @@ public class GameEngine implements Loggeable {
         }
     }
 
-    public boolean computeObjectivePanda(BotProfil botProfil, List<Bamboo> bamboosToHave) {
-        List<Bamboo> playerBamboos = new ArrayList<>(botProfil.getBambous());
+    public boolean computeObjectivePanda(BotProfile botProfil, List<Bamboo> bamboosToHave) {
+        List<Bamboo> playerBamboos = new ArrayList<>(botProfil.getBamboos());
         for (Bamboo bamboo : bamboosToHave) {
             if (playerBamboos.contains(bamboo)) {
                 playerBamboos.remove(bamboo);
@@ -137,7 +137,7 @@ public class GameEngine implements Loggeable {
                 return false;
             }
         }
-        botProfil.setBambous(playerBamboos);
+        botProfil.setBamboos(playerBamboos);
         return true;
     }
 

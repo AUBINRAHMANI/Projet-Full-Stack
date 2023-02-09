@@ -77,8 +77,8 @@ public class CSVManager implements Loggeable {
             statBot[1] = Integer.toString(botStatisticProfile.getNbVictories());
             statBot[2] = Integer.toString(botStatisticProfile.getNbDefeats());
             statBot[4] = Integer.toString(botStatisticProfile.getNbOfRounds());
-            statBot[5] = Integer.toString(botStatisticProfile.getNumberOfGames());
-            statBot[6] = Integer.toString(botStatisticProfile.getNbOfRounds()/botStatisticProfile.getNumberOfGames());
+            statBot[5] = Integer.toString(botStatisticProfile.getNbOfGames());
+            statBot[6] = Integer.toString(botStatisticProfile.getNbOfRounds()/botStatisticProfile.getNbOfGames());
             data.add(statBot);
         }
         data.get(1)[3] = Integer.toString(nbDrawMatch);
@@ -93,8 +93,8 @@ public class CSVManager implements Loggeable {
                     data.get(i)[1] = Integer.toString(Integer.parseInt(data.get(i)[1]) + botStatisticProfile.getNbVictories());
                     data.get(i)[2] = Integer.toString(Integer.parseInt(data.get(i)[2]) + botStatisticProfile.getNbDefeats());
                     data.get(i)[4] = Integer.toString(Integer.parseInt(data.get(i)[4]) + botStatisticProfile.getNbOfRounds());
-                    data.get(i)[5] = Integer.toString(Integer.parseInt(data.get(i)[5]) + botStatisticProfile.getNumberOfGames());
-                    data.get(i)[6] = Integer.toString((Integer.parseInt(data.get(i)[6]) + botStatisticProfile.getNbOfRounds())/botStatisticProfile.getNumberOfGames());
+                    data.get(i)[5] = Integer.toString(Integer.parseInt(data.get(i)[5]) + botStatisticProfile.getNbOfGames());
+                    data.get(i)[6] = Integer.toString((Integer.parseInt(data.get(i)[6]) + botStatisticProfile.getNbOfRounds())/botStatisticProfile.getNbOfGames());
                 }
             }
         }

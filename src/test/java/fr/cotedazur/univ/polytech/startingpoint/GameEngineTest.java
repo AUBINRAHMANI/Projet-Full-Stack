@@ -1,7 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfil;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
@@ -98,17 +98,17 @@ class GameEngineTest {
     void computeObjectivePanda() {
         GameEngine gameEngine = new GameEngine(null, null, null);
 
-        BotProfil botProfil = new BotProfil(new BotMbappe(null, null), "");
-        botProfil.addBanbou(new Bamboo(PlotType.GREEN));
+        BotProfile botProfil = new BotProfile(new BotMbappe(null, null), "");
+        botProfil.addBamboo(new Bamboo(PlotType.GREEN));
 
         ArrayList<Bamboo> bamboosObjective = new ArrayList<>();
         bamboosObjective.add(new Bamboo(PlotType.GREEN));
         bamboosObjective.add(new Bamboo(PlotType.GREEN));
 
         assertFalse(gameEngine.computeObjectivePanda(botProfil, bamboosObjective));
-        botProfil.addBanbou(new Bamboo(PlotType.GREEN));
+        botProfil.addBamboo(new Bamboo(PlotType.GREEN));
         assertTrue(gameEngine.computeObjectivePanda(botProfil, bamboosObjective));
-        assertTrue(botProfil.getBambous().isEmpty());
+        assertTrue(botProfil.getBamboos().isEmpty());
 
     }
 

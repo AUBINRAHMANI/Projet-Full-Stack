@@ -8,7 +8,6 @@ public class BotStatisticProfile {
     Playable bot;
     private int nbVictories;
     private int nbDefeats;
-
     private int nbOfRounds;
     private int nbOfGame;
 
@@ -58,13 +57,13 @@ public class BotStatisticProfile {
         return nbOfRounds;
     }
 
-    public int getNumberOfGames() {
+    public int getNbOfGames() {
         return nbOfGame;
     }
 
     public String toString() {
         return "Number of wins  " + this.getBotName() + ": " + this.getNbVictories() + "\n"
-                + "Number of rounds done : " + this.getNbOfRounds() + " for " + this.getNumberOfGames() + " games";
+                + "Number of rounds done : " + this.getNbOfRounds() + " for " + this.getNbOfGames() + " games";
 
     }
 }
