@@ -4,6 +4,7 @@ import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
 import java.util.Objects;
 
@@ -82,5 +83,9 @@ public class PickObjectiveAction implements Action {
     @Override
     public ActionType toType() {
         return ActionType.PICK_OBJECTIVE;
+    }
+
+    public void incrementAction(StatisticManager statistiqueManager, Playable bot){
+        statistiqueManager.incrementObjectiveAction(bot);
     }
 }

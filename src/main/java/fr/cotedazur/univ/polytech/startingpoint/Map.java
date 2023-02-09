@@ -128,7 +128,7 @@ public class Map implements Loggeable {
                     List<Plot> missingPlots = result.get().get(0);
                     List<Plot> nonIrrigatedPlots = result.get().get(1);
                     if (missingPlots.isEmpty() && nonIrrigatedPlots.isEmpty()) {
-                        return Optional.ofNullable(Arrays.asList(missingPlots, nonIrrigatedPlots));
+                        return Optional.of(Arrays.asList(missingPlots, nonIrrigatedPlots));
                     } else {
                         potentialPatternSpots.add(missingPlots);
                         potentialNonIrrigatedPlots.add(nonIrrigatedPlots);
@@ -151,7 +151,7 @@ public class Map implements Loggeable {
 
             }
         }
-        return Optional.ofNullable(Arrays.asList(bestPatternSpot, bestNonIrrigatedSpots));
+        return Optional.of(Arrays.asList(bestPatternSpot, bestNonIrrigatedSpots));
     }
 
     public Optional<List<List<Plot>>> computePatternVerification(Pattern pattern, Position currentPosition) {
@@ -169,7 +169,7 @@ public class Map implements Loggeable {
                 return Optional.empty();
             }
         }
-        return Optional.ofNullable( Arrays.asList(missingPlots, nonIrrigatedPlot) );
+        return Optional.of( Arrays.asList(missingPlots, nonIrrigatedPlot) );
     }
 
     public boolean putIrrigation(Irrigation irrigation) {

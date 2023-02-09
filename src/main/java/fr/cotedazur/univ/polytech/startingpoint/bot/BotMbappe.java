@@ -36,7 +36,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
 
 
     public Action play(List<ActionType> banActionTypes, WeatherType weather) {
-        this.myBambous = referee.getMyBambous(this);
+        this.myBambous = referee.getMyBamboos(this);
         List<Objective> objectives = referee.getMyObjectives(this);
         objectives.sort(Comparator.comparing(Objective::getPoint));
         if (objectives.isEmpty()) return pickObjective();

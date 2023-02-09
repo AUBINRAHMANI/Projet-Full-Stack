@@ -12,7 +12,7 @@ import java.util.List;
 public interface Referee {
     List<Objective> getMyObjectives(Playable bot);
 
-    List<Bamboo> getMyBambous(Playable bot);
+    List<Bamboo> getMyBamboos(Playable bot);
 
     Position getPandaPosition();
 
@@ -28,7 +28,7 @@ public interface Referee {
 
     List<Plot> pickPlot();
 
-    void addBamboutToBot(Playable bot, Bamboo bambou);
+    void addBambooToBot(Playable bot, Bamboo bambou);
 
     int getNumberOfPlayers();
 

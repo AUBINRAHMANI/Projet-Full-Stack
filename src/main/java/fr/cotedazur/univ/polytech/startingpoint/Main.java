@@ -17,30 +17,30 @@ import java.util.logging.Level;
 
 public class Main implements Loggeable {
     @Parameter(names = "--demo", description = "Demo 1 fois avec les logs précis")
-    private static final Boolean DEMO = false;
+    private Boolean DEMO = false;
     @Parameter(names = "--2thousand", description = "2* 1000 simulations")
-    private static final Boolean TWO_THOUSANDS = false;
+    private Boolean TWO_THOUSANDS = false;
     @Parameter(names = "--demo --warning", description = "seul les logs liés a des problemes sont affichés")
-    private static final Boolean DEMO_WARNING = false;
+    private Boolean DEMO_WARNING = false;
     @Parameter(names = "--demo --fine", description = "affiche les logs du resultat de la game ")
-    private static final Boolean DEMO_FINE = false;
+    private Boolean DEMO_FINE = false;
     @Parameter(names = "--demo --finer", description = "affiche les logs du resultat et objectif complété")
-    private static final Boolean DEMO_FINER = false;
+    private Boolean DEMO_FINER = false;
     @Parameter(names = "--demo --finest", description = "affiche tous les logs")
-    private static final Boolean DEMO_FINEST = false;
+    private Boolean DEMO_FINEST = false;
     @Parameter(names = "--2thousand --warning", description = "seul les logs liés a des problemes sont affichés")
-    private static final Boolean TWO_THOUSAND_WARNING = false;
+    private Boolean TWO_THOUSAND_WARNING = false;
     @Parameter(names = "--2thousand --fine", description = "affiche les logs du resultat de la game ")
-    private static final Boolean TWO_THOUSAND_FINE = false;
+    private Boolean TWO_THOUSAND_FINE = false;
     @Parameter(names = "--2thousand --finer", description = "affiche les logs du resultat et objectif complété")
-    private static final Boolean TWO_THOUSAND_FINER = false;
+    private Boolean TWO_THOUSAND_FINER = false;
     @Parameter(names = "--2thousand --finest", description = "affiche tous les logs")
-    private static final Boolean TWO_THOUSAND_FINEST = false;
+    private Boolean TWO_THOUSAND_FINEST = false;
     @Parameter(names = "--2thousand --config", description = "affiche le nombre de parties")
-    private static final Boolean TWO_THOUSAND_CONFIG = false;
+    private Boolean TWO_THOUSAND_CONFIG = false;
     @Parameter(names = "--csv", description = "Lancement d’une simulation à plusieurs parties")
 
-    private static final Boolean CSV = false;
+    private Boolean CSV = false;
 
     public static void main(String... argv) {
         Main main = new Main();
@@ -97,8 +97,8 @@ public class Main implements Loggeable {
             LOGGER.log(level, "Game {}", i);
             Game game = new Game(statisticManager, players, false);
             game.start();
-            for (BotProfile botProfil : players) {
-                botProfil.resetPoints();
+            for (BotProfile botProfile : players) {
+                botProfile.resetPoints();
             }
         }
     }

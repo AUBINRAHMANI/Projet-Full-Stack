@@ -8,6 +8,7 @@ import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
 import java.util.List;
 
@@ -39,6 +40,17 @@ public class ObjectivePanda extends Objective {
     public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather) {
         return bot.fillObjectivePanda(bambooSections, banActionTypes, weather);
     }
+
+    @Override
+    public void incrementationObjective(StatisticManager statistiqueManager, Playable bot) {
+        statistiqueManager.incrementNumberObjectivePanda(bot);
+    }
+
+    @Override
+    public void incrementationPointsObjective(StatisticManager statistiqueManager, Playable bot) {
+        statistiqueManager.incrementNumberPointsObjectivePanda(bot,this.getPoint());
+    }
+
 
     @Override
     public String toString() {
