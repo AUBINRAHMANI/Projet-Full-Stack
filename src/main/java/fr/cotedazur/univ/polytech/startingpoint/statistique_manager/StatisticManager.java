@@ -31,16 +31,16 @@ public class StatisticManager implements Loggeable {
         return this.nbOfDrawGames;
     }
 
-    public float percentageMatchNul(){
+    public float percentageMatchNul() {
         BotStatisticProfile bot = null;
-        float nombreDeMatch =0;
-        float percentage =0;
-        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles ){
+        float nombreDeMatch = 0;
+        float percentage = 0;
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
             bot = botStatisticProfile;
             nombreDeMatch = bot.getNbOfGames();
         }
 
-        percentage = ((this.getNbOfDrawGames()*100)/nombreDeMatch);
+        percentage = ((this.getNbOfDrawGames() * 100) / nombreDeMatch);
         return percentage;
     }
 
@@ -58,8 +58,8 @@ public class StatisticManager implements Loggeable {
         }
     }
 
-    public void addRound(){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
+    public void addRound() {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
             botStatisticProfile.addNbOfRounds();
         }
 
@@ -79,14 +79,13 @@ public class StatisticManager implements Loggeable {
         }
     }
 
-    public void addCoups(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void addCoups(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addNumberDealPerGames();
             }
         }
     }
-
 
 
     public List<BotStatisticProfile> getBotsStatisticsProfiles() {
@@ -95,78 +94,80 @@ public class StatisticManager implements Loggeable {
 
 
     public void incrementGardenerAction(Playable bot) {
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addDealMoveGardener();
             }
         }
     }
 
-    public void incrementPandaAction(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void incrementPandaAction(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addDealMovePanda();
             }
         }
     }
-    public void incrementObjectiveAction(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+
+    public void incrementObjectiveAction(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addDealPickObjective();
             }
         }
     }
 
-    public void incrementIrrigationAction(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void incrementIrrigationAction(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addDealPutIrrigation();
             }
         }
     }
 
-    public void incrementPlotAction(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void incrementPlotAction(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addDealPutPlot();
             }
         }
     }
 
-    public void incrementRainAction(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void incrementRainAction(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addDealRain();
             }
         }
     }
-    public void incrementThunderAction(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+
+    public void incrementThunderAction(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addDealThunder();
             }
         }
     }
 
-    public void incrementNumberObjectiveGardener(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void incrementNumberObjectiveGardener(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addObjectiveGardener();
             }
         }
     }
 
-    public void incrementNumberObjectivePanda(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void incrementNumberObjectivePanda(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addObjectivePanda();
             }
         }
     }
 
-    public void incrementNumberObjectivePlots(Playable bot){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot() == bot){
+    public void incrementNumberObjectivePlots(Playable bot) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addObjectivePlots();
             }
         }
@@ -178,25 +179,25 @@ public class StatisticManager implements Loggeable {
         }
     }
 
-    public void incrementNumberPointsObjectiveGardener(Playable bot, int points){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void incrementNumberPointsObjectiveGardener(Playable bot, int points) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addNumberPointsObjectiveGardener(points);
             }
         }
     }
 
-    public void incrementNumberPointsObjectivePanda(Playable bot, int points){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void incrementNumberPointsObjectivePanda(Playable bot, int points) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addNumberPointsObjectivePanda(points);
             }
         }
     }
 
-    public void incrementNumberPointsObjectivePlot(Playable bot,int points){
-        for(BotStatisticProfile botStatisticProfile : botsStatisticsProfiles){
-            if(botStatisticProfile.getBot()==bot){
+    public void incrementNumberPointsObjectivePlot(Playable bot, int points) {
+        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
+            if (botStatisticProfile.getBot() == bot) {
                 botStatisticProfile.addNumberPointsObjectivePlot(points);
             }
         }

@@ -14,6 +14,7 @@ public interface Action {
     boolean verifyObjectiveAfterAction(Referee referee, Map map);
 
     String toString();
+
     void incrementAction(StatisticManager statisticManager, Playable bot);
 
     Position getPosition();

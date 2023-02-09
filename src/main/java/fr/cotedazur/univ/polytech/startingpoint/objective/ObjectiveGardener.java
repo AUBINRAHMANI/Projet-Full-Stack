@@ -48,13 +48,13 @@ public class ObjectiveGardener extends Objective {
     }
 
     @Override
-    public void incrementationObjective(StatisticManager statistiqueManager, Playable bot){
+    public void incrementationObjective(StatisticManager statistiqueManager, Playable bot) {
         statistiqueManager.incrementNumberObjectiveGardener(bot);
     }
 
     @Override
     public void incrementationPointsObjective(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementNumberPointsObjectiveGardener(bot,this.getPoint());
+        statistiqueManager.incrementNumberPointsObjectiveGardener(bot, this.getPoint());
     }
 
     @Override

@@ -27,7 +27,7 @@ public class GardenerBotResolver {
         List<Plot> typeValid = getValidPlots(bambooType);
         List<Plot> typeAndMovementValid = getValidPlotsOnDirectLine(typeValid);
         Plot plotWithMaxBamboo = getPlotWithMaxBamboo(typeAndMovementValid);
-        if(!banActionTypes.contains(ActionType.MOVE_GARDENER)) {
+        if (!banActionTypes.contains(ActionType.MOVE_GARDENER)) {
             if (plotWithMaxBamboo != null) {
                 return new MoveGardenerAction(plotWithMaxBamboo.getPosition());
             } else if (!typeValid.isEmpty()) {
@@ -50,7 +50,7 @@ public class GardenerBotResolver {
 
     private Plot getNearestValidPlotWithValidDisplacement(List<Plot> typeValid) {
         for (Plot plot : typeValid) {
-            if(!map.getNeighbours(plot.getPosition()).isEmpty()) {
+            if (!map.getNeighbours(plot.getPosition()).isEmpty()) {
                 List<Plot> neighboursPlots = map.getNeighbours(plot.getPosition());
                 for (Plot neighboursPlot : neighboursPlots) {
                     if (neighboursPlot.getPosition().isMovementALine(referee.getGardenerPosition())) {

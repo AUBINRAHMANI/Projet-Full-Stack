@@ -1,6 +1,5 @@
 package fr.cotedazur.univ.polytech.startingpoint.game;
 
-import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
@@ -14,7 +13,10 @@ import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
 import java.security.SecureRandom;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 
 public class Game implements DeckSignal, Referee, Loggeable {
@@ -47,7 +49,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
 
     public void start() {
         do {
-            Long startTime = System.currentTimeMillis();
             ++timeOutCounter;
             statisticManager.addRound();
             for (BotProfile botProfile : botProfiles) {
@@ -171,9 +172,9 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     validatedObjective.add(objective);
                     botProfile.setObjectiveCompleted(objective);
                     timeOutCounter = 0;
-                    LOGGER.finer(()-> "L'objectif suivant a été validé : " + objective);
-                    LOGGER.finer(()-> botName + " gagne " + objective.getPoint() + " points");
-                    LOGGER.finer(()-> "Le score de " + botName + " = " + botProfile.getPoints() + " points");
+                    LOGGER.finer(() -> "L'objectif suivant a été validé : " + objective);
+                    LOGGER.finer(() -> botName + " gagne " + objective.getPoint() + " points");
+                    LOGGER.finer(() -> "Le score de " + botName + " = " + botProfile.getPoints() + " points");
                     logValidatedObjective(objective, botName, botProfile);
                     objective.incrementationObjective(statisticManager, botProfile.getBot());
                     objective.incrementationPointsObjective(statisticManager, botProfile.getBot());
@@ -224,7 +225,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     validatedObjective.add(objective);
                     botProfile.setObjectiveCompleted(objective);
                     logValidatedObjective(objective, botName, botProfile);
-                    objective.incrementationObjective(statisticManager,botProfile.getBot());
+                    objective.incrementationObjective(statisticManager, botProfile.getBot());
                     objective.incrementationPointsObjective(statisticManager, botProfile.getBot());
                 }
             }

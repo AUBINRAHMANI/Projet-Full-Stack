@@ -7,8 +7,8 @@ import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,7 +39,7 @@ class MovePandaActionTest {
     void getPosition() {
         Position position = new Position(2, 1);
         MovePandaAction movePandaAction = new MovePandaAction(null, position);
-        assertEquals(movePandaAction.getPosition(),position);
+        assertEquals(movePandaAction.getPosition(), position);
     }
 
     @Test
@@ -50,9 +50,9 @@ class MovePandaActionTest {
     }
 
     @Test
-    void equals(){
-        Action action1 = new MovePandaAction(new BotMbappe(), new Position(1,0) );
-        Action action2 = new MovePandaAction(null, new Position(3,0) );
+    void equals() {
+        Action action1 = new MovePandaAction(new BotMbappe(), new Position(1, 0));
+        Action action2 = new MovePandaAction(null, new Position(3, 0));
         assertEquals(action1, action2);
     }
 }

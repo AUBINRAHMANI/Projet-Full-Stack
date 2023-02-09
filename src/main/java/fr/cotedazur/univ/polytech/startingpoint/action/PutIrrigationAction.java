@@ -8,8 +8,6 @@ import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
-
-
 import java.util.Objects;
 
 public class PutIrrigationAction implements Action {
@@ -60,7 +58,7 @@ public class PutIrrigationAction implements Action {
         return ActionType.PUT_IRRIGATION;
     }
 
-    public void incrementAction(StatisticManager statistiqueManager, Playable bot){
+    public void incrementAction(StatisticManager statistiqueManager, Playable bot) {
         statistiqueManager.incrementIrrigationAction(bot);
     }
 }

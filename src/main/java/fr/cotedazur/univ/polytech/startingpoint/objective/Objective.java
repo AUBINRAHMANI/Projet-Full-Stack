@@ -23,8 +23,8 @@ public abstract class Objective {
         return points;
     }
 
-    public void resetPoint(){
-        this.points=0;
+    public void resetPoint() {
+        this.points = 0;
     }
 
     public abstract boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot);
