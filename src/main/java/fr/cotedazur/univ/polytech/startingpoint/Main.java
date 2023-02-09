@@ -95,7 +95,7 @@ public class Main implements Loggeable {
         Loggeable.initLogger(level);
         for (int i = 0; i < n; ++i) {
             LOGGER.log(level, "Game {}", i);
-            Game game = new Game(statisticManager, players, false);
+            Game game = new Game(statisticManager, players);
             game.start();
             for (BotProfile botProfile : players) {
                 botProfile.resetPoints();

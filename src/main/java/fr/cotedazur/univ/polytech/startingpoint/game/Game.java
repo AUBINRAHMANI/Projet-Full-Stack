@@ -30,7 +30,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
     List<Action> previousActions;
     private int timeOutCounter;
 
-    public Game(StatisticManager statisticManager, List<BotProfile> botProfiles, boolean debug) {
+    public Game(StatisticManager statisticManager, List<BotProfile> botProfiles) {
         this.random = new SecureRandom();
         previousActions = new ArrayList<>();
         Deck<Objective> objectiveDeck = generateObjectiveDrawPile();
@@ -56,12 +56,10 @@ public class Game implements DeckSignal, Referee, Loggeable {
                 this.applyChangesDueToWeather(weather);
                 doActions(botProfile, nbActions, weather);
             }
-            Long delta = System.currentTimeMillis()-startTime;
         } while (!checkFinishingCondition());
         BotProfile winner = checkWinner();
         statisticManager.addGame();
         printWinner(winner);
-        //statistiqueManager.resetPointsObjective(); //trouver ou reset tout ca
     }
 
     private void saveAction(Action action) {

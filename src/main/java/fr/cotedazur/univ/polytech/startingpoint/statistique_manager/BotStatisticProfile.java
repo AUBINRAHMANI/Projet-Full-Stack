@@ -227,39 +227,23 @@ public class BotStatisticProfile {
 
     public float pourcentageWin(){
        float pourcentage=0;
-       pourcentage = ((float)this.getNbVictories() * 100)/(float)this.getNbOfGames();
+       pourcentage = ((float)this.getNbVictories() * 100)/ this.getNbOfGames();
        return pourcentage;
     }
 
     public float pourcentageDefeat(){
         float pourcentage =0;
-        pourcentage = ((float)(this.getNbDefeats()*100)/(float) this.getNbOfGames());
+        pourcentage = ((float)(this.getNbDefeats()*100)/ this.getNbOfGames());
         return pourcentage;
     }
 
     public float scoreAverage(){
         float average =0;
-        average = (float)this.getNumberTotalPoints() / (float)this.getNbOfGames();
+        average = (float)this.getNumberTotalPoints() / this.getNbOfGames();
         return average;
 
     }
-/* Pour le csv et des statistiques plus poussés
 
-    public String toString() {
-        return "Number of wins  " + this.getBotName() + ": " + this.getNbVictories() + "\n"
-                + "Number of rounds done : " + this.getNbOfRounds() + " for " + this.getNbOfGames() + " games \n"
-                + "ce qui fait une moyenne de : " + this.getNbOfRounds()/this.getNbOfGames() + " tours" + " \n" +
-                this.getBotName() + " a effectué " + this.getNumberDealParPartie() + " actions. Parmis ces actions il a choisi l'action de deplacer le jardinier  "
-                + this.getDealMoveGardener() + " fois" + ", l'action de deplacer le panda " + this.getDealMovePanda() +" fois, "
-                + "l'action de prendre un objectif " + this.getDealPickObjective() + " fois, l'action de poser une irrigation " + this.getDealPutIrrigation()
-                + " fois, l'action de poser une parcelle " + this.getDealPutPlot() + " fois, l'action de chosisir la pluie " +
-                this.getDealRain() + " fois , et enfin l'action de choisir le tonnerre " + this.getDealThunder() + " fois \n"
-                + this.getBotName() + " a completé " + this.getNumberObjectiveGardener() + " objectifs gardiens, ce qui lui a donné : "
-                + this.getNumberPointsObjectiveGardener() + " points, " + this.getNumberObjectivePanda() + " objectifs Panda ce qui lui a donné : "
-                +this.getNumberPointsObjectivePanda() + " points, et il a completé "  + this.getNumberObjectivePlots() + " objectifs Plot ce qui lui a donné : "
-                + this.getNumberPointsObjectivePlot() + " points ! \n";
-    }
- */
     public String toString(){
         return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + " pour  " + this.getNbOfGames() + " parties. Soit " + this.pourcentageWin() + "% de victoire. \n"
                 + "Nombre de defaite : " + this.getNbDefeats() + " pour " + this.getNbOfGames() + " parties. Soit " + this.pourcentageDefeat() + " % de defaites." +

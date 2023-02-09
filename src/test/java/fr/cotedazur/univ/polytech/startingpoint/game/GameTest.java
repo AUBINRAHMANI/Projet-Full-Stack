@@ -27,7 +27,7 @@ class GameTest {
         players.add(bob1);
         players.add(bob2);
         statisticManager.initBotsStatisticsProfiles(players);
-        Game game = new Game(statisticManager, players, false);
+        Game game = new Game(statisticManager, players);
         game.start();
         if (game.checkWinner() == null) {
             assertEquals(1, statisticManager.getNbOfDrawGames());
@@ -53,7 +53,7 @@ class GameTest {
         players.add(bob1);
         players.add(bob2);
         statisticManager.initBotsStatisticsProfiles(players);
-        Game game = new Game(statisticManager, players, false);
+        Game game = new Game(statisticManager, players);
         game.start();
         assertTrue(game.getPreviousActions() != null);
     }

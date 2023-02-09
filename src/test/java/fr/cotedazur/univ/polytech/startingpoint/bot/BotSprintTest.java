@@ -44,21 +44,4 @@ class BotSprintTest {
        resutl = botSprint.play(List.of(), WeatherType.QUESTIONMARK);
        //assertEquals(ActionType.PUT_IRRIGATION, resutl.toType());
     }
-
-    @Test
-    void tryToFillObjective() {
-    }
-
-    @Test
-    void fillObjectiveGardener() {
-
-    }
-
-    @Test
-    void fillObjectivePanda() {
-    }
-
-    @Test
-    void fillObjectivePlots() {
-    }
 }
