@@ -111,9 +111,8 @@ public class CSVManager implements Loggeable {
         return new ArrayList<>(data);
     }
 
-    public void createFileAndDirectoryIfNotExist(){
+    public boolean createFileAndDirectoryIfNotExist(){
         Path path = Paths.get(this.file.toPath().getName(1).toUri());
-        if(!this.file.exists() && !this.file.isDirectory()){
             try {
                 Files.createDirectories(path);
                 if(!this.file.createNewFile()){
@@ -122,12 +121,14 @@ public class CSVManager implements Loggeable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+            if(this.file.exists()){
+                return true;
+            }
+        return false;
     }
 
     public void saveData(List<String[]> data){
         try {
-
             CSVWriter writer = new CSVWriter(new FileWriter(this.file, false));
             for(String[] line : data){
                 writer.writeNext(line);
