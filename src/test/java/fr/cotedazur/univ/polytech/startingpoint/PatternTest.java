@@ -138,7 +138,7 @@ class PatternTest {
     }
 
     @Test
-    void setAncerPoint() {
+    void setAnchorPoint() {
         ArrayList<Plot> plots = new ArrayList<>();
         plots.add(new Plot(PlotType.GREEN, new Position(-1, 1)));
         plots.add(new Plot(PlotType.GREEN, new Position(0, 0)));

@@ -171,7 +171,7 @@ class MapTest implements Loggeable {
         pattern = new Pattern(plots);
 
         Optional<List<List<Plot>>> result2 = map.computePatternVerification(pattern, plots.get(1).getPosition());
-        assertTrue(!result2.isPresent());
+        assertTrue(result2.isEmpty());
 
     }
 
