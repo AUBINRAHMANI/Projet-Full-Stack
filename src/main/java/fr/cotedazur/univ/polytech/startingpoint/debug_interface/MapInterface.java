@@ -23,9 +23,13 @@ public class MapInterface extends JFrame {
     private static final List<Color> colorsToAdd = new ArrayList<>();
     private static Position center;
     private final GPanel panel;
+    public Position gardenerPosition;
+    public Position pandaPosition;
     volatile boolean next;
 
     public MapInterface() {
+        gardenerPosition = new Position(0,0);
+        pandaPosition = new Position(0,0);
         setSize(960, 540);
         next = false;
         updateSize();
@@ -53,11 +57,22 @@ public class MapInterface extends JFrame {
         setVisible(true);
     }
 
+    public boolean next(){
+        if(next){
+            next=false;
+            return true;
+        }
+        return false;
+    }
+
     public void updateSize() {
         center = new Position(getWidth() / 2, (int) (getHeight() / 2.7));
     }
 
     public void drawMap(Map map, Position newGardenerPosition, Position newPandaPosition) {
+        gardenerPosition  = newGardenerPosition;
+        pandaPosition = newPandaPosition;
+
         List<Plot> plots = map.getMapPlots();
         List<Plot> plotsToRemove = new ArrayList<>();
         for (Plot plot1 : plots) {
@@ -75,7 +90,7 @@ public class MapInterface extends JFrame {
             drawHexagon(plot);
             plotsDrawn.add(new Plot(plot));
         }
-        panel.paintComponent(getGraphics(), newGardenerPosition, newPandaPosition);
+        paintComponents(getGraphics());
         repaint();
     }
 
@@ -104,7 +119,7 @@ public class MapInterface extends JFrame {
     private class GPanel extends JPanel {
 
 
-        public void paintComponent(Graphics graphics, Position gardenerPosition, Position pandaPosition) {
+        public void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
             updateSize();
             // new Color(0, 115,255, 163)

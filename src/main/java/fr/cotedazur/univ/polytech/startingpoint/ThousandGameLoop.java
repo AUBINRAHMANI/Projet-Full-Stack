@@ -16,7 +16,7 @@ public class ThousandGameLoop implements Loggeable {
 
         StatisticManager statisticManager = new StatisticManager();
         CSVManager csvManager = new CSVManager();
-        Loggeable.initLogger(Level.CONFIG);
+        Loggeable.initLogger(Level.FINEST);
 
         List<BotProfile> players = new ArrayList<>();
         BotProfile bob1 = new BotProfile(new BotSprint(), "Sprint");
@@ -26,8 +26,8 @@ public class ThousandGameLoop implements Loggeable {
 
         statisticManager.initBotsStatisticsProfiles(players);
 
-        for (int i = 0; i < 100; ++i) {
-            LOGGER.log(Level.CONFIG , "Game {}", i);
+        for (int i = 0; i < 1000; ++i) {
+            LOGGER.log(Level.CONFIG , "Game {0}", i);
             Game game = new Game(statisticManager, players, false);
             game.start();
 

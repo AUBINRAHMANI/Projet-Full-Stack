@@ -1,12 +1,16 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MapTest {
+class MapTest implements Loggeable {
 
     @Test
     void putPlot() {
@@ -127,36 +131,48 @@ class MapTest {
     @Test
     void computePatternVerification() {
         ArrayList<Plot> plots = new ArrayList<>();
-        plots.add(new Plot(PlotType.GREEN, new Position(-1, 1)));
-        plots.add(new Plot(PlotType.GREEN, new Position(0, 0)));
-        plots.add(new Plot(PlotType.GREEN, new Position(1, 0)));
-        plots.add(new Plot(PlotType.GREEN, new Position(1, 1)));
+        plots.add(new Plot(PlotType.GREEN, new Position(0, 1)));
+        plots.add(new Plot(PlotType.POND, new Position(0, 0)));
+        plots.add(new Plot(PlotType.GREEN, new Position(1, 2)));
+        plots.add(new Plot(PlotType.RED, new Position(1, 1)));
         for (Plot plot : plots) {
             plot.isIrrigatedIsTrue();
         }
-
         Pattern pattern = new Pattern(plots);
-        Plot currentPlot = new Plot(PlotType.GREEN, new Position(0, 0));
+
+        List<List<Plot>> result;
 
         ArrayList<Plot> plotsInMap = new ArrayList<>();
-        plotsInMap.add(new Plot(PlotType.GREEN, new Position(1, 1)));
-        plotsInMap.add(new Plot(PlotType.GREEN, new Position(1, 0)));
-        plotsInMap.add(currentPlot);
+        plotsInMap.add(new Plot(PlotType.RED, new Position(1, 1)));
+        plotsInMap.add(new Plot(PlotType.GREEN, new Position(0, 1)));
 
         Map map = new Map();
         for (Plot plot : plotsInMap) {
-            plot.isIrrigatedIsTrue();
             map.putPlot(plot);
         }
 
-        Plot lastPlot = new Plot(PlotType.GREEN, new Position(-1, 1));
+        Plot lastPlot = new Plot(PlotType.GREEN, new Position(1, 2));
+        result = map.computePatternVerification(pattern, plots.get(1).getPosition()).get();
+        assertTrue(result.get(0).contains(lastPlot));
+        assertTrue(result.get(1).contains(lastPlot));
 
-        assertTrue(map.computePatternVerification(pattern, new Position(0, 0)).get(0).contains(lastPlot));
+        map.putPlot(lastPlot);
+        result = map.computePatternVerification(pattern, plots.get(1).getPosition()).get();
+        assertTrue(result.get(0).isEmpty());
+        assertTrue(result.get(1).contains(lastPlot));
 
         lastPlot.isIrrigatedIsTrue();
-        map.putPlot(lastPlot);
-        assertTrue(map.computePatternVerification(pattern, currentPlot.getPosition()).get(0).isEmpty());
-        assertTrue(map.computePatternVerification(pattern, currentPlot.getPosition()).get(1).isEmpty());
+
+        result = map.computePatternVerification(pattern, plots.get(1).getPosition()).get();
+        assertTrue(result.get(0).isEmpty());
+        assertTrue(result.get(1).isEmpty());
+
+        plots.set(0, new Plot(PlotType.YELLOW, new Position(0,1)));
+        pattern = new Pattern(plots);
+
+        Optional<List<List<Plot>>> result2 = map.computePatternVerification(pattern, plots.get(1).getPosition());
+        assertTrue(!result2.isPresent());
+
     }
 
     @Test
@@ -184,6 +200,85 @@ class MapTest {
 
         assertTrue(map.isIrrigationLinked(irrigation1));
         assertFalse(map.isIrrigationLinked(irrigation2));
+    }
+
+    @Test
+    void checkIfPossibleToPlacePattern(){
+        Map map = new Map();
+        ArrayList<Plot> plots = new ArrayList<>();
+        plots.add(new Plot( PlotType.POND, new Position(0,0)));
+        plots.add(new Plot( PlotType.RED, new Position(1,0)));
+        plots.add(new Plot( PlotType.YELLOW, new Position(0,1)));
+        plots.add(new Plot( PlotType.YELLOW, new Position(2,0)));
+
+        Pattern pattern = new Pattern(plots);
+
+        List<List<Plot>> plots2 = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition()).get();
+        assertEquals(3 ,plots2.get(0).size());
+        assertEquals(3 ,plots2.get(1).size());
+
+        map.putPlot(plots.get(1));
+
+        plots2 = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition()).get();
+        assertEquals(2 ,plots2.get(0).size());
+        assertEquals(2 ,plots2.get(1).size());
+
+        map.putPlot(plots.get(2));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1,1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1,2)));
+        map.putPlot(plots.get(3));
+
+        plots2 = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition()).get();
+        assertEquals(0 ,plots2.get(0).size());
+        assertEquals(1 ,plots2.get(1).size());
+
+        plots.set(0, new Plot( PlotType.YELLOW, new Position(0,0)));
+        pattern = new Pattern(pattern);
+
+        for(int i=-5; i<5 ; ++i){
+            for(int j=-5; j<5 ; ++j){
+                map.putPlot(new Plot(PlotType.RED, new Position(i,j)));
+            }
+        }
+        Optional<List<List<Plot>>> result = map.checkIfPossibleToPlacePattern(pattern, plots.get(0).getPosition());
+        assertFalse(result.isPresent());
+
+    }
+
+    @Test
+    void getPathBetweenPositions(){
+        Map map = new Map();
+        map.putPlot(new Plot(PlotType.GREEN, new Position(0,1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1,1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1,2)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(2,1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(2,2)));
+
+        List<Position> result = map.getPathBetweenPositions(new Position(0,0), new Position(2,2));
+
+        List<Position> expected = new ArrayList<>();
+        expected.add(new Position(0,0));
+        expected.add(new Position(1,1));
+        expected.add(new Position(2,1));
+        expected.add(new Position(2,2));
+
+        assertTrue(result.containsAll(expected));
+    }
+
+    @Test
+    void irrigationExist(){
+        Map map = new Map();
+        Irrigation irrigation = new Irrigation(new Position(0,1), new Position(1,1));
+
+        map.putIrrigation(irrigation);
+        assertFalse(map.irrigationExist(irrigation));
+
+        map.putPlot(new Plot(PlotType.GREEN, new Position(0,1)));
+        map.putPlot(new Plot(PlotType.GREEN, new Position(1,1)));
+
+        map.putIrrigation(irrigation);
+        assertTrue(map.irrigationExist(irrigation));
+
     }
 
 }

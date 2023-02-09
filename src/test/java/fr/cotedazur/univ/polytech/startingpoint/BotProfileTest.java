@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
 import org.junit.jupiter.api.Test;
@@ -53,5 +54,18 @@ class BotProfileTest {
         Bamboo bamboo = new Bamboo(PlotType.GREEN);
         botProfil.addBamboo(bamboo);
         assertEquals(bamboo, botProfil.getBamboos().get(0));
+    }
+
+    @Test
+    void resetPoints(){
+        BotProfile botProfil = new BotProfile(null, "");
+        botProfil.setObjectiveCompleted(new ObjectivePlots(3, new Pattern()));
+        assertEquals(3, botProfil.getPoints());
+        assertEquals(1, botProfil.getNbCompletedObjective());
+
+        botProfil.resetPoints();
+
+        assertEquals(0, botProfil.getPoints());
+        assertEquals(0, botProfil.getNbCompletedObjective());
     }
 }

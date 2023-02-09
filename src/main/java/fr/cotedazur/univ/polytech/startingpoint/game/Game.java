@@ -69,9 +69,6 @@ public class Game implements DeckSignal, Referee, Loggeable {
                 LOGGER.finest("Tour de " + botProfil.getBotName() + " : ");
                 this.applyChangesDueToWeather(weather);
                 doActions(botProfil, nbActions, weather);
-                if (mapInterface != null) {
-                    mapInterface.drawMap(gameEngine.getMap(), gameEngine.getGardenerPosition(), gameEngine.getPandaPosition());
-                }
             }
             LOGGER.finest(() -> "Nombre de tours :" + this.nombreObjectifNull);
         } while (!checkFinishingCondition());
@@ -102,10 +99,16 @@ public class Game implements DeckSignal, Referee, Loggeable {
             Action action = botProfil.getBot().play(banActionTypes, weather);
             LOGGER.finer(() -> "Action : " + action);
             if (action != null && !(banActionTypes.contains(action.toType()))) {
+                if(mapInterface!=null) {
+                    while (mapInterface.next() == false) ;
+                }
                 action.play(this, gameEngine);
                 banActionTypes.add(action.toType());
                 action.verifyObjectiveAfterAction(this);
                 saveAction(action);
+                if(mapInterface!=null){
+                    mapInterface.drawMap(gameEngine.getMap(), gameEngine.getGardenerPosition(), gameEngine.getPandaPosition());
+                }
             }
         }
     }

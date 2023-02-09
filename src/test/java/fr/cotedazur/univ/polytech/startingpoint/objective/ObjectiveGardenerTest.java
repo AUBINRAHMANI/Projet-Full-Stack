@@ -13,7 +13,6 @@ class ObjectiveGardenerTest {
 
     @Mock
     GameEngine mockedGameEngine = mock(GameEngine.class);
-
     @Test
     void verifyPlotObj() {
         assertFalse(new ObjectiveGardener(0, 0, null, false, 0).verifyPlotObj(null, null));

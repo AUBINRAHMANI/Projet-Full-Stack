@@ -175,4 +175,12 @@ class PositionTest {
         assertTrue(position1.isCloseTo(position2));
         assertFalse(position1.isCloseTo(position3));
     }
+
+
+    @Test
+    void getDistanceBetweenPositions(){
+        Position position1 = new Position(0,0);
+        Position position2 = new Position(1,2);
+        assertEquals(2, position1.getDistanceToPosition(position2));
+    }
 }
