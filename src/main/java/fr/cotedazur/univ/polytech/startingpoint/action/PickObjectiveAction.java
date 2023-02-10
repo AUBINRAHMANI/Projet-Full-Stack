@@ -56,7 +56,7 @@ public class PickObjectiveAction implements Action {
         return ActionType.PICK_OBJECTIVE;
     }
 
-    public void incrementAction(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementObjectiveAction(bot);
+    public void incrementAction(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementObjectiveAction(bot);
     }
 }

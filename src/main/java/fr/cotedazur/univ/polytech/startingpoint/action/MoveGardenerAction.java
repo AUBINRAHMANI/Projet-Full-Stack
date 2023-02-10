@@ -57,7 +57,7 @@ public class MoveGardenerAction implements Action {
     }
 
     @Override
-    public void incrementAction(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementGardenerAction(bot);
+    public void incrementAction(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementGardenerAction(bot);
     }
 }

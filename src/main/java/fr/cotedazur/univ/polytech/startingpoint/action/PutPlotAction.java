@@ -58,7 +58,7 @@ public class PutPlotAction implements Action {
         return ActionType.PUT_PLOT;
     }
 
-    public void incrementAction(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementPlotAction(bot);
+    public void incrementAction(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementPlotAction(bot);
     }
 }

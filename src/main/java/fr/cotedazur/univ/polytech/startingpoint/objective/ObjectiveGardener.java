@@ -38,7 +38,7 @@ public class ObjectiveGardener extends Objective {
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfil) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfile) {
         return false;
     }
 
@@ -48,13 +48,13 @@ public class ObjectiveGardener extends Objective {
     }
 
     @Override
-    public void incrementationObjective(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementNumberObjectiveGardener(bot);
+    public void incrementationObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberObjectiveGardener(bot);
     }
 
     @Override
-    public void incrementationPointsObjective(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementNumberPointsObjectiveGardener(bot, this.getPoint());
+    public void incrementationPointsObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberPointsObjectiveGardener(bot, this.getPoint());
     }
 
     @Override

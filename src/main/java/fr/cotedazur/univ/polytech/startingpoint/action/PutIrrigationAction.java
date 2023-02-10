@@ -58,7 +58,7 @@ public class PutIrrigationAction implements Action {
         return ActionType.PUT_IRRIGATION;
     }
 
-    public void incrementAction(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementIrrigationAction(bot);
+    public void incrementAction(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementIrrigationAction(bot);
     }
 }

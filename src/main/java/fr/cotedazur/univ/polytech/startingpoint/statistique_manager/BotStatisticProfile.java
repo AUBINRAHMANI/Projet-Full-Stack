@@ -10,7 +10,7 @@ public class BotStatisticProfile {
     private int nbDefeats;
     private int nbOfRounds;
     private int nbOfGame;
-    private int numberDealParPartie;
+    private int nbOfActionPerGame;
 
     private int numberDealMoveGardener;
 
@@ -47,7 +47,7 @@ public class BotStatisticProfile {
         this.nbDefeats = 0;
         this.nbOfRounds = 0;
         this.nbOfGame = 0;
-        this.numberDealParPartie = 0;
+        this.nbOfActionPerGame = 0;
         this.numberDealMoveGardener = 0;
         this.numberDealMovePanda = 0;
         this.numberDealPickObjective = 0;
@@ -81,7 +81,7 @@ public class BotStatisticProfile {
     }
 
     public void addNumberDealPerGames() {
-        ++numberDealParPartie;
+        ++nbOfActionPerGame;
     }
 
     public void addDealMoveGardener() {
@@ -161,8 +161,8 @@ public class BotStatisticProfile {
         return nbOfGame;
     }
 
-    public int getNumberDealParPartie() {
-        return numberDealParPartie;
+    public int getNbOfActionsPerGame() {
+        return nbOfActionPerGame;
     }
 
     public int getDealMoveGardener() {
@@ -223,36 +223,29 @@ public class BotStatisticProfile {
         return numberTotalPoints;
     }
 
-    public void resetNumberPointsObjective() {
-        this.numberPointsObjectivePlot = 0;
-        this.numberPointsObjectivePanda = 0;
-        this.numberPointsObjectiveGardener = 0;
-
+    public float percentageWin() {
+        float percentage;
+        percentage = ((float) this.getNbVictories() * 100) / this.getNbOfGames();
+        return percentage;
     }
 
-    public float pourcentageWin() {
-        float pourcentage = 0;
-        pourcentage = ((float) this.getNbVictories() * 100) / this.getNbOfGames();
-        return pourcentage;
-    }
-
-    public float pourcentageDefeat() {
-        float pourcentage = 0;
-        pourcentage = ((float) (this.getNbDefeats() * 100) / this.getNbOfGames());
-        return pourcentage;
+    public float percentageDefeat() {
+        float percentage;
+        percentage = ((float) (this.getNbDefeats() * 100) / this.getNbOfGames());
+        return percentage;
     }
 
     public float scoreAverage() {
-        float average = 0;
+        float average;
         average = (float) this.getNumberTotalPoints() / this.getNbOfGames();
         return average;
 
     }
 
     public String toString() {
-        return "Nombre de victoire de  " + this.getBotName() + ": " + this.getNbVictories() + " pour  " + this.getNbOfGames() + " parties. Soit " + this.pourcentageWin() + "% de victoire. \n"
-                + "Nombre de defaite : " + this.getNbDefeats() + " pour " + this.getNbOfGames() + " parties. Soit " + this.pourcentageDefeat() + " % de defaites." +
-                " \n Le score moyen de points de " + this.getBotName() + " est de  : " + String.format("%.2f", this.scoreAverage()) + " ! Il a obtenu en tout " + this.getNumberTotalPoints() + " points ! \n";
+        return "Number of victories : " + this.getBotName() + ": " + this.getNbVictories() + " for " + this.getNbOfGames() + " parties. i.e. " + this.percentageWin() + "% of victories. \n"
+                + "Number of defeats : " + this.getNbDefeats() + " for " + this.getNbOfGames() + " Games. i.e. " + this.percentageDefeat() + " % of defeats." +
+                " \n The average score of " + this.getBotName() + " is equal to  : " + String.format("%.2f", this.scoreAverage()) + " ! He got in total " + this.getNumberTotalPoints() + " points ! \n";
     }
 
 

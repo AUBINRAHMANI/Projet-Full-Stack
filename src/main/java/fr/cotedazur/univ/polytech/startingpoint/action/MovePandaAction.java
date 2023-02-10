@@ -59,7 +59,7 @@ public class MovePandaAction implements Action {
                 '}';
     }
 
-    public void incrementAction(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementPandaAction(bot);
+    public void incrementAction(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementPandaAction(bot);
     }
 }

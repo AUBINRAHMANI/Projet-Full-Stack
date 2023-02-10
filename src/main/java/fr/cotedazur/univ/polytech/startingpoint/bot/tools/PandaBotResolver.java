@@ -25,10 +25,10 @@ public class PandaBotResolver {
 
     public Action fillObjectivePanda(List<Bamboo> bambooSections, List<Bamboo> myBamboos, List<ActionType> banActionTypes, WeatherType weather) {
         ArrayList<Bamboo> missingBamboos = new ArrayList<>(bambooSections);
-        for (Bamboo bambou : myBamboos) removeBamboo(missingBamboos, bambou);
+        for (Bamboo bamboo : myBamboos) removeBamboo(missingBamboos, bamboo);
         if (!missingBamboos.isEmpty() && !banActionTypes.contains(ActionType.MOVE_PANDA)) {
-            for (Bamboo bambou : missingBamboos) {
-                MovePandaAction action = tryEatBambooOfType(bambou.getBambooType());
+            for (Bamboo bamboo : missingBamboos) {
+                MovePandaAction action = tryEatBambooOfType(bamboo.getBambooType());
                 if (action != null) return action;
             }
             for (Plot plot : map.getMapPlots()) {

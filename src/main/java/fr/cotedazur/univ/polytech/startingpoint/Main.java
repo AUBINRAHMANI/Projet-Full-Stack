@@ -17,30 +17,30 @@ import java.util.logging.Level;
 
 public class Main implements Loggeable {
     @Parameter(names = "--demo", description = "Demo 1 fois avec les logs précis")
-    private static final Boolean DEMO = false;
+    private Boolean demo = false;
     @Parameter(names = "--2thousand", description = "2* 1000 simulations")
-    private static final Boolean TWO_THOUSANDS = false;
+    private Boolean twoThousands = false;
     @Parameter(names = "--demo --warning", description = "seul les logs liés a des problemes sont affichés")
-    private static final Boolean DEMO_WARNING = false;
+    private Boolean demoWarning = false;
     @Parameter(names = "--demo --fine", description = "affiche les logs du resultat de la game ")
-    private static final Boolean DEMO_FINE = false;
+    private Boolean demoFine = false;
     @Parameter(names = "--demo --finer", description = "affiche les logs du resultat et objectif complété")
-    private static final Boolean DEMO_FINER = false;
+    private Boolean demoFiner = false;
     @Parameter(names = "--demo --finest", description = "affiche tous les logs")
-    private static final Boolean DEMO_FINEST = false;
+    private Boolean demoFinest = false;
     @Parameter(names = "--2thousand --warning", description = "seul les logs liés a des problemes sont affichés")
-    private static final Boolean TWO_THOUSAND_WARNING = false;
+    private Boolean twoThousandWarning = false;
     @Parameter(names = "--2thousand --fine", description = "affiche les logs du resultat de la game ")
-    private static final Boolean TWO_THOUSAND_FINE = false;
+    private Boolean twoThousandFine = false;
     @Parameter(names = "--2thousand --finer", description = "affiche les logs du resultat et objectif complété")
-    private static final Boolean TWO_THOUSAND_FINER = false;
+    private Boolean twoThousandFiner = false;
     @Parameter(names = "--2thousand --finest", description = "affiche tous les logs")
-    private static final Boolean TWO_THOUSAND_FINEST = false;
+    private Boolean twoThousandFinest = false;
     @Parameter(names = "--2thousand --config", description = "affiche le nombre de parties")
-    private static final Boolean TWO_THOUSAND_CONFIG = false;
+    private Boolean twoThousandConfig = false;
     @Parameter(names = "--csv", description = "Lancement d’une simulation à plusieurs parties")
 
-    private static final Boolean CSV = false;
+    private Boolean csv = false;
 
     public static void main(String... argv) {
         Main main = new Main();
@@ -94,50 +94,50 @@ public class Main implements Loggeable {
     }
 
     public Boolean getTwoThousandConfig() {
-        return TWO_THOUSAND_CONFIG;
+        return twoThousandConfig;
     }
 
     public Boolean getDemo() {
-        return DEMO;
+        return demo;
     }
 
     public Boolean getTwoThousand() {
-        return TWO_THOUSANDS;
+        return twoThousands;
     }
 
     public Boolean getDemoWarning() {
-        return DEMO_WARNING;
+        return demoWarning;
     }
 
     public Boolean getDemoFine() {
-        return DEMO_FINE;
+        return demoFine;
     }
 
     public Boolean getDemoFiner() {
-        return DEMO_FINER;
+        return demoFiner;
     }
 
     public Boolean getDemoFinest() {
-        return DEMO_FINEST;
+        return demoFinest;
     }
 
     public Boolean getTwoThousandWarning() {
-        return TWO_THOUSAND_WARNING;
+        return twoThousandWarning;
     }
 
     public Boolean getTwoThousandFine() {
-        return TWO_THOUSAND_FINE;
+        return twoThousandFine;
     }
 
     public Boolean getTwoThousandFiner() {
-        return TWO_THOUSAND_FINER;
+        return twoThousandFiner;
     }
 
     public Boolean getTwoThousandFinest() {
-        return TWO_THOUSAND_FINEST;
+        return twoThousandFinest;
     }
 
     public Boolean getCsv() {
-        return CSV;
+        return csv;
     }
 }

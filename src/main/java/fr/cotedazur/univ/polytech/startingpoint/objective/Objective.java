@@ -23,21 +23,17 @@ public abstract class Objective {
         return points;
     }
 
-    public void resetPoint() {
-        this.points = 0;
-    }
-
     public abstract boolean verifyPlotObj(GameEngine gameEngine, Plot lastPlacedPlot);
 
     public abstract boolean verifyGardenerObj(GameEngine gameEngine);
 
-    public abstract boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfil);
+    public abstract boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfile);
 
     public abstract Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather);
 
-    public abstract void incrementationObjective(StatisticManager statistiqueManager, Playable bot);
+    public abstract void incrementationObjective(StatisticManager statisticManager, Playable bot);
 
-    public abstract void incrementationPointsObjective(StatisticManager statistiqueManager, Playable bot);
+    public abstract void incrementationPointsObjective(StatisticManager statisticManager, Playable bot);
 
 
     public abstract String toString();

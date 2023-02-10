@@ -10,7 +10,6 @@ public class CustomFormatter extends Formatter {
 
 
     static final String BLUE = "\u001B[94m";
-    static final String RED = "\u001B[91m";
     static final String WHITE = "\u001B[97m";
     static final String BLACK = "\u001B[30m";
     static final String DEFAULT = "\u001B[0m";
@@ -53,9 +52,9 @@ public class CustomFormatter extends Formatter {
         buffer.append(DEFAULT);
     }
 
-    private String calcDate(long millisecs) {
+    private String calcDate(long millisecond) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd,yyyy HH:mm");
-        Date resultdate = new Date(millisecs);
-        return dateFormat.format(resultdate);
+        Date resultDate = new Date(millisecond);
+        return dateFormat.format(resultDate);
     }
 }

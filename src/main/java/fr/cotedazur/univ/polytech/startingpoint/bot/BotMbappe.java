@@ -18,7 +18,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
 
     Referee referee;
     Map map;
-    List<Bamboo> myBambous;
+    List<Bamboo> myBamboos;
 
     public BotMbappe() {
         this(null, null);
@@ -27,7 +27,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
     public BotMbappe(Referee referee, Map map) {
         this.referee = referee;
         this.map = map;
-        myBambous = null;
+        myBamboos = null;
     }
 
     public void setEnvironment(Referee referee, Map map) {
@@ -37,7 +37,7 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
 
 
     public Action play(List<ActionType> banActionTypes, WeatherType weather) {
-        this.myBambous = referee.getMyBamboos(this);
+        this.myBamboos = referee.getMyBamboos(this);
         List<Objective> objectives = referee.getMyObjectives(this);
         objectives.sort(Comparator.comparing(Objective::getPoint));
         if (objectives.isEmpty()) return pickObjective();
@@ -54,14 +54,14 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
         return new PickObjectiveAction(this);
     }
 
-    public Action fillObjectiveGardener(PlotType bambouType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
+    public Action fillObjectiveGardener(PlotType bambooType, boolean improvement, List<ActionType> banActionTypes, WeatherType weather) {
         GardenerBotResolver gardenerBotResolver = new GardenerBotResolver(map, referee);
-        return gardenerBotResolver.fillObjectiveGardener(bambouType, banActionTypes, weather);
+        return gardenerBotResolver.fillObjectiveGardener(bambooType, banActionTypes, weather);
     }
 
-    public Action fillObjectivePanda(List<Bamboo> bambouSections, List<ActionType> banActionTypes, WeatherType weather) {
+    public Action fillObjectivePanda(List<Bamboo> bambooSections, List<ActionType> banActionTypes, WeatherType weather) {
         PandaBotResolver pandaBotResolver = new PandaBotResolver(map, referee, this);
-        return pandaBotResolver.fillObjectivePanda(bambouSections, myBambous, banActionTypes, weather);
+        return pandaBotResolver.fillObjectivePanda(bambooSections, myBamboos, banActionTypes, weather);
     }
 
     public Action fillObjectivePlots(Pattern pattern, List<ActionType> banActionTypes) {
@@ -75,11 +75,11 @@ public class BotMbappe implements fr.cotedazur.univ.polytech.startingpoint.bot.P
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BotMbappe bot = (BotMbappe) o;
-        return Objects.equals(referee, bot.referee) && Objects.equals(map, bot.map) && Objects.equals(myBambous, bot.myBambous);
+        return Objects.equals(referee, bot.referee) && Objects.equals(map, bot.map) && Objects.equals(myBamboos, bot.myBamboos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(referee, map, myBambous);
+        return Objects.hash(referee, map, myBamboos);
     }
 }

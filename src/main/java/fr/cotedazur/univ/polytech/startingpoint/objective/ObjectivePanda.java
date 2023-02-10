@@ -32,8 +32,8 @@ public class ObjectivePanda extends Objective {
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfil) {
-        return gameEngine.computeObjectivePanda(botProfil, bambooSections);
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfile) {
+        return gameEngine.computeObjectivePanda(botProfile, bambooSections);
     }
 
     @Override
@@ -42,13 +42,13 @@ public class ObjectivePanda extends Objective {
     }
 
     @Override
-    public void incrementationObjective(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementNumberObjectivePanda(bot);
+    public void incrementationObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberObjectivePanda(bot);
     }
 
     @Override
-    public void incrementationPointsObjective(StatisticManager statistiqueManager, Playable bot) {
-        statistiqueManager.incrementNumberPointsObjectivePanda(bot, this.getPoint());
+    public void incrementationPointsObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberPointsObjectivePanda(bot, this.getPoint());
     }
 
 

@@ -31,16 +31,17 @@ public class StatisticManager implements Loggeable {
         return this.nbOfDrawGames;
     }
 
-    public float percentageMatchNul() {
-        BotStatisticProfile bot = null;
-        float nombreDeMatch = 0;
-        float percentage = 0;
+    public float percentageOfDrawGames() {
+        BotStatisticProfile bot;
+        float nbOfGames = 0;
+        float percentage;
         for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
             bot = botStatisticProfile;
-            nombreDeMatch = bot.getNbOfGames();
+            nbOfGames = bot.getNbOfGames();
         }
-
-        percentage = ((this.getNbOfDrawGames() * 100) / nombreDeMatch);
+        if(nbOfGames == 0)
+            return 0;
+        percentage = ((this.getNbOfDrawGames() * 100) / nbOfGames);
         return percentage;
     }
 
@@ -173,12 +174,6 @@ public class StatisticManager implements Loggeable {
         }
     }
 
-    public void resetPointsObjective() {
-        for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
-            botStatisticProfile.resetNumberPointsObjective();
-        }
-    }
-
     public void incrementNumberPointsObjectiveGardener(Playable bot, int points) {
         for (BotStatisticProfile botStatisticProfile : botsStatisticsProfiles) {
             if (botStatisticProfile.getBot() == bot) {
@@ -207,7 +202,8 @@ public class StatisticManager implements Loggeable {
     public String toString() {
         return "StatisticManager{" +
                 "botStatisticsProfiles=" + botsStatisticsProfiles + "\n"
-                + ", NumberOfDrawGames=" + nbOfDrawGames + "Soit " + this.percentageMatchNul() + "% de match nul" +
+                + ", NumberOfDrawGames=" + nbOfDrawGames + " \n "
+                + "PercentageOfDrawGames" + this.percentageOfDrawGames() + "% of draw games" +
                 '}';
     }
 }
