@@ -1,6 +1,5 @@
 package fr.cotedazur.univ.polytech.startingpoint.bot;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.PickObjectiveAction;
@@ -8,6 +7,11 @@ import fr.cotedazur.univ.polytech.startingpoint.bot.tools.GardenerBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PandaBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.bot.tools.PatternBotResolver;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Bamboo;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherType;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Map;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Pattern;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.PlotType;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 
 import java.util.Comparator;

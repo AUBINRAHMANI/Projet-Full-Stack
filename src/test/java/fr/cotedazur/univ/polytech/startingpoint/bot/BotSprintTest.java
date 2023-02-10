@@ -1,10 +1,11 @@
 package fr.cotedazur.univ.polytech.startingpoint.bot;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherType;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.*;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
 import org.junit.jupiter.api.Test;

@@ -1,19 +1,27 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game.game_engine;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.actors.Gardener;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.actors.Panda;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Bamboo;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Deck;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Irrigation;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherType;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.*;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Map;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 
 import java.security.SecureRandom;
 import java.util.*;
 
-import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.values;
+import static fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherType.values;
 
 public class GameEngine implements Loggeable {
 
-    private final Map map;
+    private final fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Map map;
     private final Gardener gardener;
     private final Panda panda;
     Random random;
@@ -21,7 +29,7 @@ public class GameEngine implements Loggeable {
     private Deck<Plot> plotDeck;
 
 
-    public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
+    public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Map map) {
         this.random = new SecureRandom();
         this.objectiveDeck = objectiveDeck;
         this.plotDeck = plotDeck;

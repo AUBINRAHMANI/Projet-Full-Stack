@@ -1,5 +1,7 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game.game_engine.actors;
 
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.actors.Panda;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Position;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

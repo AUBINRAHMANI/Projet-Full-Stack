@@ -1,4 +1,6 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game.game_engine.actors;
+
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Position;
 
 public class Panda {
 

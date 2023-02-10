@@ -1,8 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
 
-import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
-import fr.cotedazur.univ.polytech.startingpoint.Map;
-import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Map;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Position;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;

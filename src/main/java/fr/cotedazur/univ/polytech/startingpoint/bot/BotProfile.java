@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.bot;
 
-import fr.cotedazur.univ.polytech.startingpoint.Bamboo;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Bamboo;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 
 import java.util.ArrayList;

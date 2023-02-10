@@ -1,10 +1,14 @@
 package fr.cotedazur.univ.polytech.startingpoint.game;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.*;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Bamboo;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Deck;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherType;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.*;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectiveGardener;
@@ -80,7 +84,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         List<ActionType> banActionTypes = new ArrayList<>();
         for (int i = 0; i < nbActions; i++) {
             Action action = botProfile.getBot().play(banActionTypes, weather);
-            LOGGER.finer(() -> "Action : " + action);
+            LOGGER.fine(() -> "Action : " + action);
             if (action != null && !(banActionTypes.contains(action.toType()))) {
                 action.play(this, gameEngine);
                 banActionTypes.add(action.toType());
@@ -170,8 +174,8 @@ public class Game implements DeckSignal, Referee, Loggeable {
                     validatedObjective.add(objective);
                     botProfile.setObjectiveCompleted(objective);
                     timeOutCounter = 0;
-                    LOGGER.finer(() -> "L'objectif suivant a été validé : " + objective);
-                    LOGGER.finer(() -> botName + " gagne " + objective.getPoint() + " points");
+                    LOGGER.fine(() -> "L'objectif suivant a été validé : " + objective);
+                    LOGGER.fine(() -> botName + " gagne " + objective.getPoint() + " points");
                     LOGGER.finer(() -> "Le score de " + botName + " = " + botProfile.getPoints() + " points");
                     logValidatedObjective(objective, botName, botProfile);
                     objective.incrementationObjective(statisticManager, botProfile.getBot());

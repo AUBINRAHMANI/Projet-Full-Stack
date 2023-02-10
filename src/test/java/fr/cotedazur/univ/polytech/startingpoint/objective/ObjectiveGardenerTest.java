@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.GameEngine;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 

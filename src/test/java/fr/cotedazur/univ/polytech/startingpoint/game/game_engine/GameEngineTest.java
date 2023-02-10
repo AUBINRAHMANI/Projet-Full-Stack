@@ -1,8 +1,13 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game.game_engine;
 
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.*;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Bamboo;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Deck;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherType;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.*;
 import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
 import org.junit.jupiter.api.Test;
