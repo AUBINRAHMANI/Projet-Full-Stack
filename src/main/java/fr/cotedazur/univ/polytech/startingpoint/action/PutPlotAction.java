@@ -1,25 +1,44 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
-import fr.cotedazur.univ.polytech.startingpoint.*;
+
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Map;
+import fr.cotedazur.univ.polytech.startingpoint.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
+
+import java.util.Objects;
 
 
-public class PutPlotAction implements Action{
+public class PutPlotAction implements Action {
 
     Plot plot;
-    public PutPlotAction(Plot plot){
+
+    public PutPlotAction(Plot plot) {
         this.plot = plot;
     }
 
     @Override
-    public boolean play(Referee referee, GameEngine gameEngine) {return gameEngine.askToPutPlot(plot);}
+    public boolean play(Referee referee, GameEngine gameEngine) {
+        return gameEngine.askToPutPlot(plot);
+    }
+
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee){
+    public boolean verifyObjectiveAfterAction(Referee referee, Map map) {
         return referee.computeObjectivesPlot(plot);
     }
 
     @Override
-    public boolean equals(Action action) {
-        return isActionPutPlot();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return ActionType.PUT_PLOT.equals(toType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(toType());
     }
 
     @Override
@@ -30,37 +49,16 @@ public class PutPlotAction implements Action{
     }
 
     @Override
-    public boolean isActionMoveGardener() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionMovePanda() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return true;
-    }
-
-    @Override
-    public boolean isActionPickObjective() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionRain() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
+    public Position getPosition() {
+        return plot.getPosition();
     }
 
     @Override
     public ActionType toType() {
         return ActionType.PUT_PLOT;
+    }
+
+    public void incrementAction(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementPlotAction(bot);
     }
 }

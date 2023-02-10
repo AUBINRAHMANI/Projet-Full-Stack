@@ -1,22 +1,22 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Pattern;
+import fr.cotedazur.univ.polytech.startingpoint.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.WeatherType;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
 import java.util.List;
 
 
-public class ObjectivePlots extends Objective{
+public class ObjectivePlots extends Objective {
 
     Pattern pattern;
 
-    public ObjectivePlots(int point, List<Plot> plots) {
-        super(point);
-        pattern = new Pattern(plots);
-
-    }
     public ObjectivePlots(int point, Pattern pattern) {
         super(point);
         this.pattern = pattern;
@@ -34,13 +34,24 @@ public class ObjectivePlots extends Objective{
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfile) {
         return false;
     }
 
     @Override
-    public Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes, Weather weather) {
+    public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather) {
         return bot.fillObjectivePlots(pattern, banActionTypes);
+    }
+
+    @Override
+    public void incrementationObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberObjectivePlots(bot);
+
+    }
+
+    @Override
+    public void incrementationPointsObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberPointsObjectivePlot(bot, this.getPoint());
     }
 
     @Override

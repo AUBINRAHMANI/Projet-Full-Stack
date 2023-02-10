@@ -1,42 +1,36 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
-import fr.cotedazur.univ.polytech.startingpoint.objective.*;
+import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.security.SecureRandom;
+import java.util.*;
 
-import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.*;
-import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.QUESTIONMARK;
-
-import java.util.Arrays;
-import java.util.List;
+import static fr.cotedazur.univ.polytech.startingpoint.WeatherType.values;
 
 public class GameEngine implements Loggeable {
 
-
+    private final Map map;
+    private final Gardener gardener;
+    private final Panda panda;
+    Random random;
     private Deck<Objective> objectiveDeck;
-    private Deck<Plot>      plotDeck;
-    private Map             map;
-    private Gardener        gardener;
-    private Panda           panda;
-
-    private BotProfil botProfil_;
-    private Weather weather;
+    private Deck<Plot> plotDeck;
 
 
     public GameEngine(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck, Map map) {
+        this.random = new SecureRandom();
         this.objectiveDeck = objectiveDeck;
         this.plotDeck = plotDeck;
         this.map = map;
         this.panda = new Panda();
         this.gardener = new Gardener();
-        this.weather = new Weather();
     }
 
-    public void regenerateDecks(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck){
+    public void regenerateDecks(Deck<Objective> objectiveDeck, Deck<Plot> plotDeck) {
         this.objectiveDeck = objectiveDeck;
         this.plotDeck = plotDeck;
     }
@@ -49,163 +43,121 @@ public class GameEngine implements Loggeable {
         return new ArrayList<>(Arrays.asList(plotDeck.getNextCard(), plotDeck.getNextCard(), plotDeck.getNextCard()));
     }
 
-    public boolean askToPutPlot( Plot plot ){
-        return  map.putPlot(plot);
+    public boolean askToPutPlot(Plot plot) {
+        return map.putPlot(plot);
     }
 
     public boolean askToPutIrrigation(Irrigation irrigation) {
         return map.putIrrigation(irrigation);
     }
 
-    public Map getMap(){
+    public Map getMap() {
         return map;
     }
 
-    public Position getGardenerPosition(){
+    public Position getGardenerPosition() {
         return gardener.getPosition();
     }
-    public Position getPandaPosition(){
+
+    public Position getPandaPosition() {
         return panda.getPosition();
     }
 
-    public boolean moveGardener(Position position){
-        if(!map.isSpaceFree(position) && position.isDeplacementALine(gardener.getPosition())){
+    public boolean moveGardener(Position position) {
+        if (!map.isSpaceFree(position) && position.isMovementALine(gardener.getPosition())) {
             gardener.setPosition(position);
-            growBambou();
+            growBamboo();
             return true;
         }
         return false;
     }
 
-    public void growBambou(){
+    public void growBamboo() {
         Plot gardenerPlot = map.findPlot(gardener.getPosition());
-        if( gardenerPlot.getPosition().isCenter()==false )gardenerPlot.growBambou();
-        for(Plot plot : map.getNeighbours(gardener.getPosition())){
-            if((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && plot.getPosition().isCenter()==false ){
-                plot.growBambou();
+        if (gardenerPlot.getPosition().isCenter()) gardenerPlot.growBamboo();
+        for (Plot plot : map.getNeighbours(gardener.getPosition())) {
+            if ((plot.getType() == gardenerPlot.getType()) && plot.isIrrigated() && plot.getPosition().isCenter()) {
+                plot.growBamboo();
             }
         }
     }
 
-    public boolean movePanda(Referee referee, Bot bot, Position position){
-        if(!map.isSpaceFree(position) && position.isDeplacementALine(panda.getPosition())){
+    public boolean movePanda(Referee referee, Playable bot, Position position) {
+        if (!map.isSpaceFree(position) && position.isMovementALine(panda.getPosition())) {
             panda.setPosition(position);
-            eatBambou(referee, bot, position);
+            eatBamboo(referee, bot, position);
             return true;
         }
         return false;
     }
 
-    public boolean eatBambou(Referee referee, Bot bot, Position position){
-       Plot plot = map.findPlot(position);
-       Bambou bambou = plot.eatBambou();
-       if( bambou!=null && referee!=null )referee.addBamboutToBot(bot, bambou);
-       return true;
+    public void eatBamboo(Referee referee, Playable bot, Position position) {
+        Plot plot = map.findPlot(position);
+        Bamboo bamboo = plot.eatBamboo();
+        if (bamboo != null && referee != null) referee.addBambooToBot(bot, bamboo);
     }
 
 
-    public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot){
-        List<List<Plot>> result = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
-        if(result==null){
-            return false;
+    public boolean computeObjectivePlot(Pattern pattern, Plot lastPLacedPlot) {
+        Optional<List<List<Plot>>> result = map.checkIfPossibleToPlacePattern(pattern, lastPLacedPlot.getPosition());
+        if (result.isPresent()) {
+            List<Plot> missingPlots = result.get().get(0);
+            List<Plot> nonIrrigatedPlot = result.get().get(1);
+            return missingPlots.isEmpty() && nonIrrigatedPlot.isEmpty();
         }
-        List<Plot> missingPlots = result.get(0);
-        List<Plot> nonIrrigatedPlot = result.get(1);
-        return missingPlots.isEmpty() && nonIrrigatedPlot.isEmpty();
+        return false;
     }
 
 
-    public boolean computeObjectiveGardener(int nbBambou, PlotType bambouType, boolean improvement, int nbPlot){
+    public boolean computeObjectiveGardener(int nbBamboo, PlotType bambooType, int nbPlot) {
         Plot plot = map.findPlot(gardener.getPosition());
-        if(nbBambou> 3){
-            if(plot.getNumberOfBambou() <= nbBambou && plot.getType() == bambouType){
-                return true;
-            }
-        }
-        else {
-            if(plot.getNumberOfBambou() <= nbBambou || plot.getType() != bambouType)return  false;
+        if (nbPlot == 1) {
+            return plot.getNumberOfBamboo() >= nbBamboo && plot.getType() == bambooType;
+        } else {
+            if (plot.getNumberOfBamboo() <= nbBamboo || plot.getType() != bambooType) return false;
             int nbValidatedPlots = 0;
-            for(Plot neighbour : map.getNeighbours(plot.getPosition())){
-                if(neighbour.getNumberOfBambou() >= nbBambou && neighbour.getType() == bambouType){
+            for (Plot neighbour : map.getNeighbours(plot.getPosition())) {
+                if (neighbour.getNumberOfBamboo() >= nbBamboo && neighbour.getType() == bambooType) {
                     nbValidatedPlots++;
                 }
             }
-            if(nbValidatedPlots >= nbPlot-1)return true;
+            return nbValidatedPlots >= nbPlot - 1;
         }
-        return false;
     }
 
-    public boolean computeObjectivePanda(BotProfil botProfil, List<Bambou> bambousToHave){
-        List<Bambou> playerBambous = new ArrayList<>(botProfil.getBambous());
-        for(Bambou bambou : bambousToHave){
-            if(playerBambous.contains(bambou)){
-                playerBambous.remove(bambou);
-            }
-            else {
+    public boolean computeObjectivePanda(BotProfile botProfile, List<Bamboo> bamboosToHave) {
+        List<Bamboo> playerBamboos = new ArrayList<>(botProfile.getBamboos());
+        for (Bamboo bamboo : bamboosToHave) {
+            if (playerBamboos.contains(bamboo)) {
+                playerBamboos.remove(bamboo);
+            } else {
                 return false;
             }
         }
-        botProfil.setBambous(playerBambous);
+        botProfile.setBamboos(playerBamboos);
         return true;
     }
 
-    public void drawWeather(){
-        Random rand = new Random();
 
-        int choseNumber = 1+rand.nextInt(7-1);
-        switch (choseNumber) {
-            case 1:
-
-                weather.setWeatherType(SUN);
-                LOGGER.finest("Face : SOLEIL\nAction supplémentaire");
-                break;
-            case 2:
-                weather.setWeatherType(RAIN);
-                LOGGER.finest("Face : PLUIE\nAjoute une section à la parcelle choisie");
-                break;
-            case 3:
-                weather.setWeatherType(WIND);
-                LOGGER.finest("Face : VENT\nDeux actions similaires peuvent être effectuées");
-                break;
-            case 4:
-                weather.setWeatherType(THUNDER);
-                LOGGER.finest("Face : ORAGE\nDéplacez le panda");
-                break;
-            case 5:
-                weather.setWeatherType(CLOUD);
-                LOGGER.finest("Face : NUAGE\nChoisissez un aménagement");
-                break;
-            case 6:
-                weather.setWeatherType(QUESTIONMARK);
-                LOGGER.finest("Face : ?\nChoisissez la météo de votre choix");
-                break;
-        }
-    }
-
-    public WeatherType getWeatherType() {
-        return weather.getWeatherType();
-    }
-
-    public Weather getWeather(){
+    public WeatherType drawWeather() {
+        int choseNumber = 1 + random.nextInt(7 - 1);
+        WeatherType weather = values()[choseNumber];
+        LOGGER.finest(() -> "Face : " + weather);
         return weather;
     }
 
     public boolean rainAction(Position position) {
-      if(getMap().findPlot(position).isIrrigated()){
-          return getMap().findPlot(position).growBambou();
-      }
-        return false;
-    }
-    public boolean thunderAction(Position position){
-        if(!getMap().isSpaceFree(position)){
-            panda.setPosition(position);
-            return true;
+        if (getMap().findPlot(position).isIrrigated()) {
+            return getMap().findPlot(position).growBamboo();
         }
         return false;
     }
 
-
-    public boolean irrigationExist(Irrigation irrigation){
-        return map.irrigationExist(irrigation);
+    public boolean thunderAction(Position position) {
+        if (!getMap().isSpaceFree(position)) {
+            panda.setPosition(position);
+            return true;
+        }
+        return false;
     }
 }

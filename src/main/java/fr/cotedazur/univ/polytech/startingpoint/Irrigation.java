@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,13 +9,13 @@ public class Irrigation {
 
     List<Position> positions;
 
-    public Irrigation(Position position1, Position position2){
+    public Irrigation(Position position1, Position position2) {
         this.positions = new ArrayList<>();
         setPosition(position1, position2);
     }
 
-    public boolean setPosition(Position position1, Position position2){
-        if(position1!=null && position2!=null && position1.isCloseTo(position2)) {
+    public boolean setPosition(Position position1, Position position2) {
+        if (position1 != null && position2 != null && position1.isCloseTo(position2)) {
             positions.clear();
             positions.add(position1);
             positions.add(position2);
@@ -28,12 +29,12 @@ public class Irrigation {
         return positions;
     }
 
-    public List<Irrigation> getNeighbours(){
+    public List<Irrigation> getNeighbours() {
         List<Irrigation> neighbours = new ArrayList<>();
         List<Position> neighbours1 = positions.get(0).closestPositions();
         neighbours1.retainAll(positions.get(1).closestPositions());
-        for(Position position1 : neighbours1){
-            for(Position position2 : positions){
+        for (Position position1 : neighbours1) {
+            for (Position position2 : positions) {
                 neighbours.add(new Irrigation(position1, position2));
             }
         }
@@ -45,7 +46,7 @@ public class Irrigation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Irrigation that = (Irrigation) o;
-        return positions.containsAll(that.positions) && positions.size()==2;
+        return new HashSet<>(positions).containsAll(that.positions) && positions.size() == 2;
     }
 
     @Override

@@ -1,35 +1,22 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.game.Game;
-import org.junit.jupiter.api.BeforeEach;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class PandaTest {
 
     @Test
     void getPosition() {
+        Panda panda = new Panda();
+        assertEquals(new Position(0, 0), panda.getPosition());
+    }
 
-            Map map = new Map();
-            Game game = new Game();
-            Bot bot = new Bot(game,map,null);
-            Panda panda = new Panda();
-            Position position = new Position(1,1);
-            Position position2 = new Position(2,2);
-
-            GameEngine gameEngine = new GameEngine(null,null,map);
-            Plot plot = new Plot(PlotType.GREEN, position);
-
-
-            plot.setPosition(position);
-            panda.setPosition(position); //on peut aussi faire un gameEngine.movePanda(position);
-
-            assertEquals(position, panda.getPosition());
-
-
-            gameEngine.movePanda(game,bot,position2);
-            assertFalse(panda.getPosition().equals(position2));
+    @Test
+    void setPosition() {
+        Panda panda = new Panda();
+        panda.setPosition(new Position(2, 1));
+        assertEquals(new Position(2, 1), panda.getPosition());
     }
 
 }

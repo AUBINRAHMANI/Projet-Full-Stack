@@ -5,31 +5,28 @@ import java.util.Objects;
 
 public class Plot {
 
-    private PlotType plotType;
+    private final PlotType plotType;
+    private final ArrayList<Bamboo> listBamboo;
     private Position position;
     private boolean isIrrigated = false;
-    private ArrayList<Bambou> listeBambou;
 
 
     public Plot(PlotType plotType) {
-        this(plotType, new Position(0,0));
+        this(plotType, new Position(0, 0));
     }
 
     public Plot(PlotType plotType, Position position) {
         this.plotType = plotType;
         this.position = position;
-        listeBambou = new ArrayList<>();
+        listBamboo = new ArrayList<>();
     }
-    public Plot(Plot plot){
+
+    public Plot(Plot plot) {
         plotType = plot.getType();
         position = new Position(plot.getPosition());
-        listeBambou = plot.getBambou();
+        listBamboo = plot.getBamboo();
         isIrrigated = plot.isIrrigated;
 
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
     }
 
     public PlotType getType() {
@@ -40,6 +37,10 @@ public class Plot {
         return position;
     }
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     public void isIrrigatedIsTrue() {
         isIrrigated = true;
     }
@@ -48,27 +49,29 @@ public class Plot {
         return isIrrigated;
     }
 
-    public int getNumberOfBambou () {
-        return this.listeBambou.size();
+    public int getNumberOfBamboo() {
+        return this.listBamboo.size();
     }
-    public boolean growBambou () {
-        if (this.isIrrigated() && this.listeBambou.size() < 4) {
-            this.listeBambou.add(new Bambou(plotType));
+
+    public boolean growBamboo() {
+        if (this.isIrrigated() && this.listBamboo.size() < 4) {
+            this.listBamboo.add(new Bamboo(plotType));
             return true;
         }
         return false;
     }
-    public Bambou eatBambou () {
-        if (this.listeBambou.isEmpty() ==false) {
-            Bambou bambou = listeBambou.get(0);
-            this.listeBambou.remove(bambou);
-            return bambou;
+
+    public Bamboo eatBamboo() {
+        if (!this.listBamboo.isEmpty()) {
+            Bamboo bamboo = listBamboo.get(0);
+            this.listBamboo.remove(bamboo);
+            return bamboo;
         }
         return null;
     }
 
-    private ArrayList<Bambou> getBambou(){
-        return listeBambou;
+    private ArrayList<Bamboo> getBamboo() {
+        return listBamboo;
     }
 
 

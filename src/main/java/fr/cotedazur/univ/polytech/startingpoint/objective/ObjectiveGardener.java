@@ -1,25 +1,30 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.PlotType;
+import fr.cotedazur.univ.polytech.startingpoint.WeatherType;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
+import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
 import java.util.List;
 
-public class ObjectiveGardener extends Objective{
+public class ObjectiveGardener extends Objective {
 
-    int nbBambou;
+    int nbBamboo;
     int nbPlot;
-    PlotType bambouType;
+    PlotType bambooType;
     boolean improvement;
 
-    public ObjectiveGardener(int point, int nbBambou, PlotType bambouType , boolean improvement, int nbSection) {
+    public ObjectiveGardener(int point, int nbBamboo, PlotType bambooType, boolean improvement, int nbSection) {
         super(point);
-        this.nbBambou       = nbBambou;
-        this.nbPlot      = nbSection;
-        this.bambouType     = bambouType;
-        this.improvement    = improvement;
+        this.nbBamboo = nbBamboo;
+        this.nbPlot = nbSection;
+        this.bambooType = bambooType;
+        this.improvement = improvement;
     }
 
     @Override
@@ -29,26 +34,36 @@ public class ObjectiveGardener extends Objective{
 
     @Override
     public boolean verifyGardenerObj(GameEngine gameEngine) {
-        return gameEngine.computeObjectiveGardener(nbBambou, bambouType, improvement, nbPlot);
+        return gameEngine.computeObjectiveGardener(nbBamboo, bambooType, nbPlot);
     }
 
     @Override
-    public boolean verifyPandaObj(GameEngine gameEngine, BotProfil botProfil) {
+    public boolean verifyPandaObj(GameEngine gameEngine, BotProfile botProfile) {
         return false;
     }
 
     @Override
-    public Action tryToFillObjective(Bot bot, List<ActionType> banActionTypes, Weather weather){
-        return bot.fillObjectiveGardener( bambouType , improvement, banActionTypes, weather);
+    public Action tryToFillObjective(Playable bot, List<ActionType> banActionTypes, WeatherType weather) {
+        return bot.fillObjectiveGardener(bambooType, improvement, banActionTypes, weather);
+    }
+
+    @Override
+    public void incrementationObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberObjectiveGardener(bot);
+    }
+
+    @Override
+    public void incrementationPointsObjective(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementNumberPointsObjectiveGardener(bot, this.getPoint());
     }
 
     @Override
     public String toString() {
         return "ObjectiveGardener{" +
                 "points=" + points +
-                "nbBambou=" + nbBambou +
+                "nbBamboo=" + nbBamboo +
                 ", nbSection=" + nbPlot +
-                ", bambouType=" + bambouType +
+                ", bambooType=" + bambooType +
                 ", improvement=" + improvement +
                 '}';
     }

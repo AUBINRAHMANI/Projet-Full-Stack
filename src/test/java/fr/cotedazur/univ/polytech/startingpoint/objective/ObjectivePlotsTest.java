@@ -1,17 +1,20 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
+import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Pattern;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ObjectivePlotsTest {
 
-    @Mock GameEngine mockedGameEngine = mock(GameEngine.class);
+    @Mock
+    GameEngine mockedGameEngine = mock(GameEngine.class);
+
     @Test
     void verifyPlotObj() {
         Pattern pattern = new Pattern();
@@ -22,11 +25,11 @@ class ObjectivePlotsTest {
 
     @Test
     void verifyGardenerObj() {
-        assertFalse(new ObjectivePlots(0, (Pattern) null).verifyGardenerObj(null));
+        assertFalse(new ObjectivePlots(0, null).verifyGardenerObj(null));
     }
 
     @Test
     void verifyPandaObj() {
-        assertFalse(new ObjectivePlots(0, (Pattern) null).verifyPandaObj(null, null));
+        assertFalse(new ObjectivePlots(0, null).verifyPandaObj(null, null));
     }
 }

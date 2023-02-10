@@ -1,14 +1,20 @@
 package fr.cotedazur.univ.polytech.startingpoint.action;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Bot;
-import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+
 import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.Map;
 import fr.cotedazur.univ.polytech.startingpoint.Position;
+import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
-public class MovePandaAction implements Action{
+import java.util.Objects;
 
-    Bot bot;
+public class MovePandaAction implements Action {
+
+    Playable bot;
     Position position;
-    public MovePandaAction(Bot bot, Position position){
+
+    public MovePandaAction(Playable bot, Position position) {
         this.bot = bot;
         this.position = position;
     }
@@ -19,38 +25,26 @@ public class MovePandaAction implements Action{
     }
 
     @Override
-    public boolean verifyObjectiveAfterAction(Referee referee){
+    public boolean verifyObjectiveAfterAction(Referee referee, Map map) {
 
         return referee.computeObjectivesPanda();
     }
 
     @Override
-    public boolean equals(Action action) {
-        return isActionMovePanda();
-    }
-
-    public boolean isActionMovePanda() {
-        return true;
-    }
-
-    @Override
-    public boolean isActionPutPlot() {
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return ActionType.MOVE_PANDA.equals(toType());
     }
 
     @Override
-    public boolean isActionPickObjective() {
-        return false;
+    public int hashCode() {
+        return Objects.hash(toType());
     }
 
     @Override
-    public boolean isActionRain() {
-        return false;
-    }
-
-    @Override
-    public boolean isActionThunder() {
-        return false;
+    public Position getPosition() {
+        return position;
     }
 
     @Override
@@ -65,8 +59,7 @@ public class MovePandaAction implements Action{
                 '}';
     }
 
-    @Override
-    public boolean isActionMoveGardener() {
-        return false;
+    public void incrementAction(StatisticManager statisticManager, Playable bot) {
+        statisticManager.incrementPandaAction(bot);
     }
 }

@@ -1,47 +1,52 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PlotTest {
     @Test
     void getTypeTest() {
-        Position position = new Position(2,2);
-        Plot plot = new Plot(PlotType.GREEN,position);
+        Position position = new Position(2, 2);
+        Plot plot = new Plot(PlotType.GREEN, position);
         assertEquals(PlotType.GREEN, plot.getType());
     }
+
     @Test
     void getPosition() {
         Position position = new Position(2, 3);
-        Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+        Plot plot = new Plot(PlotType.GREEN, new Position(2, 3));
         assertEquals(position, plot.getPosition());
     }
+
     @Test
-    void getNumberOfBambouTest(){
-        Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+    void getNumberOfBambooTest() {
+        Plot plot = new Plot(PlotType.GREEN, new Position(2, 3));
         plot.isIrrigatedIsTrue();
-        assertEquals(0,plot.getNumberOfBambou());
-        plot.growBambou();
-        assertEquals(1,plot.getNumberOfBambou());
-        plot.growBambou();
-        assertEquals(2,plot.getNumberOfBambou());
+        assertEquals(0, plot.getNumberOfBamboo());
+        plot.growBamboo();
+        assertEquals(1, plot.getNumberOfBamboo());
+        plot.growBamboo();
+        assertEquals(2, plot.getNumberOfBamboo());
     }
+
     @Test
-    void checkIfgrowBambouWorksTest(){
-        Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+    void checkIfGrowBambooWorksTest() {
+        Plot plot = new Plot(PlotType.GREEN, new Position(2, 3));
         plot.isIrrigatedIsTrue();
-        plot.growBambou();
-        assertEquals(1,plot.getNumberOfBambou());
+        plot.growBamboo();
+        assertEquals(1, plot.getNumberOfBamboo());
     }
+
     @Test
-    void eatBambouTest(){
-        Plot plot = new Plot(PlotType.GREEN, new Position(2,3));
+    void eatBambooTest() {
+        Plot plot = new Plot(PlotType.GREEN, new Position(2, 3));
         plot.isIrrigatedIsTrue();
-        assertEquals(0,plot.getNumberOfBambou());
-        plot.growBambou();
-        assertEquals(1,plot.getNumberOfBambou());
-        plot.eatBambou();
-        assertEquals(0,plot.getNumberOfBambou());
+        assertEquals(0, plot.getNumberOfBamboo());
+        plot.growBamboo();
+        assertEquals(1, plot.getNumberOfBamboo());
+        plot.eatBamboo();
+        assertEquals(0, plot.getNumberOfBamboo());
     }
 
 }

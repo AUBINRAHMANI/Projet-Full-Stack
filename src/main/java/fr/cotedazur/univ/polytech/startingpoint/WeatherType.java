@@ -2,7 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public enum WeatherType {
 
-    NOMETEO,
+    NO_WEATHER,
     SUN,
     RAIN,
     WIND,
