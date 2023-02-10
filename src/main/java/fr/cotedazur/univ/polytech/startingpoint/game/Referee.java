@@ -3,9 +3,9 @@ package fr.cotedazur.univ.polytech.startingpoint.game;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Bamboo;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Plot;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Position;
-import fr.cotedazur.univ.polytech.startingpoint.action.Action;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
-import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
+import fr.cotedazur.univ.polytech.startingpoint.game.action.Action;
+import fr.cotedazur.univ.polytech.startingpoint.bots.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.game.objectives.Objective;
 
 import java.util.List;
 

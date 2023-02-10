@@ -2,9 +2,9 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotSprint;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;

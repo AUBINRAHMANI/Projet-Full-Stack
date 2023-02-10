@@ -1,19 +1,19 @@
 package fr.cotedazur.univ.polytech.startingpoint.game;
 
-import fr.cotedazur.univ.polytech.startingpoint.action.Action;
-import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.game.action.Action;
+import fr.cotedazur.univ.polytech.startingpoint.game.action.ActionType;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bots.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.*;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Bamboo;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Deck;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherType;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.*;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
-import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
-import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectiveGardener;
-import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePanda;
-import fr.cotedazur.univ.polytech.startingpoint.objective.ObjectivePlots;
+import fr.cotedazur.univ.polytech.startingpoint.game.objectives.Objective;
+import fr.cotedazur.univ.polytech.startingpoint.game.objectives.ObjectiveGardener;
+import fr.cotedazur.univ.polytech.startingpoint.game.objectives.ObjectivePanda;
+import fr.cotedazur.univ.polytech.startingpoint.game.objectives.ObjectivePlots;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 
 import java.security.SecureRandom;
@@ -148,7 +148,7 @@ public class Game implements DeckSignal, Referee, Loggeable {
         return plotDeck;
     }
 
-    public boolean pickObjective(fr.cotedazur.univ.polytech.startingpoint.bot.Playable bot) {
+    public boolean pickObjective(fr.cotedazur.univ.polytech.startingpoint.bots.Playable bot) {
         Objective objective = gameEngine.pickObjective();
         for (BotProfile botProfile : botProfiles) {
             if (bot == botProfile.getBot()) {

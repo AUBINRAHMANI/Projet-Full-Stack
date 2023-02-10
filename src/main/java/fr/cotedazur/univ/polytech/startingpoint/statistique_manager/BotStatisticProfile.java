@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.statistique_manager;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.bots.Playable;
 
 public class BotStatisticProfile {
 

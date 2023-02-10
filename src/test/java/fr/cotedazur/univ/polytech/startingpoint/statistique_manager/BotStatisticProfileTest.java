@@ -1,6 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.statistique_manager;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotSprint;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,8 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotSprint;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.BotStatisticProfile;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
 import org.junit.jupiter.api.Test;

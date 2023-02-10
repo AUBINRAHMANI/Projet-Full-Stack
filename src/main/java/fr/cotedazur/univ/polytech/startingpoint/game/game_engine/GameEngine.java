@@ -1,7 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.game.game_engine;
 
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
-import fr.cotedazur.univ.polytech.startingpoint.bot.Playable;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bots.Playable;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.actors.Gardener;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.actors.Panda;
@@ -12,7 +12,7 @@ import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherTy
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.*;
 import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Map;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
-import fr.cotedazur.univ.polytech.startingpoint.objective.Objective;
+import fr.cotedazur.univ.polytech.startingpoint.game.objectives.Objective;
 
 import java.security.SecureRandom;
 import java.util.*;
