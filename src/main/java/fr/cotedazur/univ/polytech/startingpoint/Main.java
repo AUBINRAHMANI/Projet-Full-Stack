@@ -84,7 +84,7 @@ public class Main implements Loggeable {
     private static void startNGame(StatisticManager statisticManager, List<BotProfile> players, Level level, int n) {
         Loggeable.initLogger(level);
         for (int i = 0; i < n; ++i) {
-            LOGGER.log(level, "Game {}", i);
+            LOGGER.log(level, "Game {0}", i);
             Game game = new Game(statisticManager, players);
             game.start();
             for (BotProfile botProfile : players) {
