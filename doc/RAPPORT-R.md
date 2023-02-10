@@ -78,7 +78,6 @@ La description suivante a été inspirer de la célèbre citation :
 >
 >**L'architecture suit donc ce principe :**
 >
-![[structure.png]]
 
 <br>
 
@@ -166,8 +165,22 @@ Cette dette est du à certaines méthodes que nous n'avons pas pu refactorer. Ai
 <br>
 
 ### 4-Processus
-
 <br>
 
-Le travail à été répartit équitablement entre les membres du groupe en séparant le jeux en features indépendantes nous permettant de ne pas ce géner dans le développement
+>Le travail à été répartit équitablement entre les membres du groupe en séparant le jeux en features indépendantes nous permettant de ne pas ce géner dans le développement
+>- panda
+>- jardinier
+>- parcelles
+>- positions
+>- irrigations
+>- objectifs
+>- alogrithmes de résolution d'objectifs
+>- bots
+>- etc..
+
+>Nous avons suivi une stratégie de branch comme suit :
+>
+>- master  : branche accueillant les releases.
+>- develop : branche permettant d'ajouter les fonctionnalités testés pour intégration.
+>- features : branches permettant à chaqun de travailler sur sa feature séparément.
 
