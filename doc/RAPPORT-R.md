@@ -4,7 +4,7 @@
 ### 1 - Point d’avancement
 
 
->**→ Fonctionnalités réalisées :** Toutes le jeu á été réalisé mis à part :
+>**→ Fonctionnalités réalisées :** Tout le jeu a été réalisé mis à part :
 >- les aménagements
 >- les météos ( Storm  Clouds )
 >- la manche finale aprés l'arrivée de l'empereur
