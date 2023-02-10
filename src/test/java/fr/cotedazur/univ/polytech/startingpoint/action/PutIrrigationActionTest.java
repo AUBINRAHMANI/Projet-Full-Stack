@@ -29,7 +29,6 @@ class PutIrrigationActionTest {
         Irrigation irrigation = new Irrigation(new Position(0, 0), new Position(0, 1));
         PutIrrigationAction putIrrigationAction = new PutIrrigationAction(irrigation);
         assertEquals(ActionType.PUT_IRRIGATION, putIrrigationAction.toType());
-
     }
 
     @Test
