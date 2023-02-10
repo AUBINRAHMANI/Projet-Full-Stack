@@ -1,5 +1,7 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map;
 
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Irrigation;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.*;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,6 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map;
 
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Irrigation;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class Map implements Loggeable {
         return plot1;
     }
 
-    boolean isSpaceFree(Position position) {
+    public boolean isSpaceFree(Position position) {
         for (Plot plot : mapPlots) {
             if (plot.getPosition().equals(position)) {
                 return false;

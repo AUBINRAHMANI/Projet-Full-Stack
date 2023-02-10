@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map;
 
 
 import java.util.ArrayList;
@@ -113,11 +113,11 @@ public class Position {
     }
 
 
-    Position plus(Position position) {
+    public Position plus(Position position) {
         return new Position(q + position.q, r + position.r, s + position.s);
     }
 
-    Position minus(Position position) {
+    public Position minus(Position position) {
         return new Position(q - position.q, r - position.r, s - position.s);
     }
 

@@ -1,10 +1,10 @@
 package fr.cotedazur.univ.polytech.startingpoint.bot.tools;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.action.PutPlotAction;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.*;
 
 import java.util.List;
 import java.util.Optional;

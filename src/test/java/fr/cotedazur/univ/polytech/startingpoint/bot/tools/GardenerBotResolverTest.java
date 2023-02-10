@@ -1,14 +1,17 @@
 package fr.cotedazur.univ.polytech.startingpoint.bot.tools;
 
-import fr.cotedazur.univ.polytech.startingpoint.*;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.game.Referee;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherType;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Map;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.PlotType;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Position;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

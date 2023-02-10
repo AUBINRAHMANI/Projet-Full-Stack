@@ -1,4 +1,6 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map;
+
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.Bamboo;
 
 import java.util.ArrayList;
 import java.util.Objects;

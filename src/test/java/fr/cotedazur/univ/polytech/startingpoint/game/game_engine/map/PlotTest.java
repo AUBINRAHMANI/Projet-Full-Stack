@@ -1,5 +1,8 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map;
 
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.PlotType;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Position;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,8 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint.objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.GameEngine;
-import fr.cotedazur.univ.polytech.startingpoint.Plot;
-import fr.cotedazur.univ.polytech.startingpoint.WeatherType;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.GameEngine;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.map.Plot;
+import fr.cotedazur.univ.polytech.startingpoint.game.game_engine.items.WeatherType;
 import fr.cotedazur.univ.polytech.startingpoint.action.Action;
 import fr.cotedazur.univ.polytech.startingpoint.action.ActionType;
 import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
