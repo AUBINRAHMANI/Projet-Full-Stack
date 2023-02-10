@@ -1,24 +1,34 @@
-# Takenoko
+# Projet Takenoko
 
-Cultivez soigneusement un jardin de bambous avec l'aide d'un jardinier et d'un panda affamé.
-## Installation
+Le but du projet est de réaliser le jeu de société Takenoko qui consiste à :
+- Cultiver des parcelles à l'aide du Jardinier
+- Les irriguer
+- Faire pousser du Bambou par dessus
+- Manger le bambou à l'aide d'un Panda
+## Fonctionnalités réalisées
 
-Open your IDE and open the project folder. You are now ready to play.
+Nous avons réalisé la plupart des fonctionnalités du jeu dans notre projet 
+- Jardinier
+- Panda
+- Bot intelligent
+- Objectives à réaliser
 
+## Fonctionnalités non réalisées
 
-## Usage
+Il nous manque certaines fonctionnalités:
+- Une partie des météos à implémenter (Orage, Nuage, ?)
+- Les aménagements
+- L'empereur
 
+## Tests
 
-## Test
+Nous avons réalisés de nombreux Tests unitaires pour chaque méthode testable.
+Nous avons un total de 80% de code coverage.
 
+## Fonctionnalités de la semaine Sprint
 
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Nous avons réalisé toutes les fonctionnalité additionnelles.
 
 ## License
 
-🤪 LES FIFOUS 🤪  
+ LES FIFOUS   

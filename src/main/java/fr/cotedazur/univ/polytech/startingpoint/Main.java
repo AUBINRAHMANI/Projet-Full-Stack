@@ -2,9 +2,9 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotMbappe;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotProfile;
-import fr.cotedazur.univ.polytech.startingpoint.bot.BotSprint;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotMbappe;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotProfile;
+import fr.cotedazur.univ.polytech.startingpoint.bots.BotSprint;
 import fr.cotedazur.univ.polytech.startingpoint.game.Game;
 import fr.cotedazur.univ.polytech.startingpoint.logger.Loggeable;
 import fr.cotedazur.univ.polytech.startingpoint.statistique_manager.StatisticManager;
@@ -18,7 +18,7 @@ import java.util.logging.Level;
 public class Main implements Loggeable {
     @Parameter(names = "--demo", description = "Demo 1 fois avec les logs précis")
     private Boolean demo = false;
-    @Parameter(names = "--2thousand", description = "2* 1000 simulations")
+    @Parameter(names = "--2thousands", description = "2* 1000 simulations")
     private Boolean twoThousands = false;
     @Parameter(names = "--demo --warning", description = "seul les logs liés a des problemes sont affichés")
     private Boolean demoWarning = false;
@@ -39,7 +39,6 @@ public class Main implements Loggeable {
     @Parameter(names = "--2thousand --config", description = "affiche le nombre de parties")
     private Boolean twoThousandConfig = false;
     @Parameter(names = "--csv", description = "Lancement d’une simulation à plusieurs parties")
-
     private Boolean csv = false;
 
     public static void main(String... argv) {
@@ -52,31 +51,31 @@ public class Main implements Loggeable {
         statisticManager.initBotsStatisticsProfiles(players);
         JCommander.newBuilder().addObject(main).build().parse(argv);
 
-        if (Boolean.TRUE.equals(main.getCsv())) {
+        if (Boolean.TRUE.equals(main.csv)) {
             startNGame(statisticManager, players, Level.CONFIG, 10);
             Path path = Paths.get(".", "stats", "statistic.csv");
             csvManager.exportData(statisticManager.getBotsStatisticsProfiles(), statisticManager.getNbOfDrawGames(), path.toString());
-        } else if (Boolean.TRUE.equals(main.getTwoThousandConfig())) {
+        } else if (main.twoThousandConfig) {
             startNGame(statisticManager, players, Level.CONFIG, 2000);
-        } else if (Boolean.TRUE.equals(main.getDemo())) {
+        } else if (main.demo) {
             startNGame(statisticManager, players, Level.FINEST, 1);
-        } else if (Boolean.TRUE.equals(main.getTwoThousand())) {
+        } else if (main.twoThousands) {
             startNGame(statisticManager, players, Level.WARNING, 2000);
-        } else if (Boolean.TRUE.equals(main.getDemoWarning())) {
+        } else if (main.demoWarning) {
             startNGame(statisticManager, players, Level.WARNING, 1);
-        } else if (Boolean.TRUE.equals(main.getDemoFine())) {
+        } else if (main.demoFine) {
             startNGame(statisticManager, players, Level.FINE, 1);
-        } else if (Boolean.TRUE.equals(main.getDemoFiner())) {
+        } else if (main.demoFiner) {
             startNGame(statisticManager, players, Level.FINER, 1);
-        } else if (Boolean.TRUE.equals(main.getDemoFinest())) {
+        } else if (main.demoFinest) {
             startNGame(statisticManager, players, Level.FINEST, 1);
-        } else if (Boolean.TRUE.equals(main.getTwoThousandWarning())) {
+        } else if (main.twoThousandWarning) {
             startNGame(statisticManager, players, Level.WARNING, 2000);
-        } else if (Boolean.TRUE.equals(main.getTwoThousandFine())) {
+        } else if (main.twoThousandFine) {
             startNGame(statisticManager, players, Level.FINE, 2000);
-        } else if (Boolean.TRUE.equals(main.getTwoThousandFiner())) {
+        } else if (main.twoThousandFiner) {
             startNGame(statisticManager, players, Level.FINER, 2000);
-        } else if (Boolean.TRUE.equals(main.getTwoThousandFinest())) {
+        } else if (main.twoThousandFinest) {
             startNGame(statisticManager, players, Level.FINEST, 2000);
         }
     }
@@ -84,60 +83,16 @@ public class Main implements Loggeable {
     private static void startNGame(StatisticManager statisticManager, List<BotProfile> players, Level level, int n) {
         Loggeable.initLogger(level);
         for (int i = 0; i < n; ++i) {
-            LOGGER.log(level, "Game {0}", i);
+            LOGGER.log(Level.CONFIG, "Game {0}", i);
             Game game = new Game(statisticManager, players);
             game.start();
             for (BotProfile botProfile : players) {
                 botProfile.resetPoints();
             }
         }
-    }
-
-    public Boolean getTwoThousandConfig() {
-        return twoThousandConfig;
-    }
-
-    public Boolean getDemo() {
-        return demo;
-    }
-
-    public Boolean getTwoThousand() {
-        return twoThousands;
-    }
-
-    public Boolean getDemoWarning() {
-        return demoWarning;
-    }
-
-    public Boolean getDemoFine() {
-        return demoFine;
-    }
-
-    public Boolean getDemoFiner() {
-        return demoFiner;
-    }
-
-    public Boolean getDemoFinest() {
-        return demoFinest;
-    }
-
-    public Boolean getTwoThousandWarning() {
-        return twoThousandWarning;
-    }
-
-    public Boolean getTwoThousandFine() {
-        return twoThousandFine;
-    }
-
-    public Boolean getTwoThousandFiner() {
-        return twoThousandFiner;
-    }
-
-    public Boolean getTwoThousandFinest() {
-        return twoThousandFinest;
-    }
-
-    public Boolean getCsv() {
-        return csv;
+        System.out.println();
+        LOGGER.config(statisticManager.toString());
     }
 }
+
+
