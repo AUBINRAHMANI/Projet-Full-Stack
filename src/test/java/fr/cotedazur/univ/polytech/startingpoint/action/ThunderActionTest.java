@@ -44,7 +44,7 @@ class ThunderActionTest {
     void toType() {
         Position position = new Position(3, 6);
         ThunderAction thunderAction = new ThunderAction(position);
-        assertEquals(thunderAction.toType(), ActionType.THUNDER);
+        assertEquals(ActionType.THUNDER, thunderAction.toType());
     }
 
     @Test

@@ -45,7 +45,7 @@ class RainActionTest {
     void toType() {
         Position position = new Position(3, 6);
         RainAction rainAction = new RainAction(position);
-        assertEquals(rainAction.toType(), ActionType.RAIN);
+        assertEquals(ActionType.RAIN, rainAction.toType());
     }
 
     @Test

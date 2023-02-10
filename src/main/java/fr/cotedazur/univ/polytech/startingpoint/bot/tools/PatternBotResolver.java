@@ -62,8 +62,7 @@ public class PatternBotResolver {
         }
         if (!nonIrrigatedPlots.isEmpty()) {
             IrrigationBotResolver irrigationBotResolver = new IrrigationBotResolver(map, referee);
-            Action action = irrigationBotResolver.tryPutIrrigation(nonIrrigatedPlots.get(0).getPosition(), banActionTypes);
-            return action;
+            return irrigationBotResolver.tryPutIrrigation(nonIrrigatedPlots.get(0).getPosition(), banActionTypes);
         }
         return null;
     }
