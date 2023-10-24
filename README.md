@@ -1,6 +1,6 @@
 # Projet Takenoko
 
-Le but du projet est de réaliser le jeu de société Takenoko qui consiste à :
+Le but du projet est de réaliser le jeu de société Takenoko codé en JAVA qui consiste à :
 - Cultiver des parcelles à l'aide du Jardinier
 - Les irriguer
 - Faire pousser du Bambou par dessus
